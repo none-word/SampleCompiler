@@ -1,1 +1,1 @@
-# SampleCompiler
+# SampleInterpreter
