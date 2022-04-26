@@ -1,43 +1,30 @@
-comment "//" ;
-comment "/*" "*/" ;
+comment "--" ;
+comment "[[" "]]" ;
 
-ProgramExprs.  Program ::= [Expr] ;
+Vary.       Expr ::= Ident;
+ConstTrue.  Expr  ::= "true" ;
+ConstFalse. Expr  ::= "false" ;
+If.         Expr  ::= "if" Expr "then" Expr "else" Expr "end";
 
-separator Expr ";" ;
+StringType.       Type ::= "string" ;
+BoolType.         Type ::= "boolean" ;
+UnitType.         Type ::= "void" ;
+IntType.          Type ::= "integer" ;
+DoubleType.       Type ::= "double" ;
 
-If.           Expr ::= "if" Expr "then" Expr "else" Expr ;
-Let.          Expr ::= "let" Ident "=" Expr "in" Expr ;
-Abstraction.  Expr ::= "fun" "(" Ident ":" Type ")" ":" Type "return" Expr "end" ;
+Not.                 Expr  ::= "!" Expr;
+And.                 Expr  ::= Expr "and" Expr;
+Or.                  Expr  ::= Expr "or" Expr;
 
-Application.  Expr1 ::= Expr1 Expr2 ;
 
-Succ.         Expr2 ::= "succ" Expr3 ;
-Pred.         Expr2 ::= "pred" Expr3 ;
-IsZero.       Expr2 ::= "iszero" Expr3 ;
+ConstZero.  Expr  ::= "0" ;
+Succ.       Expr  ::= "succ" Expr ;
+Pred.       Expr  ::= "pred" Expr ;
+IsZero.     Expr  ::= "iszero" Expr ;
 
-ConstTrue.    Expr3 ::= "true" ;
-ConstFalse.   Expr3 ::= "false" ;
-ConstZero.    Expr3 ::= "0" ;
-Var.          Expr3 ::= Ident ;
+Var.          Expr ::= Ident ;
+Application.  Expr ::= Expr Expr ;
 
-_. Expr   ::= Expr1 ;
-_. Expr1  ::= Expr2 ;
-_. Expr2  ::= Expr3 ;
-_. Expr3  ::= "(" Expr ")" ;
+FieldType.  FieldTypeExpr ::= Ident ":" Type ;
 
--- build-in types
-Tchar.        BasicType ::= "char";
-Tstring.      BasicType ::= "string";
-Tint.         BasicType ::= "integer";
-Tfloat.       BasicType ::= "float";
-Tdouble.      BasicType ::= "double";
-Tboolean.     BasicType ::= "bool";
-
-FieldType.  FieldType ::= Ident ":" Type ;
-
-separator FieldType "," ;
-
-_.  Type  ::= Type1 ;
-_.  Type1 ::= "(" Type ")" ;
-
-Typing.     Typing  ::= Expr ":" Type ;
+_. Expr ::= "(" Expr ")" ;
