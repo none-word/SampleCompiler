@@ -4,17 +4,26 @@ import Sample.Absyn.*;
 */
 
 public class ComposVisitor<A> implements
+  Sample.Absyn.Program.Visitor<Sample.Absyn.Program,A>,
   Sample.Absyn.Expr.Visitor<Sample.Absyn.Expr,A>,
-  Sample.Absyn.Assignment_op.Visitor<Sample.Absyn.Assignment_op,A>,
-  Sample.Absyn.Dec.Visitor<Sample.Absyn.Dec,A>,
   Sample.Absyn.Type.Visitor<Sample.Absyn.Type,A>,
-  Sample.Absyn.FieldTypeExpr.Visitor<Sample.Absyn.FieldTypeExpr,A>
+  Sample.Absyn.Dec.Visitor<Sample.Absyn.Dec,A>
 {
+/* Program */
+    public Program visit(Sample.Absyn.ProgramExprs p, A arg)
+    {
+      ListExpr listexpr_ = new ListExpr();
+      for (Expr x : p.listexpr_)
+      {
+        listexpr_.add(x.accept(this,arg));
+      }
+      return new Sample.Absyn.ProgramExprs(listexpr_);
+    }
 /* Expr */
-    public Expr visit(Sample.Absyn.Vary p, A arg)
+    public Expr visit(Sample.Absyn.Var p, A arg)
     {
       String ident_ = p.ident_;
-      return new Sample.Absyn.Vary(ident_);
+      return new Sample.Absyn.Var(ident_);
     }    public Expr visit(Sample.Absyn.ConstTrue p, A arg)
     {
       return new Sample.Absyn.ConstTrue();
@@ -27,12 +36,6 @@ public class ComposVisitor<A> implements
       Expr expr_2 = p.expr_2.accept(this, arg);
       Expr expr_3 = p.expr_3.accept(this, arg);
       return new Sample.Absyn.If(expr_1, expr_2, expr_3);
-    }    public Expr visit(Sample.Absyn.Binding p, A arg)
-    {
-      String ident_ = p.ident_;
-      Type type_ = p.type_.accept(this, arg);
-      Expr expr_ = p.expr_.accept(this, arg);
-      return new Sample.Absyn.Binding(ident_, type_, expr_);
     }    public Expr visit(Sample.Absyn.Not p, A arg)
     {
       Expr expr_ = p.expr_.accept(this, arg);
@@ -62,27 +65,27 @@ public class ComposVisitor<A> implements
     {
       Expr expr_ = p.expr_.accept(this, arg);
       return new Sample.Absyn.IsZero(expr_);
-    }    public Expr visit(Sample.Absyn.Var p, A arg)
+    }    public Expr visit(Sample.Absyn.EInt p, A arg)
     {
-      String ident_ = p.ident_;
-      return new Sample.Absyn.Var(ident_);
-    }    public Expr visit(Sample.Absyn.Application p, A arg)
+      Integer integer_ = p.integer_;
+      return new Sample.Absyn.EInt(integer_);
+    }    public Expr visit(Sample.Absyn.EDouble p, A arg)
     {
-      Expr expr_1 = p.expr_1.accept(this, arg);
-      Expr expr_2 = p.expr_2.accept(this, arg);
-      return new Sample.Absyn.Application(expr_1, expr_2);
-    }
-/* Assignment_op */
-    public Assignment_op visit(Sample.Absyn.Assign p, A arg)
+      Double double_ = p.double_;
+      return new Sample.Absyn.EDouble(double_);
+    }    public Expr visit(Sample.Absyn.EStr p, A arg)
     {
-      return new Sample.Absyn.Assign();
-    }
-/* Dec */
-    public Dec visit(Sample.Absyn.Declarators p, A arg)
+      String string_ = p.string_;
+      return new Sample.Absyn.EStr(string_);
+    }    public Expr visit(Sample.Absyn.OnlyDecl p, A arg)
     {
-      String ident_ = p.ident_;
-      Type type_ = p.type_.accept(this, arg);
-      return new Sample.Absyn.Declarators(ident_, type_);
+      Dec dec_ = p.dec_.accept(this, arg);
+      return new Sample.Absyn.OnlyDecl(dec_);
+    }    public Expr visit(Sample.Absyn.InitDecl p, A arg)
+    {
+      Dec dec_ = p.dec_.accept(this, arg);
+      Expr expr_ = p.expr_.accept(this, arg);
+      return new Sample.Absyn.InitDecl(dec_, expr_);
     }
 /* Type */
     public Type visit(Sample.Absyn.StringType p, A arg)
@@ -101,11 +104,16 @@ public class ComposVisitor<A> implements
     {
       return new Sample.Absyn.DoubleType();
     }
-/* FieldTypeExpr */
-    public FieldTypeExpr visit(Sample.Absyn.FieldType p, A arg)
+/* Dec */
+    public Dec visit(Sample.Absyn.Declaration p, A arg)
     {
       String ident_ = p.ident_;
       Type type_ = p.type_.accept(this, arg);
-      return new Sample.Absyn.FieldType(ident_, type_);
+      return new Sample.Absyn.Declaration(ident_, type_);
+    }    public Dec visit(Sample.Absyn.LocalVarDeclaration p, A arg)
+    {
+      String ident_ = p.ident_;
+      Type type_ = p.type_.accept(this, arg);
+      return new Sample.Absyn.LocalVarDeclaration(ident_, type_);
     }
 }

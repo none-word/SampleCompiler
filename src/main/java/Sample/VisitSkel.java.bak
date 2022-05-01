@@ -9,10 +9,19 @@ import Sample.Absyn.*;
 
 public class VisitSkel
 {
+  public class ProgramVisitor<R,A> implements Program.Visitor<R,A>
+  {
+    public R visit(Sample.Absyn.ProgramExprs p, A arg)
+    { /* Code For ProgramExprs Goes Here */
+      for (Expr x: p.listexpr_)
+      { /* ... */ }
+      return null;
+    }
+  }
   public class ExprVisitor<R,A> implements Expr.Visitor<R,A>
   {
-    public R visit(Sample.Absyn.Vary p, A arg)
-    { /* Code For Vary Goes Here */
+    public R visit(Sample.Absyn.Var p, A arg)
+    { /* Code For Var Goes Here */
       //p.ident_;
       return null;
     }    public R visit(Sample.Absyn.ConstTrue p, A arg)
@@ -26,12 +35,6 @@ public class VisitSkel
       p.expr_1.accept(new ExprVisitor<R,A>(), arg);
       p.expr_2.accept(new ExprVisitor<R,A>(), arg);
       p.expr_3.accept(new ExprVisitor<R,A>(), arg);
-      return null;
-    }    public R visit(Sample.Absyn.Binding p, A arg)
-    { /* Code For Binding Goes Here */
-      //p.ident_;
-      p.type_.accept(new TypeVisitor<R,A>(), arg);
-      p.expr_.accept(new ExprVisitor<R,A>(), arg);
       return null;
     }    public R visit(Sample.Absyn.Not p, A arg)
     { /* Code For Not Goes Here */
@@ -62,25 +65,28 @@ public class VisitSkel
     { /* Code For IsZero Goes Here */
       p.expr_.accept(new ExprVisitor<R,A>(), arg);
       return null;
-    }    public R visit(Sample.Absyn.Var p, A arg)
-    { /* Code For Var Goes Here */
-      //p.ident_;
+    }            public R visit(Sample.Absyn.EInt p, A arg)
+    { /* Code For EInt Goes Here */
+      //p.integer_;
       return null;
-    }    public R visit(Sample.Absyn.Application p, A arg)
-    { /* Code For Application Goes Here */
-      p.expr_1.accept(new ExprVisitor<R,A>(), arg);
-      p.expr_2.accept(new ExprVisitor<R,A>(), arg);
+    }    public R visit(Sample.Absyn.EDouble p, A arg)
+    { /* Code For EDouble Goes Here */
+      //p.double_;
+      return null;
+    }    public R visit(Sample.Absyn.EStr p, A arg)
+    { /* Code For EStr Goes Here */
+      //p.string_;
+      return null;
+    }    public R visit(Sample.Absyn.OnlyDecl p, A arg)
+    { /* Code For OnlyDecl Goes Here */
+      p.dec_.accept(new DecVisitor<R,A>(), arg);
+      return null;
+    }    public R visit(Sample.Absyn.InitDecl p, A arg)
+    { /* Code For InitDecl Goes Here */
+      p.dec_.accept(new DecVisitor<R,A>(), arg);
+      p.expr_.accept(new ExprVisitor<R,A>(), arg);
       return null;
     }    
-  }
-  public class DecVisitor<R,A> implements Dec.Visitor<R,A>
-  {
-    public R visit(Sample.Absyn.Declarators p, A arg)
-    { /* Code For Declarators Goes Here */
-      //p.ident_;
-      p.type_.accept(new TypeVisitor<R,A>(), arg);
-      return null;
-    }
   }
   public class TypeVisitor<R,A> implements Type.Visitor<R,A>
   {
@@ -101,10 +107,10 @@ public class VisitSkel
       return null;
     }
   }
-  public class FieldTypeExprVisitor<R,A> implements FieldTypeExpr.Visitor<R,A>
+  public class DecVisitor<R,A> implements Dec.Visitor<R,A>
   {
-    public R visit(Sample.Absyn.FieldType p, A arg)
-    { /* Code For FieldType Goes Here */
+    public R visit(Sample.Absyn.Declarator p, A arg)
+    { /* Code For Declarator Goes Here */
       //p.ident_;
       p.type_.accept(new TypeVisitor<R,A>(), arg);
       return null;

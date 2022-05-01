@@ -1,6 +1,13 @@
-if (false and true)
+y : boolean = false;
+z : boolean = true;
+
+local x : integer = 5;
+x1 : double = 10.5;
+x3 : string = "fff";
+
+if (y and z)
 then
     false
 else
     true
-end
+end;

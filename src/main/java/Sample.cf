@@ -1,10 +1,14 @@
 comment "--" ;
 comment "[[" "]]" ;
 
-Vary.       Expr ::= Ident;
+ProgramExprs.  Program ::= [Expr] ;
+
+separator Expr ";" ;
+
+Var.        Expr  ::= Ident ;
 ConstTrue.  Expr  ::= "true" ;
 ConstFalse. Expr  ::= "false" ;
-If.         Expr  ::= "if" Expr "then" Expr "else" Expr "end";
+If.         Expr  ::= "if" Expr "then" Expr "else" Expr "end" ;
 
 StringType.       Type ::= "string" ;
 BoolType.         Type ::= "boolean" ;
@@ -12,19 +16,26 @@ UnitType.         Type ::= "void" ;
 IntType.          Type ::= "integer" ;
 DoubleType.       Type ::= "double" ;
 
-Not.                 Expr  ::= "!" Expr;
-And.                 Expr  ::= Expr "and" Expr;
-Or.                  Expr  ::= Expr "or" Expr;
+EInt.	          Expr2	::=	Integer	;
+EDouble.	      Expr2	::=	Double	;
+EStr.	          Expr2	::=	String	;
 
+Not.                 Expr  ::= "!" Expr ;
+And.                 Expr  ::= Expr "and" Expr ;
+Or.                  Expr  ::= Expr "or" Expr ;
 
 ConstZero.  Expr  ::= "0" ;
 Succ.       Expr  ::= "succ" Expr ;
 Pred.       Expr  ::= "pred" Expr ;
 IsZero.     Expr  ::= "iszero" Expr ;
 
-Var.          Expr ::= Ident ;
-Application.  Expr ::= Expr Expr ;
+Declaration.         Dec ::= Ident ":" Type ;
+LocalVarDeclaration. Dec ::= "local" Ident ":" Type ;
 
-FieldType.  FieldTypeExpr ::= Ident ":" Type ;
+OnlyDecl.  Expr1 ::= Dec ;
+InitDecl.  Expr1 ::= Dec "=" Expr ;
 
 _. Expr ::= "(" Expr ")" ;
+_. Expr ::= Expr1 ;
+_. Expr1 ::= Expr2 ;
+

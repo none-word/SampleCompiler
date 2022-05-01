@@ -24,28 +24,30 @@ IDENT = ({LETTER}|{DIGIT}|['_])
 %state STRING
 %state ESCAPED
 %%
-<YYINITIAL>: { return new Symbol(sym._SYMB_0); }
-<YYINITIAL>= { return new Symbol(sym._SYMB_1); }
-<YYINITIAL>! { return new Symbol(sym._SYMB_2); }
-<YYINITIAL>0 { return new Symbol(sym._SYMB_3); }
-<YYINITIAL>\( { return new Symbol(sym._SYMB_4); }
-<YYINITIAL>\) { return new Symbol(sym._SYMB_5); }
-<YYINITIAL>and { return new Symbol(sym._SYMB_6); }
-<YYINITIAL>boolean { return new Symbol(sym._SYMB_7); }
-<YYINITIAL>double { return new Symbol(sym._SYMB_8); }
-<YYINITIAL>else { return new Symbol(sym._SYMB_9); }
-<YYINITIAL>end { return new Symbol(sym._SYMB_10); }
-<YYINITIAL>false { return new Symbol(sym._SYMB_11); }
-<YYINITIAL>if { return new Symbol(sym._SYMB_12); }
-<YYINITIAL>integer { return new Symbol(sym._SYMB_13); }
-<YYINITIAL>iszero { return new Symbol(sym._SYMB_14); }
-<YYINITIAL>or { return new Symbol(sym._SYMB_15); }
-<YYINITIAL>pred { return new Symbol(sym._SYMB_16); }
-<YYINITIAL>string { return new Symbol(sym._SYMB_17); }
-<YYINITIAL>succ { return new Symbol(sym._SYMB_18); }
-<YYINITIAL>then { return new Symbol(sym._SYMB_19); }
-<YYINITIAL>true { return new Symbol(sym._SYMB_20); }
-<YYINITIAL>void { return new Symbol(sym._SYMB_21); }
+<YYINITIAL>; { return new Symbol(sym._SYMB_0); }
+<YYINITIAL>! { return new Symbol(sym._SYMB_1); }
+<YYINITIAL>0 { return new Symbol(sym._SYMB_2); }
+<YYINITIAL>: { return new Symbol(sym._SYMB_3); }
+<YYINITIAL>= { return new Symbol(sym._SYMB_4); }
+<YYINITIAL>\( { return new Symbol(sym._SYMB_5); }
+<YYINITIAL>\) { return new Symbol(sym._SYMB_6); }
+<YYINITIAL>and { return new Symbol(sym._SYMB_7); }
+<YYINITIAL>boolean { return new Symbol(sym._SYMB_8); }
+<YYINITIAL>double { return new Symbol(sym._SYMB_9); }
+<YYINITIAL>else { return new Symbol(sym._SYMB_10); }
+<YYINITIAL>end { return new Symbol(sym._SYMB_11); }
+<YYINITIAL>false { return new Symbol(sym._SYMB_12); }
+<YYINITIAL>if { return new Symbol(sym._SYMB_13); }
+<YYINITIAL>integer { return new Symbol(sym._SYMB_14); }
+<YYINITIAL>iszero { return new Symbol(sym._SYMB_15); }
+<YYINITIAL>local { return new Symbol(sym._SYMB_16); }
+<YYINITIAL>or { return new Symbol(sym._SYMB_17); }
+<YYINITIAL>pred { return new Symbol(sym._SYMB_18); }
+<YYINITIAL>string { return new Symbol(sym._SYMB_19); }
+<YYINITIAL>succ { return new Symbol(sym._SYMB_20); }
+<YYINITIAL>then { return new Symbol(sym._SYMB_21); }
+<YYINITIAL>true { return new Symbol(sym._SYMB_22); }
+<YYINITIAL>void { return new Symbol(sym._SYMB_23); }
 <YYINITIAL>"--"[^\n]*\n { /* BNFC single-line comment */ }
 <YYINITIAL>"[[" { yybegin(COMMENT); }
 <COMMENT>"]]" { yybegin(YYINITIAL); }
@@ -54,9 +56,18 @@ IDENT = ({LETTER}|{DIGIT}|['_])
 
 
 
+<YYINITIAL>"\"" { yybegin(STRING); }
+<STRING>\\ { yybegin(ESCAPED); }
+<STRING>\" { String foo = pstring; pstring = new String(); yybegin(YYINITIAL); return new Symbol(sym._STRING_, foo.intern()); }
+<STRING>.  { pstring += yytext(); }
+<ESCAPED>n { pstring +=  "\n"; yybegin(STRING); }
+<ESCAPED>\" { pstring += "\""; yybegin(STRING); }
+<ESCAPED>\\ { pstring += "\\"; yybegin(STRING); }
+<ESCAPED>t  { pstring += "\t"; yybegin(STRING); }
+<ESCAPED>.  { pstring += yytext(); yybegin(STRING); }
 
 
-
-
+<YYINITIAL>{DIGIT}+"."{DIGIT}+("e"(\-)?{DIGIT}+)? { return new Symbol(sym._DOUBLE_, new Double(yytext())); }
+<YYINITIAL>{DIGIT}+ { return new Symbol(sym._INTEGER_, new Integer(yytext())); }
 <YYINITIAL>{LETTER}{IDENT}* { return new Symbol(sym._IDENT_, yytext().intern()); }
 <YYINITIAL>[ \t\r\n\f] { /* ignore white space. */ }

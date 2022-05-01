@@ -10,8 +10,18 @@ public abstract class FoldVisitor<R,A> implements AllVisitor<R,A> {
     public abstract R leaf(A arg);
     public abstract R combine(R x, R y, A arg);
 
+/* Program */
+    public R visit(Sample.Absyn.ProgramExprs p, A arg) {
+      R r = leaf(arg);
+      for (Expr x : p.listexpr_)
+      {
+        r = combine(x.accept(this, arg), r, arg);
+      }
+      return r;
+    }
+
 /* Expr */
-    public R visit(Sample.Absyn.Vary p, A arg) {
+    public R visit(Sample.Absyn.Var p, A arg) {
       R r = leaf(arg);
       return r;
     }
@@ -28,12 +38,6 @@ public abstract class FoldVisitor<R,A> implements AllVisitor<R,A> {
       r = combine(p.expr_1.accept(this, arg), r, arg);
       r = combine(p.expr_2.accept(this, arg), r, arg);
       r = combine(p.expr_3.accept(this, arg), r, arg);
-      return r;
-    }
-    public R visit(Sample.Absyn.Binding p, A arg) {
-      R r = leaf(arg);
-      r = combine(p.type_.accept(this, arg), r, arg);
-      r = combine(p.expr_.accept(this, arg), r, arg);
       return r;
     }
     public R visit(Sample.Absyn.Not p, A arg) {
@@ -72,21 +76,27 @@ public abstract class FoldVisitor<R,A> implements AllVisitor<R,A> {
       r = combine(p.expr_.accept(this, arg), r, arg);
       return r;
     }
-    public R visit(Sample.Absyn.Var p, A arg) {
+    public R visit(Sample.Absyn.EInt p, A arg) {
       R r = leaf(arg);
       return r;
     }
-    public R visit(Sample.Absyn.Application p, A arg) {
+    public R visit(Sample.Absyn.EDouble p, A arg) {
       R r = leaf(arg);
-      r = combine(p.expr_1.accept(this, arg), r, arg);
-      r = combine(p.expr_2.accept(this, arg), r, arg);
       return r;
     }
-
-/* Dec */
-    public R visit(Sample.Absyn.Declarators p, A arg) {
+    public R visit(Sample.Absyn.EStr p, A arg) {
       R r = leaf(arg);
-      r = combine(p.type_.accept(this, arg), r, arg);
+      return r;
+    }
+    public R visit(Sample.Absyn.OnlyDecl p, A arg) {
+      R r = leaf(arg);
+      r = combine(p.dec_.accept(this, arg), r, arg);
+      return r;
+    }
+    public R visit(Sample.Absyn.InitDecl p, A arg) {
+      R r = leaf(arg);
+      r = combine(p.dec_.accept(this, arg), r, arg);
+      r = combine(p.expr_.accept(this, arg), r, arg);
       return r;
     }
 
@@ -112,8 +122,8 @@ public abstract class FoldVisitor<R,A> implements AllVisitor<R,A> {
       return r;
     }
 
-/* FieldTypeExpr */
-    public R visit(Sample.Absyn.FieldType p, A arg) {
+/* Dec */
+    public R visit(Sample.Absyn.Declarator p, A arg) {
       R r = leaf(arg);
       r = combine(p.type_.accept(this, arg), r, arg);
       return r;

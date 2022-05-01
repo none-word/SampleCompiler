@@ -63,6 +63,36 @@ public class PrettyPrinter
 
 
   //  print and show methods are defined for each category.
+  public static String print(Sample.Absyn.Program foo)
+  {
+    pp(foo, 0);
+    trim();
+    String temp = buf_.toString();
+    buf_.delete(0,buf_.length());
+    return temp;
+  }
+  public static String show(Sample.Absyn.Program foo)
+  {
+    sh(foo);
+    String temp = buf_.toString();
+    buf_.delete(0,buf_.length());
+    return temp;
+  }
+  public static String print(Sample.Absyn.ListExpr foo)
+  {
+    pp(foo, 0);
+    trim();
+    String temp = buf_.toString();
+    buf_.delete(0,buf_.length());
+    return temp;
+  }
+  public static String show(Sample.Absyn.ListExpr foo)
+  {
+    sh(foo);
+    String temp = buf_.toString();
+    buf_.delete(0,buf_.length());
+    return temp;
+  }
   public static String print(Sample.Absyn.Expr foo)
   {
     pp(foo, 0);
@@ -72,36 +102,6 @@ public class PrettyPrinter
     return temp;
   }
   public static String show(Sample.Absyn.Expr foo)
-  {
-    sh(foo);
-    String temp = buf_.toString();
-    buf_.delete(0,buf_.length());
-    return temp;
-  }
-  public static String print(Sample.Absyn.Assignment_op foo)
-  {
-    pp(foo, 0);
-    trim();
-    String temp = buf_.toString();
-    buf_.delete(0,buf_.length());
-    return temp;
-  }
-  public static String show(Sample.Absyn.Assignment_op foo)
-  {
-    sh(foo);
-    String temp = buf_.toString();
-    buf_.delete(0,buf_.length());
-    return temp;
-  }
-  public static String print(Sample.Absyn.Dec foo)
-  {
-    pp(foo, 0);
-    trim();
-    String temp = buf_.toString();
-    buf_.delete(0,buf_.length());
-    return temp;
-  }
-  public static String show(Sample.Absyn.Dec foo)
   {
     sh(foo);
     String temp = buf_.toString();
@@ -123,7 +123,7 @@ public class PrettyPrinter
     buf_.delete(0,buf_.length());
     return temp;
   }
-  public static String print(Sample.Absyn.FieldTypeExpr foo)
+  public static String print(Sample.Absyn.Dec foo)
   {
     pp(foo, 0);
     trim();
@@ -131,7 +131,7 @@ public class PrettyPrinter
     buf_.delete(0,buf_.length());
     return temp;
   }
-  public static String show(Sample.Absyn.FieldTypeExpr foo)
+  public static String show(Sample.Absyn.Dec foo)
   {
     sh(foo);
     String temp = buf_.toString();
@@ -140,13 +140,36 @@ public class PrettyPrinter
   }
   /***   You shouldn't need to change anything beyond this point.   ***/
 
+  private static void pp(Sample.Absyn.Program foo, int _i_)
+  {
+    if (foo instanceof Sample.Absyn.ProgramExprs)
+    {
+       Sample.Absyn.ProgramExprs _programexprs = (Sample.Absyn.ProgramExprs) foo;
+       if (_i_ > 0) render(_L_PAREN);
+       pp(_programexprs.listexpr_, 0);
+       if (_i_ > 0) render(_R_PAREN);
+    }
+  }
+
+  private static void pp(Sample.Absyn.ListExpr foo, int _i_)
+  {
+     for (java.util.Iterator<Expr> it = foo.iterator(); it.hasNext();)
+     {
+       pp(it.next(), _i_);
+       if (it.hasNext()) {
+         render(";");
+       } else {
+         render("");
+       }
+     }  }
+
   private static void pp(Sample.Absyn.Expr foo, int _i_)
   {
-    if (foo instanceof Sample.Absyn.Vary)
+    if (foo instanceof Sample.Absyn.Var)
     {
-       Sample.Absyn.Vary _vary = (Sample.Absyn.Vary) foo;
+       Sample.Absyn.Var _var = (Sample.Absyn.Var) foo;
        if (_i_ > 0) render(_L_PAREN);
-       pp(_vary.ident_, 0);
+       pp(_var.ident_, 0);
        if (_i_ > 0) render(_R_PAREN);
     }
     else     if (foo instanceof Sample.Absyn.ConstTrue)
@@ -174,17 +197,6 @@ public class PrettyPrinter
        render("else");
        pp(_if.expr_3, 0);
        render("end");
-       if (_i_ > 0) render(_R_PAREN);
-    }
-    else     if (foo instanceof Sample.Absyn.Binding)
-    {
-       Sample.Absyn.Binding _binding = (Sample.Absyn.Binding) foo;
-       if (_i_ > 0) render(_L_PAREN);
-       pp(_binding.ident_, 0);
-       render(":");
-       pp(_binding.type_, 0);
-       render("=");
-       pp(_binding.expr_, 0);
        if (_i_ > 0) render(_R_PAREN);
     }
     else     if (foo instanceof Sample.Absyn.Not)
@@ -244,44 +256,42 @@ public class PrettyPrinter
        pp(_iszero.expr_, 0);
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof Sample.Absyn.Var)
+    else     if (foo instanceof Sample.Absyn.EInt)
     {
-       Sample.Absyn.Var _var = (Sample.Absyn.Var) foo;
-       if (_i_ > 0) render(_L_PAREN);
-       pp(_var.ident_, 0);
-       if (_i_ > 0) render(_R_PAREN);
+       Sample.Absyn.EInt _eint = (Sample.Absyn.EInt) foo;
+       if (_i_ > 2) render(_L_PAREN);
+       pp(_eint.integer_, 0);
+       if (_i_ > 2) render(_R_PAREN);
     }
-    else     if (foo instanceof Sample.Absyn.Application)
+    else     if (foo instanceof Sample.Absyn.EDouble)
     {
-       Sample.Absyn.Application _application = (Sample.Absyn.Application) foo;
-       if (_i_ > 0) render(_L_PAREN);
-       pp(_application.expr_1, 0);
-       pp(_application.expr_2, 0);
-       if (_i_ > 0) render(_R_PAREN);
+       Sample.Absyn.EDouble _edouble = (Sample.Absyn.EDouble) foo;
+       if (_i_ > 2) render(_L_PAREN);
+       pp(_edouble.double_, 0);
+       if (_i_ > 2) render(_R_PAREN);
     }
-  }
-
-  private static void pp(Sample.Absyn.Assignment_op foo, int _i_)
-  {
-    if (foo instanceof Sample.Absyn.Assign)
+    else     if (foo instanceof Sample.Absyn.EStr)
     {
-       Sample.Absyn.Assign _assign = (Sample.Absyn.Assign) foo;
-       if (_i_ > 0) render(_L_PAREN);
+       Sample.Absyn.EStr _estr = (Sample.Absyn.EStr) foo;
+       if (_i_ > 2) render(_L_PAREN);
+       pp(_estr.string_, 0);
+       if (_i_ > 2) render(_R_PAREN);
+    }
+    else     if (foo instanceof Sample.Absyn.OnlyDecl)
+    {
+       Sample.Absyn.OnlyDecl _onlydecl = (Sample.Absyn.OnlyDecl) foo;
+       if (_i_ > 1) render(_L_PAREN);
+       pp(_onlydecl.dec_, 0);
+       if (_i_ > 1) render(_R_PAREN);
+    }
+    else     if (foo instanceof Sample.Absyn.InitDecl)
+    {
+       Sample.Absyn.InitDecl _initdecl = (Sample.Absyn.InitDecl) foo;
+       if (_i_ > 1) render(_L_PAREN);
+       pp(_initdecl.dec_, 0);
        render("=");
-       if (_i_ > 0) render(_R_PAREN);
-    }
-  }
-
-  private static void pp(Sample.Absyn.Dec foo, int _i_)
-  {
-    if (foo instanceof Sample.Absyn.Declarators)
-    {
-       Sample.Absyn.Declarators _declarators = (Sample.Absyn.Declarators) foo;
-       if (_i_ > 0) render(_L_PAREN);
-       pp(_declarators.ident_, 0);
-       render(":");
-       pp(_declarators.type_, 0);
-       if (_i_ > 0) render(_R_PAREN);
+       pp(_initdecl.expr_, 0);
+       if (_i_ > 1) render(_R_PAREN);
     }
   }
 
@@ -324,28 +334,62 @@ public class PrettyPrinter
     }
   }
 
-  private static void pp(Sample.Absyn.FieldTypeExpr foo, int _i_)
+  private static void pp(Sample.Absyn.Dec foo, int _i_)
   {
-    if (foo instanceof Sample.Absyn.FieldType)
+    if (foo instanceof Sample.Absyn.Declaration)
     {
-       Sample.Absyn.FieldType _fieldtype = (Sample.Absyn.FieldType) foo;
+       Sample.Absyn.Declaration _declaration = (Sample.Absyn.Declaration) foo;
        if (_i_ > 0) render(_L_PAREN);
-       pp(_fieldtype.ident_, 0);
+       pp(_declaration.ident_, 0);
        render(":");
-       pp(_fieldtype.type_, 0);
+       pp(_declaration.type_, 0);
+       if (_i_ > 0) render(_R_PAREN);
+    }
+    else     if (foo instanceof Sample.Absyn.LocalVarDeclaration)
+    {
+       Sample.Absyn.LocalVarDeclaration _localvardeclaration = (Sample.Absyn.LocalVarDeclaration) foo;
+       if (_i_ > 0) render(_L_PAREN);
+       render("local");
+       pp(_localvardeclaration.ident_, 0);
+       render(":");
+       pp(_localvardeclaration.type_, 0);
        if (_i_ > 0) render(_R_PAREN);
     }
   }
 
 
+  private static void sh(Sample.Absyn.Program foo)
+  {
+    if (foo instanceof Sample.Absyn.ProgramExprs)
+    {
+       Sample.Absyn.ProgramExprs _programexprs = (Sample.Absyn.ProgramExprs) foo;
+       render("(");
+       render("ProgramExprs");
+       render("[");
+       sh(_programexprs.listexpr_);
+       render("]");
+       render(")");
+    }
+  }
+
+  private static void sh(Sample.Absyn.ListExpr foo)
+  {
+     for (java.util.Iterator<Expr> it = foo.iterator(); it.hasNext();)
+     {
+       sh(it.next());
+       if (it.hasNext())
+         render(",");
+     }
+  }
+
   private static void sh(Sample.Absyn.Expr foo)
   {
-    if (foo instanceof Sample.Absyn.Vary)
+    if (foo instanceof Sample.Absyn.Var)
     {
-       Sample.Absyn.Vary _vary = (Sample.Absyn.Vary) foo;
+       Sample.Absyn.Var _var = (Sample.Absyn.Var) foo;
        render("(");
-       render("Vary");
-       sh(_vary.ident_);
+       render("Var");
+       sh(_var.ident_);
        render(")");
     }
     if (foo instanceof Sample.Absyn.ConstTrue)
@@ -366,16 +410,6 @@ public class PrettyPrinter
        sh(_if.expr_1);
        sh(_if.expr_2);
        sh(_if.expr_3);
-       render(")");
-    }
-    if (foo instanceof Sample.Absyn.Binding)
-    {
-       Sample.Absyn.Binding _binding = (Sample.Absyn.Binding) foo;
-       render("(");
-       render("Binding");
-       sh(_binding.ident_);
-       sh(_binding.type_);
-       sh(_binding.expr_);
        render(")");
     }
     if (foo instanceof Sample.Absyn.Not)
@@ -433,43 +467,45 @@ public class PrettyPrinter
        sh(_iszero.expr_);
        render(")");
     }
-    if (foo instanceof Sample.Absyn.Var)
+    if (foo instanceof Sample.Absyn.EInt)
     {
-       Sample.Absyn.Var _var = (Sample.Absyn.Var) foo;
+       Sample.Absyn.EInt _eint = (Sample.Absyn.EInt) foo;
        render("(");
-       render("Var");
-       sh(_var.ident_);
+       render("EInt");
+       sh(_eint.integer_);
        render(")");
     }
-    if (foo instanceof Sample.Absyn.Application)
+    if (foo instanceof Sample.Absyn.EDouble)
     {
-       Sample.Absyn.Application _application = (Sample.Absyn.Application) foo;
+       Sample.Absyn.EDouble _edouble = (Sample.Absyn.EDouble) foo;
        render("(");
-       render("Application");
-       sh(_application.expr_1);
-       sh(_application.expr_2);
+       render("EDouble");
+       sh(_edouble.double_);
        render(")");
     }
-  }
-
-  private static void sh(Sample.Absyn.Assignment_op foo)
-  {
-    if (foo instanceof Sample.Absyn.Assign)
+    if (foo instanceof Sample.Absyn.EStr)
     {
-       Sample.Absyn.Assign _assign = (Sample.Absyn.Assign) foo;
-       render("Assign");
-    }
-  }
-
-  private static void sh(Sample.Absyn.Dec foo)
-  {
-    if (foo instanceof Sample.Absyn.Declarators)
-    {
-       Sample.Absyn.Declarators _declarators = (Sample.Absyn.Declarators) foo;
+       Sample.Absyn.EStr _estr = (Sample.Absyn.EStr) foo;
        render("(");
-       render("Declarators");
-       sh(_declarators.ident_);
-       sh(_declarators.type_);
+       render("EStr");
+       sh(_estr.string_);
+       render(")");
+    }
+    if (foo instanceof Sample.Absyn.OnlyDecl)
+    {
+       Sample.Absyn.OnlyDecl _onlydecl = (Sample.Absyn.OnlyDecl) foo;
+       render("(");
+       render("OnlyDecl");
+       sh(_onlydecl.dec_);
+       render(")");
+    }
+    if (foo instanceof Sample.Absyn.InitDecl)
+    {
+       Sample.Absyn.InitDecl _initdecl = (Sample.Absyn.InitDecl) foo;
+       render("(");
+       render("InitDecl");
+       sh(_initdecl.dec_);
+       sh(_initdecl.expr_);
        render(")");
     }
   }
@@ -503,15 +539,24 @@ public class PrettyPrinter
     }
   }
 
-  private static void sh(Sample.Absyn.FieldTypeExpr foo)
+  private static void sh(Sample.Absyn.Dec foo)
   {
-    if (foo instanceof Sample.Absyn.FieldType)
+    if (foo instanceof Sample.Absyn.Declaration)
     {
-       Sample.Absyn.FieldType _fieldtype = (Sample.Absyn.FieldType) foo;
+       Sample.Absyn.Declaration _declaration = (Sample.Absyn.Declaration) foo;
        render("(");
-       render("FieldType");
-       sh(_fieldtype.ident_);
-       sh(_fieldtype.type_);
+       render("Declaration");
+       sh(_declaration.ident_);
+       sh(_declaration.type_);
+       render(")");
+    }
+    if (foo instanceof Sample.Absyn.LocalVarDeclaration)
+    {
+       Sample.Absyn.LocalVarDeclaration _localvardeclaration = (Sample.Absyn.LocalVarDeclaration) foo;
+       render("(");
+       render("LocalVarDeclaration");
+       sh(_localvardeclaration.ident_);
+       sh(_localvardeclaration.type_);
        render(")");
     }
   }
