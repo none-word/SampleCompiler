@@ -7,7 +7,18 @@ x3 : string = "fff";
 
 if (y and z)
 then
-    false
+    add(a, v, d);
+    add(d, r);
 else
-    true
+    true;
 end;
+
+add(a, v, d);
+
+function getBiggest(t : table) : integer
+    if (isBigger(x, y)) then
+            return x;
+    else
+            return y;
+    end;
+end

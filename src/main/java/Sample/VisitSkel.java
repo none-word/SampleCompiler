@@ -32,9 +32,25 @@ public class VisitSkel
       return null;
     }    public R visit(Sample.Absyn.If p, A arg)
     { /* Code For If Goes Here */
-      p.expr_1.accept(new ExprVisitor<R,A>(), arg);
-      p.expr_2.accept(new ExprVisitor<R,A>(), arg);
-      p.expr_3.accept(new ExprVisitor<R,A>(), arg);
+      p.expr_.accept(new ExprVisitor<R,A>(), arg);
+      p.program_1.accept(new ProgramVisitor<R,A>(), arg);
+      p.program_2.accept(new ProgramVisitor<R,A>(), arg);
+      return null;
+    }    public R visit(Sample.Absyn.FuncCall p, A arg)
+    { /* Code For FuncCall Goes Here */
+      //p.ident_;
+      p.comaexprs_.accept(new ComaExprsVisitor<R,A>(), arg);
+      return null;
+    }    public R visit(Sample.Absyn.Func p, A arg)
+    { /* Code For Func Goes Here */
+      //p.ident_;
+      p.fargs_.accept(new FArgsVisitor<R,A>(), arg);
+      p.type_.accept(new TypeVisitor<R,A>(), arg);
+      p.program_.accept(new ProgramVisitor<R,A>(), arg);
+      return null;
+    }    public R visit(Sample.Absyn.Return p, A arg)
+    { /* Code For Return Goes Here */
+      p.expr_.accept(new ExprVisitor<R,A>(), arg);
       return null;
     }    public R visit(Sample.Absyn.Not p, A arg)
     { /* Code For Not Goes Here */
@@ -88,6 +104,24 @@ public class VisitSkel
       return null;
     }    
   }
+  public class ComaExprsVisitor<R,A> implements ComaExprs.Visitor<R,A>
+  {
+    public R visit(Sample.Absyn.Vars p, A arg)
+    { /* Code For Vars Goes Here */
+      for (Expr x: p.listexpr_)
+      { /* ... */ }
+      return null;
+    }
+  }
+  public class FArgsVisitor<R,A> implements FArgs.Visitor<R,A>
+  {
+    public R visit(Sample.Absyn.FuncArgs p, A arg)
+    { /* Code For FuncArgs Goes Here */
+      for (Dec x: p.listdec_)
+      { /* ... */ }
+      return null;
+    }
+  }
   public class TypeVisitor<R,A> implements Type.Visitor<R,A>
   {
     public R visit(Sample.Absyn.StringType p, A arg)
@@ -104,6 +138,9 @@ public class VisitSkel
       return null;
     }    public R visit(Sample.Absyn.DoubleType p, A arg)
     { /* Code For DoubleType Goes Here */
+      return null;
+    }    public R visit(Sample.Absyn.TableType p, A arg)
+    { /* Code For TableType Goes Here */
       return null;
     }
   }

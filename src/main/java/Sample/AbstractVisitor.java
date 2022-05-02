@@ -12,6 +12,9 @@ public class AbstractVisitor<R,A> implements AllVisitor<R,A> {
     public R visit(Sample.Absyn.ConstTrue p, A arg) { return visitDefault(p, arg); }
     public R visit(Sample.Absyn.ConstFalse p, A arg) { return visitDefault(p, arg); }
     public R visit(Sample.Absyn.If p, A arg) { return visitDefault(p, arg); }
+    public R visit(Sample.Absyn.FuncCall p, A arg) { return visitDefault(p, arg); }
+    public R visit(Sample.Absyn.Func p, A arg) { return visitDefault(p, arg); }
+    public R visit(Sample.Absyn.Return p, A arg) { return visitDefault(p, arg); }
     public R visit(Sample.Absyn.Not p, A arg) { return visitDefault(p, arg); }
     public R visit(Sample.Absyn.And p, A arg) { return visitDefault(p, arg); }
     public R visit(Sample.Absyn.Or p, A arg) { return visitDefault(p, arg); }
@@ -30,12 +33,23 @@ public class AbstractVisitor<R,A> implements AllVisitor<R,A> {
     public R visitDefault(Sample.Absyn.Expr p, A arg) {
       throw new IllegalArgumentException(this.getClass().getName() + ": " + p);
     }
+/* ComaExprs */
+    public R visit(Sample.Absyn.Vars p, A arg) { return visitDefault(p, arg); }
+    public R visitDefault(Sample.Absyn.ComaExprs p, A arg) {
+      throw new IllegalArgumentException(this.getClass().getName() + ": " + p);
+    }
+/* FArgs */
+    public R visit(Sample.Absyn.FuncArgs p, A arg) { return visitDefault(p, arg); }
+    public R visitDefault(Sample.Absyn.FArgs p, A arg) {
+      throw new IllegalArgumentException(this.getClass().getName() + ": " + p);
+    }
 /* Type */
     public R visit(Sample.Absyn.StringType p, A arg) { return visitDefault(p, arg); }
     public R visit(Sample.Absyn.BoolType p, A arg) { return visitDefault(p, arg); }
     public R visit(Sample.Absyn.UnitType p, A arg) { return visitDefault(p, arg); }
     public R visit(Sample.Absyn.IntType p, A arg) { return visitDefault(p, arg); }
     public R visit(Sample.Absyn.DoubleType p, A arg) { return visitDefault(p, arg); }
+    public R visit(Sample.Absyn.TableType p, A arg) { return visitDefault(p, arg); }
     public R visitDefault(Sample.Absyn.Type p, A arg) {
       throw new IllegalArgumentException(this.getClass().getName() + ": " + p);
     }

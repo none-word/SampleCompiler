@@ -108,6 +108,51 @@ public class PrettyPrinter
     buf_.delete(0,buf_.length());
     return temp;
   }
+  public static String print(Sample.Absyn.ComaExprs foo)
+  {
+    pp(foo, 0);
+    trim();
+    String temp = buf_.toString();
+    buf_.delete(0,buf_.length());
+    return temp;
+  }
+  public static String show(Sample.Absyn.ComaExprs foo)
+  {
+    sh(foo);
+    String temp = buf_.toString();
+    buf_.delete(0,buf_.length());
+    return temp;
+  }
+  public static String print(Sample.Absyn.FArgs foo)
+  {
+    pp(foo, 0);
+    trim();
+    String temp = buf_.toString();
+    buf_.delete(0,buf_.length());
+    return temp;
+  }
+  public static String show(Sample.Absyn.FArgs foo)
+  {
+    sh(foo);
+    String temp = buf_.toString();
+    buf_.delete(0,buf_.length());
+    return temp;
+  }
+  public static String print(Sample.Absyn.ListDec foo)
+  {
+    pp(foo, 0);
+    trim();
+    String temp = buf_.toString();
+    buf_.delete(0,buf_.length());
+    return temp;
+  }
+  public static String show(Sample.Absyn.ListDec foo)
+  {
+    sh(foo);
+    String temp = buf_.toString();
+    buf_.delete(0,buf_.length());
+    return temp;
+  }
   public static String print(Sample.Absyn.Type foo)
   {
     pp(foo, 0);
@@ -191,12 +236,45 @@ public class PrettyPrinter
        Sample.Absyn.If _if = (Sample.Absyn.If) foo;
        if (_i_ > 0) render(_L_PAREN);
        render("if");
-       pp(_if.expr_1, 0);
+       pp(_if.expr_, 0);
        render("then");
-       pp(_if.expr_2, 0);
+       pp(_if.program_1, 0);
        render("else");
-       pp(_if.expr_3, 0);
+       pp(_if.program_2, 0);
        render("end");
+       if (_i_ > 0) render(_R_PAREN);
+    }
+    else     if (foo instanceof Sample.Absyn.FuncCall)
+    {
+       Sample.Absyn.FuncCall _funccall = (Sample.Absyn.FuncCall) foo;
+       if (_i_ > 0) render(_L_PAREN);
+       pp(_funccall.ident_, 0);
+       render("(");
+       pp(_funccall.comaexprs_, 0);
+       render(")");
+       if (_i_ > 0) render(_R_PAREN);
+    }
+    else     if (foo instanceof Sample.Absyn.Func)
+    {
+       Sample.Absyn.Func _func = (Sample.Absyn.Func) foo;
+       if (_i_ > 0) render(_L_PAREN);
+       render("function");
+       pp(_func.ident_, 0);
+       render("(");
+       pp(_func.fargs_, 0);
+       render(")");
+       render(":");
+       pp(_func.type_, 0);
+       pp(_func.program_, 0);
+       render("end");
+       if (_i_ > 0) render(_R_PAREN);
+    }
+    else     if (foo instanceof Sample.Absyn.Return)
+    {
+       Sample.Absyn.Return _return = (Sample.Absyn.Return) foo;
+       if (_i_ > 0) render(_L_PAREN);
+       render("return");
+       pp(_return.expr_, 0);
        if (_i_ > 0) render(_R_PAREN);
     }
     else     if (foo instanceof Sample.Absyn.Not)
@@ -295,6 +373,40 @@ public class PrettyPrinter
     }
   }
 
+  private static void pp(Sample.Absyn.ComaExprs foo, int _i_)
+  {
+    if (foo instanceof Sample.Absyn.Vars)
+    {
+       Sample.Absyn.Vars _vars = (Sample.Absyn.Vars) foo;
+       if (_i_ > 0) render(_L_PAREN);
+       pp(_vars.listexpr_, 0);
+       if (_i_ > 0) render(_R_PAREN);
+    }
+  }
+
+  private static void pp(Sample.Absyn.FArgs foo, int _i_)
+  {
+    if (foo instanceof Sample.Absyn.FuncArgs)
+    {
+       Sample.Absyn.FuncArgs _funcargs = (Sample.Absyn.FuncArgs) foo;
+       if (_i_ > 0) render(_L_PAREN);
+       pp(_funcargs.listdec_, 0);
+       if (_i_ > 0) render(_R_PAREN);
+    }
+  }
+
+  private static void pp(Sample.Absyn.ListDec foo, int _i_)
+  {
+     for (java.util.Iterator<Dec> it = foo.iterator(); it.hasNext();)
+     {
+       pp(it.next(), _i_);
+       if (it.hasNext()) {
+         render(",");
+       } else {
+         render("");
+       }
+     }  }
+
   private static void pp(Sample.Absyn.Type foo, int _i_)
   {
     if (foo instanceof Sample.Absyn.StringType)
@@ -330,6 +442,13 @@ public class PrettyPrinter
        Sample.Absyn.DoubleType _doubletype = (Sample.Absyn.DoubleType) foo;
        if (_i_ > 0) render(_L_PAREN);
        render("double");
+       if (_i_ > 0) render(_R_PAREN);
+    }
+    else     if (foo instanceof Sample.Absyn.TableType)
+    {
+       Sample.Absyn.TableType _tabletype = (Sample.Absyn.TableType) foo;
+       if (_i_ > 0) render(_L_PAREN);
+       render("table");
        if (_i_ > 0) render(_R_PAREN);
     }
   }
@@ -407,9 +526,37 @@ public class PrettyPrinter
        Sample.Absyn.If _if = (Sample.Absyn.If) foo;
        render("(");
        render("If");
-       sh(_if.expr_1);
-       sh(_if.expr_2);
-       sh(_if.expr_3);
+       sh(_if.expr_);
+       sh(_if.program_1);
+       sh(_if.program_2);
+       render(")");
+    }
+    if (foo instanceof Sample.Absyn.FuncCall)
+    {
+       Sample.Absyn.FuncCall _funccall = (Sample.Absyn.FuncCall) foo;
+       render("(");
+       render("FuncCall");
+       sh(_funccall.ident_);
+       sh(_funccall.comaexprs_);
+       render(")");
+    }
+    if (foo instanceof Sample.Absyn.Func)
+    {
+       Sample.Absyn.Func _func = (Sample.Absyn.Func) foo;
+       render("(");
+       render("Func");
+       sh(_func.ident_);
+       sh(_func.fargs_);
+       sh(_func.type_);
+       sh(_func.program_);
+       render(")");
+    }
+    if (foo instanceof Sample.Absyn.Return)
+    {
+       Sample.Absyn.Return _return = (Sample.Absyn.Return) foo;
+       render("(");
+       render("Return");
+       sh(_return.expr_);
        render(")");
     }
     if (foo instanceof Sample.Absyn.Not)
@@ -510,6 +657,44 @@ public class PrettyPrinter
     }
   }
 
+  private static void sh(Sample.Absyn.ComaExprs foo)
+  {
+    if (foo instanceof Sample.Absyn.Vars)
+    {
+       Sample.Absyn.Vars _vars = (Sample.Absyn.Vars) foo;
+       render("(");
+       render("Vars");
+       render("[");
+       sh(_vars.listexpr_);
+       render("]");
+       render(")");
+    }
+  }
+
+  private static void sh(Sample.Absyn.FArgs foo)
+  {
+    if (foo instanceof Sample.Absyn.FuncArgs)
+    {
+       Sample.Absyn.FuncArgs _funcargs = (Sample.Absyn.FuncArgs) foo;
+       render("(");
+       render("FuncArgs");
+       render("[");
+       sh(_funcargs.listdec_);
+       render("]");
+       render(")");
+    }
+  }
+
+  private static void sh(Sample.Absyn.ListDec foo)
+  {
+     for (java.util.Iterator<Dec> it = foo.iterator(); it.hasNext();)
+     {
+       sh(it.next());
+       if (it.hasNext())
+         render(",");
+     }
+  }
+
   private static void sh(Sample.Absyn.Type foo)
   {
     if (foo instanceof Sample.Absyn.StringType)
@@ -536,6 +721,11 @@ public class PrettyPrinter
     {
        Sample.Absyn.DoubleType _doubletype = (Sample.Absyn.DoubleType) foo;
        render("DoubleType");
+    }
+    if (foo instanceof Sample.Absyn.TableType)
+    {
+       Sample.Absyn.TableType _tabletype = (Sample.Absyn.TableType) foo;
+       render("TableType");
     }
   }
 

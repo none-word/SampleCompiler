@@ -8,6 +8,7 @@ public abstract class Type implements java.io.Serializable {
     public R visit(Sample.Absyn.UnitType p, A arg);
     public R visit(Sample.Absyn.IntType p, A arg);
     public R visit(Sample.Absyn.DoubleType p, A arg);
+    public R visit(Sample.Absyn.TableType p, A arg);
 
   }
 

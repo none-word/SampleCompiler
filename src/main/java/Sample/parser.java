@@ -30,16 +30,20 @@ public class parser extends java_cup.runtime.lr_parser {
   /** Production table. */
   protected static final short _production_table[][] = 
     unpackFromStrings(new String[] {
-    "\000\037\000\002\002\004\000\002\002\003\000\002\003" +
-    "\002\000\002\003\003\000\002\003\005\000\002\004\003" +
-    "\000\002\004\003\000\002\004\003\000\002\004\011\000" +
-    "\002\004\004\000\002\004\005\000\002\004\005\000\002" +
-    "\004\003\000\002\004\004\000\002\004\004\000\002\004" +
-    "\004\000\002\004\005\000\002\004\003\000\002\005\003" +
-    "\000\002\005\003\000\002\005\003\000\002\005\003\000" +
-    "\002\005\003\000\002\006\003\000\002\006\003\000\002" +
-    "\006\003\000\002\007\005\000\002\007\006\000\002\010" +
-    "\003\000\002\010\005\000\002\010\003" });
+    "\000\053\000\002\002\004\000\002\002\003\000\002\003" +
+    "\002\000\002\003\003\000\002\003\005\000\002\003\002" +
+    "\000\002\003\003\000\002\003\005\000\002\004\003\000" +
+    "\002\004\003\000\002\004\003\000\002\004\011\000\002" +
+    "\004\006\000\002\004\013\000\002\004\004\000\002\004" +
+    "\004\000\002\004\005\000\002\004\005\000\002\004\003" +
+    "\000\002\004\004\000\002\004\004\000\002\004\004\000" +
+    "\002\004\005\000\002\004\003\000\002\005\003\000\002" +
+    "\006\003\000\002\007\002\000\002\007\003\000\002\007" +
+    "\005\000\002\010\003\000\002\010\003\000\002\010\003" +
+    "\000\002\010\003\000\002\010\003\000\002\010\003\000" +
+    "\002\011\003\000\002\011\003\000\002\011\003\000\002" +
+    "\012\005\000\002\012\006\000\002\013\003\000\002\013" +
+    "\005\000\002\013\003" });
 
   /** Access to production table. */
   public short[][] production_table() {return _production_table;}
@@ -47,89 +51,142 @@ public class parser extends java_cup.runtime.lr_parser {
   /** Parse-action table. */
   protected static final short[][] _action_table = 
     unpackFromStrings(new String[] {
-    "\000\064\000\040\002\uffff\005\022\006\021\011\020\020" +
-    "\017\021\016\023\013\024\012\026\011\030\025\032\024" +
-    "\034\005\035\004\036\015\037\006\001\002\000\022\002" +
-    "\uffea\004\uffea\012\uffea\013\uffea\016\uffea\017\uffea\025\uffea" +
-    "\031\uffea\001\002\000\022\002\uffe8\004\uffe8\012\uffe8\013" +
-    "\uffe8\016\uffe8\017\uffe8\025\uffe8\031\uffe8\001\002\000\024" +
-    "\002\ufffc\004\ufffc\007\065\012\ufffc\013\ufffc\016\ufffc\017" +
-    "\ufffc\025\ufffc\031\ufffc\001\002\000\022\002\uffe3\004\uffe3" +
-    "\012\uffe3\013\uffe3\016\uffe3\017\uffe3\025\uffe3\031\uffe3\001" +
-    "\002\000\022\002\ufff0\004\ufff0\012\ufff0\013\ufff0\016\ufff0" +
-    "\017\ufff0\025\ufff0\031\ufff0\001\002\000\036\005\022\006" +
-    "\021\011\020\020\017\021\016\023\013\024\012\026\011" +
-    "\030\025\032\024\034\005\035\004\036\015\037\006\001" +
-    "\002\000\004\037\054\001\002\000\036\005\022\006\021" +
-    "\011\020\020\017\021\016\023\013\024\012\026\011\030" +
-    "\025\032\024\034\005\035\004\036\015\037\006\001\002" +
-    "\000\012\002\ufffe\004\051\013\034\025\033\001\002\000" +
-    "\022\002\uffe9\004\uffe9\012\uffe9\013\uffe9\016\uffe9\017\uffe9" +
-    "\025\uffe9\031\uffe9\001\002\000\036\005\022\006\021\011" +
-    "\020\020\017\021\016\023\013\024\012\026\011\030\025" +
-    "\032\024\034\005\035\004\036\015\037\006\001\002\000" +
-    "\022\002\ufffa\004\ufffa\012\ufffa\013\ufffa\016\ufffa\017\ufffa" +
-    "\025\ufffa\031\ufffa\001\002\000\036\005\022\006\021\011" +
-    "\020\020\017\021\016\023\013\024\012\026\011\030\025" +
-    "\032\024\034\005\035\004\036\015\037\006\001\002\000" +
-    "\022\002\ufff5\004\ufff5\012\ufff5\013\ufff5\016\ufff5\017\ufff5" +
-    "\025\ufff5\031\ufff5\001\002\000\036\005\022\006\021\011" +
-    "\020\020\017\021\016\023\013\024\012\026\011\030\025" +
-    "\032\024\034\005\035\004\036\015\037\006\001\002\000" +
-    "\004\002\000\001\002\000\022\002\ufffb\004\ufffb\012\ufffb" +
-    "\013\ufffb\016\ufffb\017\ufffb\025\ufffb\031\ufffb\001\002\000" +
-    "\036\005\022\006\021\011\020\020\017\021\016\023\013" +
-    "\024\012\026\011\030\025\032\024\034\005\035\004\036" +
-    "\015\037\006\001\002\000\024\002\uffe5\004\uffe5\010\031" +
-    "\012\uffe5\013\uffe5\016\uffe5\017\uffe5\025\uffe5\031\uffe5\001" +
-    "\002\000\004\002\030\001\002\000\004\002\001\001\002" +
-    "\000\036\005\022\006\021\011\020\020\017\021\016\023" +
-    "\013\024\012\026\011\030\025\032\024\034\005\035\004" +
-    "\036\015\037\006\001\002\000\022\002\uffe4\004\uffe4\012" +
-    "\uffe4\013\034\016\uffe4\017\uffe4\025\033\031\uffe4\001\002" +
-    "\000\036\005\022\006\021\011\020\020\017\021\016\023" +
-    "\013\024\012\026\011\030\025\032\024\034\005\035\004" +
-    "\036\015\037\006\001\002\000\036\005\022\006\021\011" +
-    "\020\020\017\021\016\023\013\024\012\026\011\030\025" +
-    "\032\024\034\005\035\004\036\015\037\006\001\002\000" +
-    "\022\002\ufff7\004\ufff7\012\ufff7\013\034\016\ufff7\017\ufff7" +
-    "\025\033\031\ufff7\001\002\000\022\002\ufff6\004\ufff6\012" +
-    "\ufff6\013\034\016\ufff6\017\ufff6\025\033\031\ufff6\001\002" +
-    "\000\022\002\ufff4\004\ufff4\012\ufff4\013\034\016\ufff4\017" +
-    "\ufff4\025\033\031\ufff4\001\002\000\022\002\ufff8\004\ufff8" +
-    "\012\ufff8\013\034\016\ufff8\017\ufff8\025\033\031\ufff8\001" +
-    "\002\000\010\012\042\013\034\025\033\001\002\000\022" +
-    "\002\ufff1\004\ufff1\012\ufff1\013\ufff1\016\ufff1\017\ufff1\025" +
-    "\ufff1\031\ufff1\001\002\000\010\013\034\025\033\031\044" +
-    "\001\002\000\036\005\022\006\021\011\020\020\017\021" +
-    "\016\023\013\024\012\026\011\030\025\032\024\034\005" +
-    "\035\004\036\015\037\006\001\002\000\010\013\034\016" +
-    "\046\025\033\001\002\000\036\005\022\006\021\011\020" +
-    "\020\017\021\016\023\013\024\012\026\011\030\025\032" +
-    "\024\034\005\035\004\036\015\037\006\001\002\000\010" +
-    "\013\034\017\050\025\033\001\002\000\022\002\ufff9\004" +
-    "\ufff9\012\ufff9\013\ufff9\016\ufff9\017\ufff9\025\ufff9\031\ufff9" +
-    "\001\002\000\040\002\uffff\005\022\006\021\011\020\020" +
-    "\017\021\016\023\013\024\012\026\011\030\025\032\024" +
-    "\034\005\035\004\036\015\037\006\001\002\000\004\002" +
-    "\ufffd\001\002\000\022\002\ufff2\004\ufff2\012\ufff2\013\034" +
-    "\016\ufff2\017\ufff2\025\033\031\ufff2\001\002\000\004\007" +
-    "\055\001\002\000\014\014\062\015\060\022\061\027\057" +
-    "\033\063\001\002\000\024\002\uffe6\004\uffe6\010\uffe6\012" +
-    "\uffe6\013\uffe6\016\uffe6\017\uffe6\025\uffe6\031\uffe6\001\002" +
-    "\000\024\002\uffef\004\uffef\010\uffef\012\uffef\013\uffef\016" +
-    "\uffef\017\uffef\025\uffef\031\uffef\001\002\000\024\002\uffeb" +
-    "\004\uffeb\010\uffeb\012\uffeb\013\uffeb\016\uffeb\017\uffeb\025" +
-    "\uffeb\031\uffeb\001\002\000\024\002\uffec\004\uffec\010\uffec" +
-    "\012\uffec\013\uffec\016\uffec\017\uffec\025\uffec\031\uffec\001" +
-    "\002\000\024\002\uffee\004\uffee\010\uffee\012\uffee\013\uffee" +
-    "\016\uffee\017\uffee\025\uffee\031\uffee\001\002\000\024\002" +
-    "\uffed\004\uffed\010\uffed\012\uffed\013\uffed\016\uffed\017\uffed" +
-    "\025\uffed\031\uffed\001\002\000\022\002\ufff3\004\ufff3\012" +
-    "\ufff3\013\034\016\ufff3\017\ufff3\025\033\031\ufff3\001\002" +
-    "\000\014\014\062\015\060\022\061\027\057\033\063\001" +
-    "\002\000\024\002\uffe7\004\uffe7\010\uffe7\012\uffe7\013\uffe7" +
-    "\016\uffe7\017\uffe7\025\uffe7\031\uffe7\001\002" });
+    "\000\113\000\044\002\uffff\006\022\011\021\012\020\021" +
+    "\017\022\016\023\013\025\012\026\011\030\027\031\026" +
+    "\033\025\036\023\040\005\041\004\042\015\043\006\001" +
+    "\002\000\024\002\uffde\004\uffde\005\uffde\007\uffde\014\uffde" +
+    "\017\uffde\020\uffde\027\uffde\035\uffde\001\002\000\024\002" +
+    "\uffdc\004\uffdc\005\uffdc\007\uffdc\014\uffdc\017\uffdc\020\uffdc" +
+    "\027\uffdc\035\uffdc\001\002\000\030\002\ufff9\004\ufff9\005" +
+    "\ufff9\006\112\007\ufff9\010\057\014\ufff9\017\ufff9\020\ufff9" +
+    "\027\ufff9\035\ufff9\001\002\000\024\002\uffd7\004\uffd7\005" +
+    "\uffd7\007\uffd7\014\uffd7\017\uffd7\020\uffd7\027\uffd7\035\uffd7" +
+    "\001\002\000\024\002\uffea\004\uffea\005\uffea\007\uffea\014" +
+    "\uffea\017\uffea\020\uffea\027\uffea\035\uffea\001\002\000\004" +
+    "\043\107\001\002\000\042\006\022\011\021\012\020\021" +
+    "\017\022\016\023\013\025\012\026\011\030\027\031\026" +
+    "\033\025\036\023\040\005\041\004\042\015\043\006\001" +
+    "\002\000\042\006\022\011\021\012\020\021\017\022\016" +
+    "\023\013\025\012\026\011\030\027\031\026\033\025\036" +
+    "\023\040\005\041\004\042\015\043\006\001\002\000\022" +
+    "\002\ufffe\004\075\005\074\007\ufffe\014\036\017\ufffe\020" +
+    "\ufffe\027\035\001\002\000\024\002\uffdd\004\uffdd\005\uffdd" +
+    "\007\uffdd\014\uffdd\017\uffdd\020\uffdd\027\uffdd\035\uffdd\001" +
+    "\002\000\004\043\047\001\002\000\024\002\ufff7\004\ufff7" +
+    "\005\ufff7\007\ufff7\014\ufff7\017\ufff7\020\ufff7\027\ufff7\035" +
+    "\ufff7\001\002\000\024\002\uffef\004\uffef\005\uffef\007\uffef" +
+    "\014\uffef\017\uffef\020\uffef\027\uffef\035\uffef\001\002\000" +
+    "\042\006\022\011\021\012\020\021\017\022\016\023\013" +
+    "\025\012\026\011\030\027\031\026\033\025\036\023\040" +
+    "\005\041\004\042\015\043\006\001\002\000\042\006\022" +
+    "\011\021\012\020\021\017\022\016\023\013\025\012\026" +
+    "\011\030\027\031\026\033\025\036\023\040\005\041\004" +
+    "\042\015\043\006\001\002\000\024\002\ufff8\004\ufff8\005" +
+    "\ufff8\007\ufff8\014\ufff8\017\ufff8\020\ufff8\027\ufff8\035\ufff8" +
+    "\001\002\000\010\002\000\017\000\020\000\001\002\000" +
+    "\042\006\022\011\021\012\020\021\017\022\016\023\013" +
+    "\025\012\026\011\030\027\031\026\033\025\036\023\040" +
+    "\005\041\004\042\015\043\006\001\002\000\042\006\022" +
+    "\011\021\012\020\021\017\022\016\023\013\025\012\026" +
+    "\011\030\027\031\026\033\025\036\023\040\005\041\004" +
+    "\042\015\043\006\001\002\000\042\006\022\011\021\012" +
+    "\020\021\017\022\016\023\013\025\012\026\011\030\027" +
+    "\031\026\033\025\036\023\040\005\041\004\042\015\043" +
+    "\006\001\002\000\026\002\uffd9\004\uffd9\005\uffd9\007\uffd9" +
+    "\013\033\014\uffd9\017\uffd9\020\uffd9\027\uffd9\035\uffd9\001" +
+    "\002\000\004\002\032\001\002\000\004\002\001\001\002" +
+    "\000\042\006\022\011\021\012\020\021\017\022\016\023" +
+    "\013\025\012\026\011\030\027\031\026\033\025\036\023" +
+    "\040\005\041\004\042\015\043\006\001\002\000\024\002" +
+    "\uffd8\004\uffd8\005\uffd8\007\uffd8\014\036\017\uffd8\020\uffd8" +
+    "\027\035\035\uffd8\001\002\000\042\006\022\011\021\012" +
+    "\020\021\017\022\016\023\013\025\012\026\011\030\027" +
+    "\031\026\033\025\036\023\040\005\041\004\042\015\043" +
+    "\006\001\002\000\042\006\022\011\021\012\020\021\017" +
+    "\022\016\023\013\025\012\026\011\030\027\031\026\033" +
+    "\025\036\023\040\005\041\004\042\015\043\006\001\002" +
+    "\000\024\002\ufff1\004\ufff1\005\ufff1\007\ufff1\014\036\017" +
+    "\ufff1\020\ufff1\027\035\035\ufff1\001\002\000\024\002\ufff0" +
+    "\004\ufff0\005\ufff0\007\ufff0\014\036\017\ufff0\020\ufff0\027" +
+    "\035\035\ufff0\001\002\000\024\002\uffed\004\uffed\005\uffed" +
+    "\007\uffed\014\036\017\uffed\020\uffed\027\035\035\uffed\001" +
+    "\002\000\024\002\ufff3\004\ufff3\005\ufff3\007\ufff3\014\036" +
+    "\017\ufff3\020\ufff3\027\035\035\ufff3\001\002\000\024\002" +
+    "\uffee\004\uffee\005\uffee\007\uffee\014\036\017\uffee\020\uffee" +
+    "\027\035\035\uffee\001\002\000\010\007\045\014\036\027" +
+    "\035\001\002\000\024\002\uffeb\004\uffeb\005\uffeb\007\uffeb" +
+    "\014\uffeb\017\uffeb\020\uffeb\027\uffeb\035\uffeb\001\002\000" +
+    "\024\002\ufff2\004\ufff2\005\ufff2\007\ufff2\014\036\017\ufff2" +
+    "\020\ufff2\027\035\035\ufff2\001\002\000\004\006\050\001" +
+    "\002\000\010\007\uffe7\026\011\043\052\001\002\000\004" +
+    "\007\067\001\002\000\004\010\057\001\002\000\006\005" +
+    "\055\007\uffe6\001\002\000\004\007\uffe8\001\002\000\010" +
+    "\007\uffe7\026\011\043\052\001\002\000\004\007\uffe5\001" +
+    "\002\000\016\015\065\016\060\024\063\032\061\034\066" +
+    "\037\064\001\002\000\066\002\uffe0\004\uffe0\005\uffe0\006" +
+    "\uffe0\007\uffe0\011\uffe0\012\uffe0\013\uffe0\014\uffe0\017\uffe0" +
+    "\020\uffe0\021\uffe0\022\uffe0\023\uffe0\025\uffe0\026\uffe0\027" +
+    "\uffe0\030\uffe0\031\uffe0\033\uffe0\035\uffe0\036\uffe0\040\uffe0" +
+    "\041\uffe0\042\uffe0\043\uffe0\001\002\000\066\002\uffe4\004" +
+    "\uffe4\005\uffe4\006\uffe4\007\uffe4\011\uffe4\012\uffe4\013\uffe4" +
+    "\014\uffe4\017\uffe4\020\uffe4\021\uffe4\022\uffe4\023\uffe4\025" +
+    "\uffe4\026\uffe4\027\uffe4\030\uffe4\031\uffe4\033\uffe4\035\uffe4" +
+    "\036\uffe4\040\uffe4\041\uffe4\042\uffe4\043\uffe4\001\002\000" +
+    "\026\002\uffdb\004\uffdb\005\uffdb\007\uffdb\013\uffdb\014\uffdb" +
+    "\017\uffdb\020\uffdb\027\uffdb\035\uffdb\001\002\000\066\002" +
+    "\uffe1\004\uffe1\005\uffe1\006\uffe1\007\uffe1\011\uffe1\012\uffe1" +
+    "\013\uffe1\014\uffe1\017\uffe1\020\uffe1\021\uffe1\022\uffe1\023" +
+    "\uffe1\025\uffe1\026\uffe1\027\uffe1\030\uffe1\031\uffe1\033\uffe1" +
+    "\035\uffe1\036\uffe1\040\uffe1\041\uffe1\042\uffe1\043\uffe1\001" +
+    "\002\000\066\002\uffe2\004\uffe2\005\uffe2\006\uffe2\007\uffe2" +
+    "\011\uffe2\012\uffe2\013\uffe2\014\uffe2\017\uffe2\020\uffe2\021" +
+    "\uffe2\022\uffe2\023\uffe2\025\uffe2\026\uffe2\027\uffe2\030\uffe2" +
+    "\031\uffe2\033\uffe2\035\uffe2\036\uffe2\040\uffe2\041\uffe2\042" +
+    "\uffe2\043\uffe2\001\002\000\066\002\uffe3\004\uffe3\005\uffe3" +
+    "\006\uffe3\007\uffe3\011\uffe3\012\uffe3\013\uffe3\014\uffe3\017" +
+    "\uffe3\020\uffe3\021\uffe3\022\uffe3\023\uffe3\025\uffe3\026\uffe3" +
+    "\027\uffe3\030\uffe3\031\uffe3\033\uffe3\035\uffe3\036\uffe3\040" +
+    "\uffe3\041\uffe3\042\uffe3\043\uffe3\001\002\000\066\002\uffdf" +
+    "\004\uffdf\005\uffdf\006\uffdf\007\uffdf\011\uffdf\012\uffdf\013" +
+    "\uffdf\014\uffdf\017\uffdf\020\uffdf\021\uffdf\022\uffdf\023\uffdf" +
+    "\025\uffdf\026\uffdf\027\uffdf\030\uffdf\031\uffdf\033\uffdf\035" +
+    "\uffdf\036\uffdf\040\uffdf\041\uffdf\042\uffdf\043\uffdf\001\002" +
+    "\000\004\010\070\001\002\000\016\015\065\016\060\024" +
+    "\063\032\061\034\066\037\064\001\002\000\044\006\022" +
+    "\011\021\012\020\020\uffff\021\017\022\016\023\013\025" +
+    "\012\026\011\030\027\031\026\033\025\036\023\040\005" +
+    "\041\004\042\015\043\006\001\002\000\004\020\073\001" +
+    "\002\000\024\002\ufff4\004\ufff4\005\ufff4\007\ufff4\014\ufff4" +
+    "\017\ufff4\020\ufff4\027\ufff4\035\ufff4\001\002\000\052\002" +
+    "\uffff\006\022\007\uffff\011\021\012\020\017\uffff\020\uffff" +
+    "\021\017\022\016\023\013\025\012\026\011\030\027\031" +
+    "\026\033\025\036\023\040\005\041\004\042\015\043\006" +
+    "\001\002\000\052\002\uffff\006\022\007\uffff\011\021\012" +
+    "\020\017\uffff\020\uffff\021\017\022\016\023\013\025\012" +
+    "\026\011\030\027\031\026\033\025\036\023\040\005\041" +
+    "\004\042\015\043\006\001\002\000\012\002\ufffd\007\ufffd" +
+    "\017\ufffd\020\ufffd\001\002\000\012\002\ufffa\007\ufffa\017" +
+    "\ufffa\020\ufffa\001\002\000\010\014\036\027\035\035\101" +
+    "\001\002\000\044\006\022\011\021\012\020\017\uffff\021" +
+    "\017\022\016\023\013\025\012\026\011\030\027\031\026" +
+    "\033\025\036\023\040\005\041\004\042\015\043\006\001" +
+    "\002\000\004\017\103\001\002\000\044\006\022\011\021" +
+    "\012\020\020\uffff\021\017\022\016\023\013\025\012\026" +
+    "\011\030\027\031\026\033\025\036\023\040\005\041\004" +
+    "\042\015\043\006\001\002\000\004\020\105\001\002\000" +
+    "\024\002\ufff6\004\ufff6\005\ufff6\007\ufff6\014\ufff6\017\ufff6" +
+    "\020\ufff6\027\ufff6\035\ufff6\001\002\000\024\002\uffec\004" +
+    "\uffec\005\uffec\007\uffec\014\036\017\uffec\020\uffec\027\035" +
+    "\035\uffec\001\002\000\004\010\110\001\002\000\016\015" +
+    "\065\016\060\024\063\032\061\034\066\037\064\001\002" +
+    "\000\026\002\uffda\004\uffda\005\uffda\007\uffda\013\uffda\014" +
+    "\uffda\017\uffda\020\uffda\027\uffda\035\uffda\001\002\000\044" +
+    "\006\022\007\uffff\011\021\012\020\021\017\022\016\023" +
+    "\013\025\012\026\011\030\027\031\026\033\025\036\023" +
+    "\040\005\041\004\042\015\043\006\001\002\000\004\007" +
+    "\115\001\002\000\004\007\uffe9\001\002\000\024\002\ufff5" +
+    "\004\ufff5\005\ufff5\007\ufff5\014\ufff5\017\ufff5\020\ufff5\027" +
+    "\ufff5\035\ufff5\001\002" });
 
   /** Access to parse-action table. */
   public short[][] action_table() {return _action_table;}
@@ -137,31 +194,43 @@ public class parser extends java_cup.runtime.lr_parser {
   /** <code>reduce_goto</code> table. */
   protected static final short[][] _reduce_table = 
     unpackFromStrings(new String[] {
-    "\000\064\000\016\002\026\003\022\004\013\006\006\007" +
-    "\025\010\007\001\001\000\002\001\001\000\002\001\001" +
+    "\000\113\000\016\002\030\003\023\004\013\011\006\012" +
+    "\027\013\007\001\001\000\002\001\001\000\002\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\012\004\063\006\006\007\025\010\007\001\001\000\002" +
-    "\001\001\000\012\004\052\006\006\007\025\010\007\001" +
-    "\001\000\002\001\001\000\002\001\001\000\012\004\042" +
-    "\006\006\007\025\010\007\001\001\000\002\001\001\000" +
-    "\012\004\040\006\006\007\025\010\007\001\001\000\002" +
-    "\001\001\000\012\004\037\006\006\007\025\010\007\001" +
-    "\001\000\002\001\001\000\002\001\001\000\012\004\036" +
-    "\006\006\007\025\010\007\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\012\004\031\006\006" +
-    "\007\025\010\007\001\001\000\002\001\001\000\012\004" +
-    "\035\006\006\007\025\010\007\001\001\000\012\004\034" +
-    "\006\006\007\025\010\007\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
+    "\002\001\001\000\012\004\105\011\006\012\027\013\007" +
+    "\001\001\000\012\004\077\011\006\012\027\013\007\001" +
+    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\002\001\001\000\012\004\045\011" +
+    "\006\012\027\013\007\001\001\000\012\004\043\011\006" +
+    "\012\027\013\007\001\001\000\002\001\001\000\002\001" +
+    "\001\000\012\004\042\011\006\012\027\013\007\001\001" +
+    "\000\012\004\041\011\006\012\027\013\007\001\001\000" +
+    "\012\004\040\011\006\012\027\013\007\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\012\004" +
-    "\044\006\006\007\025\010\007\001\001\000\002\001\001" +
-    "\000\012\004\046\006\006\007\025\010\007\001\001\000" +
-    "\002\001\001\000\002\001\001\000\014\003\051\004\013" +
-    "\006\006\007\025\010\007\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\004\005\055\001\001" +
+    "\033\011\006\012\027\013\007\001\001\000\002\001\001" +
+    "\000\012\004\037\011\006\012\027\013\007\001\001\000" +
+    "\012\004\036\011\006\012\027\013\007\001\001\000\002" +
+    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
+    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\002\001\001\000\010\006\050\007" +
+    "\053\012\052\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\002\001\001\000\006\007\055\012" +
+    "\052\001\001\000\002\001\001\000\004\010\061\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\004\005\065\001\001\000\002\001\001" });
+    "\001\001\000\002\001\001\000\004\010\070\001\001\000" +
+    "\016\002\071\003\023\004\013\011\006\012\027\013\007" +
+    "\001\001\000\002\001\001\000\002\001\001\000\014\003" +
+    "\076\004\013\011\006\012\027\013\007\001\001\000\014" +
+    "\003\075\004\013\011\006\012\027\013\007\001\001\000" +
+    "\002\001\001\000\002\001\001\000\002\001\001\000\016" +
+    "\002\101\003\023\004\013\011\006\012\027\013\007\001" +
+    "\001\000\002\001\001\000\016\002\103\003\023\004\013" +
+    "\011\006\012\027\013\007\001\001\000\002\001\001\000" +
+    "\002\001\001\000\002\001\001\000\002\001\001\000\004" +
+    "\010\110\001\001\000\002\001\001\000\016\003\113\004" +
+    "\013\005\112\011\006\012\027\013\007\001\001\000\002" +
+    "\001\001\000\002\001\001\000\002\001\001" });
 
   /** Access to <code>reduce_goto</code> table. */
   public short[][] reduce_table() {return _reduce_table;}
@@ -297,7 +366,37 @@ class CUP$parser$actions {
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 5: // Expr ::= _IDENT_ 
+          case 5: // ListExpr ::= 
+            {
+              Sample.Absyn.ListExpr RESULT =null;
+		 RESULT = new Sample.Absyn.ListExpr(); 
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("ListExpr",1, RESULT);
+            }
+          return CUP$parser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 6: // ListExpr ::= Expr 
+            {
+              Sample.Absyn.ListExpr RESULT =null;
+		Sample.Absyn.Expr p_1 = (Sample.Absyn.Expr)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		 RESULT = new Sample.Absyn.ListExpr(); RESULT.addLast(p_1); 
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("ListExpr",1, RESULT);
+            }
+          return CUP$parser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 7: // ListExpr ::= Expr _SYMB_1 ListExpr 
+            {
+              Sample.Absyn.ListExpr RESULT =null;
+		Sample.Absyn.Expr p_1 = (Sample.Absyn.Expr)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		Sample.Absyn.ListExpr p_3 = (Sample.Absyn.ListExpr)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		 RESULT = p_3; p_3.addFirst(p_1); 
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("ListExpr",1, RESULT);
+            }
+          return CUP$parser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 8: // Expr ::= _IDENT_ 
             {
               Sample.Absyn.Expr RESULT =null;
 		String p_1 = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
@@ -307,7 +406,7 @@ class CUP$parser$actions {
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 6: // Expr ::= _SYMB_22 
+          case 9: // Expr ::= _SYMB_26 
             {
               Sample.Absyn.Expr RESULT =null;
 		 RESULT = new Sample.Absyn.ConstTrue(); 
@@ -316,7 +415,7 @@ class CUP$parser$actions {
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 7: // Expr ::= _SYMB_12 
+          case 10: // Expr ::= _SYMB_13 
             {
               Sample.Absyn.Expr RESULT =null;
 		 RESULT = new Sample.Absyn.ConstFalse(); 
@@ -325,19 +424,53 @@ class CUP$parser$actions {
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 8: // Expr ::= _SYMB_13 Expr _SYMB_21 Expr _SYMB_10 Expr _SYMB_11 
+          case 11: // Expr ::= _SYMB_15 Expr _SYMB_25 Program _SYMB_11 Program _SYMB_12 
             {
               Sample.Absyn.Expr RESULT =null;
 		Sample.Absyn.Expr p_2 = (Sample.Absyn.Expr)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-5)).value;
-		Sample.Absyn.Expr p_4 = (Sample.Absyn.Expr)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
-		Sample.Absyn.Expr p_6 = (Sample.Absyn.Expr)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		Sample.Absyn.Program p_4 = (Sample.Absyn.Program)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
+		Sample.Absyn.Program p_6 = (Sample.Absyn.Program)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		 RESULT = new Sample.Absyn.If(p_2,p_4,p_6); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("Expr",2, RESULT);
             }
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 9: // Expr ::= _SYMB_1 Expr 
+          case 12: // Expr ::= _IDENT_ _SYMB_2 ComaExprs _SYMB_3 
+            {
+              Sample.Absyn.Expr RESULT =null;
+		String p_1 = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
+		Sample.Absyn.ComaExprs p_3 = (Sample.Absyn.ComaExprs)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		 RESULT = new Sample.Absyn.FuncCall(p_1,p_3); 
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("Expr",2, RESULT);
+            }
+          return CUP$parser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 13: // Expr ::= _SYMB_14 _IDENT_ _SYMB_2 FArgs _SYMB_3 _SYMB_4 Type Program _SYMB_12 
+            {
+              Sample.Absyn.Expr RESULT =null;
+		String p_2 = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-7)).value;
+		Sample.Absyn.FArgs p_4 = (Sample.Absyn.FArgs)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-5)).value;
+		Sample.Absyn.Type p_7 = (Sample.Absyn.Type)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		Sample.Absyn.Program p_8 = (Sample.Absyn.Program)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		 RESULT = new Sample.Absyn.Func(p_2,p_4,p_7,p_8); 
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("Expr",2, RESULT);
+            }
+          return CUP$parser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 14: // Expr ::= _SYMB_21 Expr 
+            {
+              Sample.Absyn.Expr RESULT =null;
+		Sample.Absyn.Expr p_2 = (Sample.Absyn.Expr)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		 RESULT = new Sample.Absyn.Return(p_2); 
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("Expr",2, RESULT);
+            }
+          return CUP$parser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 15: // Expr ::= _SYMB_5 Expr 
             {
               Sample.Absyn.Expr RESULT =null;
 		Sample.Absyn.Expr p_2 = (Sample.Absyn.Expr)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
@@ -347,7 +480,7 @@ class CUP$parser$actions {
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 10: // Expr ::= Expr _SYMB_7 Expr 
+          case 16: // Expr ::= Expr _SYMB_8 Expr 
             {
               Sample.Absyn.Expr RESULT =null;
 		Sample.Absyn.Expr p_1 = (Sample.Absyn.Expr)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
@@ -358,7 +491,7 @@ class CUP$parser$actions {
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 11: // Expr ::= Expr _SYMB_17 Expr 
+          case 17: // Expr ::= Expr _SYMB_19 Expr 
             {
               Sample.Absyn.Expr RESULT =null;
 		Sample.Absyn.Expr p_1 = (Sample.Absyn.Expr)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
@@ -369,7 +502,7 @@ class CUP$parser$actions {
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 12: // Expr ::= _SYMB_2 
+          case 18: // Expr ::= _SYMB_6 
             {
               Sample.Absyn.Expr RESULT =null;
 		 RESULT = new Sample.Absyn.ConstZero(); 
@@ -378,7 +511,7 @@ class CUP$parser$actions {
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 13: // Expr ::= _SYMB_20 Expr 
+          case 19: // Expr ::= _SYMB_23 Expr 
             {
               Sample.Absyn.Expr RESULT =null;
 		Sample.Absyn.Expr p_2 = (Sample.Absyn.Expr)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
@@ -388,7 +521,7 @@ class CUP$parser$actions {
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 14: // Expr ::= _SYMB_18 Expr 
+          case 20: // Expr ::= _SYMB_20 Expr 
             {
               Sample.Absyn.Expr RESULT =null;
 		Sample.Absyn.Expr p_2 = (Sample.Absyn.Expr)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
@@ -398,7 +531,7 @@ class CUP$parser$actions {
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 15: // Expr ::= _SYMB_15 Expr 
+          case 21: // Expr ::= _SYMB_17 Expr 
             {
               Sample.Absyn.Expr RESULT =null;
 		Sample.Absyn.Expr p_2 = (Sample.Absyn.Expr)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
@@ -408,7 +541,7 @@ class CUP$parser$actions {
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 16: // Expr ::= _SYMB_5 Expr _SYMB_6 
+          case 22: // Expr ::= _SYMB_2 Expr _SYMB_3 
             {
               Sample.Absyn.Expr RESULT =null;
 		Sample.Absyn.Expr p_2 = (Sample.Absyn.Expr)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
@@ -418,7 +551,7 @@ class CUP$parser$actions {
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 17: // Expr ::= Expr1 
+          case 23: // Expr ::= Expr1 
             {
               Sample.Absyn.Expr RESULT =null;
 		Sample.Absyn.Expr p_1 = (Sample.Absyn.Expr)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
@@ -428,130 +561,189 @@ class CUP$parser$actions {
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 18: // Type ::= _SYMB_19 
+          case 24: // ComaExprs ::= ListExpr 
+            {
+              Sample.Absyn.ComaExprs RESULT =null;
+		Sample.Absyn.ListExpr p_1 = (Sample.Absyn.ListExpr)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		 RESULT = new Sample.Absyn.Vars(p_1); 
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("ComaExprs",3, RESULT);
+            }
+          return CUP$parser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 25: // FArgs ::= ListDec 
+            {
+              Sample.Absyn.FArgs RESULT =null;
+		Sample.Absyn.ListDec p_1 = (Sample.Absyn.ListDec)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		 RESULT = new Sample.Absyn.FuncArgs(p_1); 
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("FArgs",4, RESULT);
+            }
+          return CUP$parser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 26: // ListDec ::= 
+            {
+              Sample.Absyn.ListDec RESULT =null;
+		 RESULT = new Sample.Absyn.ListDec(); 
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("ListDec",5, RESULT);
+            }
+          return CUP$parser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 27: // ListDec ::= Dec 
+            {
+              Sample.Absyn.ListDec RESULT =null;
+		Sample.Absyn.Dec p_1 = (Sample.Absyn.Dec)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		 RESULT = new Sample.Absyn.ListDec(); RESULT.addLast(p_1); 
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("ListDec",5, RESULT);
+            }
+          return CUP$parser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 28: // ListDec ::= Dec _SYMB_1 ListDec 
+            {
+              Sample.Absyn.ListDec RESULT =null;
+		Sample.Absyn.Dec p_1 = (Sample.Absyn.Dec)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		Sample.Absyn.ListDec p_3 = (Sample.Absyn.ListDec)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		 RESULT = p_3; p_3.addFirst(p_1); 
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("ListDec",5, RESULT);
+            }
+          return CUP$parser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 29: // Type ::= _SYMB_22 
             {
               Sample.Absyn.Type RESULT =null;
 		 RESULT = new Sample.Absyn.StringType(); 
-              CUP$parser$result = parser.getSymbolFactory().newSymbol("Type",3, RESULT);
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("Type",6, RESULT);
             }
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 19: // Type ::= _SYMB_8 
+          case 30: // Type ::= _SYMB_9 
             {
               Sample.Absyn.Type RESULT =null;
 		 RESULT = new Sample.Absyn.BoolType(); 
-              CUP$parser$result = parser.getSymbolFactory().newSymbol("Type",3, RESULT);
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("Type",6, RESULT);
             }
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 20: // Type ::= _SYMB_23 
+          case 31: // Type ::= _SYMB_27 
             {
               Sample.Absyn.Type RESULT =null;
 		 RESULT = new Sample.Absyn.UnitType(); 
-              CUP$parser$result = parser.getSymbolFactory().newSymbol("Type",3, RESULT);
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("Type",6, RESULT);
             }
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 21: // Type ::= _SYMB_14 
+          case 32: // Type ::= _SYMB_16 
             {
               Sample.Absyn.Type RESULT =null;
 		 RESULT = new Sample.Absyn.IntType(); 
-              CUP$parser$result = parser.getSymbolFactory().newSymbol("Type",3, RESULT);
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("Type",6, RESULT);
             }
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 22: // Type ::= _SYMB_9 
+          case 33: // Type ::= _SYMB_10 
             {
               Sample.Absyn.Type RESULT =null;
 		 RESULT = new Sample.Absyn.DoubleType(); 
-              CUP$parser$result = parser.getSymbolFactory().newSymbol("Type",3, RESULT);
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("Type",6, RESULT);
             }
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 23: // Expr2 ::= _INTEGER_ 
+          case 34: // Type ::= _SYMB_24 
+            {
+              Sample.Absyn.Type RESULT =null;
+		 RESULT = new Sample.Absyn.TableType(); 
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("Type",6, RESULT);
+            }
+          return CUP$parser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 35: // Expr2 ::= _INTEGER_ 
             {
               Sample.Absyn.Expr RESULT =null;
 		Integer p_1 = (Integer)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		 RESULT = new Sample.Absyn.EInt(p_1); 
-              CUP$parser$result = parser.getSymbolFactory().newSymbol("Expr2",4, RESULT);
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("Expr2",7, RESULT);
             }
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 24: // Expr2 ::= _DOUBLE_ 
+          case 36: // Expr2 ::= _DOUBLE_ 
             {
               Sample.Absyn.Expr RESULT =null;
 		Double p_1 = (Double)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		 RESULT = new Sample.Absyn.EDouble(p_1); 
-              CUP$parser$result = parser.getSymbolFactory().newSymbol("Expr2",4, RESULT);
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("Expr2",7, RESULT);
             }
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 25: // Expr2 ::= _STRING_ 
+          case 37: // Expr2 ::= _STRING_ 
             {
               Sample.Absyn.Expr RESULT =null;
 		String p_1 = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		 RESULT = new Sample.Absyn.EStr(p_1); 
-              CUP$parser$result = parser.getSymbolFactory().newSymbol("Expr2",4, RESULT);
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("Expr2",7, RESULT);
             }
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 26: // Dec ::= _IDENT_ _SYMB_3 Type 
+          case 38: // Dec ::= _IDENT_ _SYMB_4 Type 
             {
               Sample.Absyn.Dec RESULT =null;
 		String p_1 = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		Sample.Absyn.Type p_3 = (Sample.Absyn.Type)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		 RESULT = new Sample.Absyn.Declaration(p_1,p_3); 
-              CUP$parser$result = parser.getSymbolFactory().newSymbol("Dec",5, RESULT);
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("Dec",8, RESULT);
             }
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 27: // Dec ::= _SYMB_16 _IDENT_ _SYMB_3 Type 
+          case 39: // Dec ::= _SYMB_18 _IDENT_ _SYMB_4 Type 
             {
               Sample.Absyn.Dec RESULT =null;
 		String p_2 = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		Sample.Absyn.Type p_4 = (Sample.Absyn.Type)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		 RESULT = new Sample.Absyn.LocalVarDeclaration(p_2,p_4); 
-              CUP$parser$result = parser.getSymbolFactory().newSymbol("Dec",5, RESULT);
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("Dec",8, RESULT);
             }
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 28: // Expr1 ::= Dec 
+          case 40: // Expr1 ::= Dec 
             {
               Sample.Absyn.Expr RESULT =null;
 		Sample.Absyn.Dec p_1 = (Sample.Absyn.Dec)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		 RESULT = new Sample.Absyn.OnlyDecl(p_1); 
-              CUP$parser$result = parser.getSymbolFactory().newSymbol("Expr1",6, RESULT);
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("Expr1",9, RESULT);
             }
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 29: // Expr1 ::= Dec _SYMB_4 Expr 
+          case 41: // Expr1 ::= Dec _SYMB_7 Expr 
             {
               Sample.Absyn.Expr RESULT =null;
 		Sample.Absyn.Dec p_1 = (Sample.Absyn.Dec)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		Sample.Absyn.Expr p_3 = (Sample.Absyn.Expr)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		 RESULT = new Sample.Absyn.InitDecl(p_1,p_3); 
-              CUP$parser$result = parser.getSymbolFactory().newSymbol("Expr1",6, RESULT);
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("Expr1",9, RESULT);
             }
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 30: // Expr1 ::= Expr2 
+          case 42: // Expr1 ::= Expr2 
             {
               Sample.Absyn.Expr RESULT =null;
 		Sample.Absyn.Expr p_1 = (Sample.Absyn.Expr)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		 RESULT = p_1; 
-              CUP$parser$result = parser.getSymbolFactory().newSymbol("Expr1",6, RESULT);
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("Expr1",9, RESULT);
             }
           return CUP$parser$result;
 

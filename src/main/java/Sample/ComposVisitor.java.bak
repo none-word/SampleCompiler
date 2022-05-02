@@ -6,6 +6,8 @@ import Sample.Absyn.*;
 public class ComposVisitor<A> implements
   Sample.Absyn.Program.Visitor<Sample.Absyn.Program,A>,
   Sample.Absyn.Expr.Visitor<Sample.Absyn.Expr,A>,
+  Sample.Absyn.ComaExprs.Visitor<Sample.Absyn.ComaExprs,A>,
+  Sample.Absyn.FArgs.Visitor<Sample.Absyn.FArgs,A>,
   Sample.Absyn.Type.Visitor<Sample.Absyn.Type,A>,
   Sample.Absyn.Dec.Visitor<Sample.Absyn.Dec,A>
 {
@@ -32,10 +34,26 @@ public class ComposVisitor<A> implements
       return new Sample.Absyn.ConstFalse();
     }    public Expr visit(Sample.Absyn.If p, A arg)
     {
-      Expr expr_1 = p.expr_1.accept(this, arg);
-      Expr expr_2 = p.expr_2.accept(this, arg);
-      Expr expr_3 = p.expr_3.accept(this, arg);
-      return new Sample.Absyn.If(expr_1, expr_2, expr_3);
+      Expr expr_ = p.expr_.accept(this, arg);
+      Program program_1 = p.program_1.accept(this, arg);
+      Program program_2 = p.program_2.accept(this, arg);
+      return new Sample.Absyn.If(expr_, program_1, program_2);
+    }    public Expr visit(Sample.Absyn.FuncCall p, A arg)
+    {
+      String ident_ = p.ident_;
+      ComaExprs comaexprs_ = p.comaexprs_.accept(this, arg);
+      return new Sample.Absyn.FuncCall(ident_, comaexprs_);
+    }    public Expr visit(Sample.Absyn.Func p, A arg)
+    {
+      String ident_ = p.ident_;
+      FArgs fargs_ = p.fargs_.accept(this, arg);
+      Type type_ = p.type_.accept(this, arg);
+      Program program_ = p.program_.accept(this, arg);
+      return new Sample.Absyn.Func(ident_, fargs_, type_, program_);
+    }    public Expr visit(Sample.Absyn.Return p, A arg)
+    {
+      Expr expr_ = p.expr_.accept(this, arg);
+      return new Sample.Absyn.Return(expr_);
     }    public Expr visit(Sample.Absyn.Not p, A arg)
     {
       Expr expr_ = p.expr_.accept(this, arg);
@@ -87,6 +105,26 @@ public class ComposVisitor<A> implements
       Expr expr_ = p.expr_.accept(this, arg);
       return new Sample.Absyn.InitDecl(dec_, expr_);
     }
+/* ComaExprs */
+    public ComaExprs visit(Sample.Absyn.Vars p, A arg)
+    {
+      ListExpr listexpr_ = new ListExpr();
+      for (Expr x : p.listexpr_)
+      {
+        listexpr_.add(x.accept(this,arg));
+      }
+      return new Sample.Absyn.Vars(listexpr_);
+    }
+/* FArgs */
+    public FArgs visit(Sample.Absyn.FuncArgs p, A arg)
+    {
+      ListDec listdec_ = new ListDec();
+      for (Dec x : p.listdec_)
+      {
+        listdec_.add(x.accept(this,arg));
+      }
+      return new Sample.Absyn.FuncArgs(listdec_);
+    }
 /* Type */
     public Type visit(Sample.Absyn.StringType p, A arg)
     {
@@ -105,10 +143,15 @@ public class ComposVisitor<A> implements
       return new Sample.Absyn.DoubleType();
     }
 /* Dec */
-    public Dec visit(Sample.Absyn.Declarator p, A arg)
+    public Dec visit(Sample.Absyn.Declaration p, A arg)
     {
       String ident_ = p.ident_;
       Type type_ = p.type_.accept(this, arg);
-      return new Sample.Absyn.Declarator(ident_, type_);
+      return new Sample.Absyn.Declaration(ident_, type_);
+    }    public Dec visit(Sample.Absyn.LocalVarDeclaration p, A arg)
+    {
+      String ident_ = p.ident_;
+      Type type_ = p.type_.accept(this, arg);
+      return new Sample.Absyn.LocalVarDeclaration(ident_, type_);
     }
 }

@@ -8,13 +8,22 @@ separator Expr ";" ;
 Var.        Expr  ::= Ident ;
 ConstTrue.  Expr  ::= "true" ;
 ConstFalse. Expr  ::= "false" ;
-If.         Expr  ::= "if" Expr "then" Expr "else" Expr "end" ;
+If.         Expr  ::= "if" Expr "then" Program "else" Program "end" ;
+Vars.       ComaExprs  ::= [Expr] ;
+separator Expr ",";
+
+FuncCall.         Expr  ::= Ident "(" ComaExprs ")" ;
+FuncArgs.         FArgs ::= [Dec] ;
+separator Dec ",";
+Func.             Expr ::= "function" Ident "(" FArgs ")" ":" Type Program "end";
+Return.           Expr ::= "return" Expr;
 
 StringType.       Type ::= "string" ;
 BoolType.         Type ::= "boolean" ;
 UnitType.         Type ::= "void" ;
 IntType.          Type ::= "integer" ;
 DoubleType.       Type ::= "double" ;
+TableType.        Type ::= "table" ;
 
 EInt.	          Expr2	::=	Integer	;
 EDouble.	      Expr2	::=	Double	;
