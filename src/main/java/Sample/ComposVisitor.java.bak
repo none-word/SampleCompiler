@@ -9,6 +9,10 @@ public class ComposVisitor<A> implements
   Sample.Absyn.ComaExprs.Visitor<Sample.Absyn.ComaExprs,A>,
   Sample.Absyn.FArgs.Visitor<Sample.Absyn.FArgs,A>,
   Sample.Absyn.Type.Visitor<Sample.Absyn.Type,A>,
+  Sample.Absyn.TypeKW.Visitor<Sample.Absyn.TypeKW,A>,
+  Sample.Absyn.VarKW.Visitor<Sample.Absyn.VarKW,A>,
+  Sample.Absyn.TAnnot.Visitor<Sample.Absyn.TAnnot,A>,
+  Sample.Absyn.TAscript.Visitor<Sample.Absyn.TAscript,A>,
   Sample.Absyn.Dec.Visitor<Sample.Absyn.Dec,A>
 {
 /* Program */
@@ -83,6 +87,52 @@ public class ComposVisitor<A> implements
     {
       Expr expr_ = p.expr_.accept(this, arg);
       return new Sample.Absyn.IsZero(expr_);
+    }    public Expr visit(Sample.Absyn.TypeAliasing p, A arg)
+    {
+      String ident_ = p.ident_;
+      TypeKW typekw_ = p.typekw_.accept(this, arg);
+      Type type_ = p.type_.accept(this, arg);
+      return new Sample.Absyn.TypeAliasing(ident_, typekw_, type_);
+    }    public Expr visit(Sample.Absyn.LcTypeAliasing p, A arg)
+    {
+      String ident_ = p.ident_;
+      TypeKW typekw_ = p.typekw_.accept(this, arg);
+      Type type_ = p.type_.accept(this, arg);
+      return new Sample.Absyn.LcTypeAliasing(ident_, typekw_, type_);
+    }    public Expr visit(Sample.Absyn.VarTypeAnnotation p, A arg)
+    {
+      TAnnot tannot_ = p.tannot_.accept(this, arg);
+      Expr expr_ = p.expr_.accept(this, arg);
+      return new Sample.Absyn.VarTypeAnnotation(tannot_, expr_);
+    }    public Expr visit(Sample.Absyn.LcVarTypeAnnotation p, A arg)
+    {
+      TAnnot tannot_ = p.tannot_.accept(this, arg);
+      Expr expr_ = p.expr_.accept(this, arg);
+      return new Sample.Absyn.LcVarTypeAnnotation(tannot_, expr_);
+    }    public Expr visit(Sample.Absyn.FuncTypeAnnotation p, A arg)
+    {
+      String ident_ = p.ident_;
+      FArgs fargs_ = p.fargs_.accept(this, arg);
+      TAnnot tannot_ = p.tannot_.accept(this, arg);
+      Program program_ = p.program_.accept(this, arg);
+      return new Sample.Absyn.FuncTypeAnnotation(ident_, fargs_, tannot_, program_);
+    }    public Expr visit(Sample.Absyn.VarTypeAscription p, A arg)
+    {
+      TAscript tascript_ = p.tascript_.accept(this, arg);
+      Expr expr_ = p.expr_.accept(this, arg);
+      return new Sample.Absyn.VarTypeAscription(tascript_, expr_);
+    }    public Expr visit(Sample.Absyn.LcVarTypeAscription p, A arg)
+    {
+      TAscript tascript_ = p.tascript_.accept(this, arg);
+      Expr expr_ = p.expr_.accept(this, arg);
+      return new Sample.Absyn.LcVarTypeAscription(tascript_, expr_);
+    }    public Expr visit(Sample.Absyn.FuncTypeAscription p, A arg)
+    {
+      String ident_ = p.ident_;
+      FArgs fargs_ = p.fargs_.accept(this, arg);
+      TAscript tascript_ = p.tascript_.accept(this, arg);
+      Program program_ = p.program_.accept(this, arg);
+      return new Sample.Absyn.FuncTypeAscription(ident_, fargs_, tascript_, program_);
     }    public Expr visit(Sample.Absyn.EInt p, A arg)
     {
       Integer integer_ = p.integer_;
@@ -104,6 +154,12 @@ public class ComposVisitor<A> implements
       Dec dec_ = p.dec_.accept(this, arg);
       Expr expr_ = p.expr_.accept(this, arg);
       return new Sample.Absyn.InitDecl(dec_, expr_);
+    }    public Expr visit(Sample.Absyn.InitTableDecl p, A arg)
+    {
+      Dec dec_1 = p.dec_1.accept(this, arg);
+      Dec dec_2 = p.dec_2.accept(this, arg);
+      Dec dec_3 = p.dec_3.accept(this, arg);
+      return new Sample.Absyn.InitTableDecl(dec_1, dec_2, dec_3);
     }
 /* ComaExprs */
     public ComaExprs visit(Sample.Absyn.Vars p, A arg)
@@ -141,6 +197,39 @@ public class ComposVisitor<A> implements
     }    public Type visit(Sample.Absyn.DoubleType p, A arg)
     {
       return new Sample.Absyn.DoubleType();
+    }    public Type visit(Sample.Absyn.TableType p, A arg)
+    {
+      return new Sample.Absyn.TableType();
+    }    public Type visit(Sample.Absyn.NilType p, A arg)
+    {
+      return new Sample.Absyn.NilType();
+    }    public Type visit(Sample.Absyn.VoidType p, A arg)
+    {
+      return new Sample.Absyn.VoidType();
+    }
+/* TypeKW */
+    public TypeKW visit(Sample.Absyn.TypeKeyword p, A arg)
+    {
+      return new Sample.Absyn.TypeKeyword();
+    }
+/* VarKW */
+    public VarKW visit(Sample.Absyn.VarKeyword p, A arg)
+    {
+      return new Sample.Absyn.VarKeyword();
+    }
+/* TAnnot */
+    public TAnnot visit(Sample.Absyn.TypeAnnotation p, A arg)
+    {
+      String ident_ = p.ident_;
+      VarKW varkw_ = p.varkw_.accept(this, arg);
+      return new Sample.Absyn.TypeAnnotation(ident_, varkw_);
+    }
+/* TAscript */
+    public TAscript visit(Sample.Absyn.TypeAscription p, A arg)
+    {
+      TAnnot tannot_ = p.tannot_.accept(this, arg);
+      Type type_ = p.type_.accept(this, arg);
+      return new Sample.Absyn.TypeAscription(tannot_, type_);
     }
 /* Dec */
     public Dec visit(Sample.Absyn.Declaration p, A arg)
@@ -148,10 +237,10 @@ public class ComposVisitor<A> implements
       String ident_ = p.ident_;
       Type type_ = p.type_.accept(this, arg);
       return new Sample.Absyn.Declaration(ident_, type_);
-    }    public Dec visit(Sample.Absyn.LocalVarDeclaration p, A arg)
+    }    public Dec visit(Sample.Absyn.LcVarDeclaration p, A arg)
     {
       String ident_ = p.ident_;
       Type type_ = p.type_.accept(this, arg);
-      return new Sample.Absyn.LocalVarDeclaration(ident_, type_);
+      return new Sample.Absyn.LcVarDeclaration(ident_, type_);
     }
 }

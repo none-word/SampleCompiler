@@ -10,6 +10,14 @@ public abstract class Expr implements java.io.Serializable {
     public R visit(Sample.Absyn.FuncCall p, A arg);
     public R visit(Sample.Absyn.Func p, A arg);
     public R visit(Sample.Absyn.Return p, A arg);
+    public R visit(Sample.Absyn.TypeAliasing p, A arg);
+    public R visit(Sample.Absyn.LcTypeAliasing p, A arg);
+    public R visit(Sample.Absyn.VarTypeAnnotation p, A arg);
+    public R visit(Sample.Absyn.LcVarTypeAnnotation p, A arg);
+    public R visit(Sample.Absyn.FuncTypeAnnotation p, A arg);
+    public R visit(Sample.Absyn.VarTypeAscription p, A arg);
+    public R visit(Sample.Absyn.LcVarTypeAscription p, A arg);
+    public R visit(Sample.Absyn.FuncTypeAscription p, A arg);
     public R visit(Sample.Absyn.EInt p, A arg);
     public R visit(Sample.Absyn.EDouble p, A arg);
     public R visit(Sample.Absyn.EStr p, A arg);
@@ -22,6 +30,7 @@ public abstract class Expr implements java.io.Serializable {
     public R visit(Sample.Absyn.IsZero p, A arg);
     public R visit(Sample.Absyn.OnlyDecl p, A arg);
     public R visit(Sample.Absyn.InitDecl p, A arg);
+    public R visit(Sample.Absyn.InitTableDecl p, A arg);
 
   }
 

@@ -24,10 +24,27 @@ UnitType.         Type ::= "void" ;
 IntType.          Type ::= "integer" ;
 DoubleType.       Type ::= "double" ;
 TableType.        Type ::= "table" ;
+NilType.          Type ::= "nil" ;
+VoidType.         Type ::= "void" ;
 
-EInt.	          Expr2	::=	Integer	;
-EDouble.	      Expr2	::=	Double	;
-EStr.	          Expr2	::=	String	;
+TypeKeyword.      TypeKW ::= "type" ;
+TypeAliasing.     Expr3 ::= Ident ":" TypeKW "=" Type;
+LcTypeAliasing.   Expr3 ::= "local" Ident ":" TypeKW "=" Type;
+
+VarKeyword.          VarKW ::= "var";
+TypeAnnotation.      TAnnot ::= ":" VarKW;
+VarTypeAnnotation.   Expr3 ::= Ident TAnnot "=" Expr;
+LcVarTypeAnnotation. Expr3 ::= "local" Ident TAnnot "=" Expr;
+FuncTypeAnnotation.  Expr3 ::= "function" Ident "(" FArgs ")" TAnnot Program "end";
+
+TypeAscription.      TAscript ::= TAnnot "(" Type ")";
+VarTypeAscription.   Expr4 ::= Ident TAscript "=" Expr;
+LcVarTypeAscription. Expr4 ::= "local" Ident TAscript "=" Expr;
+FuncTypeAscription.  Expr4 ::= "function" Ident "(" FArgs ")" TAscript Program "end";
+
+EInt.	          Expr1	::=	Integer	;
+EDouble.	      Expr1	::=	Double	;
+EStr.	          Expr1	::=	String	;
 
 Not.                 Expr  ::= "!" Expr ;
 And.                 Expr  ::= Expr "and" Expr ;
@@ -39,12 +56,15 @@ Pred.       Expr  ::= "pred" Expr ;
 IsZero.     Expr  ::= "iszero" Expr ;
 
 Declaration.         Dec ::= Ident ":" Type ;
-LocalVarDeclaration. Dec ::= "local" Ident ":" Type ;
+LcVarDeclaration.    Dec ::= "local" Ident ":" Type ;
 
-OnlyDecl.  Expr1 ::= Dec ;
-InitDecl.  Expr1 ::= Dec "=" Expr ;
+OnlyDecl.           Expr2 ::= Dec ;
+InitDecl.           Expr2 ::= Dec "=" Expr ;
+InitTableDecl.      Expr2 ::= Dec "=" "(" Dec "," Dec ")" ;
 
 _. Expr ::= "(" Expr ")" ;
 _. Expr ::= Expr1 ;
 _. Expr1 ::= Expr2 ;
+_. Expr2 ::= Expr3 ;
+_. Expr3 ::= Expr4 ;
 

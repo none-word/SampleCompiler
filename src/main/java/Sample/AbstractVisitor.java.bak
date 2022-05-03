@@ -15,6 +15,7 @@ public class AbstractVisitor<R,A> implements AllVisitor<R,A> {
     public R visit(Sample.Absyn.FuncCall p, A arg) { return visitDefault(p, arg); }
     public R visit(Sample.Absyn.Func p, A arg) { return visitDefault(p, arg); }
     public R visit(Sample.Absyn.Return p, A arg) { return visitDefault(p, arg); }
+    public R visit(Sample.Absyn.TypeAscription p, A arg) { return visitDefault(p, arg); }
     public R visit(Sample.Absyn.Not p, A arg) { return visitDefault(p, arg); }
     public R visit(Sample.Absyn.And p, A arg) { return visitDefault(p, arg); }
     public R visit(Sample.Absyn.Or p, A arg) { return visitDefault(p, arg); }
@@ -24,11 +25,15 @@ public class AbstractVisitor<R,A> implements AllVisitor<R,A> {
     public R visit(Sample.Absyn.IsZero p, A arg) { return visitDefault(p, arg); }
 
 
+    public R visit(Sample.Absyn.TypeAliasing p, A arg) { return visitDefault(p, arg); }
+    public R visit(Sample.Absyn.LcTypeAliasing p, A arg) { return visitDefault(p, arg); }
     public R visit(Sample.Absyn.EInt p, A arg) { return visitDefault(p, arg); }
     public R visit(Sample.Absyn.EDouble p, A arg) { return visitDefault(p, arg); }
     public R visit(Sample.Absyn.EStr p, A arg) { return visitDefault(p, arg); }
+
     public R visit(Sample.Absyn.OnlyDecl p, A arg) { return visitDefault(p, arg); }
     public R visit(Sample.Absyn.InitDecl p, A arg) { return visitDefault(p, arg); }
+    public R visit(Sample.Absyn.InitTableDecl p, A arg) { return visitDefault(p, arg); }
 
     public R visitDefault(Sample.Absyn.Expr p, A arg) {
       throw new IllegalArgumentException(this.getClass().getName() + ": " + p);
@@ -49,12 +54,21 @@ public class AbstractVisitor<R,A> implements AllVisitor<R,A> {
     public R visit(Sample.Absyn.UnitType p, A arg) { return visitDefault(p, arg); }
     public R visit(Sample.Absyn.IntType p, A arg) { return visitDefault(p, arg); }
     public R visit(Sample.Absyn.DoubleType p, A arg) { return visitDefault(p, arg); }
+    public R visit(Sample.Absyn.TableType p, A arg) { return visitDefault(p, arg); }
+    public R visit(Sample.Absyn.NilType p, A arg) { return visitDefault(p, arg); }
+    public R visit(Sample.Absyn.VoidType p, A arg) { return visitDefault(p, arg); }
+    public R visit(Sample.Absyn.VarType p, A arg) { return visitDefault(p, arg); }
     public R visitDefault(Sample.Absyn.Type p, A arg) {
+      throw new IllegalArgumentException(this.getClass().getName() + ": " + p);
+    }
+/* TypeKW */
+    public R visit(Sample.Absyn.TypeKeyword p, A arg) { return visitDefault(p, arg); }
+    public R visitDefault(Sample.Absyn.TypeKW p, A arg) {
       throw new IllegalArgumentException(this.getClass().getName() + ": " + p);
     }
 /* Dec */
     public R visit(Sample.Absyn.Declaration p, A arg) { return visitDefault(p, arg); }
-    public R visit(Sample.Absyn.LocalVarDeclaration p, A arg) { return visitDefault(p, arg); }
+    public R visit(Sample.Absyn.LcVarDeclaration p, A arg) { return visitDefault(p, arg); }
     public R visitDefault(Sample.Absyn.Dec p, A arg) {
       throw new IllegalArgumentException(this.getClass().getName() + ": " + p);
     }

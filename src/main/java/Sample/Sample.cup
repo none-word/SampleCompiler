@@ -29,18 +29,24 @@ nonterminal Sample.Absyn.ComaExprs ComaExprs;
 nonterminal Sample.Absyn.FArgs FArgs;
 nonterminal Sample.Absyn.ListDec ListDec;
 nonterminal Sample.Absyn.Type Type;
-nonterminal Sample.Absyn.Expr Expr2;
-nonterminal Sample.Absyn.Dec Dec;
+nonterminal Sample.Absyn.TypeKW TypeKW;
+nonterminal Sample.Absyn.Expr Expr3;
+nonterminal Sample.Absyn.VarKW VarKW;
+nonterminal Sample.Absyn.TAnnot TAnnot;
+nonterminal Sample.Absyn.TAscript TAscript;
+nonterminal Sample.Absyn.Expr Expr4;
 nonterminal Sample.Absyn.Expr Expr1;
+nonterminal Sample.Absyn.Dec Dec;
+nonterminal Sample.Absyn.Expr Expr2;
 
 terminal _SYMB_0;    //   ;
 terminal _SYMB_1;    //   ,
 terminal _SYMB_2;    //   (
 terminal _SYMB_3;    //   )
 terminal _SYMB_4;    //   :
-terminal _SYMB_5;    //   !
-terminal _SYMB_6;    //   0
-terminal _SYMB_7;    //   =
+terminal _SYMB_5;    //   =
+terminal _SYMB_6;    //   !
+terminal _SYMB_7;    //   0
 terminal _SYMB_8;    //   and
 terminal _SYMB_9;    //   boolean
 terminal _SYMB_10;    //   double
@@ -52,15 +58,18 @@ terminal _SYMB_15;    //   if
 terminal _SYMB_16;    //   integer
 terminal _SYMB_17;    //   iszero
 terminal _SYMB_18;    //   local
-terminal _SYMB_19;    //   or
-terminal _SYMB_20;    //   pred
-terminal _SYMB_21;    //   return
-terminal _SYMB_22;    //   string
-terminal _SYMB_23;    //   succ
-terminal _SYMB_24;    //   table
-terminal _SYMB_25;    //   then
-terminal _SYMB_26;    //   true
-terminal _SYMB_27;    //   void
+terminal _SYMB_19;    //   nil
+terminal _SYMB_20;    //   or
+terminal _SYMB_21;    //   pred
+terminal _SYMB_22;    //   return
+terminal _SYMB_23;    //   string
+terminal _SYMB_24;    //   succ
+terminal _SYMB_25;    //   table
+terminal _SYMB_26;    //   then
+terminal _SYMB_27;    //   true
+terminal _SYMB_28;    //   type
+terminal _SYMB_29;    //   var
+terminal _SYMB_30;    //   void
 
 terminal String _STRING_;
 
@@ -83,18 +92,18 @@ ListExpr ::=  /* empty */  {: RESULT = new Sample.Absyn.ListExpr(); :}
   | Expr:p_1 _SYMB_1 ListExpr:p_3  {: RESULT = p_3; p_3.addFirst(p_1); :}
 ;
 Expr ::= _IDENT_:p_1  {: RESULT = new Sample.Absyn.Var(p_1); :} 
-  | _SYMB_26  {: RESULT = new Sample.Absyn.ConstTrue(); :}
+  | _SYMB_27  {: RESULT = new Sample.Absyn.ConstTrue(); :}
   | _SYMB_13  {: RESULT = new Sample.Absyn.ConstFalse(); :}
-  | _SYMB_15 Expr:p_2 _SYMB_25 Program:p_4 _SYMB_11 Program:p_6 _SYMB_12  {: RESULT = new Sample.Absyn.If(p_2,p_4,p_6); :}
+  | _SYMB_15 Expr:p_2 _SYMB_26 Program:p_4 _SYMB_11 Program:p_6 _SYMB_12  {: RESULT = new Sample.Absyn.If(p_2,p_4,p_6); :}
   | _IDENT_:p_1 _SYMB_2 ComaExprs:p_3 _SYMB_3  {: RESULT = new Sample.Absyn.FuncCall(p_1,p_3); :}
   | _SYMB_14 _IDENT_:p_2 _SYMB_2 FArgs:p_4 _SYMB_3 _SYMB_4 Type:p_7 Program:p_8 _SYMB_12  {: RESULT = new Sample.Absyn.Func(p_2,p_4,p_7,p_8); :}
-  | _SYMB_21 Expr:p_2  {: RESULT = new Sample.Absyn.Return(p_2); :}
-  | _SYMB_5 Expr:p_2  {: RESULT = new Sample.Absyn.Not(p_2); :}
+  | _SYMB_22 Expr:p_2  {: RESULT = new Sample.Absyn.Return(p_2); :}
+  | _SYMB_6 Expr:p_2  {: RESULT = new Sample.Absyn.Not(p_2); :}
   | Expr:p_1 _SYMB_8 Expr:p_3  {: RESULT = new Sample.Absyn.And(p_1,p_3); :}
-  | Expr:p_1 _SYMB_19 Expr:p_3  {: RESULT = new Sample.Absyn.Or(p_1,p_3); :}
-  | _SYMB_6  {: RESULT = new Sample.Absyn.ConstZero(); :}
-  | _SYMB_23 Expr:p_2  {: RESULT = new Sample.Absyn.Succ(p_2); :}
-  | _SYMB_20 Expr:p_2  {: RESULT = new Sample.Absyn.Pred(p_2); :}
+  | Expr:p_1 _SYMB_20 Expr:p_3  {: RESULT = new Sample.Absyn.Or(p_1,p_3); :}
+  | _SYMB_7  {: RESULT = new Sample.Absyn.ConstZero(); :}
+  | _SYMB_24 Expr:p_2  {: RESULT = new Sample.Absyn.Succ(p_2); :}
+  | _SYMB_21 Expr:p_2  {: RESULT = new Sample.Absyn.Pred(p_2); :}
   | _SYMB_17 Expr:p_2  {: RESULT = new Sample.Absyn.IsZero(p_2); :}
   | _SYMB_2 Expr:p_2 _SYMB_3  {: RESULT = p_2; :}
   | Expr1:p_1  {: RESULT = p_1; :}
@@ -107,22 +116,45 @@ ListDec ::=  /* empty */  {: RESULT = new Sample.Absyn.ListDec(); :}
   | Dec:p_1  {: RESULT = new Sample.Absyn.ListDec(); RESULT.addLast(p_1); :}
   | Dec:p_1 _SYMB_1 ListDec:p_3  {: RESULT = p_3; p_3.addFirst(p_1); :}
 ;
-Type ::= _SYMB_22  {: RESULT = new Sample.Absyn.StringType(); :} 
+Type ::= _SYMB_23  {: RESULT = new Sample.Absyn.StringType(); :} 
   | _SYMB_9  {: RESULT = new Sample.Absyn.BoolType(); :}
-  | _SYMB_27  {: RESULT = new Sample.Absyn.UnitType(); :}
+  | _SYMB_30  {: RESULT = new Sample.Absyn.UnitType(); :}
   | _SYMB_16  {: RESULT = new Sample.Absyn.IntType(); :}
   | _SYMB_10  {: RESULT = new Sample.Absyn.DoubleType(); :}
-  | _SYMB_24  {: RESULT = new Sample.Absyn.TableType(); :}
+  | _SYMB_25  {: RESULT = new Sample.Absyn.TableType(); :}
+  | _SYMB_19  {: RESULT = new Sample.Absyn.NilType(); :}
+  | _SYMB_30  {: RESULT = new Sample.Absyn.VoidType(); :}
 ;
-Expr2 ::= _INTEGER_:p_1  {: RESULT = new Sample.Absyn.EInt(p_1); :} 
+TypeKW ::= _SYMB_28  {: RESULT = new Sample.Absyn.TypeKeyword(); :} 
+;
+Expr3 ::= _IDENT_:p_1 _SYMB_4 TypeKW:p_3 _SYMB_5 Type:p_5  {: RESULT = new Sample.Absyn.TypeAliasing(p_1,p_3,p_5); :} 
+  | _SYMB_18 _IDENT_:p_2 _SYMB_4 TypeKW:p_4 _SYMB_5 Type:p_6  {: RESULT = new Sample.Absyn.LcTypeAliasing(p_2,p_4,p_6); :}
+  | _IDENT_:p_1 TAnnot:p_2 _SYMB_5 Expr:p_4  {: RESULT = new Sample.Absyn.VarTypeAnnotation(p_1,p_2,p_4); :}
+  | _SYMB_18 _IDENT_:p_2 TAnnot:p_3 _SYMB_5 Expr:p_5  {: RESULT = new Sample.Absyn.LcVarTypeAnnotation(p_2,p_3,p_5); :}
+  | _SYMB_14 _IDENT_:p_2 _SYMB_2 FArgs:p_4 _SYMB_3 TAnnot:p_6 Program:p_7 _SYMB_12  {: RESULT = new Sample.Absyn.FuncTypeAnnotation(p_2,p_4,p_6,p_7); :}
+  | Expr4:p_1  {: RESULT = p_1; :}
+;
+VarKW ::= _SYMB_29  {: RESULT = new Sample.Absyn.VarKeyword(); :} 
+;
+TAnnot ::= _SYMB_4 VarKW:p_2  {: RESULT = new Sample.Absyn.TypeAnnotation(p_2); :} 
+;
+TAscript ::= TAnnot:p_1 _SYMB_2 Type:p_3 _SYMB_3  {: RESULT = new Sample.Absyn.TypeAscription(p_1,p_3); :} 
+;
+Expr4 ::= _IDENT_:p_1 TAscript:p_2 _SYMB_5 Expr:p_4  {: RESULT = new Sample.Absyn.VarTypeAscription(p_1,p_2,p_4); :} 
+  | _SYMB_18 _IDENT_:p_2 TAscript:p_3 _SYMB_5 Expr:p_5  {: RESULT = new Sample.Absyn.LcVarTypeAscription(p_2,p_3,p_5); :}
+  | _SYMB_14 _IDENT_:p_2 _SYMB_2 FArgs:p_4 _SYMB_3 TAscript:p_6 Program:p_7 _SYMB_12  {: RESULT = new Sample.Absyn.FuncTypeAscription(p_2,p_4,p_6,p_7); :}
+;
+Expr1 ::= _INTEGER_:p_1  {: RESULT = new Sample.Absyn.EInt(p_1); :} 
   | _DOUBLE_:p_1  {: RESULT = new Sample.Absyn.EDouble(p_1); :}
   | _STRING_:p_1  {: RESULT = new Sample.Absyn.EStr(p_1); :}
+  | Expr2:p_1  {: RESULT = p_1; :}
 ;
 Dec ::= _IDENT_:p_1 _SYMB_4 Type:p_3  {: RESULT = new Sample.Absyn.Declaration(p_1,p_3); :} 
-  | _SYMB_18 _IDENT_:p_2 _SYMB_4 Type:p_4  {: RESULT = new Sample.Absyn.LocalVarDeclaration(p_2,p_4); :}
+  | _SYMB_18 _IDENT_:p_2 _SYMB_4 Type:p_4  {: RESULT = new Sample.Absyn.LcVarDeclaration(p_2,p_4); :}
 ;
-Expr1 ::= Dec:p_1  {: RESULT = new Sample.Absyn.OnlyDecl(p_1); :} 
-  | Dec:p_1 _SYMB_7 Expr:p_3  {: RESULT = new Sample.Absyn.InitDecl(p_1,p_3); :}
-  | Expr2:p_1  {: RESULT = p_1; :}
+Expr2 ::= Dec:p_1  {: RESULT = new Sample.Absyn.OnlyDecl(p_1); :} 
+  | Dec:p_1 _SYMB_5 Expr:p_3  {: RESULT = new Sample.Absyn.InitDecl(p_1,p_3); :}
+  | Dec:p_1 _SYMB_5 _SYMB_2 Dec:p_4 _SYMB_1 Dec:p_6 _SYMB_3  {: RESULT = new Sample.Absyn.InitTableDecl(p_1,p_4,p_6); :}
+  | Expr3:p_1  {: RESULT = p_1; :}
 ;
 

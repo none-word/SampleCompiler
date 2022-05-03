@@ -23,7 +23,7 @@ public class Test
     p = new parser(l);
     /* The default parser is the first-defined entry point. */
     /* You may want to change this. Other options are: */
-    /* pListExpr, pExpr, pComaExprs, pFArgs, pListDec, pFunct, pType,
+    /* pListExpr, pExpr, pComaExprs, pFArgs, pListDec, pType, pTypeKW,
        pDec */
     try
     {

@@ -93,6 +93,58 @@ public abstract class FoldVisitor<R,A> implements AllVisitor<R,A> {
       r = combine(p.expr_.accept(this, arg), r, arg);
       return r;
     }
+    public R visit(Sample.Absyn.TypeAliasing p, A arg) {
+      R r = leaf(arg);
+      r = combine(p.typekw_.accept(this, arg), r, arg);
+      r = combine(p.type_.accept(this, arg), r, arg);
+      return r;
+    }
+    public R visit(Sample.Absyn.LcTypeAliasing p, A arg) {
+      R r = leaf(arg);
+      r = combine(p.typekw_.accept(this, arg), r, arg);
+      r = combine(p.type_.accept(this, arg), r, arg);
+      return r;
+    }
+    public R visit(Sample.Absyn.VarTypeAnnotation p, A arg) {
+      R r = leaf(arg);
+      r = combine(p.tannot_.accept(this, arg), r, arg);
+      r = combine(p.expr_.accept(this, arg), r, arg);
+      return r;
+    }
+    public R visit(Sample.Absyn.LcVarTypeAnnotation p, A arg) {
+      R r = leaf(arg);
+      r = combine(p.tannot_.accept(this, arg), r, arg);
+      r = combine(p.expr_.accept(this, arg), r, arg);
+      return r;
+    }
+    public R visit(Sample.Absyn.FuncTypeAnnotation p, A arg) {
+      R r = leaf(arg);
+      r = combine(p.tannot_.accept(this, arg), r, arg);
+      r = combine(p.fargs_.accept(this, arg), r, arg);
+      r = combine(p.type_.accept(this, arg), r, arg);
+      r = combine(p.program_.accept(this, arg), r, arg);
+      return r;
+    }
+    public R visit(Sample.Absyn.VarTypeAscription p, A arg) {
+      R r = leaf(arg);
+      r = combine(p.tascript_.accept(this, arg), r, arg);
+      r = combine(p.expr_.accept(this, arg), r, arg);
+      return r;
+    }
+    public R visit(Sample.Absyn.LcVarTypeAscription p, A arg) {
+      R r = leaf(arg);
+      r = combine(p.tascript_.accept(this, arg), r, arg);
+      r = combine(p.expr_.accept(this, arg), r, arg);
+      return r;
+    }
+    public R visit(Sample.Absyn.FuncTypeAscription p, A arg) {
+      R r = leaf(arg);
+      r = combine(p.tascript_.accept(this, arg), r, arg);
+      r = combine(p.fargs_.accept(this, arg), r, arg);
+      r = combine(p.type_.accept(this, arg), r, arg);
+      r = combine(p.program_.accept(this, arg), r, arg);
+      return r;
+    }
     public R visit(Sample.Absyn.EInt p, A arg) {
       R r = leaf(arg);
       return r;
@@ -114,6 +166,13 @@ public abstract class FoldVisitor<R,A> implements AllVisitor<R,A> {
       R r = leaf(arg);
       r = combine(p.dec_.accept(this, arg), r, arg);
       r = combine(p.expr_.accept(this, arg), r, arg);
+      return r;
+    }
+    public R visit(Sample.Absyn.InitTableDecl p, A arg) {
+      R r = leaf(arg);
+      r = combine(p.dec_1.accept(this, arg), r, arg);
+      r = combine(p.dec_2.accept(this, arg), r, arg);
+      r = combine(p.dec_3.accept(this, arg), r, arg);
       return r;
     }
 
@@ -158,6 +217,45 @@ public abstract class FoldVisitor<R,A> implements AllVisitor<R,A> {
       R r = leaf(arg);
       return r;
     }
+    public R visit(Sample.Absyn.TableType p, A arg) {
+      R r = leaf(arg);
+      return r;
+    }
+    public R visit(Sample.Absyn.NilType p, A arg) {
+      R r = leaf(arg);
+      return r;
+    }
+    public R visit(Sample.Absyn.VoidType p, A arg) {
+      R r = leaf(arg);
+      return r;
+    }
+
+/* TypeKW */
+    public R visit(Sample.Absyn.TypeKeyword p, A arg) {
+      R r = leaf(arg);
+      return r;
+    }
+
+/* VarKW */
+    public R visit(Sample.Absyn.VarKeyword p, A arg) {
+      R r = leaf(arg);
+      return r;
+    }
+
+/* TAnnot */
+    public R visit(Sample.Absyn.TypeAnnotation p, A arg) {
+      R r = leaf(arg);
+      r = combine(p.varkw_.accept(this, arg), r, arg);
+      return r;
+    }
+
+/* TAscript */
+    public R visit(Sample.Absyn.TypeAscription p, A arg) {
+      R r = leaf(arg);
+      r = combine(p.tannot_.accept(this, arg), r, arg);
+      r = combine(p.type_.accept(this, arg), r, arg);
+      return r;
+    }
 
 /* Dec */
     public R visit(Sample.Absyn.Declaration p, A arg) {
@@ -165,7 +263,7 @@ public abstract class FoldVisitor<R,A> implements AllVisitor<R,A> {
       r = combine(p.type_.accept(this, arg), r, arg);
       return r;
     }
-    public R visit(Sample.Absyn.LocalVarDeclaration p, A arg) {
+    public R visit(Sample.Absyn.LcVarDeclaration p, A arg) {
       R r = leaf(arg);
       r = combine(p.type_.accept(this, arg), r, arg);
       return r;

@@ -4,7 +4,7 @@ public abstract class Dec implements java.io.Serializable {
   public abstract <R,A> R accept(Dec.Visitor<R,A> v, A arg);
   public interface Visitor <R,A> {
     public R visit(Sample.Absyn.Declaration p, A arg);
-    public R visit(Sample.Absyn.LocalVarDeclaration p, A arg);
+    public R visit(Sample.Absyn.LcVarDeclaration p, A arg);
 
   }
 

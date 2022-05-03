@@ -81,7 +81,53 @@ public class VisitSkel
     { /* Code For IsZero Goes Here */
       p.expr_.accept(new ExprVisitor<R,A>(), arg);
       return null;
-    }            public R visit(Sample.Absyn.EInt p, A arg)
+    }            public R visit(Sample.Absyn.TypeAliasing p, A arg)
+    { /* Code For TypeAliasing Goes Here */
+      //p.ident_;
+      p.typekw_.accept(new TypeKWVisitor<R,A>(), arg);
+      p.type_.accept(new TypeVisitor<R,A>(), arg);
+      return null;
+    }    public R visit(Sample.Absyn.LcTypeAliasing p, A arg)
+    { /* Code For LcTypeAliasing Goes Here */
+      //p.ident_;
+      p.typekw_.accept(new TypeKWVisitor<R,A>(), arg);
+      p.type_.accept(new TypeVisitor<R,A>(), arg);
+      return null;
+    }    public R visit(Sample.Absyn.VarTypeAnnotation p, A arg)
+    { /* Code For VarTypeAnnotation Goes Here */
+      p.tannot_.accept(new TAnnotVisitor<R,A>(), arg);
+      p.expr_.accept(new ExprVisitor<R,A>(), arg);
+      return null;
+    }    public R visit(Sample.Absyn.LcVarTypeAnnotation p, A arg)
+    { /* Code For LcVarTypeAnnotation Goes Here */
+      p.tannot_.accept(new TAnnotVisitor<R,A>(), arg);
+      p.expr_.accept(new ExprVisitor<R,A>(), arg);
+      return null;
+    }    public R visit(Sample.Absyn.FuncTypeAnnotation p, A arg)
+    { /* Code For FuncTypeAnnotation Goes Here */
+      //p.ident_;
+      p.fargs_.accept(new FArgsVisitor<R,A>(), arg);
+      p.tannot_.accept(new TAnnotVisitor<R,A>(), arg);
+      p.program_.accept(new ProgramVisitor<R,A>(), arg);
+      return null;
+    }        public R visit(Sample.Absyn.VarTypeAscription p, A arg)
+    { /* Code For VarTypeAscription Goes Here */
+      p.tascript_.accept(new TAscriptVisitor<R,A>(), arg);
+      p.expr_.accept(new ExprVisitor<R,A>(), arg);
+      return null;
+    }    public R visit(Sample.Absyn.LcVarTypeAscription p, A arg)
+    { /* Code For LcVarTypeAscription Goes Here */
+      p.tascript_.accept(new TAscriptVisitor<R,A>(), arg);
+      p.expr_.accept(new ExprVisitor<R,A>(), arg);
+      return null;
+    }    public R visit(Sample.Absyn.FuncTypeAscription p, A arg)
+    { /* Code For FuncTypeAscription Goes Here */
+      //p.ident_;
+      p.fargs_.accept(new FArgsVisitor<R,A>(), arg);
+      p.tascript_.accept(new TAscriptVisitor<R,A>(), arg);
+      p.program_.accept(new ProgramVisitor<R,A>(), arg);
+      return null;
+    }    public R visit(Sample.Absyn.EInt p, A arg)
     { /* Code For EInt Goes Here */
       //p.integer_;
       return null;
@@ -93,7 +139,7 @@ public class VisitSkel
     { /* Code For EStr Goes Here */
       //p.string_;
       return null;
-    }    public R visit(Sample.Absyn.OnlyDecl p, A arg)
+    }        public R visit(Sample.Absyn.OnlyDecl p, A arg)
     { /* Code For OnlyDecl Goes Here */
       p.dec_.accept(new DecVisitor<R,A>(), arg);
       return null;
@@ -101,6 +147,12 @@ public class VisitSkel
     { /* Code For InitDecl Goes Here */
       p.dec_.accept(new DecVisitor<R,A>(), arg);
       p.expr_.accept(new ExprVisitor<R,A>(), arg);
+      return null;
+    }    public R visit(Sample.Absyn.InitTableDecl p, A arg)
+    { /* Code For InitTableDecl Goes Here */
+      p.dec_1.accept(new DecVisitor<R,A>(), arg);
+      p.dec_2.accept(new DecVisitor<R,A>(), arg);
+      p.dec_3.accept(new DecVisitor<R,A>(), arg);
       return null;
     }    
   }
@@ -139,6 +191,47 @@ public class VisitSkel
     }    public R visit(Sample.Absyn.DoubleType p, A arg)
     { /* Code For DoubleType Goes Here */
       return null;
+    }    public R visit(Sample.Absyn.TableType p, A arg)
+    { /* Code For TableType Goes Here */
+      return null;
+    }    public R visit(Sample.Absyn.NilType p, A arg)
+    { /* Code For NilType Goes Here */
+      return null;
+    }    public R visit(Sample.Absyn.VoidType p, A arg)
+    { /* Code For VoidType Goes Here */
+      return null;
+    }
+  }
+  public class TypeKWVisitor<R,A> implements TypeKW.Visitor<R,A>
+  {
+    public R visit(Sample.Absyn.TypeKeyword p, A arg)
+    { /* Code For TypeKeyword Goes Here */
+      return null;
+    }
+  }
+  public class VarKWVisitor<R,A> implements VarKW.Visitor<R,A>
+  {
+    public R visit(Sample.Absyn.VarKeyword p, A arg)
+    { /* Code For VarKeyword Goes Here */
+      return null;
+    }
+  }
+  public class TAnnotVisitor<R,A> implements TAnnot.Visitor<R,A>
+  {
+    public R visit(Sample.Absyn.TypeAnnotation p, A arg)
+    { /* Code For TypeAnnotation Goes Here */
+      //p.ident_;
+      p.varkw_.accept(new VarKWVisitor<R,A>(), arg);
+      return null;
+    }
+  }
+  public class TAscriptVisitor<R,A> implements TAscript.Visitor<R,A>
+  {
+    public R visit(Sample.Absyn.TypeAscription p, A arg)
+    { /* Code For TypeAscription Goes Here */
+      p.tannot_.accept(new TAnnotVisitor<R,A>(), arg);
+      p.type_.accept(new TypeVisitor<R,A>(), arg);
+      return null;
     }
   }
   public class DecVisitor<R,A> implements Dec.Visitor<R,A>
@@ -148,8 +241,8 @@ public class VisitSkel
       //p.ident_;
       p.type_.accept(new TypeVisitor<R,A>(), arg);
       return null;
-    }    public R visit(Sample.Absyn.LocalVarDeclaration p, A arg)
-    { /* Code For LocalVarDeclaration Goes Here */
+    }    public R visit(Sample.Absyn.LcVarDeclaration p, A arg)
+    { /* Code For LcVarDeclaration Goes Here */
       //p.ident_;
       p.type_.accept(new TypeVisitor<R,A>(), arg);
       return null;
