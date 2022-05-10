@@ -11,10 +11,9 @@ public class Interpreter {
     }
 
     public void run(){
-        java_cup.runtime.Scanner();
-        var p = new parser(sc);
+        var p = new parser();
         try {
-            var p = parser.pProgram();
+            sample.Absyn.Program program = p.pProgram();
         }
         catch (Exception e){
             System.out.println("Parse error in line " + e.getMessage());
