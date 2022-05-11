@@ -5,11 +5,16 @@ plugins {
 
 repositories {
     mavenCentral()
+
+    maven {
+        url "https://plugins.gradle.org/m2/"
+    }
 }
 
 dependencies {
     testImplementation(platform('org.junit:junit-bom:5.7.0'))
     testImplementation('org.junit.jupiter:junit-jupiter')
+    implementation group: 'com.github.vbmacher', name: 'java-cup-runtime', version: '11b-20160615'
 }
 
 test {
