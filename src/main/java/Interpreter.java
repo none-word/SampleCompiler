@@ -1,39 +1,39 @@
+import sample.Yylex;
 import sample.parser;
 
-import java.util.Scanner;
-import java_cup.runtime.*;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 
 public class Interpreter {
-    private String program;
+    private final String programFilePath;
 
-    public Interpreter(String program) {
-        this.program = program;
+    public Interpreter(String programFilePath) {
+        this.programFilePath = programFilePath;
     }
 
     public void run(){
-        var p = new parser();
+
+        Yylex l = null;
+        parser parser;
+        try
+        {
+            l = new Yylex(new FileReader(programFilePath));
+        }
+        catch(FileNotFoundException e)
+        {
+            System.err.println("Error: File not found: " + programFilePath);
+            System.exit(1);
+        }
+
+        parser = new parser(l);
         try {
-            sample.Absyn.Program program = p.pProgram();
+            sample.Absyn.Program ast = parser.pProgram();
+            System.out.println(sample.PrettyPrinter.show(ast));
         }
         catch (Exception e){
             System.out.println("Parse error in line " + e.getMessage());
         }
 
-        /* create a parsing object */
-        parser parser_obj = new parser();
 
-        /* open input files, etc. here */
-        Symbol parse_tree = null;
-
-        try {
-            if (do_debug_parse)
-                parse_tree = parser_obj.debug_parse();
-            else
-                parse_tree = parser_obj.parse();
-        } catch (Exception e) {
-            /* do cleanup here - - possibly rethrow e */
-        } finally {
-            /* do close out here */
-        }
     }
 }
