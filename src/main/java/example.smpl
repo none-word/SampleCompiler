@@ -8,7 +8,6 @@ x3 : string = "fff";
 if (y and z)
 then
     add(a, v, d);
-    add(d, r);
 else
     true;
 end;

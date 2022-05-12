@@ -1,7 +1,7 @@
-package sample;
+package Sample;
 import java_cup.runtime.*;
-import sample.*;
-import sample.Absyn.*;
+import Sample.*;
+import Sample.Absyn.*;
 import java.io.*;
 
 public class Test
@@ -27,7 +27,7 @@ public class Test
        pVarKW, pTAnnot, pTAscript, pDec */
     try
     {
-      sample.Absyn.Program parse_tree = p.pProgram();
+      Sample.Absyn.Program parse_tree = p.pProgram();
       System.out.println();
       System.out.println("Parse Succesful!");
       System.out.println();

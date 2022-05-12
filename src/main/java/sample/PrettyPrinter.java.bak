@@ -1,5 +1,5 @@
-package sample;
-import sample.Absyn.*;
+package Sample;
+import Sample.Absyn.*;
 
 public class PrettyPrinter
 {
@@ -63,7 +63,7 @@ public class PrettyPrinter
 
 
   //  print and show methods are defined for each category.
-  public static String print(sample.Absyn.Program foo)
+  public static String print(Sample.Absyn.Program foo)
   {
     pp(foo, 0);
     trim();
@@ -71,14 +71,14 @@ public class PrettyPrinter
     buf_.delete(0,buf_.length());
     return temp;
   }
-  public static String show(sample.Absyn.Program foo)
+  public static String show(Sample.Absyn.Program foo)
   {
     sh(foo);
     String temp = buf_.toString();
     buf_.delete(0,buf_.length());
     return temp;
   }
-  public static String print(sample.Absyn.ListExpr foo)
+  public static String print(Sample.Absyn.ListExpr foo)
   {
     pp(foo, 0);
     trim();
@@ -86,14 +86,14 @@ public class PrettyPrinter
     buf_.delete(0,buf_.length());
     return temp;
   }
-  public static String show(sample.Absyn.ListExpr foo)
+  public static String show(Sample.Absyn.ListExpr foo)
   {
     sh(foo);
     String temp = buf_.toString();
     buf_.delete(0,buf_.length());
     return temp;
   }
-  public static String print(sample.Absyn.Expr foo)
+  public static String print(Sample.Absyn.Expr foo)
   {
     pp(foo, 0);
     trim();
@@ -101,14 +101,14 @@ public class PrettyPrinter
     buf_.delete(0,buf_.length());
     return temp;
   }
-  public static String show(sample.Absyn.Expr foo)
+  public static String show(Sample.Absyn.Expr foo)
   {
     sh(foo);
     String temp = buf_.toString();
     buf_.delete(0,buf_.length());
     return temp;
   }
-  public static String print(sample.Absyn.ComaExprs foo)
+  public static String print(Sample.Absyn.ComaExprs foo)
   {
     pp(foo, 0);
     trim();
@@ -116,14 +116,14 @@ public class PrettyPrinter
     buf_.delete(0,buf_.length());
     return temp;
   }
-  public static String show(sample.Absyn.ComaExprs foo)
+  public static String show(Sample.Absyn.ComaExprs foo)
   {
     sh(foo);
     String temp = buf_.toString();
     buf_.delete(0,buf_.length());
     return temp;
   }
-  public static String print(sample.Absyn.FArgs foo)
+  public static String print(Sample.Absyn.FArgs foo)
   {
     pp(foo, 0);
     trim();
@@ -131,14 +131,14 @@ public class PrettyPrinter
     buf_.delete(0,buf_.length());
     return temp;
   }
-  public static String show(sample.Absyn.FArgs foo)
+  public static String show(Sample.Absyn.FArgs foo)
   {
     sh(foo);
     String temp = buf_.toString();
     buf_.delete(0,buf_.length());
     return temp;
   }
-  public static String print(sample.Absyn.ListDec foo)
+  public static String print(Sample.Absyn.ListDec foo)
   {
     pp(foo, 0);
     trim();
@@ -146,14 +146,14 @@ public class PrettyPrinter
     buf_.delete(0,buf_.length());
     return temp;
   }
-  public static String show(sample.Absyn.ListDec foo)
+  public static String show(Sample.Absyn.ListDec foo)
   {
     sh(foo);
     String temp = buf_.toString();
     buf_.delete(0,buf_.length());
     return temp;
   }
-  public static String print(sample.Absyn.Type foo)
+  public static String print(Sample.Absyn.Type foo)
   {
     pp(foo, 0);
     trim();
@@ -161,14 +161,14 @@ public class PrettyPrinter
     buf_.delete(0,buf_.length());
     return temp;
   }
-  public static String show(sample.Absyn.Type foo)
+  public static String show(Sample.Absyn.Type foo)
   {
     sh(foo);
     String temp = buf_.toString();
     buf_.delete(0,buf_.length());
     return temp;
   }
-  public static String print(sample.Absyn.TypeKW foo)
+  public static String print(Sample.Absyn.TypeKW foo)
   {
     pp(foo, 0);
     trim();
@@ -176,14 +176,14 @@ public class PrettyPrinter
     buf_.delete(0,buf_.length());
     return temp;
   }
-  public static String show(sample.Absyn.TypeKW foo)
+  public static String show(Sample.Absyn.TypeKW foo)
   {
     sh(foo);
     String temp = buf_.toString();
     buf_.delete(0,buf_.length());
     return temp;
   }
-  public static String print(sample.Absyn.VarKW foo)
+  public static String print(Sample.Absyn.VarKW foo)
   {
     pp(foo, 0);
     trim();
@@ -191,14 +191,14 @@ public class PrettyPrinter
     buf_.delete(0,buf_.length());
     return temp;
   }
-  public static String show(sample.Absyn.VarKW foo)
+  public static String show(Sample.Absyn.VarKW foo)
   {
     sh(foo);
     String temp = buf_.toString();
     buf_.delete(0,buf_.length());
     return temp;
   }
-  public static String print(sample.Absyn.TAnnot foo)
+  public static String print(Sample.Absyn.TAnnot foo)
   {
     pp(foo, 0);
     trim();
@@ -206,14 +206,14 @@ public class PrettyPrinter
     buf_.delete(0,buf_.length());
     return temp;
   }
-  public static String show(sample.Absyn.TAnnot foo)
+  public static String show(Sample.Absyn.TAnnot foo)
   {
     sh(foo);
     String temp = buf_.toString();
     buf_.delete(0,buf_.length());
     return temp;
   }
-  public static String print(sample.Absyn.TAscript foo)
+  public static String print(Sample.Absyn.TAscript foo)
   {
     pp(foo, 0);
     trim();
@@ -221,14 +221,14 @@ public class PrettyPrinter
     buf_.delete(0,buf_.length());
     return temp;
   }
-  public static String show(sample.Absyn.TAscript foo)
+  public static String show(Sample.Absyn.TAscript foo)
   {
     sh(foo);
     String temp = buf_.toString();
     buf_.delete(0,buf_.length());
     return temp;
   }
-  public static String print(sample.Absyn.Dec foo)
+  public static String print(Sample.Absyn.Dec foo)
   {
     pp(foo, 0);
     trim();
@@ -236,7 +236,7 @@ public class PrettyPrinter
     buf_.delete(0,buf_.length());
     return temp;
   }
-  public static String show(sample.Absyn.Dec foo)
+  public static String show(Sample.Absyn.Dec foo)
   {
     sh(foo);
     String temp = buf_.toString();
@@ -245,18 +245,18 @@ public class PrettyPrinter
   }
   /***   You shouldn't need to change anything beyond this point.   ***/
 
-  private static void pp(sample.Absyn.Program foo, int _i_)
+  private static void pp(Sample.Absyn.Program foo, int _i_)
   {
-    if (foo instanceof sample.Absyn.ProgramExprs)
+    if (foo instanceof Sample.Absyn.ProgramExprs)
     {
-       sample.Absyn.ProgramExprs _programexprs = (sample.Absyn.ProgramExprs) foo;
+       Sample.Absyn.ProgramExprs _programexprs = (Sample.Absyn.ProgramExprs) foo;
        if (_i_ > 0) render(_L_PAREN);
        pp(_programexprs.listexpr_, 0);
        if (_i_ > 0) render(_R_PAREN);
     }
   }
 
-  private static void pp(sample.Absyn.ListExpr foo, int _i_)
+  private static void pp(Sample.Absyn.ListExpr foo, int _i_)
   {
      for (java.util.Iterator<Expr> it = foo.iterator(); it.hasNext();)
      {
@@ -268,45 +268,47 @@ public class PrettyPrinter
        }
      }  }
 
-  private static void pp(sample.Absyn.Expr foo, int _i_)
+  private static void pp(Sample.Absyn.Expr foo, int _i_)
   {
-    if (foo instanceof sample.Absyn.Var)
+    if (foo instanceof Sample.Absyn.Var)
     {
-       sample.Absyn.Var _var = (sample.Absyn.Var) foo;
+       Sample.Absyn.Var _var = (Sample.Absyn.Var) foo;
        if (_i_ > 0) render(_L_PAREN);
        pp(_var.ident_, 0);
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof sample.Absyn.ConstTrue)
+    else     if (foo instanceof Sample.Absyn.ConstTrue)
     {
-       sample.Absyn.ConstTrue _consttrue = (sample.Absyn.ConstTrue) foo;
+       Sample.Absyn.ConstTrue _consttrue = (Sample.Absyn.ConstTrue) foo;
        if (_i_ > 0) render(_L_PAREN);
        render("true");
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof sample.Absyn.ConstFalse)
+    else     if (foo instanceof Sample.Absyn.ConstFalse)
     {
-       sample.Absyn.ConstFalse _constfalse = (sample.Absyn.ConstFalse) foo;
+       Sample.Absyn.ConstFalse _constfalse = (Sample.Absyn.ConstFalse) foo;
        if (_i_ > 0) render(_L_PAREN);
        render("false");
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof sample.Absyn.If)
+    else     if (foo instanceof Sample.Absyn.If)
     {
-       sample.Absyn.If _if = (sample.Absyn.If) foo;
+       Sample.Absyn.If _if = (Sample.Absyn.If) foo;
        if (_i_ > 0) render(_L_PAREN);
        render("if");
-       pp(_if.expr_, 0);
+       pp(_if.expr_1, 0);
        render("then");
-       pp(_if.program_1, 0);
+       pp(_if.expr_2, 0);
+       render(";");
        render("else");
-       pp(_if.program_2, 0);
+       pp(_if.expr_3, 0);
+       render(";");
        render("end");
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof sample.Absyn.FuncCall)
+    else     if (foo instanceof Sample.Absyn.FuncCall)
     {
-       sample.Absyn.FuncCall _funccall = (sample.Absyn.FuncCall) foo;
+       Sample.Absyn.FuncCall _funccall = (Sample.Absyn.FuncCall) foo;
        if (_i_ > 0) render(_L_PAREN);
        pp(_funccall.ident_, 0);
        render("(");
@@ -314,9 +316,9 @@ public class PrettyPrinter
        render(")");
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof sample.Absyn.Func)
+    else     if (foo instanceof Sample.Absyn.Func)
     {
-       sample.Absyn.Func _func = (sample.Absyn.Func) foo;
+       Sample.Absyn.Func _func = (Sample.Absyn.Func) foo;
        if (_i_ > 0) render(_L_PAREN);
        render("function");
        pp(_func.ident_, 0);
@@ -329,74 +331,74 @@ public class PrettyPrinter
        render("end");
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof sample.Absyn.Return)
+    else     if (foo instanceof Sample.Absyn.Return)
     {
-       sample.Absyn.Return _return = (sample.Absyn.Return) foo;
+       Sample.Absyn.Return _return = (Sample.Absyn.Return) foo;
        if (_i_ > 0) render(_L_PAREN);
        render("return");
        pp(_return.expr_, 0);
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof sample.Absyn.Not)
+    else     if (foo instanceof Sample.Absyn.Not)
     {
-       sample.Absyn.Not _not = (sample.Absyn.Not) foo;
+       Sample.Absyn.Not _not = (Sample.Absyn.Not) foo;
        if (_i_ > 0) render(_L_PAREN);
        render("!");
        pp(_not.expr_, 0);
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof sample.Absyn.And)
+    else     if (foo instanceof Sample.Absyn.And)
     {
-       sample.Absyn.And _and = (sample.Absyn.And) foo;
+       Sample.Absyn.And _and = (Sample.Absyn.And) foo;
        if (_i_ > 0) render(_L_PAREN);
        pp(_and.expr_1, 0);
        render("and");
        pp(_and.expr_2, 0);
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof sample.Absyn.Or)
+    else     if (foo instanceof Sample.Absyn.Or)
     {
-       sample.Absyn.Or _or = (sample.Absyn.Or) foo;
+       Sample.Absyn.Or _or = (Sample.Absyn.Or) foo;
        if (_i_ > 0) render(_L_PAREN);
        pp(_or.expr_1, 0);
        render("or");
        pp(_or.expr_2, 0);
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof sample.Absyn.ConstZero)
+    else     if (foo instanceof Sample.Absyn.ConstZero)
     {
-       sample.Absyn.ConstZero _constzero = (sample.Absyn.ConstZero) foo;
+       Sample.Absyn.ConstZero _constzero = (Sample.Absyn.ConstZero) foo;
        if (_i_ > 0) render(_L_PAREN);
        render("0");
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof sample.Absyn.Succ)
+    else     if (foo instanceof Sample.Absyn.Succ)
     {
-       sample.Absyn.Succ _succ = (sample.Absyn.Succ) foo;
+       Sample.Absyn.Succ _succ = (Sample.Absyn.Succ) foo;
        if (_i_ > 0) render(_L_PAREN);
        render("succ");
        pp(_succ.expr_, 0);
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof sample.Absyn.Pred)
+    else     if (foo instanceof Sample.Absyn.Pred)
     {
-       sample.Absyn.Pred _pred = (sample.Absyn.Pred) foo;
+       Sample.Absyn.Pred _pred = (Sample.Absyn.Pred) foo;
        if (_i_ > 0) render(_L_PAREN);
        render("pred");
        pp(_pred.expr_, 0);
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof sample.Absyn.IsZero)
+    else     if (foo instanceof Sample.Absyn.IsZero)
     {
-       sample.Absyn.IsZero _iszero = (sample.Absyn.IsZero) foo;
+       Sample.Absyn.IsZero _iszero = (Sample.Absyn.IsZero) foo;
        if (_i_ > 0) render(_L_PAREN);
        render("iszero");
        pp(_iszero.expr_, 0);
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof sample.Absyn.TypeAliasing)
+    else     if (foo instanceof Sample.Absyn.TypeAliasing)
     {
-       sample.Absyn.TypeAliasing _typealiasing = (sample.Absyn.TypeAliasing) foo;
+       Sample.Absyn.TypeAliasing _typealiasing = (Sample.Absyn.TypeAliasing) foo;
        if (_i_ > 3) render(_L_PAREN);
        pp(_typealiasing.ident_, 0);
        render(":");
@@ -405,9 +407,9 @@ public class PrettyPrinter
        pp(_typealiasing.type_, 0);
        if (_i_ > 3) render(_R_PAREN);
     }
-    else     if (foo instanceof sample.Absyn.LcTypeAliasing)
+    else     if (foo instanceof Sample.Absyn.LcTypeAliasing)
     {
-       sample.Absyn.LcTypeAliasing _lctypealiasing = (sample.Absyn.LcTypeAliasing) foo;
+       Sample.Absyn.LcTypeAliasing _lctypealiasing = (Sample.Absyn.LcTypeAliasing) foo;
        if (_i_ > 3) render(_L_PAREN);
        render("local");
        pp(_lctypealiasing.ident_, 0);
@@ -417,9 +419,9 @@ public class PrettyPrinter
        pp(_lctypealiasing.type_, 0);
        if (_i_ > 3) render(_R_PAREN);
     }
-    else     if (foo instanceof sample.Absyn.VarTypeAnnotation)
+    else     if (foo instanceof Sample.Absyn.VarTypeAnnotation)
     {
-       sample.Absyn.VarTypeAnnotation _vartypeannotation = (sample.Absyn.VarTypeAnnotation) foo;
+       Sample.Absyn.VarTypeAnnotation _vartypeannotation = (Sample.Absyn.VarTypeAnnotation) foo;
        if (_i_ > 3) render(_L_PAREN);
        pp(_vartypeannotation.ident_, 0);
        pp(_vartypeannotation.tannot_, 0);
@@ -427,9 +429,9 @@ public class PrettyPrinter
        pp(_vartypeannotation.expr_, 0);
        if (_i_ > 3) render(_R_PAREN);
     }
-    else     if (foo instanceof sample.Absyn.LcVarTypeAnnotation)
+    else     if (foo instanceof Sample.Absyn.LcVarTypeAnnotation)
     {
-       sample.Absyn.LcVarTypeAnnotation _lcvartypeannotation = (sample.Absyn.LcVarTypeAnnotation) foo;
+       Sample.Absyn.LcVarTypeAnnotation _lcvartypeannotation = (Sample.Absyn.LcVarTypeAnnotation) foo;
        if (_i_ > 3) render(_L_PAREN);
        render("local");
        pp(_lcvartypeannotation.ident_, 0);
@@ -438,9 +440,9 @@ public class PrettyPrinter
        pp(_lcvartypeannotation.expr_, 0);
        if (_i_ > 3) render(_R_PAREN);
     }
-    else     if (foo instanceof sample.Absyn.FuncTypeAnnotation)
+    else     if (foo instanceof Sample.Absyn.FuncTypeAnnotation)
     {
-       sample.Absyn.FuncTypeAnnotation _functypeannotation = (sample.Absyn.FuncTypeAnnotation) foo;
+       Sample.Absyn.FuncTypeAnnotation _functypeannotation = (Sample.Absyn.FuncTypeAnnotation) foo;
        if (_i_ > 3) render(_L_PAREN);
        render("function");
        pp(_functypeannotation.ident_, 0);
@@ -452,9 +454,9 @@ public class PrettyPrinter
        render("end");
        if (_i_ > 3) render(_R_PAREN);
     }
-    else     if (foo instanceof sample.Absyn.VarTypeAscription)
+    else     if (foo instanceof Sample.Absyn.VarTypeAscription)
     {
-       sample.Absyn.VarTypeAscription _vartypeascription = (sample.Absyn.VarTypeAscription) foo;
+       Sample.Absyn.VarTypeAscription _vartypeascription = (Sample.Absyn.VarTypeAscription) foo;
        if (_i_ > 4) render(_L_PAREN);
        pp(_vartypeascription.ident_, 0);
        pp(_vartypeascription.tascript_, 0);
@@ -462,9 +464,9 @@ public class PrettyPrinter
        pp(_vartypeascription.expr_, 0);
        if (_i_ > 4) render(_R_PAREN);
     }
-    else     if (foo instanceof sample.Absyn.LcVarTypeAscription)
+    else     if (foo instanceof Sample.Absyn.LcVarTypeAscription)
     {
-       sample.Absyn.LcVarTypeAscription _lcvartypeascription = (sample.Absyn.LcVarTypeAscription) foo;
+       Sample.Absyn.LcVarTypeAscription _lcvartypeascription = (Sample.Absyn.LcVarTypeAscription) foo;
        if (_i_ > 4) render(_L_PAREN);
        render("local");
        pp(_lcvartypeascription.ident_, 0);
@@ -473,9 +475,9 @@ public class PrettyPrinter
        pp(_lcvartypeascription.expr_, 0);
        if (_i_ > 4) render(_R_PAREN);
     }
-    else     if (foo instanceof sample.Absyn.FuncTypeAscription)
+    else     if (foo instanceof Sample.Absyn.FuncTypeAscription)
     {
-       sample.Absyn.FuncTypeAscription _functypeascription = (sample.Absyn.FuncTypeAscription) foo;
+       Sample.Absyn.FuncTypeAscription _functypeascription = (Sample.Absyn.FuncTypeAscription) foo;
        if (_i_ > 4) render(_L_PAREN);
        render("function");
        pp(_functypeascription.ident_, 0);
@@ -487,46 +489,46 @@ public class PrettyPrinter
        render("end");
        if (_i_ > 4) render(_R_PAREN);
     }
-    else     if (foo instanceof sample.Absyn.EInt)
+    else     if (foo instanceof Sample.Absyn.EInt)
     {
-       sample.Absyn.EInt _eint = (sample.Absyn.EInt) foo;
+       Sample.Absyn.EInt _eint = (Sample.Absyn.EInt) foo;
        if (_i_ > 1) render(_L_PAREN);
        pp(_eint.integer_, 0);
        if (_i_ > 1) render(_R_PAREN);
     }
-    else     if (foo instanceof sample.Absyn.EDouble)
+    else     if (foo instanceof Sample.Absyn.EDouble)
     {
-       sample.Absyn.EDouble _edouble = (sample.Absyn.EDouble) foo;
+       Sample.Absyn.EDouble _edouble = (Sample.Absyn.EDouble) foo;
        if (_i_ > 1) render(_L_PAREN);
        pp(_edouble.double_, 0);
        if (_i_ > 1) render(_R_PAREN);
     }
-    else     if (foo instanceof sample.Absyn.EStr)
+    else     if (foo instanceof Sample.Absyn.EStr)
     {
-       sample.Absyn.EStr _estr = (sample.Absyn.EStr) foo;
+       Sample.Absyn.EStr _estr = (Sample.Absyn.EStr) foo;
        if (_i_ > 1) render(_L_PAREN);
        pp(_estr.string_, 0);
        if (_i_ > 1) render(_R_PAREN);
     }
-    else     if (foo instanceof sample.Absyn.OnlyDecl)
+    else     if (foo instanceof Sample.Absyn.OnlyDecl)
     {
-       sample.Absyn.OnlyDecl _onlydecl = (sample.Absyn.OnlyDecl) foo;
+       Sample.Absyn.OnlyDecl _onlydecl = (Sample.Absyn.OnlyDecl) foo;
        if (_i_ > 2) render(_L_PAREN);
        pp(_onlydecl.dec_, 0);
        if (_i_ > 2) render(_R_PAREN);
     }
-    else     if (foo instanceof sample.Absyn.InitDecl)
+    else     if (foo instanceof Sample.Absyn.InitDecl)
     {
-       sample.Absyn.InitDecl _initdecl = (sample.Absyn.InitDecl) foo;
+       Sample.Absyn.InitDecl _initdecl = (Sample.Absyn.InitDecl) foo;
        if (_i_ > 2) render(_L_PAREN);
        pp(_initdecl.dec_, 0);
        render("=");
        pp(_initdecl.expr_, 0);
        if (_i_ > 2) render(_R_PAREN);
     }
-    else     if (foo instanceof sample.Absyn.InitTableDecl)
+    else     if (foo instanceof Sample.Absyn.InitTableDecl)
     {
-       sample.Absyn.InitTableDecl _inittabledecl = (sample.Absyn.InitTableDecl) foo;
+       Sample.Absyn.InitTableDecl _inittabledecl = (Sample.Absyn.InitTableDecl) foo;
        if (_i_ > 2) render(_L_PAREN);
        pp(_inittabledecl.dec_1, 0);
        render("=");
@@ -539,29 +541,29 @@ public class PrettyPrinter
     }
   }
 
-  private static void pp(sample.Absyn.ComaExprs foo, int _i_)
+  private static void pp(Sample.Absyn.ComaExprs foo, int _i_)
   {
-    if (foo instanceof sample.Absyn.Vars)
+    if (foo instanceof Sample.Absyn.Vars)
     {
-       sample.Absyn.Vars _vars = (sample.Absyn.Vars) foo;
+       Sample.Absyn.Vars _vars = (Sample.Absyn.Vars) foo;
        if (_i_ > 0) render(_L_PAREN);
        pp(_vars.listexpr_, 0);
        if (_i_ > 0) render(_R_PAREN);
     }
   }
 
-  private static void pp(sample.Absyn.FArgs foo, int _i_)
+  private static void pp(Sample.Absyn.FArgs foo, int _i_)
   {
-    if (foo instanceof sample.Absyn.FuncArgs)
+    if (foo instanceof Sample.Absyn.FuncArgs)
     {
-       sample.Absyn.FuncArgs _funcargs = (sample.Absyn.FuncArgs) foo;
+       Sample.Absyn.FuncArgs _funcargs = (Sample.Absyn.FuncArgs) foo;
        if (_i_ > 0) render(_L_PAREN);
        pp(_funcargs.listdec_, 0);
        if (_i_ > 0) render(_R_PAREN);
     }
   }
 
-  private static void pp(sample.Absyn.ListDec foo, int _i_)
+  private static void pp(Sample.Absyn.ListDec foo, int _i_)
   {
      for (java.util.Iterator<Dec> it = foo.iterator(); it.hasNext();)
      {
@@ -573,93 +575,93 @@ public class PrettyPrinter
        }
      }  }
 
-  private static void pp(sample.Absyn.Type foo, int _i_)
+  private static void pp(Sample.Absyn.Type foo, int _i_)
   {
-    if (foo instanceof sample.Absyn.StringType)
+    if (foo instanceof Sample.Absyn.StringType)
     {
-       sample.Absyn.StringType _stringtype = (sample.Absyn.StringType) foo;
+       Sample.Absyn.StringType _stringtype = (Sample.Absyn.StringType) foo;
        if (_i_ > 0) render(_L_PAREN);
        render("string");
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof sample.Absyn.BoolType)
+    else     if (foo instanceof Sample.Absyn.BoolType)
     {
-       sample.Absyn.BoolType _booltype = (sample.Absyn.BoolType) foo;
+       Sample.Absyn.BoolType _booltype = (Sample.Absyn.BoolType) foo;
        if (_i_ > 0) render(_L_PAREN);
        render("boolean");
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof sample.Absyn.UnitType)
+    else     if (foo instanceof Sample.Absyn.UnitType)
     {
-       sample.Absyn.UnitType _unittype = (sample.Absyn.UnitType) foo;
+       Sample.Absyn.UnitType _unittype = (Sample.Absyn.UnitType) foo;
        if (_i_ > 0) render(_L_PAREN);
        render("void");
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof sample.Absyn.IntType)
+    else     if (foo instanceof Sample.Absyn.IntType)
     {
-       sample.Absyn.IntType _inttype = (sample.Absyn.IntType) foo;
+       Sample.Absyn.IntType _inttype = (Sample.Absyn.IntType) foo;
        if (_i_ > 0) render(_L_PAREN);
        render("integer");
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof sample.Absyn.DoubleType)
+    else     if (foo instanceof Sample.Absyn.DoubleType)
     {
-       sample.Absyn.DoubleType _doubletype = (sample.Absyn.DoubleType) foo;
+       Sample.Absyn.DoubleType _doubletype = (Sample.Absyn.DoubleType) foo;
        if (_i_ > 0) render(_L_PAREN);
        render("double");
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof sample.Absyn.TableType)
+    else     if (foo instanceof Sample.Absyn.TableType)
     {
-       sample.Absyn.TableType _tabletype = (sample.Absyn.TableType) foo;
+       Sample.Absyn.TableType _tabletype = (Sample.Absyn.TableType) foo;
        if (_i_ > 0) render(_L_PAREN);
        render("table");
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof sample.Absyn.NilType)
+    else     if (foo instanceof Sample.Absyn.NilType)
     {
-       sample.Absyn.NilType _niltype = (sample.Absyn.NilType) foo;
+       Sample.Absyn.NilType _niltype = (Sample.Absyn.NilType) foo;
        if (_i_ > 0) render(_L_PAREN);
        render("nil");
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof sample.Absyn.VoidType)
+    else     if (foo instanceof Sample.Absyn.VoidType)
     {
-       sample.Absyn.VoidType _voidtype = (sample.Absyn.VoidType) foo;
+       Sample.Absyn.VoidType _voidtype = (Sample.Absyn.VoidType) foo;
        if (_i_ > 0) render(_L_PAREN);
        render("void");
        if (_i_ > 0) render(_R_PAREN);
     }
   }
 
-  private static void pp(sample.Absyn.TypeKW foo, int _i_)
+  private static void pp(Sample.Absyn.TypeKW foo, int _i_)
   {
-    if (foo instanceof sample.Absyn.TypeKeyword)
+    if (foo instanceof Sample.Absyn.TypeKeyword)
     {
-       sample.Absyn.TypeKeyword _typekeyword = (sample.Absyn.TypeKeyword) foo;
+       Sample.Absyn.TypeKeyword _typekeyword = (Sample.Absyn.TypeKeyword) foo;
        if (_i_ > 0) render(_L_PAREN);
        render("type");
        if (_i_ > 0) render(_R_PAREN);
     }
   }
 
-  private static void pp(sample.Absyn.VarKW foo, int _i_)
+  private static void pp(Sample.Absyn.VarKW foo, int _i_)
   {
-    if (foo instanceof sample.Absyn.VarKeyword)
+    if (foo instanceof Sample.Absyn.VarKeyword)
     {
-       sample.Absyn.VarKeyword _varkeyword = (sample.Absyn.VarKeyword) foo;
+       Sample.Absyn.VarKeyword _varkeyword = (Sample.Absyn.VarKeyword) foo;
        if (_i_ > 0) render(_L_PAREN);
        render("var");
        if (_i_ > 0) render(_R_PAREN);
     }
   }
 
-  private static void pp(sample.Absyn.TAnnot foo, int _i_)
+  private static void pp(Sample.Absyn.TAnnot foo, int _i_)
   {
-    if (foo instanceof sample.Absyn.TypeAnnotation)
+    if (foo instanceof Sample.Absyn.TypeAnnotation)
     {
-       sample.Absyn.TypeAnnotation _typeannotation = (sample.Absyn.TypeAnnotation) foo;
+       Sample.Absyn.TypeAnnotation _typeannotation = (Sample.Absyn.TypeAnnotation) foo;
        if (_i_ > 0) render(_L_PAREN);
        render(":");
        pp(_typeannotation.varkw_, 0);
@@ -667,11 +669,11 @@ public class PrettyPrinter
     }
   }
 
-  private static void pp(sample.Absyn.TAscript foo, int _i_)
+  private static void pp(Sample.Absyn.TAscript foo, int _i_)
   {
-    if (foo instanceof sample.Absyn.TypeAscription)
+    if (foo instanceof Sample.Absyn.TypeAscription)
     {
-       sample.Absyn.TypeAscription _typeascription = (sample.Absyn.TypeAscription) foo;
+       Sample.Absyn.TypeAscription _typeascription = (Sample.Absyn.TypeAscription) foo;
        if (_i_ > 0) render(_L_PAREN);
        pp(_typeascription.tannot_, 0);
        render("(");
@@ -681,20 +683,20 @@ public class PrettyPrinter
     }
   }
 
-  private static void pp(sample.Absyn.Dec foo, int _i_)
+  private static void pp(Sample.Absyn.Dec foo, int _i_)
   {
-    if (foo instanceof sample.Absyn.Declaration)
+    if (foo instanceof Sample.Absyn.Declaration)
     {
-       sample.Absyn.Declaration _declaration = (sample.Absyn.Declaration) foo;
+       Sample.Absyn.Declaration _declaration = (Sample.Absyn.Declaration) foo;
        if (_i_ > 0) render(_L_PAREN);
        pp(_declaration.ident_, 0);
        render(":");
        pp(_declaration.type_, 0);
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof sample.Absyn.LcVarDeclaration)
+    else     if (foo instanceof Sample.Absyn.LcVarDeclaration)
     {
-       sample.Absyn.LcVarDeclaration _lcvardeclaration = (sample.Absyn.LcVarDeclaration) foo;
+       Sample.Absyn.LcVarDeclaration _lcvardeclaration = (Sample.Absyn.LcVarDeclaration) foo;
        if (_i_ > 0) render(_L_PAREN);
        render("local");
        pp(_lcvardeclaration.ident_, 0);
@@ -705,11 +707,11 @@ public class PrettyPrinter
   }
 
 
-  private static void sh(sample.Absyn.Program foo)
+  private static void sh(Sample.Absyn.Program foo)
   {
-    if (foo instanceof sample.Absyn.ProgramExprs)
+    if (foo instanceof Sample.Absyn.ProgramExprs)
     {
-       sample.Absyn.ProgramExprs _programexprs = (sample.Absyn.ProgramExprs) foo;
+       Sample.Absyn.ProgramExprs _programexprs = (Sample.Absyn.ProgramExprs) foo;
        render("(");
        render("ProgramExprs");
        render("[");
@@ -719,7 +721,7 @@ public class PrettyPrinter
     }
   }
 
-  private static void sh(sample.Absyn.ListExpr foo)
+  private static void sh(Sample.Absyn.ListExpr foo)
   {
      for (java.util.Iterator<Expr> it = foo.iterator(); it.hasNext();)
      {
@@ -729,48 +731,48 @@ public class PrettyPrinter
      }
   }
 
-  private static void sh(sample.Absyn.Expr foo)
+  private static void sh(Sample.Absyn.Expr foo)
   {
-    if (foo instanceof sample.Absyn.Var)
+    if (foo instanceof Sample.Absyn.Var)
     {
-       sample.Absyn.Var _var = (sample.Absyn.Var) foo;
+       Sample.Absyn.Var _var = (Sample.Absyn.Var) foo;
        render("(");
        render("Var");
        sh(_var.ident_);
        render(")");
     }
-    if (foo instanceof sample.Absyn.ConstTrue)
+    if (foo instanceof Sample.Absyn.ConstTrue)
     {
-       sample.Absyn.ConstTrue _consttrue = (sample.Absyn.ConstTrue) foo;
+       Sample.Absyn.ConstTrue _consttrue = (Sample.Absyn.ConstTrue) foo;
        render("ConstTrue");
     }
-    if (foo instanceof sample.Absyn.ConstFalse)
+    if (foo instanceof Sample.Absyn.ConstFalse)
     {
-       sample.Absyn.ConstFalse _constfalse = (sample.Absyn.ConstFalse) foo;
+       Sample.Absyn.ConstFalse _constfalse = (Sample.Absyn.ConstFalse) foo;
        render("ConstFalse");
     }
-    if (foo instanceof sample.Absyn.If)
+    if (foo instanceof Sample.Absyn.If)
     {
-       sample.Absyn.If _if = (sample.Absyn.If) foo;
+       Sample.Absyn.If _if = (Sample.Absyn.If) foo;
        render("(");
        render("If");
-       sh(_if.expr_);
-       sh(_if.program_1);
-       sh(_if.program_2);
+       sh(_if.expr_1);
+       sh(_if.expr_2);
+       sh(_if.expr_3);
        render(")");
     }
-    if (foo instanceof sample.Absyn.FuncCall)
+    if (foo instanceof Sample.Absyn.FuncCall)
     {
-       sample.Absyn.FuncCall _funccall = (sample.Absyn.FuncCall) foo;
+       Sample.Absyn.FuncCall _funccall = (Sample.Absyn.FuncCall) foo;
        render("(");
        render("FuncCall");
        sh(_funccall.ident_);
        sh(_funccall.comaexprs_);
        render(")");
     }
-    if (foo instanceof sample.Absyn.Func)
+    if (foo instanceof Sample.Absyn.Func)
     {
-       sample.Absyn.Func _func = (sample.Absyn.Func) foo;
+       Sample.Absyn.Func _func = (Sample.Absyn.Func) foo;
        render("(");
        render("Func");
        sh(_func.ident_);
@@ -779,72 +781,72 @@ public class PrettyPrinter
        sh(_func.program_);
        render(")");
     }
-    if (foo instanceof sample.Absyn.Return)
+    if (foo instanceof Sample.Absyn.Return)
     {
-       sample.Absyn.Return _return = (sample.Absyn.Return) foo;
+       Sample.Absyn.Return _return = (Sample.Absyn.Return) foo;
        render("(");
        render("Return");
        sh(_return.expr_);
        render(")");
     }
-    if (foo instanceof sample.Absyn.Not)
+    if (foo instanceof Sample.Absyn.Not)
     {
-       sample.Absyn.Not _not = (sample.Absyn.Not) foo;
+       Sample.Absyn.Not _not = (Sample.Absyn.Not) foo;
        render("(");
        render("Not");
        sh(_not.expr_);
        render(")");
     }
-    if (foo instanceof sample.Absyn.And)
+    if (foo instanceof Sample.Absyn.And)
     {
-       sample.Absyn.And _and = (sample.Absyn.And) foo;
+       Sample.Absyn.And _and = (Sample.Absyn.And) foo;
        render("(");
        render("And");
        sh(_and.expr_1);
        sh(_and.expr_2);
        render(")");
     }
-    if (foo instanceof sample.Absyn.Or)
+    if (foo instanceof Sample.Absyn.Or)
     {
-       sample.Absyn.Or _or = (sample.Absyn.Or) foo;
+       Sample.Absyn.Or _or = (Sample.Absyn.Or) foo;
        render("(");
        render("Or");
        sh(_or.expr_1);
        sh(_or.expr_2);
        render(")");
     }
-    if (foo instanceof sample.Absyn.ConstZero)
+    if (foo instanceof Sample.Absyn.ConstZero)
     {
-       sample.Absyn.ConstZero _constzero = (sample.Absyn.ConstZero) foo;
+       Sample.Absyn.ConstZero _constzero = (Sample.Absyn.ConstZero) foo;
        render("ConstZero");
     }
-    if (foo instanceof sample.Absyn.Succ)
+    if (foo instanceof Sample.Absyn.Succ)
     {
-       sample.Absyn.Succ _succ = (sample.Absyn.Succ) foo;
+       Sample.Absyn.Succ _succ = (Sample.Absyn.Succ) foo;
        render("(");
        render("Succ");
        sh(_succ.expr_);
        render(")");
     }
-    if (foo instanceof sample.Absyn.Pred)
+    if (foo instanceof Sample.Absyn.Pred)
     {
-       sample.Absyn.Pred _pred = (sample.Absyn.Pred) foo;
+       Sample.Absyn.Pred _pred = (Sample.Absyn.Pred) foo;
        render("(");
        render("Pred");
        sh(_pred.expr_);
        render(")");
     }
-    if (foo instanceof sample.Absyn.IsZero)
+    if (foo instanceof Sample.Absyn.IsZero)
     {
-       sample.Absyn.IsZero _iszero = (sample.Absyn.IsZero) foo;
+       Sample.Absyn.IsZero _iszero = (Sample.Absyn.IsZero) foo;
        render("(");
        render("IsZero");
        sh(_iszero.expr_);
        render(")");
     }
-    if (foo instanceof sample.Absyn.TypeAliasing)
+    if (foo instanceof Sample.Absyn.TypeAliasing)
     {
-       sample.Absyn.TypeAliasing _typealiasing = (sample.Absyn.TypeAliasing) foo;
+       Sample.Absyn.TypeAliasing _typealiasing = (Sample.Absyn.TypeAliasing) foo;
        render("(");
        render("TypeAliasing");
        sh(_typealiasing.ident_);
@@ -852,9 +854,9 @@ public class PrettyPrinter
        sh(_typealiasing.type_);
        render(")");
     }
-    if (foo instanceof sample.Absyn.LcTypeAliasing)
+    if (foo instanceof Sample.Absyn.LcTypeAliasing)
     {
-       sample.Absyn.LcTypeAliasing _lctypealiasing = (sample.Absyn.LcTypeAliasing) foo;
+       Sample.Absyn.LcTypeAliasing _lctypealiasing = (Sample.Absyn.LcTypeAliasing) foo;
        render("(");
        render("LcTypeAliasing");
        sh(_lctypealiasing.ident_);
@@ -862,9 +864,9 @@ public class PrettyPrinter
        sh(_lctypealiasing.type_);
        render(")");
     }
-    if (foo instanceof sample.Absyn.VarTypeAnnotation)
+    if (foo instanceof Sample.Absyn.VarTypeAnnotation)
     {
-       sample.Absyn.VarTypeAnnotation _vartypeannotation = (sample.Absyn.VarTypeAnnotation) foo;
+       Sample.Absyn.VarTypeAnnotation _vartypeannotation = (Sample.Absyn.VarTypeAnnotation) foo;
        render("(");
        render("VarTypeAnnotation");
        sh(_vartypeannotation.ident_);
@@ -872,9 +874,9 @@ public class PrettyPrinter
        sh(_vartypeannotation.expr_);
        render(")");
     }
-    if (foo instanceof sample.Absyn.LcVarTypeAnnotation)
+    if (foo instanceof Sample.Absyn.LcVarTypeAnnotation)
     {
-       sample.Absyn.LcVarTypeAnnotation _lcvartypeannotation = (sample.Absyn.LcVarTypeAnnotation) foo;
+       Sample.Absyn.LcVarTypeAnnotation _lcvartypeannotation = (Sample.Absyn.LcVarTypeAnnotation) foo;
        render("(");
        render("LcVarTypeAnnotation");
        sh(_lcvartypeannotation.ident_);
@@ -882,9 +884,9 @@ public class PrettyPrinter
        sh(_lcvartypeannotation.expr_);
        render(")");
     }
-    if (foo instanceof sample.Absyn.FuncTypeAnnotation)
+    if (foo instanceof Sample.Absyn.FuncTypeAnnotation)
     {
-       sample.Absyn.FuncTypeAnnotation _functypeannotation = (sample.Absyn.FuncTypeAnnotation) foo;
+       Sample.Absyn.FuncTypeAnnotation _functypeannotation = (Sample.Absyn.FuncTypeAnnotation) foo;
        render("(");
        render("FuncTypeAnnotation");
        sh(_functypeannotation.ident_);
@@ -893,9 +895,9 @@ public class PrettyPrinter
        sh(_functypeannotation.program_);
        render(")");
     }
-    if (foo instanceof sample.Absyn.VarTypeAscription)
+    if (foo instanceof Sample.Absyn.VarTypeAscription)
     {
-       sample.Absyn.VarTypeAscription _vartypeascription = (sample.Absyn.VarTypeAscription) foo;
+       Sample.Absyn.VarTypeAscription _vartypeascription = (Sample.Absyn.VarTypeAscription) foo;
        render("(");
        render("VarTypeAscription");
        sh(_vartypeascription.ident_);
@@ -903,9 +905,9 @@ public class PrettyPrinter
        sh(_vartypeascription.expr_);
        render(")");
     }
-    if (foo instanceof sample.Absyn.LcVarTypeAscription)
+    if (foo instanceof Sample.Absyn.LcVarTypeAscription)
     {
-       sample.Absyn.LcVarTypeAscription _lcvartypeascription = (sample.Absyn.LcVarTypeAscription) foo;
+       Sample.Absyn.LcVarTypeAscription _lcvartypeascription = (Sample.Absyn.LcVarTypeAscription) foo;
        render("(");
        render("LcVarTypeAscription");
        sh(_lcvartypeascription.ident_);
@@ -913,9 +915,9 @@ public class PrettyPrinter
        sh(_lcvartypeascription.expr_);
        render(")");
     }
-    if (foo instanceof sample.Absyn.FuncTypeAscription)
+    if (foo instanceof Sample.Absyn.FuncTypeAscription)
     {
-       sample.Absyn.FuncTypeAscription _functypeascription = (sample.Absyn.FuncTypeAscription) foo;
+       Sample.Absyn.FuncTypeAscription _functypeascription = (Sample.Absyn.FuncTypeAscription) foo;
        render("(");
        render("FuncTypeAscription");
        sh(_functypeascription.ident_);
@@ -924,50 +926,50 @@ public class PrettyPrinter
        sh(_functypeascription.program_);
        render(")");
     }
-    if (foo instanceof sample.Absyn.EInt)
+    if (foo instanceof Sample.Absyn.EInt)
     {
-       sample.Absyn.EInt _eint = (sample.Absyn.EInt) foo;
+       Sample.Absyn.EInt _eint = (Sample.Absyn.EInt) foo;
        render("(");
        render("EInt");
        sh(_eint.integer_);
        render(")");
     }
-    if (foo instanceof sample.Absyn.EDouble)
+    if (foo instanceof Sample.Absyn.EDouble)
     {
-       sample.Absyn.EDouble _edouble = (sample.Absyn.EDouble) foo;
+       Sample.Absyn.EDouble _edouble = (Sample.Absyn.EDouble) foo;
        render("(");
        render("EDouble");
        sh(_edouble.double_);
        render(")");
     }
-    if (foo instanceof sample.Absyn.EStr)
+    if (foo instanceof Sample.Absyn.EStr)
     {
-       sample.Absyn.EStr _estr = (sample.Absyn.EStr) foo;
+       Sample.Absyn.EStr _estr = (Sample.Absyn.EStr) foo;
        render("(");
        render("EStr");
        sh(_estr.string_);
        render(")");
     }
-    if (foo instanceof sample.Absyn.OnlyDecl)
+    if (foo instanceof Sample.Absyn.OnlyDecl)
     {
-       sample.Absyn.OnlyDecl _onlydecl = (sample.Absyn.OnlyDecl) foo;
+       Sample.Absyn.OnlyDecl _onlydecl = (Sample.Absyn.OnlyDecl) foo;
        render("(");
        render("OnlyDecl");
        sh(_onlydecl.dec_);
        render(")");
     }
-    if (foo instanceof sample.Absyn.InitDecl)
+    if (foo instanceof Sample.Absyn.InitDecl)
     {
-       sample.Absyn.InitDecl _initdecl = (sample.Absyn.InitDecl) foo;
+       Sample.Absyn.InitDecl _initdecl = (Sample.Absyn.InitDecl) foo;
        render("(");
        render("InitDecl");
        sh(_initdecl.dec_);
        sh(_initdecl.expr_);
        render(")");
     }
-    if (foo instanceof sample.Absyn.InitTableDecl)
+    if (foo instanceof Sample.Absyn.InitTableDecl)
     {
-       sample.Absyn.InitTableDecl _inittabledecl = (sample.Absyn.InitTableDecl) foo;
+       Sample.Absyn.InitTableDecl _inittabledecl = (Sample.Absyn.InitTableDecl) foo;
        render("(");
        render("InitTableDecl");
        sh(_inittabledecl.dec_1);
@@ -977,11 +979,11 @@ public class PrettyPrinter
     }
   }
 
-  private static void sh(sample.Absyn.ComaExprs foo)
+  private static void sh(Sample.Absyn.ComaExprs foo)
   {
-    if (foo instanceof sample.Absyn.Vars)
+    if (foo instanceof Sample.Absyn.Vars)
     {
-       sample.Absyn.Vars _vars = (sample.Absyn.Vars) foo;
+       Sample.Absyn.Vars _vars = (Sample.Absyn.Vars) foo;
        render("(");
        render("Vars");
        render("[");
@@ -991,11 +993,11 @@ public class PrettyPrinter
     }
   }
 
-  private static void sh(sample.Absyn.FArgs foo)
+  private static void sh(Sample.Absyn.FArgs foo)
   {
-    if (foo instanceof sample.Absyn.FuncArgs)
+    if (foo instanceof Sample.Absyn.FuncArgs)
     {
-       sample.Absyn.FuncArgs _funcargs = (sample.Absyn.FuncArgs) foo;
+       Sample.Absyn.FuncArgs _funcargs = (Sample.Absyn.FuncArgs) foo;
        render("(");
        render("FuncArgs");
        render("[");
@@ -1005,7 +1007,7 @@ public class PrettyPrinter
     }
   }
 
-  private static void sh(sample.Absyn.ListDec foo)
+  private static void sh(Sample.Absyn.ListDec foo)
   {
      for (java.util.Iterator<Dec> it = foo.iterator(); it.hasNext();)
      {
@@ -1015,73 +1017,73 @@ public class PrettyPrinter
      }
   }
 
-  private static void sh(sample.Absyn.Type foo)
+  private static void sh(Sample.Absyn.Type foo)
   {
-    if (foo instanceof sample.Absyn.StringType)
+    if (foo instanceof Sample.Absyn.StringType)
     {
-       sample.Absyn.StringType _stringtype = (sample.Absyn.StringType) foo;
+       Sample.Absyn.StringType _stringtype = (Sample.Absyn.StringType) foo;
        render("StringType");
     }
-    if (foo instanceof sample.Absyn.BoolType)
+    if (foo instanceof Sample.Absyn.BoolType)
     {
-       sample.Absyn.BoolType _booltype = (sample.Absyn.BoolType) foo;
+       Sample.Absyn.BoolType _booltype = (Sample.Absyn.BoolType) foo;
        render("BoolType");
     }
-    if (foo instanceof sample.Absyn.UnitType)
+    if (foo instanceof Sample.Absyn.UnitType)
     {
-       sample.Absyn.UnitType _unittype = (sample.Absyn.UnitType) foo;
+       Sample.Absyn.UnitType _unittype = (Sample.Absyn.UnitType) foo;
        render("UnitType");
     }
-    if (foo instanceof sample.Absyn.IntType)
+    if (foo instanceof Sample.Absyn.IntType)
     {
-       sample.Absyn.IntType _inttype = (sample.Absyn.IntType) foo;
+       Sample.Absyn.IntType _inttype = (Sample.Absyn.IntType) foo;
        render("IntType");
     }
-    if (foo instanceof sample.Absyn.DoubleType)
+    if (foo instanceof Sample.Absyn.DoubleType)
     {
-       sample.Absyn.DoubleType _doubletype = (sample.Absyn.DoubleType) foo;
+       Sample.Absyn.DoubleType _doubletype = (Sample.Absyn.DoubleType) foo;
        render("DoubleType");
     }
-    if (foo instanceof sample.Absyn.TableType)
+    if (foo instanceof Sample.Absyn.TableType)
     {
-       sample.Absyn.TableType _tabletype = (sample.Absyn.TableType) foo;
+       Sample.Absyn.TableType _tabletype = (Sample.Absyn.TableType) foo;
        render("TableType");
     }
-    if (foo instanceof sample.Absyn.NilType)
+    if (foo instanceof Sample.Absyn.NilType)
     {
-       sample.Absyn.NilType _niltype = (sample.Absyn.NilType) foo;
+       Sample.Absyn.NilType _niltype = (Sample.Absyn.NilType) foo;
        render("NilType");
     }
-    if (foo instanceof sample.Absyn.VoidType)
+    if (foo instanceof Sample.Absyn.VoidType)
     {
-       sample.Absyn.VoidType _voidtype = (sample.Absyn.VoidType) foo;
+       Sample.Absyn.VoidType _voidtype = (Sample.Absyn.VoidType) foo;
        render("VoidType");
     }
   }
 
-  private static void sh(sample.Absyn.TypeKW foo)
+  private static void sh(Sample.Absyn.TypeKW foo)
   {
-    if (foo instanceof sample.Absyn.TypeKeyword)
+    if (foo instanceof Sample.Absyn.TypeKeyword)
     {
-       sample.Absyn.TypeKeyword _typekeyword = (sample.Absyn.TypeKeyword) foo;
+       Sample.Absyn.TypeKeyword _typekeyword = (Sample.Absyn.TypeKeyword) foo;
        render("TypeKeyword");
     }
   }
 
-  private static void sh(sample.Absyn.VarKW foo)
+  private static void sh(Sample.Absyn.VarKW foo)
   {
-    if (foo instanceof sample.Absyn.VarKeyword)
+    if (foo instanceof Sample.Absyn.VarKeyword)
     {
-       sample.Absyn.VarKeyword _varkeyword = (sample.Absyn.VarKeyword) foo;
+       Sample.Absyn.VarKeyword _varkeyword = (Sample.Absyn.VarKeyword) foo;
        render("VarKeyword");
     }
   }
 
-  private static void sh(sample.Absyn.TAnnot foo)
+  private static void sh(Sample.Absyn.TAnnot foo)
   {
-    if (foo instanceof sample.Absyn.TypeAnnotation)
+    if (foo instanceof Sample.Absyn.TypeAnnotation)
     {
-       sample.Absyn.TypeAnnotation _typeannotation = (sample.Absyn.TypeAnnotation) foo;
+       Sample.Absyn.TypeAnnotation _typeannotation = (Sample.Absyn.TypeAnnotation) foo;
        render("(");
        render("TypeAnnotation");
        sh(_typeannotation.varkw_);
@@ -1089,11 +1091,11 @@ public class PrettyPrinter
     }
   }
 
-  private static void sh(sample.Absyn.TAscript foo)
+  private static void sh(Sample.Absyn.TAscript foo)
   {
-    if (foo instanceof sample.Absyn.TypeAscription)
+    if (foo instanceof Sample.Absyn.TypeAscription)
     {
-       sample.Absyn.TypeAscription _typeascription = (sample.Absyn.TypeAscription) foo;
+       Sample.Absyn.TypeAscription _typeascription = (Sample.Absyn.TypeAscription) foo;
        render("(");
        render("TypeAscription");
        sh(_typeascription.tannot_);
@@ -1102,20 +1104,20 @@ public class PrettyPrinter
     }
   }
 
-  private static void sh(sample.Absyn.Dec foo)
+  private static void sh(Sample.Absyn.Dec foo)
   {
-    if (foo instanceof sample.Absyn.Declaration)
+    if (foo instanceof Sample.Absyn.Declaration)
     {
-       sample.Absyn.Declaration _declaration = (sample.Absyn.Declaration) foo;
+       Sample.Absyn.Declaration _declaration = (Sample.Absyn.Declaration) foo;
        render("(");
        render("Declaration");
        sh(_declaration.ident_);
        sh(_declaration.type_);
        render(")");
     }
-    if (foo instanceof sample.Absyn.LcVarDeclaration)
+    if (foo instanceof Sample.Absyn.LcVarDeclaration)
     {
-       sample.Absyn.LcVarDeclaration _lcvardeclaration = (sample.Absyn.LcVarDeclaration) foo;
+       Sample.Absyn.LcVarDeclaration _lcvardeclaration = (Sample.Absyn.LcVarDeclaration) foo;
        render("(");
        render("LcVarDeclaration");
        sh(_lcvardeclaration.ident_);
