@@ -2,6 +2,7 @@ package Intepreter;
 
 import sample.Absyn.Expr;
 import sample.Absyn.Type;
+import sample.PrettyPrinter;
 
 public class TypeException extends Exception{
     private Type expected_type;
@@ -16,6 +17,6 @@ public class TypeException extends Exception{
 
     @Override
     public String getMessage() {
-        return "Type Error: expected " + expected_type.getClass().toString() + " but actual type is " + actual_type.getClass().toString() + " for expression " + expr.toString();
+        return "Type Error: expected " + PrettyPrinter.print(expected_type) + " but actual type is " + PrettyPrinter.print(actual_type) + " for expression " + PrettyPrinter.print(expr);
     }
 }

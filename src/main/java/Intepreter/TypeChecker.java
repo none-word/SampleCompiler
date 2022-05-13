@@ -6,7 +6,7 @@ import sample.Absyn.*;
 import sample.PrettyPrinter;
 
 public class TypeChecker {
-    private class Variable{
+    public class Variable{
         public String ident;
         public Type type;
     }
@@ -63,7 +63,7 @@ public class TypeChecker {
     }
 
     private boolean isSameType(Type type1, Type type2) {
-        return type1.getClass().equals(type1.getClass());
+        return type1.getClass().equals(type2.getClass());
     }
 
     private Type typeCheck(ArrayList<Variable> context, Expr expr, Type expected_type) throws TypeException{

@@ -1,10 +1,14 @@
 package Intepreter;
 
+import sample.Absyn.Expr;
+import sample.Absyn.ProgramExprs;
+import sample.PrettyPrinter;
 import sample.Yylex;
 import sample.parser;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
 
 public class Interpreter {
     private final String programFilePath;
@@ -29,13 +33,31 @@ public class Interpreter {
 
         parser = new parser(l);
         try {
-            sample.Absyn.Program ast = parser.pProgram();
-            System.out.println(sample.PrettyPrinter.show(ast));
+            ProgramExprs programExprs = ((ProgramExprs) parser.pProgram());
+            //System.out.println(sample.PrettyPrinter.show(ast));
+
+            for (var expr : programExprs.listexpr_) {
+                evalAndTypeCheck(expr);
+            }
         }
         catch (Exception e){
             System.out.println("Parse error in line " + e.getMessage());
         }
 
 
+    }
+
+    private void evalAndTypeCheck(Expr expr){
+        try {
+            var typeChecker = new TypeChecker();
+            var type = typeChecker.typeOf(new ArrayList<TypeChecker.Variable>(), expr);
+            System.out.print(PrettyPrinter.print(expr));
+            System.out.print(" has type ");
+            System.out.println(PrettyPrinter.print(type));
+            System.out.println("\n");
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 }
