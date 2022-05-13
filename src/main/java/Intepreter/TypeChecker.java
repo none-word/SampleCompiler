@@ -1,16 +1,12 @@
 package Intepreter;
 
-import java.util.Dictionary;
-import java.util.List;
+import java.util.ArrayList;
 
 import sample.Absyn.*;
 
 public class TypeChecker {
 
-    public TypeChecker(Dictionary<String, String> symbolTable) {
-    }
-
-    public Type typeOf(List<Var> context, Expr expr) throws TypeException{
+    public Type typeOf(ArrayList<Var> context, Expr expr) throws TypeException{
         if (expr instanceof ConstFalse) {
             return new BoolType();
         }
@@ -51,7 +47,7 @@ public class TypeChecker {
         return type1.getClass().equals(type1.getClass());
     }
 
-    private Type typeCheck(List<Var> context, Expr expr, Type expected_type) throws TypeException{
+    private Type typeCheck(ArrayList<Var> context, Expr expr, Type expected_type) throws TypeException{
         var actual_type = typeOf(context, expr);
         if (isSameType(expected_type, actual_type)){
             return actual_type;
