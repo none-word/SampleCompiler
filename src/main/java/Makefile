@@ -2,9 +2,9 @@ JAVAC=javac
 JAVAC_FLAGS=-sourcepath .
 JAVA=java
 JAVA_FLAGS=
-CUP=java_cup.Main
+CUP=java_cup.Intepreter.Main
 CUPFLAGS=-nopositions -expect 100
-JLEX=JLex.Main
+JLEX=JLex.Intepreter.Main
 all: test
 
 test: absyn sample/Yylex.class sample/PrettyPrinter.class sample/Test.class sample/ComposVisitor.class sample/AbstractVisitor.class sample/FoldVisitor.class sample/AllVisitor.class sample/parser.class sample/sym.class sample/Test.class

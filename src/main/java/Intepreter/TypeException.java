@@ -1,4 +1,4 @@
-package sample;
+package Intepreter;
 
 import sample.Absyn.Expr;
 import sample.Absyn.Type;

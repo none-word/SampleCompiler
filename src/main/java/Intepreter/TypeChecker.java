@@ -1,4 +1,4 @@
-package sample;
+package Intepreter;
 
 import java.util.Dictionary;
 import java.util.List;
@@ -6,14 +6,12 @@ import java.util.List;
 import sample.Absyn.*;
 
 public class TypeChecker {
-    private Dictionary <String, String> symbolTable;
     private class Variable{
         public Var ident;
         public Type type;
     }
 
     public TypeChecker(Dictionary<String, String> symbolTable) {
-        this.symbolTable = symbolTable;
     }
 
     public Type typeOf(List<Variable> context, Expr expr) throws TypeException{
