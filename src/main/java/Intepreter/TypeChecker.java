@@ -6,15 +6,11 @@ import java.util.List;
 import sample.Absyn.*;
 
 public class TypeChecker {
-    private class Variable{
-        public Var ident;
-        public Type type;
-    }
 
     public TypeChecker(Dictionary<String, String> symbolTable) {
     }
 
-    public Type typeOf(List<Variable> context, Expr expr) throws TypeException{
+    public Type typeOf(List<Var> context, Expr expr) throws TypeException{
         if (expr instanceof ConstFalse) {
             return new BoolType();
         }
@@ -44,7 +40,9 @@ public class TypeChecker {
             return new BoolType();
         }
 
+        if (expr instanceof Var){
 
+        }
 
         return null;
     }
@@ -53,7 +51,7 @@ public class TypeChecker {
         return type1.getClass().equals(type1.getClass());
     }
 
-    private Type typeCheck(List<Variable> context, Expr expr, Type expected_type) throws TypeException{
+    private Type typeCheck(List<Var> context, Expr expr, Type expected_type) throws TypeException{
         var actual_type = typeOf(context, expr);
         if (isSameType(expected_type, actual_type)){
             return actual_type;
