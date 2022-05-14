@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 public class Interpreter {
     private final String programFilePath;
+    private final Eval eval = new EvalImpl();
 
     public Interpreter(String programFilePath) {
         this.programFilePath = programFilePath;
@@ -51,9 +52,11 @@ public class Interpreter {
         try {
             var typeChecker = new TypeChecker();
             var type = typeChecker.typeOf(new ArrayList<TypeChecker.Variable>(), expr);
+            var result = eval.evalStep(expr);
             System.out.print(PrettyPrinter.print(expr));
             System.out.print(" has type ");
             System.out.println(PrettyPrinter.print(type));
+            System.out.println("Result: " + PrettyPrinter.print(eval.evalStep(expr)));
             System.out.println("\n");
         }
         catch (Exception e){
