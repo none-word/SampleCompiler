@@ -20,7 +20,6 @@ Return.           Expr ::= "return" Expr;
 
 StringType.       Type ::= "string" ;
 BoolType.         Type ::= "boolean" ;
-UnitType.         Type ::= "void" ;
 IntType.          Type ::= "integer" ;
 DoubleType.       Type ::= "double" ;
 TableType.        Type ::= "table" ;
@@ -29,17 +28,14 @@ VoidType.         Type ::= "void" ;
 
 TypeKeyword.      TypeKW ::= "type" ;
 TypeAliasing.     Expr3 ::= Ident ":" TypeKW "=" Type;
-LcTypeAliasing.   Expr3 ::= "local" Ident ":" TypeKW "=" Type;
 
 VarKeyword.          VarKW ::= "var";
 TypeAnnotation.      TAnnot ::= ":" VarKW;
 VarTypeAnnotation.   Expr3 ::= Ident TAnnot "=" Expr;
-LcVarTypeAnnotation. Expr3 ::= "local" Ident TAnnot "=" Expr;
 FuncTypeAnnotation.  Expr3 ::= "function" Ident "(" FArgs ")" TAnnot Program "end";
 
 TypeAscription.      TAscript ::= TAnnot "(" Type ")";
 VarTypeAscription.   Expr4 ::= Ident TAscript "=" Expr;
-LcVarTypeAscription. Expr4 ::= "local" Ident TAscript "=" Expr;
 FuncTypeAscription.  Expr4 ::= "function" Ident "(" FArgs ")" TAscript Program "end";
 
 EInt.	          Expr1	::=	Integer	;
@@ -56,7 +52,6 @@ Pred.       Expr  ::= "pred" Expr ;
 IsZero.     Expr  ::= "iszero" Expr ;
 
 Declaration.         Dec ::= Ident ":" Type ;
-LcVarDeclaration.    Dec ::= "local" Ident ":" Type ;
 
 OnlyDecl.           Expr2 ::= Dec ;
 InitDecl.           Expr2 ::= Dec "=" Expr ;

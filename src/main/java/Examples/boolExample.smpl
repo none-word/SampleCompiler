@@ -8,3 +8,12 @@ then
 else
     true;
 end;
+
+function add_1 (x : boolean): void
+	if (x)
+		then
+		    false;
+		else
+		    true;
+		end;
+end;

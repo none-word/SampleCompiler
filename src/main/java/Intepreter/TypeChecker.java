@@ -1,6 +1,7 @@
 package Intepreter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import sample.Absyn.*;
 import sample.PrettyPrinter;
@@ -9,6 +10,11 @@ public class TypeChecker {
     public class Variable{
         public String ident;
         public Type type;
+
+        public Variable(String ident, Type type) {
+            this.ident = ident;
+            this.type = type;
+        }
     }
 
     public Type typeOf(ArrayList<Variable> context, Expr expr) throws TypeException{
@@ -54,6 +60,64 @@ public class TypeChecker {
             }
         }
 
+        if (expr instanceof Func){
+            var args = ((FuncArgs) ((Func) expr).fargs_);
+            var body = ((ProgramExprs) ((Func) expr).program_).listexpr_;
+            var funcType = ((Func) expr).type_;
+            var newContext = context;
+            for (Dec arg : args.listdec_){
+                newContext.add(new Variable(((Declaration) arg).ident_, ((Declaration) arg).type_));
+            }
+            return checkAndGetFuncType(newContext, body, funcType);
+        }
+
+        return null;
+    }
+
+    private Type checkAndGetFuncType(ArrayList<Variable> context, List<Expr> body, Type funcType) throws TypeException{
+        var returnType = getReturnType(context, body);
+        var returnExpr = getReturnExpr(context, body);
+
+        if (returnType == null){
+            System.out.print("func type: ");
+            System.out.println(funcType);
+            System.out.print("Is same type: ");
+            System.out.println(isSameType(funcType, new VoidType()));
+            if (isSameType(funcType, new VoidType())) {
+                System.out.println("heh");
+                return new VoidType();
+            }
+            else
+                throw new TypeException(funcType, new VoidType(), returnExpr);
+        }
+        else {
+            if (!isSameType(returnType, funcType))
+                throw new TypeException(funcType, returnType, returnExpr);
+            else
+                return returnType;
+        }
+    }
+
+    private Type getReturnType(ArrayList<Variable> context, List<Expr> body) throws TypeException{
+        Type exprType = null;
+        for (var expr : body) {
+            if (expr instanceof Return) {
+                var type = typeOf(context, ((Return) expr).expr_);
+                if (exprType == null)
+                    exprType = type;
+                else if (!isSameType(exprType, type))
+                    throw new TypeException(exprType, type, expr);
+            }
+        }
+        return exprType;
+    }
+
+    private Expr getReturnExpr(ArrayList<Variable> context, List<Expr> body) {
+        for (var expr : body) {
+            if (expr instanceof Return) {
+                return expr;
+            }
+        }
         return null;
     }
 

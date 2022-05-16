@@ -2,46 +2,46 @@ JAVAC=javac
 JAVAC_FLAGS=-sourcepath .
 JAVA=java
 JAVA_FLAGS=
-CUP=java_cup.Intepreter.Main
+CUP=java_cup.Main
 CUPFLAGS=-nopositions -expect 100
-JLEX=JLex.Intepreter.Main
+JLEX=JLex.Main
 all: test
 
-test: absyn Sample/Yylex.class Sample/PrettyPrinter.class Sample/Test.class Sample/ComposVisitor.class Sample/AbstractVisitor.class Sample/FoldVisitor.class Sample/AllVisitor.class Sample/parser.class Sample/sym.class Sample/Test.class
+test: absyn sample/Yylex.class sample/PrettyPrinter.class sample/Test.class sample/ComposVisitor.class sample/AbstractVisitor.class sample/FoldVisitor.class sample/AllVisitor.class sample/parser.class sample/sym.class sample/Test.class
 
 .PHONY: absyn
 
 %.class: %.java
 	${JAVAC} ${JAVAC_FLAGS} $^
 
-absyn: Sample/Absyn/Program.java Sample/Absyn/ProgramExprs.java Sample/Absyn/ListExpr.java Sample/Absyn/Expr.java Sample/Absyn/Var.java Sample/Absyn/ConstTrue.java Sample/Absyn/ConstFalse.java Sample/Absyn/If.java Sample/Absyn/FuncCall.java Sample/Absyn/Func.java Sample/Absyn/Return.java Sample/Absyn/TypeAliasing.java Sample/Absyn/LcTypeAliasing.java Sample/Absyn/VarTypeAnnotation.java Sample/Absyn/LcVarTypeAnnotation.java Sample/Absyn/FuncTypeAnnotation.java Sample/Absyn/VarTypeAscription.java Sample/Absyn/LcVarTypeAscription.java Sample/Absyn/FuncTypeAscription.java Sample/Absyn/EInt.java Sample/Absyn/EDouble.java Sample/Absyn/EStr.java Sample/Absyn/Not.java Sample/Absyn/And.java Sample/Absyn/Or.java Sample/Absyn/ConstZero.java Sample/Absyn/Succ.java Sample/Absyn/Pred.java Sample/Absyn/IsZero.java Sample/Absyn/OnlyDecl.java Sample/Absyn/InitDecl.java Sample/Absyn/InitTableDecl.java Sample/Absyn/ComaExprs.java Sample/Absyn/Vars.java Sample/Absyn/FArgs.java Sample/Absyn/FuncArgs.java Sample/Absyn/ListDec.java Sample/Absyn/Type.java Sample/Absyn/StringType.java Sample/Absyn/BoolType.java Sample/Absyn/UnitType.java Sample/Absyn/IntType.java Sample/Absyn/DoubleType.java Sample/Absyn/TableType.java Sample/Absyn/NilType.java Sample/Absyn/VoidType.java Sample/Absyn/TypeKW.java Sample/Absyn/TypeKeyword.java Sample/Absyn/VarKW.java Sample/Absyn/VarKeyword.java Sample/Absyn/TAnnot.java Sample/Absyn/TypeAnnotation.java Sample/Absyn/TAscript.java Sample/Absyn/TypeAscription.java Sample/Absyn/Dec.java Sample/Absyn/Declaration.java Sample/Absyn/LcVarDeclaration.java
+absyn: sample/Absyn/Program.java sample/Absyn/ProgramExprs.java sample/Absyn/ListExpr.java sample/Absyn/Expr.java sample/Absyn/Var.java sample/Absyn/ConstTrue.java sample/Absyn/ConstFalse.java sample/Absyn/If.java sample/Absyn/FuncCall.java sample/Absyn/Func.java sample/Absyn/Return.java sample/Absyn/TypeAliasing.java sample/Absyn/VarTypeAnnotation.java sample/Absyn/FuncTypeAnnotation.java sample/Absyn/VarTypeAscription.java sample/Absyn/FuncTypeAscription.java sample/Absyn/EInt.java sample/Absyn/EDouble.java sample/Absyn/EStr.java sample/Absyn/Not.java sample/Absyn/And.java sample/Absyn/Or.java sample/Absyn/ConstZero.java sample/Absyn/Succ.java sample/Absyn/Pred.java sample/Absyn/IsZero.java sample/Absyn/OnlyDecl.java sample/Absyn/InitDecl.java sample/Absyn/InitTableDecl.java sample/Absyn/ComaExprs.java sample/Absyn/Vars.java sample/Absyn/FArgs.java sample/Absyn/FuncArgs.java sample/Absyn/ListDec.java sample/Absyn/Type.java sample/Absyn/StringType.java sample/Absyn/BoolType.java sample/Absyn/UnitType.java sample/Absyn/IntType.java sample/Absyn/DoubleType.java sample/Absyn/TableType.java sample/Absyn/NilType.java sample/Absyn/VoidType.java sample/Absyn/TypeKW.java sample/Absyn/TypeKeyword.java sample/Absyn/VarKW.java sample/Absyn/VarKeyword.java sample/Absyn/TAnnot.java sample/Absyn/TypeAnnotation.java sample/Absyn/TAscript.java sample/Absyn/TypeAscription.java sample/Absyn/Dec.java sample/Absyn/Declaration.java
 	${JAVAC} ${JAVAC_FLAGS} $^
 
-Sample/Yylex.java: Sample/Yylex
-	${JAVA} ${JAVA_FLAGS} ${JLEX} Sample/Yylex
+sample/Yylex.java: sample/Yylex
+	${JAVA} ${JAVA_FLAGS} ${JLEX} sample/Yylex
 
-Sample/sym.java Sample/parser.java: Sample/Sample.cup
-	${JAVA} ${JAVA_FLAGS} ${CUP} ${CUPFLAGS} Sample/Sample.cup
-	mv sym.java parser.java Sample/
+sample/sym.java sample/parser.java: sample/sample.cup
+	${JAVA} ${JAVA_FLAGS} ${CUP} ${CUPFLAGS} sample/sample.cup
+	mv sym.java parser.java sample/
 
-Sample/Yylex.class: Sample/Yylex.java Sample/sym.java
+sample/Yylex.class: sample/Yylex.java sample/sym.java
 
-Sample/sym.class: Sample/sym.java
+sample/sym.class: sample/sym.java
 
-Sample/parser.class: Sample/parser.java Sample/sym.java
+sample/parser.class: sample/parser.java sample/sym.java
 
-Sample/PrettyPrinter.class: Sample/PrettyPrinter.java
+sample/PrettyPrinter.class: sample/PrettyPrinter.java
 
 clean:
-	rm -f Sample/Absyn/*.class Sample/*.class
+	rm -f sample/Absyn/*.class sample/*.class
 
 distclean: vclean
 
 vclean:
-	 rm -f Sample/Absyn/Program.java Sample/Absyn/ProgramExprs.java Sample/Absyn/ListExpr.java Sample/Absyn/Expr.java Sample/Absyn/Var.java Sample/Absyn/ConstTrue.java Sample/Absyn/ConstFalse.java Sample/Absyn/If.java Sample/Absyn/FuncCall.java Sample/Absyn/Func.java Sample/Absyn/Return.java Sample/Absyn/TypeAliasing.java Sample/Absyn/LcTypeAliasing.java Sample/Absyn/VarTypeAnnotation.java Sample/Absyn/LcVarTypeAnnotation.java Sample/Absyn/FuncTypeAnnotation.java Sample/Absyn/VarTypeAscription.java Sample/Absyn/LcVarTypeAscription.java Sample/Absyn/FuncTypeAscription.java Sample/Absyn/EInt.java Sample/Absyn/EDouble.java Sample/Absyn/EStr.java Sample/Absyn/Not.java Sample/Absyn/And.java Sample/Absyn/Or.java Sample/Absyn/ConstZero.java Sample/Absyn/Succ.java Sample/Absyn/Pred.java Sample/Absyn/IsZero.java Sample/Absyn/OnlyDecl.java Sample/Absyn/InitDecl.java Sample/Absyn/InitTableDecl.java Sample/Absyn/ComaExprs.java Sample/Absyn/Vars.java Sample/Absyn/FArgs.java Sample/Absyn/FuncArgs.java Sample/Absyn/ListDec.java Sample/Absyn/Type.java Sample/Absyn/StringType.java Sample/Absyn/BoolType.java Sample/Absyn/UnitType.java Sample/Absyn/IntType.java Sample/Absyn/DoubleType.java Sample/Absyn/TableType.java Sample/Absyn/NilType.java Sample/Absyn/VoidType.java Sample/Absyn/TypeKW.java Sample/Absyn/TypeKeyword.java Sample/Absyn/VarKW.java Sample/Absyn/VarKeyword.java Sample/Absyn/TAnnot.java Sample/Absyn/TypeAnnotation.java Sample/Absyn/TAscript.java Sample/Absyn/TypeAscription.java Sample/Absyn/Dec.java Sample/Absyn/Declaration.java Sample/Absyn/LcVarDeclaration.java Sample/Absyn/Program.class Sample/Absyn/ProgramExprs.class Sample/Absyn/ListExpr.class Sample/Absyn/Expr.class Sample/Absyn/Var.class Sample/Absyn/ConstTrue.class Sample/Absyn/ConstFalse.class Sample/Absyn/If.class Sample/Absyn/FuncCall.class Sample/Absyn/Func.class Sample/Absyn/Return.class Sample/Absyn/TypeAliasing.class Sample/Absyn/LcTypeAliasing.class Sample/Absyn/VarTypeAnnotation.class Sample/Absyn/LcVarTypeAnnotation.class Sample/Absyn/FuncTypeAnnotation.class Sample/Absyn/VarTypeAscription.class Sample/Absyn/LcVarTypeAscription.class Sample/Absyn/FuncTypeAscription.class Sample/Absyn/EInt.class Sample/Absyn/EDouble.class Sample/Absyn/EStr.class Sample/Absyn/Not.class Sample/Absyn/And.class Sample/Absyn/Or.class Sample/Absyn/ConstZero.class Sample/Absyn/Succ.class Sample/Absyn/Pred.class Sample/Absyn/IsZero.class Sample/Absyn/OnlyDecl.class Sample/Absyn/InitDecl.class Sample/Absyn/InitTableDecl.class Sample/Absyn/ComaExprs.class Sample/Absyn/Vars.class Sample/Absyn/FArgs.class Sample/Absyn/FuncArgs.class Sample/Absyn/ListDec.class Sample/Absyn/Type.class Sample/Absyn/StringType.class Sample/Absyn/BoolType.class Sample/Absyn/UnitType.class Sample/Absyn/IntType.class Sample/Absyn/DoubleType.class Sample/Absyn/TableType.class Sample/Absyn/NilType.class Sample/Absyn/VoidType.class Sample/Absyn/TypeKW.class Sample/Absyn/TypeKeyword.class Sample/Absyn/VarKW.class Sample/Absyn/VarKeyword.class Sample/Absyn/TAnnot.class Sample/Absyn/TypeAnnotation.class Sample/Absyn/TAscript.class Sample/Absyn/TypeAscription.class Sample/Absyn/Dec.class Sample/Absyn/Declaration.class Sample/Absyn/LcVarDeclaration.class
-	 rm -f Sample/Absyn/*.class
-	 rmdir Sample/Absyn/
-	 rm -f Sample/Yylex Sample/Sample.cup Sample/Yylex.java Sample/VisitSkel.java Sample/ComposVisitor.java Sample/AbstractVisitor.java Sample/FoldVisitor.java Sample/AllVisitor.java Sample/PrettyPrinter.java Sample/Skeleton.java Sample/Test.java Sample/sym.java Sample/parser.java Sample/*.class
+	 rm -f sample/Absyn/Program.java sample/Absyn/ProgramExprs.java sample/Absyn/ListExpr.java sample/Absyn/Expr.java sample/Absyn/Var.java sample/Absyn/ConstTrue.java sample/Absyn/ConstFalse.java sample/Absyn/If.java sample/Absyn/FuncCall.java sample/Absyn/Func.java sample/Absyn/Return.java sample/Absyn/TypeAliasing.java sample/Absyn/VarTypeAnnotation.java sample/Absyn/FuncTypeAnnotation.java sample/Absyn/VarTypeAscription.java sample/Absyn/FuncTypeAscription.java sample/Absyn/EInt.java sample/Absyn/EDouble.java sample/Absyn/EStr.java sample/Absyn/Not.java sample/Absyn/And.java sample/Absyn/Or.java sample/Absyn/ConstZero.java sample/Absyn/Succ.java sample/Absyn/Pred.java sample/Absyn/IsZero.java sample/Absyn/OnlyDecl.java sample/Absyn/InitDecl.java sample/Absyn/InitTableDecl.java sample/Absyn/ComaExprs.java sample/Absyn/Vars.java sample/Absyn/FArgs.java sample/Absyn/FuncArgs.java sample/Absyn/ListDec.java sample/Absyn/Type.java sample/Absyn/StringType.java sample/Absyn/BoolType.java sample/Absyn/UnitType.java sample/Absyn/IntType.java sample/Absyn/DoubleType.java sample/Absyn/TableType.java sample/Absyn/NilType.java sample/Absyn/VoidType.java sample/Absyn/TypeKW.java sample/Absyn/TypeKeyword.java sample/Absyn/VarKW.java sample/Absyn/VarKeyword.java sample/Absyn/TAnnot.java sample/Absyn/TypeAnnotation.java sample/Absyn/TAscript.java sample/Absyn/TypeAscription.java sample/Absyn/Dec.java sample/Absyn/Declaration.java sample/Absyn/Program.class sample/Absyn/ProgramExprs.class sample/Absyn/ListExpr.class sample/Absyn/Expr.class sample/Absyn/Var.class sample/Absyn/ConstTrue.class sample/Absyn/ConstFalse.class sample/Absyn/If.class sample/Absyn/FuncCall.class sample/Absyn/Func.class sample/Absyn/Return.class sample/Absyn/TypeAliasing.class sample/Absyn/VarTypeAnnotation.class sample/Absyn/FuncTypeAnnotation.class sample/Absyn/VarTypeAscription.class sample/Absyn/FuncTypeAscription.class sample/Absyn/EInt.class sample/Absyn/EDouble.class sample/Absyn/EStr.class sample/Absyn/Not.class sample/Absyn/And.class sample/Absyn/Or.class sample/Absyn/ConstZero.class sample/Absyn/Succ.class sample/Absyn/Pred.class sample/Absyn/IsZero.class sample/Absyn/OnlyDecl.class sample/Absyn/InitDecl.class sample/Absyn/InitTableDecl.class sample/Absyn/ComaExprs.class sample/Absyn/Vars.class sample/Absyn/FArgs.class sample/Absyn/FuncArgs.class sample/Absyn/ListDec.class sample/Absyn/Type.class sample/Absyn/StringType.class sample/Absyn/BoolType.class sample/Absyn/UnitType.class sample/Absyn/IntType.class sample/Absyn/DoubleType.class sample/Absyn/TableType.class sample/Absyn/NilType.class sample/Absyn/VoidType.class sample/Absyn/TypeKW.class sample/Absyn/TypeKeyword.class sample/Absyn/VarKW.class sample/Absyn/VarKeyword.class sample/Absyn/TAnnot.class sample/Absyn/TypeAnnotation.class sample/Absyn/TAscript.class sample/Absyn/TypeAscription.class sample/Absyn/Dec.class sample/Absyn/Declaration.class
+	 rm -f sample/Absyn/*.class
+	 rmdir sample/Absyn/
+	 rm -f sample/Yylex sample/sample.cup sample/Yylex.java sample/VisitSkel.java sample/ComposVisitor.java sample/AbstractVisitor.java sample/FoldVisitor.java sample/AllVisitor.java sample/PrettyPrinter.java sample/Skeleton.java sample/Test.java sample/sym.java sample/parser.java sample/*.class
 	rm -f Makefile
-	rmdir -p Sample/
+	rmdir -p sample/
 

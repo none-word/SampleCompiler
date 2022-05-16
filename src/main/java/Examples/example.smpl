@@ -1,7 +1,6 @@
 y : boolean = false;
 z : boolean = true;
 
-local x : integer = 5;
 x1 : double = 10.5;
 x3 : string = "fff";
 
@@ -24,16 +23,13 @@ end;
 
 mytable : table = (x: integer, y: double);
 mytype : type = string;
-local mytype : type = string;
 
 function add_1 (x : integer): integer
 		return(add(x, 1));
 end;
 x : var (integer) = add_1(x);
-local x : var (integer) = add_1(x);
 
 x : var = 5;
-local x : var = 5;
 function add_1(x: integer): var
 		return(add(x, 1));
 end;
