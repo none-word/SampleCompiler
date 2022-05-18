@@ -4,16 +4,20 @@ false;
 
 if (true)
 then
-    false;
+    x : boolean = false;
 else
-    true;
+    x : boolean = true;
 end;
 
-function add_1 (x : boolean): void
+function add_1 (x : boolean): boolean
 	if (x)
 		then
-		    false;
+		    x: boolean = true;
+		    return false;
 		else
-		    true;
+		    x: boolean = true;
+		    return true;
 		end;
+
+	x: integer = 5;
 end;

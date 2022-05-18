@@ -296,11 +296,13 @@ public class PrettyPrinter
        sample.Absyn.If _if = (sample.Absyn.If) foo;
        if (_i_ > 0) render(_L_PAREN);
        render("if");
-       pp(_if.expr_, 0);
+       pp(_if.expr_1, 0);
        render("then");
-       pp(_if.program_1, 0);
+       pp(_if.expr_2, 0);
+       render(";");
        render("else");
-       pp(_if.program_2, 0);
+       pp(_if.expr_3, 0);
+       render(";");
        render("end");
        if (_i_ > 0) render(_R_PAREN);
     }
@@ -703,9 +705,9 @@ public class PrettyPrinter
        sample.Absyn.If _if = (sample.Absyn.If) foo;
        render("(");
        render("If");
-       sh(_if.expr_);
-       sh(_if.program_1);
-       sh(_if.program_2);
+       sh(_if.expr_1);
+       sh(_if.expr_2);
+       sh(_if.expr_3);
        render(")");
     }
     if (foo instanceof sample.Absyn.FuncCall)
