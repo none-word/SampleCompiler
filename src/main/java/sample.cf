@@ -8,7 +8,7 @@ separator Expr ";" ;
 Var.        Expr  ::= Ident ;
 ConstTrue.  Expr  ::= "true" ;
 ConstFalse. Expr  ::= "false" ;
-If.         Expr  ::= "if" Expr "then" Expr ";" "else" Expr ";" "end" ;
+If.         Expr  ::= "if" Expr "then" Program "else" Program "end" ;
 Vars.       ComaExprs  ::= [Expr] ;
 separator Expr ",";
 

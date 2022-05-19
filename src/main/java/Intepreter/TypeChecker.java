@@ -27,9 +27,12 @@ public class TypeChecker {
         }
 
         if (expr instanceof If){
-            var expr_type = typeCheck(context, ((If) expr).expr_1, new BoolType());
-            var typeOfResult = typeOf(context, ((If) expr).expr_2);
-            return typeCheck(context, ((If) expr).expr_3, typeOfResult);
+            var expr_type = typeCheck(context, ((If) expr).expr_, new BoolType());
+            var typeOfThen = getReturnTypeOfProgram(context, ((ProgramExprs) ((If) expr).program_1).listexpr_);
+            System.out.print("type of then: ");
+            System.out.println(typeOfThen);
+
+            return checkAndGetProgramType(context, ((ProgramExprs) ((If) expr).program_2).listexpr_, typeOfThen);
         }
 
         if (expr instanceof ConstZero)
@@ -61,63 +64,64 @@ public class TypeChecker {
         }
 
         if (expr instanceof Func){
+
+            System.out.println("body:");
+            PrettyPrinter.print(expr);
+
             var args = ((FuncArgs) ((Func) expr).fargs_);
             var body = ((ProgramExprs) ((Func) expr).program_).listexpr_;
+
             var funcType = ((Func) expr).type_;
             var newContext = context;
             for (Dec arg : args.listdec_){
                 newContext.add(new Variable(((Declaration) arg).ident_, ((Declaration) arg).type_));
             }
-            return checkAndGetFuncType(newContext, body, funcType);
+            return checkAndGetProgramType(newContext, body, funcType);
         }
 
         return null;
     }
 
-    private Type checkAndGetFuncType(ArrayList<Variable> context, List<Expr> body, Type funcType) throws TypeException{
-        var returnType = getReturnType(context, body);
-        var returnExpr = getReturnExpr(context, body);
+    private Type checkAndGetProgramType(ArrayList<Variable> context, List<Expr> body, Type expectedType) throws TypeException{
+        var returnType = getReturnTypeOfProgram(context, body);
+        var returnExpr = getReturnExpr(body);
 
-        if (returnType == null){
-            System.out.print("func type: ");
-            System.out.println(funcType);
-            System.out.print("Is same type: ");
-            System.out.println(isSameType(funcType, new VoidType()));
-            if (isSameType(funcType, new VoidType())) {
-                System.out.println("heh");
-                return new VoidType();
-            }
-            else
-                throw new TypeException(funcType, new VoidType(), returnExpr);
+        if (isSameType(expectedType, returnType)) {
+            return returnType;
         }
         else {
-            if (!isSameType(returnType, funcType))
-                throw new TypeException(funcType, returnType, returnExpr);
-            else
-                return returnType;
+            throw new TypeException(expectedType, returnType, returnExpr);
         }
     }
 
-    private Type getReturnType(ArrayList<Variable> context, List<Expr> body) throws TypeException{
-        Type exprType = null;
+    private Type getReturnTypeOfProgram(ArrayList<Variable> context, List<Expr> body) throws TypeException{
         for (var expr : body) {
+
             if (expr instanceof Return) {
-                var type = typeOf(context, ((Return) expr).expr_);
-                if (exprType == null)
-                    exprType = type;
-                else if (!isSameType(exprType, type))
-                    throw new TypeException(exprType, type, expr);
+                return typeOf(context, ((Return) expr).expr_);
+            }
+
+            if (expr instanceof If){
+                var thenType = getReturnTypeOfProgram(context, ((ProgramExprs) ((If) expr).program_1).listexpr_);
+                var elseType = getReturnTypeOfProgram(context, ((ProgramExprs) ((If) expr).program_2).listexpr_);
+
+                if (!isSameType(thenType, new VoidType()))
+                    return thenType;
+                if (!isSameType(elseType, new VoidType()))
+                    return elseType;
             }
         }
-        return exprType;
+
+        return new VoidType();
     }
 
-    private Expr getReturnExpr(ArrayList<Variable> context, List<Expr> body) {
+    private Expr getReturnExpr(List<Expr> body) {
         for (var expr : body) {
             if (expr instanceof Return) {
                 return expr;
             }
         }
+
         return null;
     }
 

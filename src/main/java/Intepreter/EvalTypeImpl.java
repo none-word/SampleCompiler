@@ -18,10 +18,12 @@ public class EvalTypeImpl implements EvalType {
 
     @Override
     public Expr evalType(If expr) {
-        if (expr.expr_1 instanceof ConstTrue) {
-            return expr.expr_2;
-        } else {
-            return expr.expr_3;
-        }
+//        if (expr.expr_1 instanceof ConstTrue) {
+//            return expr.expr_2;
+//        } else {
+//            return expr.expr_3;
+//        }
+//    }
+        return null;
     }
 }
