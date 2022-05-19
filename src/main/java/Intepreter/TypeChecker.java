@@ -70,8 +70,6 @@ public class TypeChecker {
 
             var args = ((FuncArgs) ((Func) expr).fargs_);
             var body = ((ProgramExprs) ((Func) expr).program_).listexpr_;
-            System.out.println(body.size());
-            PrettyPrinter.print(body);
 
             var funcType = ((Func) expr).type_;
             var newContext = context;
@@ -97,29 +95,24 @@ public class TypeChecker {
     }
 
     private Type getReturnTypeOfProgram(ArrayList<Variable> context, List<Expr> body) throws TypeException{
-        Type exprType = null;
         for (var expr : body) {
 
-//            if (expr instanceof Return) {
-//                var type = typeOf(context, ((Return) expr).expr_);
-//
-//                if (exprType == null)
-//                    exprType = type;
-//
-//                else if (!isSameType(exprType, type))
-//                    throw new TypeException(exprType, type, expr);
-//            }
+            if (expr instanceof Return) {
+                return typeOf(context, ((Return) expr).expr_);
+            }
 
             if (expr instanceof If){
-                exprType = typeOf(context, expr);
+                var thenType = getReturnTypeOfProgram(context, ((ProgramExprs) ((If) expr).program_1).listexpr_);
+                var elseType = getReturnTypeOfProgram(context, ((ProgramExprs) ((If) expr).program_2).listexpr_);
 
+                if (!isSameType(thenType, new VoidType()))
+                    return thenType;
+                if (!isSameType(elseType, new VoidType()))
+                    return elseType;
             }
         }
 
-        if (exprType == null)
-            return new VoidType();
-
-        return exprType;
+        return new VoidType();
     }
 
     private Expr getReturnExpr(List<Expr> body) {

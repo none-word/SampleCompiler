@@ -9,15 +9,14 @@ else
     x : boolean = true;
 end;
 
-function add_1 (x : boolean): boolean
+function add_1 (x : boolean): integer
 	if (x)
 		then
 		    x: boolean = true;
-		    return false;
 		else
 		    x: boolean = true;
-		    return true;
 		end;
 
-	x: integer = 5;
+	y: integer = 5;
+	return y;
 end;
