@@ -93,7 +93,7 @@ ListExpr ::=  /* empty */  {: RESULT = new sample.Absyn.ListExpr(); :}
 Expr ::= _IDENT_:p_1  {: RESULT = new sample.Absyn.Var(p_1); :} 
   | _SYMB_26  {: RESULT = new sample.Absyn.ConstTrue(); :}
   | _SYMB_13  {: RESULT = new sample.Absyn.ConstFalse(); :}
-  | _SYMB_15 Expr:p_2 _SYMB_25 Expr:p_4 _SYMB_0 _SYMB_11 Expr:p_7 _SYMB_0 _SYMB_12  {: RESULT = new sample.Absyn.If(p_2,p_4,p_7); :}
+  | _SYMB_15 Expr:p_2 _SYMB_25 Program:p_4 _SYMB_11 Program:p_6 _SYMB_12  {: RESULT = new sample.Absyn.If(p_2,p_4,p_6); :}
   | _IDENT_:p_1 _SYMB_2 ComaExprs:p_3 _SYMB_3  {: RESULT = new sample.Absyn.FuncCall(p_1,p_3); :}
   | _SYMB_14 _IDENT_:p_2 _SYMB_2 FArgs:p_4 _SYMB_3 _SYMB_4 Type:p_7 Program:p_8 _SYMB_12  {: RESULT = new sample.Absyn.Func(p_2,p_4,p_7,p_8); :}
   | _SYMB_21 Expr:p_2  {: RESULT = new sample.Absyn.Return(p_2); :}
