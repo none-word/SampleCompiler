@@ -64,7 +64,6 @@ public class TypeChecker {
         }
 
         if (expr instanceof Func){
-
             System.out.println("body:");
             PrettyPrinter.print(expr);
 
@@ -130,7 +129,7 @@ public class TypeChecker {
         PrettyPrinter.print(expr);
     }
 
-    private boolean isSameType(Type type1, Type type2) {
+    public boolean isSameType(Type type1, Type type2) {
         return type1.getClass().equals(type2.getClass());
     }
 
