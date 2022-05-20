@@ -1,0 +1,32 @@
+function func_1 (x : boolean): integer
+	if (x)
+		then
+		    x: boolean = true;
+		else
+		    x: boolean = true;
+		end;
+
+	y: integer = 5;
+	return y;
+end;
+
+function func_2 (z : double): boolean
+	if (x)
+		then
+		    x: boolean = true;
+		    return x;
+		else
+		    x: boolean = true;
+		end;
+
+	return true;
+end;
+
+function func_3 (x : string): boolean
+    return x;
+end;
+
+function func_4 (x: integer): var
+    return x;
+end;
+
