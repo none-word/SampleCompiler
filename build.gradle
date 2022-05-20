@@ -12,13 +12,13 @@ repositories {
 }
 
 dependencies {
-    testImplementation(platform('org.junit:junit-bom:5.7.0'))
-    testImplementation('org.junit.jupiter:junit-jupiter')
     implementation group: 'com.github.vbmacher', name: 'java-cup-runtime', version: '11b-20160615'
+    implementation 'junit:junit:4.13.1'
+    testImplementation 'junit:junit:4.13'
 }
 
 test {
-    useJUnitPlatform()
+    useJUnit()
     testLogging {
         events "passed", "skipped", "failed"
     }

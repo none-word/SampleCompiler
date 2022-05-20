@@ -38,8 +38,9 @@ public class TypeChecker {
         if (expr instanceof If){
             var expr_type = typeCheck(context, ((If) expr).expr_, new BoolType());
             var typeOfThen = getReturnTypeOfProgram(context, ((ProgramExprs) ((If) expr).program_1).listexpr_);
+            var typeOfElse = getReturnTypeOfProgram(context, ((ProgramExprs) ((If) expr).program_2).listexpr_);
 
-            return checkAndGetProgramType(context, ((ProgramExprs) ((If) expr).program_2).listexpr_, typeOfThen);
+            return new VoidType();
         }
 
         if (expr instanceof ConstZero)
@@ -66,13 +67,23 @@ public class TypeChecker {
 
         if (expr instanceof InitDecl){
             var ident = ((Declaration) ((InitDecl) expr).dec_).ident_;
-            var identType = ((Declaration) ((InitDecl) expr).dec_).type_;
+            var type = ((Declaration) ((InitDecl) expr).dec_).type_;
             var decExpr = ((InitDecl) expr).expr_;
 
-            var exprType = typeCheck(context, decExpr, identType);
+            var exprType = typeCheck(context, decExpr, type);
 
-            context.add(new Variable(ident, identType));
-            return identType;
+            context.add(new Variable(ident, type));
+            return type;
+        }
+
+        if (expr instanceof VarTypeAnnotation){
+            var ident = ((VarTypeAnnotation) expr).ident_;
+            var decExpr = ((VarTypeAnnotation) expr).expr_;
+
+            var exprType = typeOf(context, decExpr);
+
+            context.add(new Variable(ident, exprType));
+            return exprType;
         }
 
         if (expr instanceof Var){
@@ -100,6 +111,17 @@ public class TypeChecker {
             return checkAndGetProgramType(newContext, body, funcType);
         }
 
+        if (expr instanceof FuncTypeAnnotation){
+            var args = ((FuncArgs) ((FuncTypeAnnotation) expr).fargs_);
+            var body = ((ProgramExprs) ((FuncTypeAnnotation) expr).program_).listexpr_;
+
+            var newContext = context;
+            for (Dec arg : args.listdec_){
+                newContext.add(new Variable(((Declaration) arg).ident_, ((Declaration) arg).type_));
+            }
+            return getReturnTypeOfProgram(newContext, body);
+        }
+
         return null;
     }
 
@@ -116,11 +138,17 @@ public class TypeChecker {
     }
 
     private Type getReturnTypeOfProgram(ArrayList<Variable> context, List<Expr> body) throws TypeException{
+        Type returnType = null;
         for (var expr : body) {
-            var type = typeOf(context, expr);
+            typeOf(context, expr);
 
             if (expr instanceof Return) {
-                return typeOf(context, ((Return) expr).expr_);
+                var type = typeOf(context, ((Return) expr).expr_);
+                if (returnType == null)
+                    returnType = type;
+                else
+                    if (!isSameType(returnType, type))
+                        throw new TypeException(returnType, type, expr);
             }
 
             if (expr instanceof If){
@@ -128,12 +156,22 @@ public class TypeChecker {
                 var elseType = getReturnTypeOfProgram(context, ((ProgramExprs) ((If) expr).program_2).listexpr_);
 
                 if (!isSameType(thenType, new VoidType()))
-                    return thenType;
+                    if (returnType == null)
+                        returnType = thenType;
+                    else
+                        if (!isSameType(returnType, thenType))
+                            throw new TypeException(returnType, thenType, getReturnExpr(((ProgramExprs) ((If) expr).program_1).listexpr_));
+
                 if (!isSameType(elseType, new VoidType()))
-                    return elseType;
+                    if (returnType == null)
+                        returnType = elseType;
+                    else
+                    if (!isSameType(returnType, elseType))
+                        throw new TypeException(returnType, elseType, getReturnExpr(((ProgramExprs) ((If) expr).program_2).listexpr_));
             }
         }
-
+        if (returnType != null)
+            return returnType;
         return new VoidType();
     }
 
