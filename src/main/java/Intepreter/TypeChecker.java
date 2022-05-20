@@ -7,6 +7,7 @@ import sample.Absyn.*;
 import sample.PrettyPrinter;
 
 public class TypeChecker {
+
     public class Variable{
         public String ident;
         public Type type;
@@ -18,6 +19,14 @@ public class TypeChecker {
     }
 
     public Type typeOf(ArrayList<Variable> context, Expr expr) throws TypeException{
+
+        if (expr instanceof EInt)
+            return new IntType();
+        if (expr instanceof EDouble)
+            return new DoubleType();
+        if (expr instanceof EStr)
+            return new StringType();
+
         if (expr instanceof ConstFalse) {
             return new BoolType();
         }
@@ -29,8 +38,6 @@ public class TypeChecker {
         if (expr instanceof If){
             var expr_type = typeCheck(context, ((If) expr).expr_, new BoolType());
             var typeOfThen = getReturnTypeOfProgram(context, ((ProgramExprs) ((If) expr).program_1).listexpr_);
-            System.out.print("type of then: ");
-            System.out.println(typeOfThen);
 
             return checkAndGetProgramType(context, ((ProgramExprs) ((If) expr).program_2).listexpr_, typeOfThen);
         }
@@ -50,6 +57,24 @@ public class TypeChecker {
             return new BoolType();
         }
 
+        if (expr instanceof OnlyDecl){
+            var ident = ((Declaration) ((OnlyDecl) expr).dec_).ident_;
+            var type = ((Declaration) ((OnlyDecl) expr).dec_).type_;
+            context.add(new Variable(ident, type));
+            return type;
+        }
+
+        if (expr instanceof InitDecl){
+            var ident = ((Declaration) ((InitDecl) expr).dec_).ident_;
+            var identType = ((Declaration) ((InitDecl) expr).dec_).type_;
+            var decExpr = ((InitDecl) expr).expr_;
+
+            var exprType = typeCheck(context, decExpr, identType);
+
+            context.add(new Variable(ident, identType));
+            return identType;
+        }
+
         if (expr instanceof Var){
             var variable = context.stream()
                     .filter(c -> ((Var) expr).ident_.equals(c.ident))
@@ -64,10 +89,6 @@ public class TypeChecker {
         }
 
         if (expr instanceof Func){
-
-            System.out.println("body:");
-            PrettyPrinter.print(expr);
-
             var args = ((FuncArgs) ((Func) expr).fargs_);
             var body = ((ProgramExprs) ((Func) expr).program_).listexpr_;
 
@@ -96,6 +117,7 @@ public class TypeChecker {
 
     private Type getReturnTypeOfProgram(ArrayList<Variable> context, List<Expr> body) throws TypeException{
         for (var expr : body) {
+            var type = typeOf(context, expr);
 
             if (expr instanceof Return) {
                 return typeOf(context, ((Return) expr).expr_);

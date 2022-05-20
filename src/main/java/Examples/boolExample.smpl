@@ -1,14 +1,11 @@
 true;
-
 false;
-
 if (true)
 then
     x : boolean = false;
 else
     x : boolean = true;
 end;
-
 function add_1 (x : boolean): integer
 	if (x)
 		then
