@@ -1,0 +1,10 @@
+function add_1 (x : boolean): boolean
+	if (x)
+		then
+		    x: boolean = true;
+		    return x;
+		else
+		    x: boolean = false;
+		    return x;
+		end;
+end;
