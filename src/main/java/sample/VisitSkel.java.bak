@@ -2,7 +2,7 @@ package sample;
 import sample.Absyn.*;
 /*** BNFC-Generated Visitor Design Pattern Skeleton. ***/
 /* This implements the common visitor design pattern.
-   Tests show it to be slightly less efficient than the
+   TypeCheckerTests show it to be slightly less efficient than the
    instanceof method, but easier to use. 
    Replace the R and A parameters with the desired return
    and context types.*/
