@@ -32,9 +32,9 @@ public class VisitSkel
       return null;
     }    public R visit(sample.Absyn.If p, A arg)
     { /* Code For If Goes Here */
-      p.expr_1.accept(new ExprVisitor<R,A>(), arg);
-      p.expr_2.accept(new ExprVisitor<R,A>(), arg);
-      p.expr_3.accept(new ExprVisitor<R,A>(), arg);
+      p.expr_.accept(new ExprVisitor<R,A>(), arg);
+      p.program_1.accept(new ProgramVisitor<R,A>(), arg);
+      p.program_2.accept(new ProgramVisitor<R,A>(), arg);
       return null;
     }    public R visit(sample.Absyn.FuncCall p, A arg)
     { /* Code For FuncCall Goes Here */
