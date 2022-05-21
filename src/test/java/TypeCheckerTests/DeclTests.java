@@ -52,18 +52,18 @@ public class DeclTests {
 
     @Test
     public void testFunctionTypes_1() throws TypeException {
-        var type = typeChecker.typeOf(new ArrayList<TypeChecker.Variable>(), exprs.get(0));
+        var type = typeChecker.typeOf(new ArrayList<>(), exprs.get(0));
         Assert.assertTrue(typeChecker.isSameType(type, new IntType()));
     }
 
     @Test(expected = TypeException.class)
     public void testFunctionTypes_2() throws TypeException {
-        var type = typeChecker.typeOf(new ArrayList<TypeChecker.Variable>(), exprs.get(1));
+        var type = typeChecker.typeOf(new ArrayList<>(), exprs.get(1));
     }
 
     @Test
     public void testFunctionTypes_3() throws TypeException {
-        var type = typeChecker.typeOf(new ArrayList<TypeChecker.Variable>(), exprs.get(2));
+        var type = typeChecker.typeOf(new ArrayList<>(), exprs.get(2));
         Assert.assertTrue(typeChecker.isSameType(type, new StringType()));
     }
 
@@ -81,5 +81,16 @@ public class DeclTests {
         var context = new ArrayList<TypeChecker.Variable>();
         var type = typeChecker.typeOf(context, exprs.get(5));
         type = typeChecker.typeOf(context, exprs.get(6));
+    }
+
+    @Test(expected = TypeException.class)
+    public void testFunctionTypes_6() throws TypeException {
+        var type = typeChecker.typeOf(new ArrayList<>(), exprs.get(7));
+        Assert.assertTrue(typeChecker.isSameType(type, new IntType()));
+    }
+
+    @Test(expected = TypeException.class)
+    public void testFunctionTypes_7() throws TypeException {
+        var type = typeChecker.typeOf(new ArrayList<>(), exprs.get(8));
     }
 }
