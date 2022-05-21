@@ -15,6 +15,7 @@ public class AbstractVisitor<R,A> implements AllVisitor<R,A> {
     public R visit(sample.Absyn.FuncCall p, A arg) { return visitDefault(p, arg); }
     public R visit(sample.Absyn.Func p, A arg) { return visitDefault(p, arg); }
     public R visit(sample.Absyn.Return p, A arg) { return visitDefault(p, arg); }
+    public R visit(sample.Absyn.NilKeyword p, A arg) { return visitDefault(p, arg); }
     public R visit(sample.Absyn.Not p, A arg) { return visitDefault(p, arg); }
     public R visit(sample.Absyn.And p, A arg) { return visitDefault(p, arg); }
     public R visit(sample.Absyn.Or p, A arg) { return visitDefault(p, arg); }
@@ -57,7 +58,6 @@ public class AbstractVisitor<R,A> implements AllVisitor<R,A> {
     public R visit(sample.Absyn.IntType p, A arg) { return visitDefault(p, arg); }
     public R visit(sample.Absyn.DoubleType p, A arg) { return visitDefault(p, arg); }
     public R visit(sample.Absyn.TableType p, A arg) { return visitDefault(p, arg); }
-    public R visit(sample.Absyn.NilType p, A arg) { return visitDefault(p, arg); }
     public R visit(sample.Absyn.VoidType p, A arg) { return visitDefault(p, arg); }
     public R visitDefault(sample.Absyn.Type p, A arg) {
       throw new IllegalArgumentException(this.getClass().getName() + ": " + p);

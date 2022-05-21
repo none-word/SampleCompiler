@@ -52,6 +52,9 @@ public class VisitSkel
     { /* Code For Return Goes Here */
       p.expr_.accept(new ExprVisitor<R,A>(), arg);
       return null;
+    }    public R visit(sample.Absyn.NilKeyword p, A arg)
+    { /* Code For NilKeyword Goes Here */
+      return null;
     }    public R visit(sample.Absyn.Not p, A arg)
     { /* Code For Not Goes Here */
       p.expr_.accept(new ExprVisitor<R,A>(), arg);
@@ -176,9 +179,6 @@ public class VisitSkel
       return null;
     }    public R visit(sample.Absyn.TableType p, A arg)
     { /* Code For TableType Goes Here */
-      return null;
-    }    public R visit(sample.Absyn.NilType p, A arg)
-    { /* Code For NilType Goes Here */
       return null;
     }    public R visit(sample.Absyn.VoidType p, A arg)
     { /* Code For VoidType Goes Here */
