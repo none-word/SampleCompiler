@@ -50,3 +50,22 @@ function func_6 (x: integer): var
     return x;
 end;
 
+function func_7 (x: integer): void
+    if (true)
+        then
+            z : double = 10.1;
+        else
+            y: double = 10.1;
+        end;
+end;
+
+function func_8 (x: integer): integer
+    if (true)
+        then
+            z : double = 10.1;
+        else
+            y: double = 10.1;
+        end;
+end;
+
+
