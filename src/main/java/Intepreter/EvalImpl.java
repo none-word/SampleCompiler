@@ -2,10 +2,6 @@ package Intepreter;
 
 import sample.Absyn.*;
 
-import java.awt.*;
-import java.util.List;
-import java.util.stream.Collectors;
-
 public class EvalImpl implements Eval {
     private final VariableStorage variableStorage = new VariableStorage();
 
@@ -37,6 +33,12 @@ public class EvalImpl implements Eval {
                 return evalType((Or) expr);
             case ("Var"):
                 return evalType((Var) expr);
+            case ("NilKeyword"):
+                return evalType((NilKeyword) expr);
+            case ("EInt"):
+                return evalType((EInt) expr);
+            case ("OnlyDecl"):
+                return evalType((OnlyDecl) expr);
             default:
                 return null;
         }
@@ -70,9 +72,7 @@ public class EvalImpl implements Eval {
     @Override
     public Expr evalType(InitDecl expr) {
         Expr result = evalExpr(expr.expr_);
-        Declaration declaration = (Declaration) expr.dec_;
-        variableStorage.saveVariable(declaration.ident_, declaration.type_, result);
-        return null;
+        return evalType((Declaration) expr.dec_, result);
     }
 
     @Override
@@ -96,7 +96,34 @@ public class EvalImpl implements Eval {
     }
 
     @Override
-    public Expr evalType(Var var) {
-        return variableStorage.getVariable(var.ident_);
+    public Expr evalType(Var expr) {
+        return variableStorage.getVariable(expr.ident_);
+    }
+
+    @Override
+    public Expr evalType(NilKeyword expr) {
+        return new NilKeyword();
+    }
+
+    @Override
+    public Expr evalType(EInt expr) {
+        return expr;
+    }
+
+    @Override
+    public Expr evalType(OnlyDecl expr) {
+        return evalType((Declaration) expr.dec_);
+    }
+
+    @Override
+    public Expr evalType(Declaration dec) {
+        variableStorage.saveVariable(dec.ident_, dec.type_, null);
+        return variableStorage.getVariable(dec.ident_);
+    }
+
+    @Override
+    public Expr evalType(Declaration dec, Expr value) {
+        variableStorage.saveVariable(dec.ident_, dec.type_, value);
+        return variableStorage.getVariable(dec.ident_);
     }
 }

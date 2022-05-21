@@ -51,14 +51,14 @@ public class Interpreter {
     private void evalAndTypeCheck(Expr expr){
         try {
             var typeChecker = new TypeChecker();
-//            var type = typeChecker.typeOf(new ArrayList<TypeChecker.Variable>(), expr);
+            var type = typeChecker.typeOf(new ArrayList<TypeChecker.Variable>(), expr);
             var result = eval.evalExpr(expr);
-//            System.out.print(PrettyPrinter.print(expr));
-//            System.out.print(" has type ");
-//            if (type != null)
-//                System.out.println(PrettyPrinter.print(type));
-//            else
-//                System.out.println("null");
+            System.out.print(PrettyPrinter.print(expr));
+            System.out.print(" has type ");
+            if (type != null)
+                System.out.println(PrettyPrinter.print(type));
+            else
+                System.out.println("null");
             System.out.println("Result: " + PrettyPrinter.print(result));
             System.out.println("\n");
         }
