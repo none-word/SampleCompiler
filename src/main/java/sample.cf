@@ -23,8 +23,9 @@ BoolType.         Type ::= "boolean" ;
 IntType.          Type ::= "integer" ;
 DoubleType.       Type ::= "double" ;
 TableType.        Type ::= "table" ;
-NilType.          Type ::= "nil" ;
 VoidType.         Type ::= "void" ;
+
+NilKeyword.       Expr ::= "nil";
 
 TypeKeyword.      TypeKW ::= "type" ;
 TypeAliasing.     Expr3 ::= Ident ":" TypeKW "=" Type;

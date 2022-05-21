@@ -70,8 +70,10 @@ public class TypeChecker {
             var type = ((Declaration) ((InitDecl) expr).dec_).type_;
             var decExpr = ((InitDecl) expr).expr_;
 
-            var exprType = typeCheck(context, decExpr, type);
+            if (decExpr instanceof NilKeyword)
+                return type;
 
+            var exprType = typeCheck(context, decExpr, type);
             context.add(new Variable(ident, type));
             return type;
         }
@@ -79,6 +81,9 @@ public class TypeChecker {
         if (expr instanceof VarTypeAnnotation){
             var ident = ((VarTypeAnnotation) expr).ident_;
             var decExpr = ((VarTypeAnnotation) expr).expr_;
+
+            if (decExpr instanceof NilKeyword)
+                throw new TypeException("Cannot infer type: variable initializer is nil");
 
             var exprType = typeOf(context, decExpr);
 
