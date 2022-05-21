@@ -7,18 +7,18 @@ import sample.Absyn.Type;
 import java.util.HashMap;
 
 public class VariableStorage {
-    private static final HashMap<String, Pair<Type, Expr>> storage = new HashMap<>();
+    private static final HashMap<String, Pair<Type, Expr>> variableStorage = new HashMap<>();
 
     public Expr getVariable(String ident) {
-        return storage.get(ident).getValue();
+        return variableStorage.get(ident).getValue();
     }
 
     public void saveVariable(String ident, Type type, Expr expr) {
-        storage.put(ident, new Pair<>(type, expr));
+        variableStorage.put(ident, new Pair<>(type, expr));
     }
 
     public void updateVariable(String ident, Expr expr) {
-        Pair<Type, Expr> savedPair = storage.get(ident);
+        Pair<Type, Expr> savedPair = variableStorage.get(ident);
         savedPair.setValue(expr);
     }
 }
