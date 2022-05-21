@@ -57,6 +57,7 @@ Declaration.         Dec ::= Ident ":" Type ;
 OnlyDecl.           Expr2 ::= Dec ;
 InitDecl.           Expr2 ::= Dec "=" Expr ;
 InitTableDecl.      Expr2 ::= Dec "=" "(" Dec "," Dec ")" ;
+Assignment.         Expr2 ::= Ident "=" Expr;
 
 _. Expr ::= "(" Expr ")" ;
 _. Expr ::= Expr1 ;

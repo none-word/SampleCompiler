@@ -143,6 +143,11 @@ public class VisitSkel
       p.dec_2.accept(new DecVisitor<R,A>(), arg);
       p.dec_3.accept(new DecVisitor<R,A>(), arg);
       return null;
+    }    public R visit(sample.Absyn.Assignment p, A arg)
+    { /* Code For Assignment Goes Here */
+      //p.ident_;
+      p.expr_.accept(new ExprVisitor<R,A>(), arg);
+      return null;
     }    
   }
   public class ComaExprsVisitor<R,A> implements ComaExprs.Visitor<R,A>

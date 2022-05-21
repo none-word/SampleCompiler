@@ -1,3 +1,4 @@
+--1
 function func_1 (x : boolean): integer
 	if (x)
 		then
@@ -10,6 +11,7 @@ function func_1 (x : boolean): integer
 	return y;
 end;
 
+--2
 function func_2 (z : double, y : boolean): boolean
 	if (y)
 		then
@@ -22,14 +24,17 @@ function func_2 (z : double, y : boolean): boolean
 	return true;
 end;
 
+--3
 function func_3 (x : string): boolean
     return x;
 end;
 
+--4
 function func_4 (x: integer): var
     return x;
 end;
 
+--5
 function func_5 (x: integer): var
     if (true)
         then
@@ -40,6 +45,7 @@ function func_5 (x: integer): var
     return x;
 end;
 
+--6
 function func_6 (x: integer): var
     if (true)
         then
@@ -50,6 +56,7 @@ function func_6 (x: integer): var
     return x;
 end;
 
+--7
 function func_7 (x: integer): void
     if (true)
         then
@@ -59,6 +66,7 @@ function func_7 (x: integer): void
         end;
 end;
 
+--8
 function func_8 (x: integer): integer
     if (true)
         then

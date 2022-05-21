@@ -149,6 +149,11 @@ public class ComposVisitor<A> implements
       Dec dec_2 = p.dec_2.accept(this, arg);
       Dec dec_3 = p.dec_3.accept(this, arg);
       return new sample.Absyn.InitTableDecl(dec_1, dec_2, dec_3);
+    }    public Expr visit(sample.Absyn.Assignment p, A arg)
+    {
+      String ident_ = p.ident_;
+      Expr expr_ = p.expr_.accept(this, arg);
+      return new sample.Absyn.Assignment(ident_, expr_);
     }
 /* ComaExprs */
     public ComaExprs visit(sample.Absyn.Vars p, A arg)

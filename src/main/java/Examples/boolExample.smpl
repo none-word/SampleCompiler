@@ -21,3 +21,7 @@ end;
 x : integer = nil;
 
 x : var = nil;
+
+x : integer = 10;
+y : integer;
+y = 10;

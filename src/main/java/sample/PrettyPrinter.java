@@ -510,6 +510,15 @@ public class PrettyPrinter
        render(")");
        if (_i_ > 2) render(_R_PAREN);
     }
+    else     if (foo instanceof sample.Absyn.Assignment)
+    {
+       sample.Absyn.Assignment _assignment = (sample.Absyn.Assignment) foo;
+       if (_i_ > 2) render(_L_PAREN);
+       pp(_assignment.ident_, 0);
+       render("=");
+       pp(_assignment.expr_, 0);
+       if (_i_ > 2) render(_R_PAREN);
+    }
   }
 
   private static void pp(sample.Absyn.ComaExprs foo, int _i_)
@@ -897,6 +906,15 @@ public class PrettyPrinter
        sh(_inittabledecl.dec_1);
        sh(_inittabledecl.dec_2);
        sh(_inittabledecl.dec_3);
+       render(")");
+    }
+    if (foo instanceof sample.Absyn.Assignment)
+    {
+       sample.Absyn.Assignment _assignment = (sample.Absyn.Assignment) foo;
+       render("(");
+       render("Assignment");
+       sh(_assignment.ident_);
+       sh(_assignment.expr_);
        render(")");
     }
   }

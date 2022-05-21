@@ -47,47 +47,47 @@ public class FuncTests {
     }
 
     @Test
-    public void testFunctionTypes_1() throws TypeException {
+    public void test_1() throws TypeException {
         var type = typeChecker.typeOf(new ArrayList<TypeChecker.Variable>(), exprs.get(0));
         Assert.assertTrue(typeChecker.isSameType(type, new IntType()));
     }
 
     @Test
-    public void testFunctionTypes_2() throws TypeException {
+    public void test_2() throws TypeException {
         var type = typeChecker.typeOf(new ArrayList<TypeChecker.Variable>(), exprs.get(1));
         Assert.assertTrue(typeChecker.isSameType(type, new BoolType()));
     }
 
     @Test(expected = TypeException.class)
-    public void testFunctionTypes_3() throws TypeException {
+    public void test_3() throws TypeException {
         var type = typeChecker.typeOf(new ArrayList<TypeChecker.Variable>(), exprs.get(2));
     }
 
     @Test
-    public void testFunctionTypes_4() throws TypeException {
+    public void test_4() throws TypeException {
         var type = typeChecker.typeOf(new ArrayList<TypeChecker.Variable>(), exprs.get(3));
         Assert.assertTrue(typeChecker.isSameType(type, new IntType()));
     }
 
     @Test
-    public void testFunctionTypes_5() throws TypeException {
+    public void test_5() throws TypeException {
         var type = typeChecker.typeOf(new ArrayList<TypeChecker.Variable>(), exprs.get(4));
         Assert.assertTrue(typeChecker.isSameType(type, new IntType()));
     }
 
     @Test(expected = TypeException.class)
-    public void testFunctionTypes_6() throws TypeException {
+    public void test_6() throws TypeException {
         var type = typeChecker.typeOf(new ArrayList<TypeChecker.Variable>(), exprs.get(5));
     }
 
     @Test
-    public void testFunctionTypes_7() throws TypeException {
+    public void test_7() throws TypeException {
         var type = typeChecker.typeOf(new ArrayList<TypeChecker.Variable>(), exprs.get(6));
         Assert.assertTrue(typeChecker.isSameType(type, new VoidType()));
     }
 
     @Test(expected = TypeException.class)
-    public void testFunctionTypes_8() throws TypeException {
+    public void test_8() throws TypeException {
         var type = typeChecker.typeOf(new ArrayList<TypeChecker.Variable>(), exprs.get(7));
     }
 }

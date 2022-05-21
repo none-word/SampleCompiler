@@ -3,6 +3,7 @@ package Intepreter;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Assert;
 import sample.Absyn.*;
 import sample.PrettyPrinter;
 
@@ -104,6 +105,21 @@ public class TypeChecker {
             }
         }
 
+        if (expr instanceof Assignment){
+            var variable = context.stream()
+                    .filter(c -> ((Assignment) expr).ident_.equals(c.ident))
+                    .findAny()
+                    .orElse(null);
+            if (variable != null) {
+                var exprType = typeCheck(context, ((Assignment) expr).expr_, variable.type);
+                return new VoidType();
+            }else {
+                undefinedVar(expr);
+                return null;
+            }
+        }
+
+
         if (expr instanceof Func){
             var args = ((FuncArgs) ((Func) expr).fargs_);
             var body = ((ProgramExprs) ((Func) expr).program_).listexpr_;
@@ -125,6 +141,23 @@ public class TypeChecker {
                 newContext.add(new Variable(((Declaration) arg).ident_, ((Declaration) arg).type_));
             }
             return getReturnTypeOfProgram(newContext, body);
+        }
+
+        if (expr instanceof Not){
+            var boolExpr = typeCheck(context, ((Not) expr).expr_, new BoolType());
+            return boolExpr;
+        }
+
+        if (expr instanceof And){
+            var boolExpr_1 = typeCheck(context, ((And) expr).expr_1, new BoolType());
+            var boolExpr_2 = typeCheck(context, ((And) expr).expr_2, new BoolType());
+            return boolExpr_1;
+        }
+
+        if (expr instanceof Or){
+            var boolExpr_1 = typeCheck(context, ((Or) expr).expr_1, new BoolType());
+            var boolExpr_2 = typeCheck(context, ((Or) expr).expr_2, new BoolType());
+            return boolExpr_1;
         }
 
         return null;

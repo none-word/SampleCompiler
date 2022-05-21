@@ -159,6 +159,11 @@ public abstract class FoldVisitor<R,A> implements AllVisitor<R,A> {
       r = combine(p.dec_3.accept(this, arg), r, arg);
       return r;
     }
+    public R visit(sample.Absyn.Assignment p, A arg) {
+      R r = leaf(arg);
+      r = combine(p.expr_.accept(this, arg), r, arg);
+      return r;
+    }
 
 /* ComaExprs */
     public R visit(sample.Absyn.Vars p, A arg) {

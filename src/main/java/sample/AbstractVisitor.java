@@ -38,6 +38,7 @@ public class AbstractVisitor<R,A> implements AllVisitor<R,A> {
     public R visit(sample.Absyn.OnlyDecl p, A arg) { return visitDefault(p, arg); }
     public R visit(sample.Absyn.InitDecl p, A arg) { return visitDefault(p, arg); }
     public R visit(sample.Absyn.InitTableDecl p, A arg) { return visitDefault(p, arg); }
+    public R visit(sample.Absyn.Assignment p, A arg) { return visitDefault(p, arg); }
 
     public R visitDefault(sample.Absyn.Expr p, A arg) {
       throw new IllegalArgumentException(this.getClass().getName() + ": " + p);

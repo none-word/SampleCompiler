@@ -51,19 +51,19 @@ public class IfTests {
     }
 
     @Test
-    public void testFunctionTypes_1() throws TypeException {
+    public void test_1() throws TypeException {
         var type = typeChecker.typeOf(new ArrayList<TypeChecker.Variable>(), exprs.get(0));
         Assert.assertTrue(typeChecker.isSameType(type, new VoidType()));
     }
 
     @Test
-    public void testFunctionTypes_2() throws TypeException {
+    public void test_2() throws TypeException {
         var type = typeChecker.typeOf(new ArrayList<TypeChecker.Variable>(), exprs.get(1));
         Assert.assertTrue(typeChecker.isSameType(type, new VoidType()));
     }
 
     @Test
-    public void testFunctionTypes_3() throws TypeException {
+    public void test_3() throws TypeException {
         var context = new ArrayList<TypeChecker.Variable>();
         var type = typeChecker.typeOf(context, exprs.get(2));
         type = typeChecker.typeOf(context, exprs.get(3));
@@ -72,7 +72,7 @@ public class IfTests {
     }
 
     @Test(expected = TypeException.class)
-    public void testFunctionTypes_4() throws TypeException {
+    public void test_4() throws TypeException {
         var context = new ArrayList<TypeChecker.Variable>();
         var type = typeChecker.typeOf(context, exprs.get(4));
         type = typeChecker.typeOf(context, exprs.get(5));

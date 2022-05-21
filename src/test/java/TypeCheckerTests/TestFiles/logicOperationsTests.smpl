@@ -1,0 +1,45 @@
+--1
+true and false;
+
+--2
+true or false;
+
+--3
+!false;
+
+--4
+10 and false;
+
+--5
+true or "false";
+
+--6
+!"false";
+
+--7
+x : boolean = true;
+y : boolean = false;
+x and y;
+
+--8
+x : boolean = true;
+y : integer = 0;
+x and y;
+
+--9
+x : boolean = true;
+y : boolean = false;
+x or y;
+
+--10
+x : boolean = true;
+y : integer = 0;
+x or y;
+
+--11
+x : boolean = true;
+!x;
+
+--12
+x : double = 0.2;
+!x;
