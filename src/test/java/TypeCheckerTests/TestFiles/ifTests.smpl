@@ -1,0 +1,31 @@
+if (true)
+then
+    y: boolean = true;
+else
+    z: boolean = true;
+end;
+
+if (false)
+then
+    y: boolean = true;
+else
+    z: boolean = true;
+end;
+
+x : boolean = true;
+if (x)
+then
+    y: boolean = true;
+else
+    z: boolean = true;
+end;
+
+y : string = "true";
+if (y)
+then
+    x: boolean = true;
+else
+    z: boolean = true;
+end;
+
+
