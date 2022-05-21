@@ -1,15 +1,22 @@
+--1
 x : integer = 10;
 
+--2
 x : double = "f";
 
+--3
 y : var = "string";
 
+--4
 z : var = 10;
 r : integer = z;
 
+--5
 z : var = 10.12;
 r : integer = z;
 
+--6
 x : integer = nil;
 
+--7
 x : var = nil;

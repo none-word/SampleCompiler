@@ -127,6 +127,23 @@ public class TypeChecker {
             return getReturnTypeOfProgram(newContext, body);
         }
 
+        if (expr instanceof Not){
+            var boolExpr = typeCheck(context, ((Not) expr).expr_, new BoolType());
+            return boolExpr;
+        }
+
+        if (expr instanceof And){
+            var boolExpr_1 = typeCheck(context, ((And) expr).expr_1, new BoolType());
+            var boolExpr_2 = typeCheck(context, ((And) expr).expr_2, new BoolType());
+            return boolExpr_1;
+        }
+
+        if (expr instanceof Or){
+            var boolExpr_1 = typeCheck(context, ((Or) expr).expr_1, new BoolType());
+            var boolExpr_2 = typeCheck(context, ((Or) expr).expr_2, new BoolType());
+            return boolExpr_1;
+        }
+
         return null;
     }
 

@@ -1,3 +1,4 @@
+--1
 if (true)
 then
     y: boolean = true;
@@ -5,6 +6,7 @@ else
     z: boolean = true;
 end;
 
+--2
 if (false)
 then
     y: boolean = true;
@@ -12,6 +14,7 @@ else
     z: boolean = true;
 end;
 
+--3
 x : boolean = true;
 if (x)
 then
@@ -20,6 +23,7 @@ else
     z: boolean = true;
 end;
 
+--4
 y : string = "true";
 if (y)
 then
