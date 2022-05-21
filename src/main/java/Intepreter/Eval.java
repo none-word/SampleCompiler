@@ -22,4 +22,5 @@ public interface Eval {
     Expr evalType(Func expr);
     Expr evalType(FuncArgs args);
     Expr evalType(InitTableDecl args);
+    Expr evalType(FuncCall expr);
 }

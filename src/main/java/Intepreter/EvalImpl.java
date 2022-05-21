@@ -2,9 +2,12 @@ package Intepreter;
 
 import sample.Absyn.*;
 
+import java.util.List;
+
 public class EvalImpl implements Eval {
     private final VariableStorage variableStorage = new VariableStorage();
     private final FunctionStorage functionStorage = new FunctionStorage();
+    private final StandardLibrary standardLibrary = new StandardLibraryImpl();
 
     @Override
     public Expr evalProgram(ProgramExprs program) {
@@ -46,6 +49,8 @@ public class EvalImpl implements Eval {
                 return evalType((Func) expr);
             case ("InitTableDecl"):
                 return evalType((InitTableDecl) expr);
+            case ("FuncCall"):
+                return evalType((FuncCall) expr);
             default:
                 return null;
         }
@@ -155,5 +160,17 @@ public class EvalImpl implements Eval {
     @Override
     public Expr evalType(InitTableDecl args) {
         return null;
+    }
+
+    @Override
+    public Expr evalType(FuncCall expr) {
+        String funcName = expr.ident_;
+        List<Expr> args = ((Vars) expr.comaexprs_).listexpr_;
+        switch (funcName) {
+            case ("add"):
+                return standardLibrary.add(args.get(0), args.get(1));
+            default:
+                return null; // call user defined functions
+        }
     }
 }
