@@ -20,3 +20,18 @@ x : integer = nil;
 
 --7
 x : var = nil;
+
+--8
+x : integer = 10;
+y : integer;
+y = 10;
+
+--9
+x : double = 10.1;
+y : integer = 10;
+y = x;
+
+--10
+x : var = "10";
+y : integer;
+y = x;

@@ -3,6 +3,7 @@ package Intepreter;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Assert;
 import sample.Absyn.*;
 import sample.PrettyPrinter;
 
@@ -103,6 +104,21 @@ public class TypeChecker {
                 return null;
             }
         }
+
+        if (expr instanceof Assignment){
+            var variable = context.stream()
+                    .filter(c -> ((Assignment) expr).ident_.equals(c.ident))
+                    .findAny()
+                    .orElse(null);
+            if (variable != null) {
+                var exprType = typeCheck(context, ((Assignment) expr).expr_, variable.type);
+                return new VoidType();
+            }else {
+                undefinedVar(expr);
+                return null;
+            }
+        }
+
 
         if (expr instanceof Func){
             var args = ((FuncArgs) ((Func) expr).fargs_);

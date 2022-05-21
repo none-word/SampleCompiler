@@ -149,7 +149,6 @@ Dec ::= _IDENT_:p_1 _SYMB_4 Type:p_3  {: RESULT = new sample.Absyn.Declaration(p
 Expr2 ::= Dec:p_1  {: RESULT = new sample.Absyn.OnlyDecl(p_1); :} 
   | Dec:p_1 _SYMB_5 Expr:p_3  {: RESULT = new sample.Absyn.InitDecl(p_1,p_3); :}
   | Dec:p_1 _SYMB_5 _SYMB_2 Dec:p_4 _SYMB_1 Dec:p_6 _SYMB_3  {: RESULT = new sample.Absyn.InitTableDecl(p_1,p_4,p_6); :}
-  | _IDENT_:p_1 _SYMB_5 Expr:p_3  {: RESULT = new sample.Absyn.Assignment(p_1,p_3); :}
   | Expr3:p_1  {: RESULT = p_1; :}
 ;
 
