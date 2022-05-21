@@ -18,4 +18,5 @@ public interface Eval {
     Expr evalType(OnlyDecl expr);
     Expr evalType(Declaration expr);
     Expr evalType(Declaration expr, Expr value);
+    Expr evalType(Assignment expr);
 }

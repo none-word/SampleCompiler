@@ -39,6 +39,8 @@ public class EvalImpl implements Eval {
                 return evalType((EInt) expr);
             case ("OnlyDecl"):
                 return evalType((OnlyDecl) expr);
+            case ("Assignment"):
+                return evalType((Assignment) expr);
             default:
                 return null;
         }
@@ -125,5 +127,12 @@ public class EvalImpl implements Eval {
     public Expr evalType(Declaration dec, Expr value) {
         variableStorage.saveVariable(dec.ident_, dec.type_, value);
         return variableStorage.getVariable(dec.ident_);
+    }
+
+    @Override
+    public Expr evalType(Assignment expr) {
+        Expr result = evalExpr(expr.expr_);
+        variableStorage.updateVariable(expr.ident_, result);
+        return null;
     }
 }
