@@ -83,7 +83,7 @@ public class DeclTests {
         type = typeChecker.typeOf(context, exprs.get(6));
     }
 
-    @Test(expected = TypeException.class)
+    @Test
     public void testFunctionTypes_6() throws TypeException {
         var type = typeChecker.typeOf(new ArrayList<>(), exprs.get(7));
         Assert.assertTrue(typeChecker.isSameType(type, new IntType()));
