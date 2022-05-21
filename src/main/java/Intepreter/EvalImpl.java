@@ -4,6 +4,7 @@ import sample.Absyn.*;
 
 public class EvalImpl implements Eval {
     private final VariableStorage variableStorage = new VariableStorage();
+    private final FunctionStorage functionStorage = new FunctionStorage();
 
     @Override
     public Expr evalProgram(ProgramExprs program) {
@@ -41,6 +42,10 @@ public class EvalImpl implements Eval {
                 return evalType((OnlyDecl) expr);
             case ("Assignment"):
                 return evalType((Assignment) expr);
+            case ("Func"):
+                return evalType((Func) expr);
+            case ("InitTableDecl"):
+                return evalType((InitTableDecl) expr);
             default:
                 return null;
         }
@@ -133,6 +138,22 @@ public class EvalImpl implements Eval {
     public Expr evalType(Assignment expr) {
         Expr result = evalExpr(expr.expr_);
         variableStorage.updateVariable(expr.ident_, result);
+        return variableStorage.getVariable(expr.ident_);
+    }
+
+    @Override
+    public Expr evalType(Func expr) {
+        functionStorage.saveFunction(expr.ident_, (FuncArgs) expr.fargs_, expr.type_, expr.program_);
+        return expr;
+    }
+
+    @Override
+    public Expr evalType(FuncArgs args) {
+        return null;
+    }
+
+    @Override
+    public Expr evalType(InitTableDecl args) {
         return null;
     }
 }

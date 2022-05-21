@@ -16,7 +16,10 @@ public interface Eval {
     Expr evalType(NilKeyword expr);
     Expr evalType(EInt expr);
     Expr evalType(OnlyDecl expr);
-    Expr evalType(Declaration expr);
-    Expr evalType(Declaration expr, Expr value);
+    Expr evalType(Declaration dec);
+    Expr evalType(Declaration dec, Expr value);
     Expr evalType(Assignment expr);
+    Expr evalType(Func expr);
+    Expr evalType(FuncArgs args);
+    Expr evalType(InitTableDecl args);
 }
