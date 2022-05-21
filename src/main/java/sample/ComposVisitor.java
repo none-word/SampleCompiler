@@ -58,6 +58,9 @@ public class ComposVisitor<A> implements
     {
       Expr expr_ = p.expr_.accept(this, arg);
       return new sample.Absyn.Return(expr_);
+    }    public Expr visit(sample.Absyn.NilKeyword p, A arg)
+    {
+      return new sample.Absyn.NilKeyword();
     }    public Expr visit(sample.Absyn.Not p, A arg)
     {
       Expr expr_ = p.expr_.accept(this, arg);
@@ -183,9 +186,6 @@ public class ComposVisitor<A> implements
     }    public Type visit(sample.Absyn.TableType p, A arg)
     {
       return new sample.Absyn.TableType();
-    }    public Type visit(sample.Absyn.NilType p, A arg)
-    {
-      return new sample.Absyn.NilType();
     }    public Type visit(sample.Absyn.VoidType p, A arg)
     {
       return new sample.Absyn.VoidType();

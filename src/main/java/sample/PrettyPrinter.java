@@ -337,6 +337,13 @@ public class PrettyPrinter
        pp(_return.expr_, 0);
        if (_i_ > 0) render(_R_PAREN);
     }
+    else     if (foo instanceof sample.Absyn.NilKeyword)
+    {
+       sample.Absyn.NilKeyword _nilkeyword = (sample.Absyn.NilKeyword) foo;
+       if (_i_ > 0) render(_L_PAREN);
+       render("nil");
+       if (_i_ > 0) render(_R_PAREN);
+    }
     else     if (foo instanceof sample.Absyn.Not)
     {
        sample.Absyn.Not _not = (sample.Absyn.Not) foo;
@@ -576,13 +583,6 @@ public class PrettyPrinter
        render("table");
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof sample.Absyn.NilType)
-    {
-       sample.Absyn.NilType _niltype = (sample.Absyn.NilType) foo;
-       if (_i_ > 0) render(_L_PAREN);
-       render("nil");
-       if (_i_ > 0) render(_R_PAREN);
-    }
     else     if (foo instanceof sample.Absyn.VoidType)
     {
        sample.Absyn.VoidType _voidtype = (sample.Absyn.VoidType) foo;
@@ -735,6 +735,11 @@ public class PrettyPrinter
        render("Return");
        sh(_return.expr_);
        render(")");
+    }
+    if (foo instanceof sample.Absyn.NilKeyword)
+    {
+       sample.Absyn.NilKeyword _nilkeyword = (sample.Absyn.NilKeyword) foo;
+       render("NilKeyword");
     }
     if (foo instanceof sample.Absyn.Not)
     {
@@ -960,11 +965,6 @@ public class PrettyPrinter
     {
        sample.Absyn.TableType _tabletype = (sample.Absyn.TableType) foo;
        render("TableType");
-    }
-    if (foo instanceof sample.Absyn.NilType)
-    {
-       sample.Absyn.NilType _niltype = (sample.Absyn.NilType) foo;
-       render("NilType");
     }
     if (foo instanceof sample.Absyn.VoidType)
     {

@@ -10,4 +10,6 @@ r : integer = z;
 z : var = 10.12;
 r : integer = z;
 
+x : integer = nil;
 
+x : var = nil;

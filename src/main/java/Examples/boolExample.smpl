@@ -17,3 +17,7 @@ function add_1 (x : boolean): integer
 	y: integer = 5;
 	return y;
 end;
+
+x : integer = nil;
+
+x : var = nil;

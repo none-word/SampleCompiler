@@ -2,10 +2,7 @@ package TypeCheckerTests;
 import Intepreter.TypeChecker;
 import Intepreter.TypeException;
 import org.junit.*;
-import sample.Absyn.BoolType;
-import sample.Absyn.IntType;
-import sample.Absyn.ListExpr;
-import sample.Absyn.ProgramExprs;
+import sample.Absyn.*;
 import sample.Yylex;
 import sample.parser;
 
@@ -81,5 +78,16 @@ public class FuncTests {
     @Test(expected = TypeException.class)
     public void testFunctionTypes_6() throws TypeException {
         var type = typeChecker.typeOf(new ArrayList<TypeChecker.Variable>(), exprs.get(5));
+    }
+
+    @Test
+    public void testFunctionTypes_7() throws TypeException {
+        var type = typeChecker.typeOf(new ArrayList<TypeChecker.Variable>(), exprs.get(6));
+        Assert.assertTrue(typeChecker.isSameType(type, new VoidType()));
+    }
+
+    @Test(expected = TypeException.class)
+    public void testFunctionTypes_8() throws TypeException {
+        var type = typeChecker.typeOf(new ArrayList<TypeChecker.Variable>(), exprs.get(7));
     }
 }

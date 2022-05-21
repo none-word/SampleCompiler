@@ -15,8 +15,8 @@ import java.io.FileReader;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-public class DeclTests {
-    private static final String filePathWithTests = System.getProperty("user.dir") + Paths.get("/src/test/java/TypeCheckerTests/TestFiles/declTests.smpl");
+public class IfTests {
+    private static final String filePathWithTests = System.getProperty("user.dir") + Paths.get("/src/test/java/TypeCheckerTests/TestFiles/ifTests.smpl");
     private static ListExpr exprs;
     private static TypeChecker typeChecker;
 
@@ -52,45 +52,29 @@ public class DeclTests {
 
     @Test
     public void testFunctionTypes_1() throws TypeException {
-        var type = typeChecker.typeOf(new ArrayList<>(), exprs.get(0));
-        Assert.assertTrue(typeChecker.isSameType(type, new IntType()));
+        var type = typeChecker.typeOf(new ArrayList<TypeChecker.Variable>(), exprs.get(0));
+        Assert.assertTrue(typeChecker.isSameType(type, new VoidType()));
     }
 
-    @Test(expected = TypeException.class)
+    @Test
     public void testFunctionTypes_2() throws TypeException {
-        var type = typeChecker.typeOf(new ArrayList<>(), exprs.get(1));
+        var type = typeChecker.typeOf(new ArrayList<TypeChecker.Variable>(), exprs.get(1));
+        Assert.assertTrue(typeChecker.isSameType(type, new VoidType()));
     }
 
     @Test
     public void testFunctionTypes_3() throws TypeException {
-        var type = typeChecker.typeOf(new ArrayList<>(), exprs.get(2));
-        Assert.assertTrue(typeChecker.isSameType(type, new StringType()));
+        var context = new ArrayList<TypeChecker.Variable>();
+        var type = typeChecker.typeOf(context, exprs.get(2));
+        type = typeChecker.typeOf(context, exprs.get(3));
+
+        Assert.assertTrue(typeChecker.isSameType(type, new VoidType()));
     }
 
-    @Test
+    @Test(expected = TypeException.class)
     public void testFunctionTypes_4() throws TypeException {
         var context = new ArrayList<TypeChecker.Variable>();
-        var type = typeChecker.typeOf(context, exprs.get(3));
-        type = typeChecker.typeOf(context, exprs.get(4));
-
-        Assert.assertTrue(typeChecker.isSameType(type, new IntType()));
-    }
-
-    @Test(expected = TypeException.class)
-    public void testFunctionTypes_5() throws TypeException {
-        var context = new ArrayList<TypeChecker.Variable>();
-        var type = typeChecker.typeOf(context, exprs.get(5));
-        type = typeChecker.typeOf(context, exprs.get(6));
-    }
-
-    @Test
-    public void testFunctionTypes_6() throws TypeException {
-        var type = typeChecker.typeOf(new ArrayList<>(), exprs.get(7));
-        Assert.assertTrue(typeChecker.isSameType(type, new IntType()));
-    }
-
-    @Test(expected = TypeException.class)
-    public void testFunctionTypes_7() throws TypeException {
-        var type = typeChecker.typeOf(new ArrayList<>(), exprs.get(8));
+        var type = typeChecker.typeOf(context, exprs.get(4));
+        type = typeChecker.typeOf(context, exprs.get(5));
     }
 }

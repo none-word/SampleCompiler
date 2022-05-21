@@ -57,6 +57,10 @@ public abstract class FoldVisitor<R,A> implements AllVisitor<R,A> {
       r = combine(p.expr_.accept(this, arg), r, arg);
       return r;
     }
+    public R visit(sample.Absyn.NilKeyword p, A arg) {
+      R r = leaf(arg);
+      return r;
+    }
     public R visit(sample.Absyn.Not p, A arg) {
       R r = leaf(arg);
       r = combine(p.expr_.accept(this, arg), r, arg);
@@ -194,10 +198,6 @@ public abstract class FoldVisitor<R,A> implements AllVisitor<R,A> {
       return r;
     }
     public R visit(sample.Absyn.TableType p, A arg) {
-      R r = leaf(arg);
-      return r;
-    }
-    public R visit(sample.Absyn.NilType p, A arg) {
       R r = leaf(arg);
       return r;
     }
