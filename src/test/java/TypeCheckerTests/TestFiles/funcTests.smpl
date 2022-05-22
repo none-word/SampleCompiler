@@ -76,4 +76,62 @@ function func_8 (x: integer): integer
         end;
 end;
 
+--9
+function func_9 (x: integer): integer
+    if (true)
+        then
+            z : double = 10.1;
+        else
+            y: double = 10.1;
+        end;
+    return x;
+end;
+a : integer;
+b : integer = 8;
+func_9(b);
+
+--10
+function func_10 (x: integer): integer
+    if (true)
+        then
+            z : double = 10.1;
+        else
+            y: double = 10.1;
+        end;
+    return x;
+end;
+a : integer;
+b : boolean = true;
+func_10(b);
+
+--11
+function func_11 (x: integer): integer
+    if (true)
+        then
+            z : double = 10.1;
+        else
+            y: double = 10.1;
+        end;
+    return x;
+end;
+a : boolean;
+b : integer = 8;
+a = func_11(b);
+
+--12
+function func_12 (x: integer, y: boolean, z: string): integer
+    if (true)
+        then
+            z : double = 10.1;
+        else
+            y: double = 10.1;
+        end;
+    return x;
+end;
+a : integer;
+b : integer = 8;
+c: boolean = true;
+d: boolean = true;
+a = func_12(b, c, d);
+
 
