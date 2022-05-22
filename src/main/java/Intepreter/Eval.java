@@ -14,6 +14,7 @@ public interface Eval {
     Expr evalType(InitDecl expr);
     Expr evalType(And expr);
     Expr evalType(Or expr);
+    Expr evalType(Not expr);
     Expr evalType(Var expr);
     Expr evalType(NilKeyword expr);
     Expr evalType(EInt expr);
@@ -28,4 +29,5 @@ public interface Eval {
     List<Expr> evalType(Vars args);
     Expr evalType(InitTableDecl args);
     Expr evalType(FuncCall expr);
+    Expr evalType(Return expr);
 }

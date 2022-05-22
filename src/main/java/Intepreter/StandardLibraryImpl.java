@@ -3,10 +3,8 @@ package Intepreter;
 import sample.Absyn.*;
 
 public class StandardLibraryImpl implements StandardLibrary {
-    private final VariableStorage variableStorage = new VariableStorage();
-
     @Override
-    public Expr add(Expr expr1, Expr expr2) {
+    public Expr add(Expr expr1, Expr expr2, VariableStorage variableStorage) {
         String type1 = expr1.getClass().getSimpleName();
         String type2 = expr2.getClass().getSimpleName();
         if (type1.equals("Var")) {
@@ -27,7 +25,7 @@ public class StandardLibraryImpl implements StandardLibrary {
     }
 
     @Override
-    public Expr sub(Expr expr1, Expr expr2) {
+    public Expr sub(Expr expr1, Expr expr2, VariableStorage variableStorage) {
         String type1 = expr1.getClass().getSimpleName();
         String type2 = expr2.getClass().getSimpleName();
         if (type1.equals("Var")) {
@@ -46,7 +44,7 @@ public class StandardLibraryImpl implements StandardLibrary {
     }
 
     @Override
-    public Expr mul(Expr expr1, Expr expr2) {
+    public Expr mul(Expr expr1, Expr expr2, VariableStorage variableStorage) {
         String type1 = expr1.getClass().getSimpleName();
         String type2 = expr2.getClass().getSimpleName();
         if (type1.equals("Var")) {
@@ -65,7 +63,7 @@ public class StandardLibraryImpl implements StandardLibrary {
     }
 
     @Override
-    public Expr div(Expr expr1, Expr expr2) {
+    public Expr div(Expr expr1, Expr expr2, VariableStorage variableStorage) {
         String type1 = expr1.getClass().getSimpleName();
         String type2 = expr2.getClass().getSimpleName();
         if (type1.equals("Var")) {
@@ -84,7 +82,7 @@ public class StandardLibraryImpl implements StandardLibrary {
     }
 
     @Override
-    public Expr neg(Expr expr1) {
+    public Expr neg(Expr expr1, VariableStorage variableStorage) {
         String type1 = expr1.getClass().getSimpleName();
         if (type1.equals("Var")) {
             expr1 = variableStorage.getVariable(((Var) expr1).ident_);
@@ -98,7 +96,7 @@ public class StandardLibraryImpl implements StandardLibrary {
     }
 
     @Override
-    public Expr exp(Expr expr1, Expr expr2) {
+    public Expr exp(Expr expr1, Expr expr2, VariableStorage variableStorage) {
         String type1 = expr1.getClass().getSimpleName();
         String type2 = expr2.getClass().getSimpleName();
         if (type1.equals("Var")) {

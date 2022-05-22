@@ -13,10 +13,14 @@ public class EvalImpl implements Eval {
 
     @Override
     public Expr evalProgram(ProgramExprs program) {
-        Object[] objects = program.listexpr_.stream()
-                .map(this::evalExpr)
-                .toArray();
-        return (Expr) objects[objects.length - 1];
+        for (Expr expr : program.listexpr_) {
+            String type = expr.getClass().getSimpleName();
+            if (type.equals("Return")) {
+                return evalExpr(expr);
+            }
+            evalExpr(expr);
+        }
+        return null;
     }
 
     @Override
@@ -37,6 +41,8 @@ public class EvalImpl implements Eval {
                 return evalType((And) expr);
             case ("Or"):
                 return evalType((Or) expr);
+            case ("Not"):
+                return evalType((Not) expr);
             case ("Var"):
                 return evalType((Var) expr);
             case ("NilKeyword"):
@@ -57,6 +63,8 @@ public class EvalImpl implements Eval {
                 return evalType((InitTableDecl) expr);
             case ("FuncCall"):
                 return evalType((FuncCall) expr);
+            case ("Return"):
+                return evalType((Return) expr);
             default:
                 return null;
         }
@@ -110,6 +118,15 @@ public class EvalImpl implements Eval {
             return new ConstTrue();
         } else {
             return new ConstFalse();
+        }
+    }
+
+    @Override
+    public Expr evalType(Not expr) {
+        if (evalExpr(expr.expr_) instanceof ConstTrue) {
+            return new ConstFalse();
+        } else {
+            return new ConstTrue();
         }
     }
 
@@ -194,17 +211,17 @@ public class EvalImpl implements Eval {
         List<Expr> args = ((Vars) expr.comaexprs_).listexpr_;
         switch (funcName) {
             case ("add"):
-                return standardLibrary.add(args.get(0), args.get(1));
+                return standardLibrary.add(args.get(0), args.get(1), variableStorage);
             case ("sub"):
-                return standardLibrary.sub(args.get(0), args.get(1));
+                return standardLibrary.sub(args.get(0), args.get(1), variableStorage);
             case ("mul"):
-                return standardLibrary.mul(args.get(0), args.get(1));
+                return standardLibrary.mul(args.get(0), args.get(1), variableStorage);
             case ("div"):
-                return standardLibrary.div(args.get(0), args.get(1));
+                return standardLibrary.div(args.get(0), args.get(1), variableStorage);
             case ("neg"):
-                return standardLibrary.neg(args.get(0));
+                return standardLibrary.neg(args.get(0), variableStorage);
             case ("exp"):
-                return standardLibrary.exp(args.get(0), args.get(1));
+                return standardLibrary.exp(args.get(0), args.get(1), variableStorage);
             default:
                 return funcCall(expr);
         }
@@ -218,5 +235,10 @@ public class EvalImpl implements Eval {
         declarations.forEach(initDec -> eval.evalType((InitDecl) initDec));
         Program program = functionStorage.getFunction(call.ident_);
         return eval.evalProgram((ProgramExprs) program);
+    }
+
+    @Override
+    public Expr evalType(Return expr) {
+        return evalExpr(expr.expr_);
     }
 }
