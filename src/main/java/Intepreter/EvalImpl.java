@@ -41,6 +41,10 @@ public class EvalImpl implements Eval {
                 return evalType((NilKeyword) expr);
             case ("EInt"):
                 return evalType((EInt) expr);
+            case ("EDouble"):
+                return evalType((EDouble) expr);
+            case ("EStr"):
+                return evalType((EStr) expr);
             case ("OnlyDecl"):
                 return evalType((OnlyDecl) expr);
             case ("Assignment"):
@@ -123,6 +127,16 @@ public class EvalImpl implements Eval {
     }
 
     @Override
+    public Expr evalType(EDouble expr) {
+        return expr;
+    }
+
+    @Override
+    public Expr evalType(EStr expr) {
+        return expr;
+    }
+
+    @Override
     public Expr evalType(OnlyDecl expr) {
         return evalType((Declaration) expr.dec_);
     }
@@ -169,6 +183,16 @@ public class EvalImpl implements Eval {
         switch (funcName) {
             case ("add"):
                 return standardLibrary.add(args.get(0), args.get(1));
+            case ("sub"):
+                return standardLibrary.sub(args.get(0), args.get(1));
+            case ("mul"):
+                return standardLibrary.mul(args.get(0), args.get(1));
+            case ("div"):
+                return standardLibrary.div(args.get(0), args.get(1));
+            case ("neg"):
+                return standardLibrary.neg(args.get(0));
+            case ("exp"):
+                return standardLibrary.exp(args.get(0), args.get(1));
             default:
                 return null; // call user defined functions
         }

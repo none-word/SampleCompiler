@@ -15,6 +15,8 @@ public interface Eval {
     Expr evalType(Var expr);
     Expr evalType(NilKeyword expr);
     Expr evalType(EInt expr);
+    Expr evalType(EDouble expr);
+    Expr evalType(EStr expr);
     Expr evalType(OnlyDecl expr);
     Expr evalType(Declaration dec);
     Expr evalType(Declaration dec, Expr value);
