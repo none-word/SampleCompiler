@@ -2,7 +2,9 @@ package Intepreter;
 
 import sample.Absyn.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class EvalImpl implements Eval {
     private final VariableStorage variableStorage = new VariableStorage();
@@ -167,8 +169,18 @@ public class EvalImpl implements Eval {
     }
 
     @Override
-    public Expr evalType(FuncArgs args) {
-        return null;
+    public List<Expr> evalType(FuncArgs args, List<Expr> exprs) {
+        List<Expr> result = new ArrayList<>();
+        ListDec declarations = args.listdec_;
+        for (int i = 0; i < args.listdec_.size(); i++) {
+            result.add(new InitDecl(declarations.get(i), exprs.get(i)));
+        }
+        return result;
+    }
+
+    @Override
+    public List<Expr> evalType(Vars args) {
+        return args.listexpr_.stream().map(this::evalExpr).collect(Collectors.toList());
     }
 
     @Override
@@ -194,7 +206,17 @@ public class EvalImpl implements Eval {
             case ("exp"):
                 return standardLibrary.exp(args.get(0), args.get(1));
             default:
-                return null; // call user defined functions
+                return funcCall(expr);
         }
+    }
+
+    private Expr funcCall(FuncCall call) {
+        Eval eval = new EvalImpl();
+        FuncArgs funcArgs = functionStorage.getArguments(call.ident_);
+        List<Expr> args = eval.evalType((Vars) call.comaexprs_);
+        List<Expr> declarations = eval.evalType(funcArgs, args);
+        declarations.forEach(initDec -> eval.evalType((InitDecl) initDec));
+        Program program = functionStorage.getFunction(call.ident_);
+        return eval.evalProgram((ProgramExprs) program);
     }
 }

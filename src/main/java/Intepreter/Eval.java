@@ -2,6 +2,8 @@ package Intepreter;
 
 import sample.Absyn.*;
 
+import java.util.List;
+
 public interface Eval {
     Expr evalProgram(ProgramExprs program);
     Expr evalExpr(Expr expr);
@@ -22,7 +24,8 @@ public interface Eval {
     Expr evalType(Declaration dec, Expr value);
     Expr evalType(Assignment expr);
     Expr evalType(Func expr);
-    Expr evalType(FuncArgs args);
+    List<Expr> evalType(FuncArgs args, List<Expr> exprs);
+    List<Expr> evalType(Vars args);
     Expr evalType(InitTableDecl args);
     Expr evalType(FuncCall expr);
 }
