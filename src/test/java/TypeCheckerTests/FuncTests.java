@@ -131,4 +131,35 @@ public class FuncTests {
         type = typeChecker.typeOf(context, exprs.get(24));
         type = typeChecker.typeOf(context, exprs.get(25));
     }
+
+    @Test
+    public void test_13() throws TypeException {
+        var context = new Pair<>(new ArrayList<TypeChecker.Variable>(), new ArrayList<TypeChecker.Function>());
+        var type = typeChecker.typeOf(context, exprs.get(26));
+        type = typeChecker.typeOf(context, exprs.get(27));
+        type = typeChecker.typeOf(context, exprs.get(28));
+        type = typeChecker.typeOf(context, exprs.get(29));
+
+        Assert.assertTrue(typeChecker.isSameType(type, new IntType()));
+    }
+
+    @Test(expected = TypeException.class)
+    public void test_14() throws TypeException {
+        var context = new Pair<>(new ArrayList<TypeChecker.Variable>(), new ArrayList<TypeChecker.Function>());
+        var type = typeChecker.typeOf(context, exprs.get(30));
+        type = typeChecker.typeOf(context, exprs.get(31));
+        type = typeChecker.typeOf(context, exprs.get(32));
+        type = typeChecker.typeOf(context, exprs.get(33));
+    }
+
+    @Test
+    public void test_15() throws TypeException {
+        var context = new Pair<>(new ArrayList<TypeChecker.Variable>(), new ArrayList<TypeChecker.Function>());
+        var type = typeChecker.typeOf(context, exprs.get(34));
+        type = typeChecker.typeOf(context, exprs.get(35));
+        type = typeChecker.typeOf(context, exprs.get(36));
+        type = typeChecker.typeOf(context, exprs.get(37));
+
+        Assert.assertNull(type);
+    }
 }
