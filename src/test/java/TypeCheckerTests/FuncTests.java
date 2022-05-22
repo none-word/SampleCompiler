@@ -1,6 +1,7 @@
 package TypeCheckerTests;
 import Intepreter.TypeChecker;
 import Intepreter.TypeException;
+import Intepreter.Utils.Pair;
 import org.junit.*;
 import sample.Absyn.*;
 import sample.Yylex;
@@ -48,46 +49,86 @@ public class FuncTests {
 
     @Test
     public void test_1() throws TypeException {
-        var type = typeChecker.typeOf(new ArrayList<TypeChecker.Variable>(), exprs.get(0));
+        var type = typeChecker.typeOf(new Pair<>(new ArrayList<>(), new ArrayList<>()), exprs.get(0));
         Assert.assertTrue(typeChecker.isSameType(type, new IntType()));
     }
 
     @Test
     public void test_2() throws TypeException {
-        var type = typeChecker.typeOf(new ArrayList<TypeChecker.Variable>(), exprs.get(1));
+        var type = typeChecker.typeOf(new Pair<>(new ArrayList<>(), new ArrayList<>()), exprs.get(1));
         Assert.assertTrue(typeChecker.isSameType(type, new BoolType()));
     }
 
     @Test(expected = TypeException.class)
     public void test_3() throws TypeException {
-        var type = typeChecker.typeOf(new ArrayList<TypeChecker.Variable>(), exprs.get(2));
+        var type = typeChecker.typeOf(new Pair<>(new ArrayList<>(), new ArrayList<>()), exprs.get(2));
     }
 
     @Test
     public void test_4() throws TypeException {
-        var type = typeChecker.typeOf(new ArrayList<TypeChecker.Variable>(), exprs.get(3));
+        var type = typeChecker.typeOf(new Pair<>(new ArrayList<>(), new ArrayList<>()), exprs.get(3));
         Assert.assertTrue(typeChecker.isSameType(type, new IntType()));
     }
 
     @Test
     public void test_5() throws TypeException {
-        var type = typeChecker.typeOf(new ArrayList<TypeChecker.Variable>(), exprs.get(4));
+        var type = typeChecker.typeOf(new Pair<>(new ArrayList<>(), new ArrayList<>()), exprs.get(4));
         Assert.assertTrue(typeChecker.isSameType(type, new IntType()));
     }
 
     @Test(expected = TypeException.class)
     public void test_6() throws TypeException {
-        var type = typeChecker.typeOf(new ArrayList<TypeChecker.Variable>(), exprs.get(5));
+        var type = typeChecker.typeOf(new Pair<>(new ArrayList<>(), new ArrayList<>()), exprs.get(5));
     }
 
     @Test
     public void test_7() throws TypeException {
-        var type = typeChecker.typeOf(new ArrayList<TypeChecker.Variable>(), exprs.get(6));
+        var type = typeChecker.typeOf(new Pair<>(new ArrayList<>(), new ArrayList<>()), exprs.get(6));
         Assert.assertTrue(typeChecker.isSameType(type, new VoidType()));
     }
 
     @Test(expected = TypeException.class)
     public void test_8() throws TypeException {
-        var type = typeChecker.typeOf(new ArrayList<TypeChecker.Variable>(), exprs.get(7));
+        var type = typeChecker.typeOf(new Pair<>(new ArrayList<>(), new ArrayList<>()), exprs.get(7));
+    }
+
+    @Test
+    public void test_9() throws TypeException {
+        var context = new Pair<>(new ArrayList<TypeChecker.Variable>(), new ArrayList<TypeChecker.Function>());
+        var type = typeChecker.typeOf(context, exprs.get(8));
+        type = typeChecker.typeOf(context, exprs.get(9));
+        type = typeChecker.typeOf(context, exprs.get(10));
+        type = typeChecker.typeOf(context, exprs.get(11));
+
+        Assert.assertTrue(typeChecker.isSameType(type, new IntType()));
+    }
+
+    @Test(expected = TypeException.class)
+    public void test_10() throws TypeException {
+        var context = new Pair<>(new ArrayList<TypeChecker.Variable>(), new ArrayList<TypeChecker.Function>());
+        var type = typeChecker.typeOf(context, exprs.get(12));
+        type = typeChecker.typeOf(context, exprs.get(13));
+        type = typeChecker.typeOf(context, exprs.get(14));
+        type = typeChecker.typeOf(context, exprs.get(15));
+    }
+
+    @Test(expected = TypeException.class)
+    public void test_11() throws TypeException {
+        var context = new Pair<>(new ArrayList<TypeChecker.Variable>(), new ArrayList<TypeChecker.Function>());
+        var type = typeChecker.typeOf(context, exprs.get(16));
+        type = typeChecker.typeOf(context, exprs.get(17));
+        type = typeChecker.typeOf(context, exprs.get(18));
+        type = typeChecker.typeOf(context, exprs.get(19));
+    }
+
+    @Test(expected = TypeException.class)
+    public void test_12() throws TypeException {
+        var context = new Pair<>(new ArrayList<TypeChecker.Variable>(), new ArrayList<TypeChecker.Function>());
+        var type = typeChecker.typeOf(context, exprs.get(20));
+        type = typeChecker.typeOf(context, exprs.get(21));
+        type = typeChecker.typeOf(context, exprs.get(22));
+        type = typeChecker.typeOf(context, exprs.get(23));
+        type = typeChecker.typeOf(context, exprs.get(24));
+        type = typeChecker.typeOf(context, exprs.get(25));
     }
 }

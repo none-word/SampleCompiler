@@ -3,6 +3,7 @@ package Intepreter;
 import java.util.ArrayList;
 import java.util.List;
 
+import Intepreter.Utils.Pair;
 import org.junit.Assert;
 import sample.Absyn.*;
 import sample.PrettyPrinter;
@@ -19,7 +20,19 @@ public class TypeChecker {
         }
     }
 
-    public Type typeOf(ArrayList<Variable> context, Expr expr) throws TypeException{
+    public class Function{
+        public String ident;
+        public Type type;
+        public FuncArgs args;
+
+        public Function(String ident, Type type, FuncArgs args){
+            this.ident = ident;
+            this.type = type;
+            this.args = args;
+        }
+    }
+
+    public Type typeOf(Pair<ArrayList<Variable>, ArrayList<Function>> context, Expr expr) throws TypeException{
 
         if (expr instanceof EInt)
             return new IntType();
@@ -62,7 +75,7 @@ public class TypeChecker {
         if (expr instanceof OnlyDecl){
             var ident = ((Declaration) ((OnlyDecl) expr).dec_).ident_;
             var type = ((Declaration) ((OnlyDecl) expr).dec_).type_;
-            context.add(new Variable(ident, type));
+            context.getKey().add(new Variable(ident, type));
             return type;
         }
 
@@ -75,7 +88,7 @@ public class TypeChecker {
                 return type;
 
             var exprType = typeCheck(context, decExpr, type);
-            context.add(new Variable(ident, type));
+            context.getKey().add(new Variable(ident, type));
             return type;
         }
 
@@ -88,12 +101,12 @@ public class TypeChecker {
 
             var exprType = typeOf(context, decExpr);
 
-            context.add(new Variable(ident, exprType));
+            context.getKey().add(new Variable(ident, exprType));
             return exprType;
         }
 
         if (expr instanceof Var){
-            var variable = context.stream()
+            var variable = context.getKey().stream()
                     .filter(c -> ((Var) expr).ident_.equals(c.ident))
                     .findAny()
                     .orElse(null);
@@ -106,7 +119,7 @@ public class TypeChecker {
         }
 
         if (expr instanceof Assignment){
-            var variable = context.stream()
+            var variable = context.getKey().stream()
                     .filter(c -> ((Assignment) expr).ident_.equals(c.ident))
                     .findAny()
                     .orElse(null);
@@ -119,28 +132,54 @@ public class TypeChecker {
             }
         }
 
+        if (expr instanceof FuncCall){
+            var function = context.getValue().stream()
+                    .filter(c -> ((FuncCall) expr).ident_.equals(c.ident))
+                    .findAny()
+                    .orElse(null);
+            if (function != null){
+                var funcCallArgs = ((Vars) ((FuncCall) expr).comaexprs_).listexpr_;
+                for (int i = 0; i < function.args.listdec_.size(); i++){
+                    var varType = typeOf(context, funcCallArgs.get(i));
+                    var argType = ((Declaration) function.args.listdec_.get(i)).type_;
+                    if (!isSameType(varType, argType))
+                        throw new TypeException(argType, varType, expr);
+                }
+                return function.type;
+            } else {
+                undefinedFunc(expr);
+                return null;
+            }
+        }
+
 
         if (expr instanceof Func){
+            var ident = ((Func) expr).ident_;
             var args = ((FuncArgs) ((Func) expr).fargs_);
             var body = ((ProgramExprs) ((Func) expr).program_).listexpr_;
 
             var funcType = ((Func) expr).type_;
+            context.getValue().add(new Function(ident, funcType, args));
             var newContext = context;
             for (Dec arg : args.listdec_){
-                newContext.add(new Variable(((Declaration) arg).ident_, ((Declaration) arg).type_));
+                newContext.getKey().add(new Variable(((Declaration) arg).ident_, ((Declaration) arg).type_));
             }
             return checkAndGetProgramType(newContext, body, funcType);
         }
 
         if (expr instanceof FuncTypeAnnotation){
+            var ident = ((FuncTypeAnnotation) expr).ident_;
             var args = ((FuncArgs) ((FuncTypeAnnotation) expr).fargs_);
             var body = ((ProgramExprs) ((FuncTypeAnnotation) expr).program_).listexpr_;
 
             var newContext = context;
             for (Dec arg : args.listdec_){
-                newContext.add(new Variable(((Declaration) arg).ident_, ((Declaration) arg).type_));
+                newContext.getKey().add(new Variable(((Declaration) arg).ident_, ((Declaration) arg).type_));
             }
-            return getReturnTypeOfProgram(newContext, body);
+            var funcType = getReturnTypeOfProgram(newContext, body);
+            context.getValue().add(new Function(ident, funcType, args));
+
+            return funcType;
         }
 
         if (expr instanceof Not){
@@ -163,7 +202,7 @@ public class TypeChecker {
         return null;
     }
 
-    private Type checkAndGetProgramType(ArrayList<Variable> context, List<Expr> body, Type expectedType) throws TypeException{
+    private Type checkAndGetProgramType(Pair<ArrayList<Variable>, ArrayList<Function>> context, List<Expr> body, Type expectedType) throws TypeException{
         var returnType = getReturnTypeOfProgram(context, body);
         var returnExpr = getReturnExpr(body);
 
@@ -175,7 +214,7 @@ public class TypeChecker {
         }
     }
 
-    private Type getReturnTypeOfProgram(ArrayList<Variable> context, List<Expr> body) throws TypeException{
+    private Type getReturnTypeOfProgram(Pair<ArrayList<Variable>, ArrayList<Function>> context, List<Expr> body) throws TypeException{
         Type returnType = null;
         for (var expr : body) {
             typeOf(context, expr);
@@ -228,11 +267,16 @@ public class TypeChecker {
         PrettyPrinter.print(expr);
     }
 
+    private void undefinedFunc(Expr expr) {
+        System.out.println("undefined function with unknown type \n");
+        PrettyPrinter.print(expr);
+    }
+
     public boolean isSameType(Type type1, Type type2) {
         return type1.getClass().equals(type2.getClass());
     }
 
-    private Type typeCheck(ArrayList<Variable> context, Expr expr, Type expected_type) throws TypeException{
+    private Type typeCheck(Pair<ArrayList<Variable>, ArrayList<Function>> context, Expr expr, Type expected_type) throws TypeException{
         var actual_type = typeOf(context, expr);
         if (isSameType(expected_type, actual_type)){
             return actual_type;
