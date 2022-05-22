@@ -160,7 +160,8 @@ public class TypeChecker {
 
             var funcType = ((Func) expr).type_;
             context.getValue().add(new Function(ident, funcType, args));
-            var newContext = context;
+
+            var newContext = new Pair<>(new ArrayList<TypeChecker.Variable>(), new ArrayList<TypeChecker.Function>());
             for (Dec arg : args.listdec_){
                 newContext.getKey().add(new Variable(((Declaration) arg).ident_, ((Declaration) arg).type_));
             }
@@ -172,7 +173,7 @@ public class TypeChecker {
             var args = ((FuncArgs) ((FuncTypeAnnotation) expr).fargs_);
             var body = ((ProgramExprs) ((FuncTypeAnnotation) expr).program_).listexpr_;
 
-            var newContext = context;
+            var newContext = new Pair<>(new ArrayList<TypeChecker.Variable>(), new ArrayList<TypeChecker.Function>());
             for (Dec arg : args.listdec_){
                 newContext.getKey().add(new Variable(((Declaration) arg).ident_, ((Declaration) arg).type_));
             }

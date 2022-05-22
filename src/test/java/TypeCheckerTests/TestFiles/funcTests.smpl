@@ -134,4 +134,57 @@ c: boolean = true;
 d: boolean = true;
 a = func_12(b, c, d);
 
+--13
+function func_13 (x: integer, y: integer): integer
+
+    function func (a: integer, b: integer): integer
+         if (true)
+         then
+            return a;
+         else
+            return b;
+         end;
+    end;
+
+    return func(x, y);
+end;
+t1: integer = 10;
+t2: integer = 20;
+func_13(t1, t2);
+
+--14
+function func_14 (x: integer, y: integer): integer
+
+    function func (a: integer, b: boolean): integer
+         if (true)
+         then
+            return a;
+         else
+            return a;
+         end;
+    end;
+
+    return func(x, y);
+end;
+t1: integer = 10;
+t2: integer = 20;
+func_13(t1, t2);
+
+--15
+function func_15 (x: integer, y: integer): integer
+    v1: integer = 15;
+    function func (a: integer, b: integer): integer
+         if (true)
+         then
+            return a;
+         else
+            return b;
+         end;
+    end;
+
+    return func(x, y);
+end;
+t1: integer = 10;
+t2: integer = 20;
+func(t1, t2);
 
