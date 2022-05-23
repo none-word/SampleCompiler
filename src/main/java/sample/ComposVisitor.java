@@ -224,5 +224,10 @@ public class ComposVisitor<A> implements
       String ident_ = p.ident_;
       Type type_ = p.type_.accept(this, arg);
       return new sample.Absyn.Declaration(ident_, type_);
+    }    public Dec visit(sample.Absyn.GlDeclaration p, A arg)
+    {
+      String ident_ = p.ident_;
+      Type type_ = p.type_.accept(this, arg);
+      return new sample.Absyn.GlDeclaration(ident_, type_);
     }
 }

@@ -53,6 +53,7 @@ Pred.       Expr  ::= "pred" Expr ;
 IsZero.     Expr  ::= "iszero" Expr ;
 
 Declaration.         Dec ::= Ident ":" Type ;
+GlDeclaration.       Dec ::= "global" Ident ":" Type;
 
 OnlyDecl.           Expr2 ::= Dec ;
 InitDecl.           Expr2 ::= Dec "=" Expr ;
