@@ -19,7 +19,10 @@ public class EvalImpl implements Eval {
             if (type.equals("Return")) {
                 return evalExpr(expr);
             }
-            evalExpr(expr);
+            var result = evalExpr(expr);
+            if (type.equals("If") && result != null) {
+                return result;
+            }
         }
         return null;
     }
@@ -99,7 +102,10 @@ public class EvalImpl implements Eval {
     @Override
     public Expr evalType(InitDecl expr) {
         Expr result = evalExpr(expr.expr_);
-        return evalType((Declaration) expr.dec_, result);
+        String type = expr.dec_.getClass().getSimpleName();
+        return type.equals("Declaration") ?
+                evalType((Declaration) expr.dec_, result) :
+                evalType((GlDeclaration) expr.dec_, result);
     }
 
     @Override
@@ -174,6 +180,12 @@ public class EvalImpl implements Eval {
     }
 
     @Override
+    public Expr evalType(GlDeclaration dec, Expr value) {
+        variableStorage.saveGlobalVariable(dec.ident_, dec.type_, value);
+        return variableStorage.getVariable(dec.ident_);
+    }
+
+    @Override
     public Expr evalType(Assignment expr) {
         Expr result = evalExpr(expr.expr_);
         variableStorage.updateVariable(expr.ident_, result);
@@ -237,6 +249,7 @@ public class EvalImpl implements Eval {
                 return standardLibrary.lOrE(args.get(0), args.get(1), variableStorage);
             case ("print"):
                 evalType((Vars) expr.comaexprs_).forEach(e -> System.out.print(PrettyPrinter.print(e)));
+                System.out.println();
                 return null;
             default:
                 return funcCall(expr);

@@ -21,12 +21,17 @@ public class VariableStorage {
     }
 
     public void saveGlobalVariable(String ident, Type type, Expr expr) {
-        variableStorage.put(ident, new Pair<>(type, expr));
+        globalVariableStorage.put(ident, new Pair<>(type, expr));
     }
 
     public void updateVariable(String ident, Expr expr) {
-        Pair<Type, Expr> savedPair = variableStorage.get(ident);
-        savedPair.setValue(expr);
+        Pair<Type, Expr> localVariable = variableStorage.get(ident);
+        Pair<Type, Expr> globalVariable = globalVariableStorage.get(ident);
+        if (localVariable == null){
+            globalVariable.setValue(expr);
+        } else {
+            localVariable.setValue(expr);
+        }
     }
 
     public void updateGlobalVariable(String ident, Expr expr) {

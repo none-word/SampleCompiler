@@ -23,6 +23,7 @@ public interface Eval {
     Expr evalType(OnlyDecl expr);
     Expr evalType(Declaration dec);
     Expr evalType(Declaration dec, Expr value);
+    Expr evalType(GlDeclaration dec, Expr value);
     Expr evalType(Assignment expr);
     Expr evalType(Func expr);
     List<Expr> evalType(FuncArgs args, List<Expr> exprs);
