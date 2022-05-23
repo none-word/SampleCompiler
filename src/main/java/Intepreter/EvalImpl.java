@@ -230,7 +230,7 @@ public class EvalImpl implements Eval {
     private Expr funcCall(FuncCall call) {
         Eval eval = new EvalImpl();
         FuncArgs funcArgs = functionStorage.getArguments(call.ident_);
-        List<Expr> args = eval.evalType((Vars) call.comaexprs_);
+        List<Expr> args = evalType((Vars) call.comaexprs_);
         List<Expr> declarations = eval.evalType(funcArgs, args);
         declarations.forEach(initDec -> eval.evalType((InitDecl) initDec));
         Program program = functionStorage.getFunction(call.ident_);
