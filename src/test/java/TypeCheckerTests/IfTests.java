@@ -1,5 +1,7 @@
 package TypeCheckerTests;
 
+import Intepreter.Context;
+import Intepreter.GlobalContext;
 import Intepreter.TypeChecker;
 import Intepreter.TypeException;
 import Intepreter.Utils.Pair;
@@ -53,29 +55,31 @@ public class IfTests {
 
     @Test
     public void test_1() throws TypeException {
-        var type = typeChecker.typeOf(new Pair<>(new ArrayList<>(), new ArrayList<>()), exprs.get(0));
+        var type = typeChecker.typeOf(new Context(), new GlobalContext(), exprs.get(0));
         Assert.assertTrue(typeChecker.isSameType(type, new VoidType()));
     }
 
     @Test
     public void test_2() throws TypeException {
-        var type = typeChecker.typeOf(new Pair<>(new ArrayList<>(), new ArrayList<>()), exprs.get(1));
+        var type = typeChecker.typeOf(new Context(), new GlobalContext(), exprs.get(1));
         Assert.assertTrue(typeChecker.isSameType(type, new VoidType()));
     }
 
     @Test
     public void test_3() throws TypeException {
-        var context = new Pair<>(new ArrayList<TypeChecker.Variable>(), new ArrayList<TypeChecker.Function>());
-        var type = typeChecker.typeOf(context, exprs.get(2));
-        type = typeChecker.typeOf(context, exprs.get(3));
+        var context = new Context();
+        var globalContext = new GlobalContext();
+        var type = typeChecker.typeOf(context, globalContext, exprs.get(2));
+        type = typeChecker.typeOf(context, globalContext, exprs.get(3));
 
         Assert.assertTrue(typeChecker.isSameType(type, new VoidType()));
     }
 
     @Test(expected = TypeException.class)
     public void test_4() throws TypeException {
-        var context = new Pair<>(new ArrayList<TypeChecker.Variable>(), new ArrayList<TypeChecker.Function>());
-        var type = typeChecker.typeOf(context, exprs.get(4));
-        type = typeChecker.typeOf(context, exprs.get(5));
+        var context = new Context();
+        var globalContext = new GlobalContext();
+        var type = typeChecker.typeOf(context, globalContext, exprs.get(4));
+        type = typeChecker.typeOf(context, globalContext, exprs.get(5));
     }
 }
