@@ -37,6 +37,7 @@ nonterminal sample.Absyn.TAscript TAscript;
 nonterminal sample.Absyn.Expr Expr4;
 nonterminal sample.Absyn.Expr Expr1;
 nonterminal sample.Absyn.Dec Dec;
+nonterminal sample.Absyn.GlDec GlDec;
 nonterminal sample.Absyn.Expr Expr2;
 
 terminal _SYMB_0;    //   ;
@@ -146,11 +147,15 @@ Expr1 ::= _INTEGER_:p_1  {: RESULT = new sample.Absyn.EInt(p_1); :}
   | Expr2:p_1  {: RESULT = p_1; :}
 ;
 Dec ::= _IDENT_:p_1 _SYMB_4 Type:p_3  {: RESULT = new sample.Absyn.Declaration(p_1,p_3); :} 
-  | _SYMB_15 _IDENT_:p_2 _SYMB_4 Type:p_4  {: RESULT = new sample.Absyn.GlDeclaration(p_2,p_4); :}
+;
+GlDec ::= _SYMB_15 _IDENT_:p_2 _SYMB_4 Type:p_4  {: RESULT = new sample.Absyn.GlDeclaration(p_2,p_4); :} 
 ;
 Expr2 ::= Dec:p_1  {: RESULT = new sample.Absyn.OnlyDecl(p_1); :} 
+  | GlDec:p_1  {: RESULT = new sample.Absyn.OnlyGlDecl(p_1); :}
   | Dec:p_1 _SYMB_5 Expr:p_3  {: RESULT = new sample.Absyn.InitDecl(p_1,p_3); :}
+  | GlDec:p_1 _SYMB_5 Expr:p_3  {: RESULT = new sample.Absyn.InitGlDecl(p_1,p_3); :}
   | Dec:p_1 _SYMB_5 _SYMB_2 Dec:p_4 _SYMB_1 Dec:p_6 _SYMB_3  {: RESULT = new sample.Absyn.InitTableDecl(p_1,p_4,p_6); :}
+  | GlDec:p_1 _SYMB_5 _SYMB_2 Dec:p_4 _SYMB_1 Dec:p_6 _SYMB_3  {: RESULT = new sample.Absyn.InitGlTableDecl(p_1,p_4,p_6); :}
   | _IDENT_:p_1 _SYMB_5 Expr:p_3  {: RESULT = new sample.Absyn.Assignment(p_1,p_3); :}
   | Expr3:p_1  {: RESULT = p_1; :}
 ;

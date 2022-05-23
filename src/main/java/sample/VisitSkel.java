@@ -132,9 +132,18 @@ public class VisitSkel
     { /* Code For OnlyDecl Goes Here */
       p.dec_.accept(new DecVisitor<R,A>(), arg);
       return null;
+    }    public R visit(sample.Absyn.OnlyGlDecl p, A arg)
+    { /* Code For OnlyGlDecl Goes Here */
+      p.gldec_.accept(new GlDecVisitor<R,A>(), arg);
+      return null;
     }    public R visit(sample.Absyn.InitDecl p, A arg)
     { /* Code For InitDecl Goes Here */
       p.dec_.accept(new DecVisitor<R,A>(), arg);
+      p.expr_.accept(new ExprVisitor<R,A>(), arg);
+      return null;
+    }    public R visit(sample.Absyn.InitGlDecl p, A arg)
+    { /* Code For InitGlDecl Goes Here */
+      p.gldec_.accept(new GlDecVisitor<R,A>(), arg);
       p.expr_.accept(new ExprVisitor<R,A>(), arg);
       return null;
     }    public R visit(sample.Absyn.InitTableDecl p, A arg)
@@ -142,6 +151,12 @@ public class VisitSkel
       p.dec_1.accept(new DecVisitor<R,A>(), arg);
       p.dec_2.accept(new DecVisitor<R,A>(), arg);
       p.dec_3.accept(new DecVisitor<R,A>(), arg);
+      return null;
+    }    public R visit(sample.Absyn.InitGlTableDecl p, A arg)
+    { /* Code For InitGlTableDecl Goes Here */
+      p.gldec_.accept(new GlDecVisitor<R,A>(), arg);
+      p.dec_1.accept(new DecVisitor<R,A>(), arg);
+      p.dec_2.accept(new DecVisitor<R,A>(), arg);
       return null;
     }    public R visit(sample.Absyn.Assignment p, A arg)
     { /* Code For Assignment Goes Here */
@@ -228,7 +243,11 @@ public class VisitSkel
       //p.ident_;
       p.type_.accept(new TypeVisitor<R,A>(), arg);
       return null;
-    }    public R visit(sample.Absyn.GlDeclaration p, A arg)
+    }
+  }
+  public class GlDecVisitor<R,A> implements GlDec.Visitor<R,A>
+  {
+    public R visit(sample.Absyn.GlDeclaration p, A arg)
     { /* Code For GlDeclaration Goes Here */
       //p.ident_;
       p.type_.accept(new TypeVisitor<R,A>(), arg);
