@@ -61,8 +61,8 @@ OnlyGlDecl.         Expr2 ::= GlDec ;
 InitDecl.           Expr2 ::= Dec "=" Expr ;
 InitGlDecl.         Expr2 ::= GlDec "=" Expr ;
 
-TableDecl.          Expr2 ::= Dec "=" "(" Ident, Ident ")";
-GlTableDecl.        Expr2 ::= "global" Dec "=" "(" Ident, Ident ")";
+TableDecl.          Expr2 ::= Dec "=" "(" Ident "," Ident ")";
+GlTableDecl.        Expr2 ::= "global" Dec "=" "(" Ident "," Ident ")";
 InitTableDecl.      Expr2 ::= Dec "=" "(" Dec "," Dec ")" ;
 InitGlTableDecl.    Expr2 ::= GlDec "=" "(" Dec "," Dec ")" ;
 TableElementCall.   Expr2 ::= Ident "." Ident;

@@ -109,6 +109,12 @@ public abstract class FoldVisitor<R,A> implements AllVisitor<R,A> {
       r = combine(p.expr_.accept(this, arg), r, arg);
       return r;
     }
+    public R visit(sample.Absyn.GlVarTypeAnnotation p, A arg) {
+      R r = leaf(arg);
+      r = combine(p.tannot_.accept(this, arg), r, arg);
+      r = combine(p.expr_.accept(this, arg), r, arg);
+      return r;
+    }
     public R visit(sample.Absyn.FuncTypeAnnotation p, A arg) {
       R r = leaf(arg);
       r = combine(p.fargs_.accept(this, arg), r, arg);
@@ -117,6 +123,12 @@ public abstract class FoldVisitor<R,A> implements AllVisitor<R,A> {
       return r;
     }
     public R visit(sample.Absyn.VarTypeAscription p, A arg) {
+      R r = leaf(arg);
+      r = combine(p.tascript_.accept(this, arg), r, arg);
+      r = combine(p.expr_.accept(this, arg), r, arg);
+      return r;
+    }
+    public R visit(sample.Absyn.GlVarTypeAscription p, A arg) {
       R r = leaf(arg);
       r = combine(p.tascript_.accept(this, arg), r, arg);
       r = combine(p.expr_.accept(this, arg), r, arg);
@@ -163,6 +175,16 @@ public abstract class FoldVisitor<R,A> implements AllVisitor<R,A> {
       r = combine(p.expr_.accept(this, arg), r, arg);
       return r;
     }
+    public R visit(sample.Absyn.TableDecl p, A arg) {
+      R r = leaf(arg);
+      r = combine(p.dec_.accept(this, arg), r, arg);
+      return r;
+    }
+    public R visit(sample.Absyn.GlTableDecl p, A arg) {
+      R r = leaf(arg);
+      r = combine(p.dec_.accept(this, arg), r, arg);
+      return r;
+    }
     public R visit(sample.Absyn.InitTableDecl p, A arg) {
       R r = leaf(arg);
       r = combine(p.dec_1.accept(this, arg), r, arg);
@@ -175,6 +197,15 @@ public abstract class FoldVisitor<R,A> implements AllVisitor<R,A> {
       r = combine(p.gldec_.accept(this, arg), r, arg);
       r = combine(p.dec_1.accept(this, arg), r, arg);
       r = combine(p.dec_2.accept(this, arg), r, arg);
+      return r;
+    }
+    public R visit(sample.Absyn.TableElementCall p, A arg) {
+      R r = leaf(arg);
+      return r;
+    }
+    public R visit(sample.Absyn.TableElementAssignment p, A arg) {
+      R r = leaf(arg);
+      r = combine(p.expr_.accept(this, arg), r, arg);
       return r;
     }
     public R visit(sample.Absyn.Assignment p, A arg) {

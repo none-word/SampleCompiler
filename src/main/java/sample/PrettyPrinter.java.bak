@@ -437,17 +437,6 @@ public class PrettyPrinter
        pp(_vartypeannotation.expr_, 0);
        if (_i_ > 3) render(_R_PAREN);
     }
-    else     if (foo instanceof sample.Absyn.GlVarTypeAnnotation)
-    {
-       sample.Absyn.GlVarTypeAnnotation _glvartypeannotation = (sample.Absyn.GlVarTypeAnnotation) foo;
-       if (_i_ > 3) render(_L_PAREN);
-       render("global");
-       pp(_glvartypeannotation.ident_, 0);
-       pp(_glvartypeannotation.tannot_, 0);
-       render("=");
-       pp(_glvartypeannotation.expr_, 0);
-       if (_i_ > 3) render(_R_PAREN);
-    }
     else     if (foo instanceof sample.Absyn.FuncTypeAnnotation)
     {
        sample.Absyn.FuncTypeAnnotation _functypeannotation = (sample.Absyn.FuncTypeAnnotation) foo;
@@ -470,17 +459,6 @@ public class PrettyPrinter
        pp(_vartypeascription.tascript_, 0);
        render("=");
        pp(_vartypeascription.expr_, 0);
-       if (_i_ > 4) render(_R_PAREN);
-    }
-    else     if (foo instanceof sample.Absyn.GlVarTypeAscription)
-    {
-       sample.Absyn.GlVarTypeAscription _glvartypeascription = (sample.Absyn.GlVarTypeAscription) foo;
-       if (_i_ > 4) render(_L_PAREN);
-       render("global");
-       pp(_glvartypeascription.ident_, 0);
-       pp(_glvartypeascription.tascript_, 0);
-       render("=");
-       pp(_glvartypeascription.expr_, 0);
        if (_i_ > 4) render(_R_PAREN);
     }
     else     if (foo instanceof sample.Absyn.FuncTypeAscription)
@@ -550,33 +528,6 @@ public class PrettyPrinter
        pp(_initgldecl.expr_, 0);
        if (_i_ > 2) render(_R_PAREN);
     }
-    else     if (foo instanceof sample.Absyn.TableDecl)
-    {
-       sample.Absyn.TableDecl _tabledecl = (sample.Absyn.TableDecl) foo;
-       if (_i_ > 2) render(_L_PAREN);
-       pp(_tabledecl.dec_, 0);
-       render("=");
-       render("(");
-       pp(_tabledecl.ident_1, 0);
-       render(",");
-       pp(_tabledecl.ident_2, 0);
-       render(")");
-       if (_i_ > 2) render(_R_PAREN);
-    }
-    else     if (foo instanceof sample.Absyn.GlTableDecl)
-    {
-       sample.Absyn.GlTableDecl _gltabledecl = (sample.Absyn.GlTableDecl) foo;
-       if (_i_ > 2) render(_L_PAREN);
-       render("global");
-       pp(_gltabledecl.dec_, 0);
-       render("=");
-       render("(");
-       pp(_gltabledecl.ident_1, 0);
-       render(",");
-       pp(_gltabledecl.ident_2, 0);
-       render(")");
-       if (_i_ > 2) render(_R_PAREN);
-    }
     else     if (foo instanceof sample.Absyn.InitTableDecl)
     {
        sample.Absyn.InitTableDecl _inittabledecl = (sample.Absyn.InitTableDecl) foo;
@@ -601,26 +552,6 @@ public class PrettyPrinter
        render(",");
        pp(_initgltabledecl.dec_2, 0);
        render(")");
-       if (_i_ > 2) render(_R_PAREN);
-    }
-    else     if (foo instanceof sample.Absyn.TableElementCall)
-    {
-       sample.Absyn.TableElementCall _tableelementcall = (sample.Absyn.TableElementCall) foo;
-       if (_i_ > 2) render(_L_PAREN);
-       pp(_tableelementcall.ident_1, 0);
-       render(".");
-       pp(_tableelementcall.ident_2, 0);
-       if (_i_ > 2) render(_R_PAREN);
-    }
-    else     if (foo instanceof sample.Absyn.TableElementAssignment)
-    {
-       sample.Absyn.TableElementAssignment _tableelementassignment = (sample.Absyn.TableElementAssignment) foo;
-       if (_i_ > 2) render(_L_PAREN);
-       pp(_tableelementassignment.ident_1, 0);
-       render(".");
-       pp(_tableelementassignment.ident_2, 0);
-       render("=");
-       pp(_tableelementassignment.expr_, 0);
        if (_i_ > 2) render(_R_PAREN);
     }
     else     if (foo instanceof sample.Absyn.Assignment)
@@ -952,16 +883,6 @@ public class PrettyPrinter
        sh(_vartypeannotation.expr_);
        render(")");
     }
-    if (foo instanceof sample.Absyn.GlVarTypeAnnotation)
-    {
-       sample.Absyn.GlVarTypeAnnotation _glvartypeannotation = (sample.Absyn.GlVarTypeAnnotation) foo;
-       render("(");
-       render("GlVarTypeAnnotation");
-       sh(_glvartypeannotation.ident_);
-       sh(_glvartypeannotation.tannot_);
-       sh(_glvartypeannotation.expr_);
-       render(")");
-    }
     if (foo instanceof sample.Absyn.FuncTypeAnnotation)
     {
        sample.Absyn.FuncTypeAnnotation _functypeannotation = (sample.Absyn.FuncTypeAnnotation) foo;
@@ -981,16 +902,6 @@ public class PrettyPrinter
        sh(_vartypeascription.ident_);
        sh(_vartypeascription.tascript_);
        sh(_vartypeascription.expr_);
-       render(")");
-    }
-    if (foo instanceof sample.Absyn.GlVarTypeAscription)
-    {
-       sample.Absyn.GlVarTypeAscription _glvartypeascription = (sample.Absyn.GlVarTypeAscription) foo;
-       render("(");
-       render("GlVarTypeAscription");
-       sh(_glvartypeascription.ident_);
-       sh(_glvartypeascription.tascript_);
-       sh(_glvartypeascription.expr_);
        render(")");
     }
     if (foo instanceof sample.Absyn.FuncTypeAscription)
@@ -1062,26 +973,6 @@ public class PrettyPrinter
        sh(_initgldecl.expr_);
        render(")");
     }
-    if (foo instanceof sample.Absyn.TableDecl)
-    {
-       sample.Absyn.TableDecl _tabledecl = (sample.Absyn.TableDecl) foo;
-       render("(");
-       render("TableDecl");
-       sh(_tabledecl.dec_);
-       sh(_tabledecl.ident_1);
-       sh(_tabledecl.ident_2);
-       render(")");
-    }
-    if (foo instanceof sample.Absyn.GlTableDecl)
-    {
-       sample.Absyn.GlTableDecl _gltabledecl = (sample.Absyn.GlTableDecl) foo;
-       render("(");
-       render("GlTableDecl");
-       sh(_gltabledecl.dec_);
-       sh(_gltabledecl.ident_1);
-       sh(_gltabledecl.ident_2);
-       render(")");
-    }
     if (foo instanceof sample.Absyn.InitTableDecl)
     {
        sample.Absyn.InitTableDecl _inittabledecl = (sample.Absyn.InitTableDecl) foo;
@@ -1100,25 +991,6 @@ public class PrettyPrinter
        sh(_initgltabledecl.gldec_);
        sh(_initgltabledecl.dec_1);
        sh(_initgltabledecl.dec_2);
-       render(")");
-    }
-    if (foo instanceof sample.Absyn.TableElementCall)
-    {
-       sample.Absyn.TableElementCall _tableelementcall = (sample.Absyn.TableElementCall) foo;
-       render("(");
-       render("TableElementCall");
-       sh(_tableelementcall.ident_1);
-       sh(_tableelementcall.ident_2);
-       render(")");
-    }
-    if (foo instanceof sample.Absyn.TableElementAssignment)
-    {
-       sample.Absyn.TableElementAssignment _tableelementassignment = (sample.Absyn.TableElementAssignment) foo;
-       render("(");
-       render("TableElementAssignment");
-       sh(_tableelementassignment.ident_1);
-       sh(_tableelementassignment.ident_2);
-       sh(_tableelementassignment.expr_);
        render(")");
     }
     if (foo instanceof sample.Absyn.Assignment)

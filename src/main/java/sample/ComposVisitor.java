@@ -103,6 +103,12 @@ public class ComposVisitor<A> implements
       TAnnot tannot_ = p.tannot_.accept(this, arg);
       Expr expr_ = p.expr_.accept(this, arg);
       return new sample.Absyn.VarTypeAnnotation(ident_, tannot_, expr_);
+    }    public Expr visit(sample.Absyn.GlVarTypeAnnotation p, A arg)
+    {
+      String ident_ = p.ident_;
+      TAnnot tannot_ = p.tannot_.accept(this, arg);
+      Expr expr_ = p.expr_.accept(this, arg);
+      return new sample.Absyn.GlVarTypeAnnotation(ident_, tannot_, expr_);
     }    public Expr visit(sample.Absyn.FuncTypeAnnotation p, A arg)
     {
       String ident_ = p.ident_;
@@ -116,6 +122,12 @@ public class ComposVisitor<A> implements
       TAscript tascript_ = p.tascript_.accept(this, arg);
       Expr expr_ = p.expr_.accept(this, arg);
       return new sample.Absyn.VarTypeAscription(ident_, tascript_, expr_);
+    }    public Expr visit(sample.Absyn.GlVarTypeAscription p, A arg)
+    {
+      String ident_ = p.ident_;
+      TAscript tascript_ = p.tascript_.accept(this, arg);
+      Expr expr_ = p.expr_.accept(this, arg);
+      return new sample.Absyn.GlVarTypeAscription(ident_, tascript_, expr_);
     }    public Expr visit(sample.Absyn.FuncTypeAscription p, A arg)
     {
       String ident_ = p.ident_;
@@ -153,6 +165,18 @@ public class ComposVisitor<A> implements
       GlDec gldec_ = p.gldec_.accept(this, arg);
       Expr expr_ = p.expr_.accept(this, arg);
       return new sample.Absyn.InitGlDecl(gldec_, expr_);
+    }    public Expr visit(sample.Absyn.TableDecl p, A arg)
+    {
+      Dec dec_ = p.dec_.accept(this, arg);
+      String ident_1 = p.ident_1;
+      String ident_2 = p.ident_2;
+      return new sample.Absyn.TableDecl(dec_, ident_1, ident_2);
+    }    public Expr visit(sample.Absyn.GlTableDecl p, A arg)
+    {
+      Dec dec_ = p.dec_.accept(this, arg);
+      String ident_1 = p.ident_1;
+      String ident_2 = p.ident_2;
+      return new sample.Absyn.GlTableDecl(dec_, ident_1, ident_2);
     }    public Expr visit(sample.Absyn.InitTableDecl p, A arg)
     {
       Dec dec_1 = p.dec_1.accept(this, arg);
@@ -165,6 +189,17 @@ public class ComposVisitor<A> implements
       Dec dec_1 = p.dec_1.accept(this, arg);
       Dec dec_2 = p.dec_2.accept(this, arg);
       return new sample.Absyn.InitGlTableDecl(gldec_, dec_1, dec_2);
+    }    public Expr visit(sample.Absyn.TableElementCall p, A arg)
+    {
+      String ident_1 = p.ident_1;
+      String ident_2 = p.ident_2;
+      return new sample.Absyn.TableElementCall(ident_1, ident_2);
+    }    public Expr visit(sample.Absyn.TableElementAssignment p, A arg)
+    {
+      String ident_1 = p.ident_1;
+      String ident_2 = p.ident_2;
+      Expr expr_ = p.expr_.accept(this, arg);
+      return new sample.Absyn.TableElementAssignment(ident_1, ident_2, expr_);
     }    public Expr visit(sample.Absyn.Assignment p, A arg)
     {
       String ident_ = p.ident_;
