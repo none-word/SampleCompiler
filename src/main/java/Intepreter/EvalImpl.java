@@ -219,10 +219,22 @@ public class EvalImpl implements Eval {
                 return standardLibrary.mul(args.get(0), args.get(1), variableStorage);
             case ("div"):
                 return standardLibrary.div(args.get(0), args.get(1), variableStorage);
+            case ("mod"):
+                return standardLibrary.mod(args.get(0), args.get(1), variableStorage);
             case ("neg"):
                 return standardLibrary.neg(args.get(0), variableStorage);
             case ("exp"):
                 return standardLibrary.exp(args.get(0), args.get(1), variableStorage);
+            case ("greater"):
+                return standardLibrary.greater(args.get(0), args.get(1), variableStorage);
+            case ("less"):
+                return standardLibrary.less(args.get(0), args.get(1), variableStorage);
+            case ("equal"):
+                return standardLibrary.equal(args.get(0), args.get(1), variableStorage);
+            case ("gOrE"):
+                return standardLibrary.gOrE(args.get(0), args.get(1), variableStorage);
+            case ("lOrE"):
+                return standardLibrary.lOrE(args.get(0), args.get(1), variableStorage);
             case ("print"):
                 evalType((Vars) expr.comaexprs_).forEach(e -> System.out.print(PrettyPrinter.print(e)));
                 return null;
