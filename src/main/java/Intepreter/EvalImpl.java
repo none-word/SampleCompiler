@@ -1,6 +1,7 @@
 package Intepreter;
 
 import sample.Absyn.*;
+import sample.PrettyPrinter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -222,6 +223,9 @@ public class EvalImpl implements Eval {
                 return standardLibrary.neg(args.get(0), variableStorage);
             case ("exp"):
                 return standardLibrary.exp(args.get(0), args.get(1), variableStorage);
+            case ("print"):
+                evalType((Vars) expr.comaexprs_).forEach(e -> System.out.print(PrettyPrinter.print(e)));
+                return null;
             default:
                 return funcCall(expr);
         }
