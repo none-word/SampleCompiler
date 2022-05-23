@@ -228,11 +228,6 @@ public class VisitSkel
       //p.ident_;
       p.type_.accept(new TypeVisitor<R,A>(), arg);
       return null;
-    }    public R visit(sample.Absyn.GlDeclaration p, A arg)
-    { /* Code For GlDeclaration Goes Here */
-      //p.ident_;
-      p.type_.accept(new TypeVisitor<R,A>(), arg);
-      return null;
     }
   }
 }

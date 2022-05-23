@@ -244,6 +244,11 @@ public abstract class FoldVisitor<R,A> implements AllVisitor<R,A> {
       r = combine(p.type_.accept(this, arg), r, arg);
       return r;
     }
+    public R visit(sample.Absyn.GlDeclaration p, A arg) {
+      R r = leaf(arg);
+      r = combine(p.type_.accept(this, arg), r, arg);
+      return r;
+    }
 
 
 }
