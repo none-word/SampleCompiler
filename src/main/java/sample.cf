@@ -52,12 +52,14 @@ Succ.       Expr  ::= "succ" Expr ;
 Pred.       Expr  ::= "pred" Expr ;
 IsZero.     Expr  ::= "iszero" Expr ;
 
-Declaration.         Dec ::= Ident ":" Type ;
-GlDeclaration.       Dec ::= "global" Ident ":" Type;
-
+Declaration.        Dec ::= Ident ":" Type ;
+GlDeclaration.      GlDec ::= "global" Ident ":" Type;
 OnlyDecl.           Expr2 ::= Dec ;
+OnlyGlDecl.         Expr2 ::= GlDec ;
 InitDecl.           Expr2 ::= Dec "=" Expr ;
+InitGlDecl.         Expr2 ::= GlDec "=" Expr ;
 InitTableDecl.      Expr2 ::= Dec "=" "(" Dec "," Dec ")" ;
+InitGlTableDecl.    Expr2 ::= GlDec "=" "(" Dec "," Dec ")" ;
 Assignment.         Expr2 ::= Ident "=" Expr;
 
 _. Expr ::= "(" Expr ")" ;
