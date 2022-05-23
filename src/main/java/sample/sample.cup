@@ -158,7 +158,7 @@ Expr2 ::= Dec:p_1  {: RESULT = new sample.Absyn.OnlyDecl(p_1); :}
   | Dec:p_1 _SYMB_5 Expr:p_3  {: RESULT = new sample.Absyn.InitDecl(p_1,p_3); :}
   | GlDec:p_1 _SYMB_5 Expr:p_3  {: RESULT = new sample.Absyn.InitGlDecl(p_1,p_3); :}
   | Dec:p_1 _SYMB_5 _SYMB_2 _IDENT_:p_4 _SYMB_1 _IDENT_:p_6 _SYMB_3  {: RESULT = new sample.Absyn.TableDecl(p_1,p_4,p_6); :}
-  | _SYMB_16 Dec:p_2 _SYMB_5 _SYMB_2 _IDENT_:p_5 _SYMB_1 _IDENT_:p_7 _SYMB_3  {: RESULT = new sample.Absyn.GlTableDecl(p_2,p_5,p_7); :}
+  | GlDec:p_1 _SYMB_5 _SYMB_2 _IDENT_:p_4 _SYMB_1 _IDENT_:p_6 _SYMB_3  {: RESULT = new sample.Absyn.GlTableDecl(p_1,p_4,p_6); :}
   | Dec:p_1 _SYMB_5 _SYMB_2 Dec:p_4 _SYMB_1 Dec:p_6 _SYMB_3  {: RESULT = new sample.Absyn.InitTableDecl(p_1,p_4,p_6); :}
   | GlDec:p_1 _SYMB_5 _SYMB_2 Dec:p_4 _SYMB_1 Dec:p_6 _SYMB_3  {: RESULT = new sample.Absyn.InitGlTableDecl(p_1,p_4,p_6); :}
   | _IDENT_:p_1 _SYMB_8 _IDENT_:p_3  {: RESULT = new sample.Absyn.TableElementCall(p_1,p_3); :}

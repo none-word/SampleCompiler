@@ -567,8 +567,7 @@ public class PrettyPrinter
     {
        sample.Absyn.GlTableDecl _gltabledecl = (sample.Absyn.GlTableDecl) foo;
        if (_i_ > 2) render(_L_PAREN);
-       render("global");
-       pp(_gltabledecl.dec_, 0);
+       pp(_gltabledecl.gldec_, 0);
        render("=");
        render("(");
        pp(_gltabledecl.ident_1, 0);
@@ -1077,7 +1076,7 @@ public class PrettyPrinter
        sample.Absyn.GlTableDecl _gltabledecl = (sample.Absyn.GlTableDecl) foo;
        render("(");
        render("GlTableDecl");
-       sh(_gltabledecl.dec_);
+       sh(_gltabledecl.gldec_);
        sh(_gltabledecl.ident_1);
        sh(_gltabledecl.ident_2);
        render(")");

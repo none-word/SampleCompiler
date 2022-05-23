@@ -173,10 +173,10 @@ public class ComposVisitor<A> implements
       return new sample.Absyn.TableDecl(dec_, ident_1, ident_2);
     }    public Expr visit(sample.Absyn.GlTableDecl p, A arg)
     {
-      GlDec gldec_ = p.gldec_.accept(this, arg);
+      Dec dec_ = p.dec_.accept(this, arg);
       String ident_1 = p.ident_1;
       String ident_2 = p.ident_2;
-      return new sample.Absyn.GlTableDecl(gldec_, ident_1, ident_2);
+      return new sample.Absyn.GlTableDecl(dec_, ident_1, ident_2);
     }    public Expr visit(sample.Absyn.InitTableDecl p, A arg)
     {
       Dec dec_1 = p.dec_1.accept(this, arg);

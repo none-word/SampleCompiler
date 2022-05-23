@@ -166,7 +166,7 @@ public class VisitSkel
       return null;
     }    public R visit(sample.Absyn.GlTableDecl p, A arg)
     { /* Code For GlTableDecl Goes Here */
-      p.dec_.accept(new DecVisitor<R,A>(), arg);
+      p.gldec_.accept(new GlDecVisitor<R,A>(), arg);
       //p.ident_1;
       //p.ident_2;
       return null;
