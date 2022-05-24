@@ -285,8 +285,8 @@ public class VisitSkel
   {
     public R visit(sample.Absyn.GlDeclaration p, A arg)
     { /* Code For GlDeclaration Goes Here */
-      p.type_.accept(new TypeVisitor<R,A>(), arg);
       //p.ident_;
+      p.type_.accept(new TypeVisitor<R,A>(), arg);
       return null;
     }    public R visit(sample.Absyn.TypeAlGlDec p, A arg)
     { /* Code For TypeAlGlDec Goes Here */

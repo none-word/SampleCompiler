@@ -367,6 +367,36 @@ public class PrettyPrinter
        render("end");
        if (_i_ > 0) render(_R_PAREN);
     }
+    else     if (foo instanceof sample.Absyn.AnonymFunc)
+    {
+       sample.Absyn.AnonymFunc _anonymfunc = (sample.Absyn.AnonymFunc) foo;
+       if (_i_ > 0) render(_L_PAREN);
+       render("(");
+       pp(_anonymfunc.fargs_, 0);
+       render(")");
+       render("->");
+       render("{");
+       pp(_anonymfunc.program_, 0);
+       render("}");
+       render(":");
+       pp(_anonymfunc.type_, 0);
+       if (_i_ > 0) render(_R_PAREN);
+    }
+    else     if (foo instanceof sample.Absyn.TypeAlAnonymFunc)
+    {
+       sample.Absyn.TypeAlAnonymFunc _typealanonymfunc = (sample.Absyn.TypeAlAnonymFunc) foo;
+       if (_i_ > 0) render(_L_PAREN);
+       render("(");
+       pp(_typealanonymfunc.fargs_, 0);
+       render(")");
+       render("->");
+       render("{");
+       pp(_typealanonymfunc.program_, 0);
+       render("}");
+       render(":");
+       pp(_typealanonymfunc.ident_, 0);
+       if (_i_ > 0) render(_R_PAREN);
+    }
     else     if (foo instanceof sample.Absyn.Return)
     {
        sample.Absyn.Return _return = (sample.Absyn.Return) foo;
@@ -891,6 +921,26 @@ public class PrettyPrinter
        sh(_typealfunc.fargs_);
        sh(_typealfunc.ident_2);
        sh(_typealfunc.program_);
+       render(")");
+    }
+    if (foo instanceof sample.Absyn.AnonymFunc)
+    {
+       sample.Absyn.AnonymFunc _anonymfunc = (sample.Absyn.AnonymFunc) foo;
+       render("(");
+       render("AnonymFunc");
+       sh(_anonymfunc.fargs_);
+       sh(_anonymfunc.program_);
+       sh(_anonymfunc.type_);
+       render(")");
+    }
+    if (foo instanceof sample.Absyn.TypeAlAnonymFunc)
+    {
+       sample.Absyn.TypeAlAnonymFunc _typealanonymfunc = (sample.Absyn.TypeAlAnonymFunc) foo;
+       render("(");
+       render("TypeAlAnonymFunc");
+       sh(_typealanonymfunc.fargs_);
+       sh(_typealanonymfunc.program_);
+       sh(_typealanonymfunc.ident_);
        render(")");
     }
     if (foo instanceof sample.Absyn.Return)

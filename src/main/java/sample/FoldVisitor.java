@@ -62,6 +62,19 @@ public abstract class FoldVisitor<R,A> implements AllVisitor<R,A> {
       r = combine(p.program_.accept(this, arg), r, arg);
       return r;
     }
+    public R visit(sample.Absyn.AnonymFunc p, A arg) {
+      R r = leaf(arg);
+      r = combine(p.fargs_.accept(this, arg), r, arg);
+      r = combine(p.program_.accept(this, arg), r, arg);
+      r = combine(p.type_.accept(this, arg), r, arg);
+      return r;
+    }
+    public R visit(sample.Absyn.TypeAlAnonymFunc p, A arg) {
+      R r = leaf(arg);
+      r = combine(p.fargs_.accept(this, arg), r, arg);
+      r = combine(p.program_.accept(this, arg), r, arg);
+      return r;
+    }
     public R visit(sample.Absyn.Return p, A arg) {
       R r = leaf(arg);
       r = combine(p.expr_.accept(this, arg), r, arg);

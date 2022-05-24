@@ -59,6 +59,18 @@ public class VisitSkel
       //p.ident_2;
       p.program_.accept(new ProgramVisitor<R,A>(), arg);
       return null;
+    }    public R visit(sample.Absyn.AnonymFunc p, A arg)
+    { /* Code For AnonymFunc Goes Here */
+      p.fargs_.accept(new FArgsVisitor<R,A>(), arg);
+      p.program_.accept(new ProgramVisitor<R,A>(), arg);
+      p.type_.accept(new TypeVisitor<R,A>(), arg);
+      return null;
+    }    public R visit(sample.Absyn.TypeAlAnonymFunc p, A arg)
+    { /* Code For TypeAlAnonymFunc Goes Here */
+      p.fargs_.accept(new FArgsVisitor<R,A>(), arg);
+      p.program_.accept(new ProgramVisitor<R,A>(), arg);
+      //p.ident_;
+      return null;
     }    public R visit(sample.Absyn.Return p, A arg)
     { /* Code For Return Goes Here */
       p.expr_.accept(new ExprVisitor<R,A>(), arg);

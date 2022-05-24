@@ -64,12 +64,12 @@ public class Yylex implements java_cup.runtime.Scanner {
 	private final int CHAR = 2;
 	private final int yy_state_dtrans[] = {
 		0,
-		63,
-		65,
-		65,
-		65,
-		67,
-		69
+		66,
+		68,
+		68,
+		68,
+		70,
+		72
 	};
 	private void yybegin (int state) {
 		yy_lexical_state = state;
@@ -269,30 +269,30 @@ public class Yylex implements java_cup.runtime.Scanner {
 		/* 46 */ YY_NO_ANCHOR,
 		/* 47 */ YY_NO_ANCHOR,
 		/* 48 */ YY_NO_ANCHOR,
-		/* 49 */ YY_NOT_ACCEPT,
+		/* 49 */ YY_NO_ANCHOR,
 		/* 50 */ YY_NO_ANCHOR,
 		/* 51 */ YY_NO_ANCHOR,
-		/* 52 */ YY_NO_ANCHOR,
-		/* 53 */ YY_NOT_ACCEPT,
+		/* 52 */ YY_NOT_ACCEPT,
+		/* 53 */ YY_NO_ANCHOR,
 		/* 54 */ YY_NO_ANCHOR,
-		/* 55 */ YY_NOT_ACCEPT,
-		/* 56 */ YY_NO_ANCHOR,
-		/* 57 */ YY_NOT_ACCEPT,
-		/* 58 */ YY_NO_ANCHOR,
-		/* 59 */ YY_NOT_ACCEPT,
-		/* 60 */ YY_NO_ANCHOR,
-		/* 61 */ YY_NOT_ACCEPT,
-		/* 62 */ YY_NO_ANCHOR,
-		/* 63 */ YY_NOT_ACCEPT,
-		/* 64 */ YY_NO_ANCHOR,
-		/* 65 */ YY_NOT_ACCEPT,
-		/* 66 */ YY_NO_ANCHOR,
-		/* 67 */ YY_NOT_ACCEPT,
-		/* 68 */ YY_NO_ANCHOR,
-		/* 69 */ YY_NOT_ACCEPT,
-		/* 70 */ YY_NO_ANCHOR,
+		/* 55 */ YY_NO_ANCHOR,
+		/* 56 */ YY_NOT_ACCEPT,
+		/* 57 */ YY_NO_ANCHOR,
+		/* 58 */ YY_NOT_ACCEPT,
+		/* 59 */ YY_NO_ANCHOR,
+		/* 60 */ YY_NOT_ACCEPT,
+		/* 61 */ YY_NO_ANCHOR,
+		/* 62 */ YY_NOT_ACCEPT,
+		/* 63 */ YY_NO_ANCHOR,
+		/* 64 */ YY_NOT_ACCEPT,
+		/* 65 */ YY_NO_ANCHOR,
+		/* 66 */ YY_NOT_ACCEPT,
+		/* 67 */ YY_NO_ANCHOR,
+		/* 68 */ YY_NOT_ACCEPT,
+		/* 69 */ YY_NO_ANCHOR,
+		/* 70 */ YY_NOT_ACCEPT,
 		/* 71 */ YY_NO_ANCHOR,
-		/* 72 */ YY_NO_ANCHOR,
+		/* 72 */ YY_NOT_ACCEPT,
 		/* 73 */ YY_NO_ANCHOR,
 		/* 74 */ YY_NO_ANCHOR,
 		/* 75 */ YY_NO_ANCHOR,
@@ -350,63 +350,66 @@ public class Yylex implements java_cup.runtime.Scanner {
 		/* 127 */ YY_NO_ANCHOR,
 		/* 128 */ YY_NO_ANCHOR,
 		/* 129 */ YY_NO_ANCHOR,
-		/* 130 */ YY_NO_ANCHOR
+		/* 130 */ YY_NO_ANCHOR,
+		/* 131 */ YY_NO_ANCHOR,
+		/* 132 */ YY_NO_ANCHOR,
+		/* 133 */ YY_NO_ANCHOR
 	};
 	private int yy_cmap[] = unpackFromString(1,65538,
-"34:9,41,31,34,41,30,34:18,41,7,35,34:4,40,3,4,34:2,2,29,8,34,37:10,5,1,34,6" +
-",34:3,38:26,32,36,33,34,40,34,9,12,19,11,15,18,22,26,21,39:2,14,23,10,13,24" +
-",39,25,17,20,16,28,39:2,27,39,34:69,38:23,34,38:7,39:24,34,39:8,34:65280,0:" +
-"2")[0];
+"37:9,44,34,37,44,33,37:18,44,11,38,37:4,43,3,4,37:2,2,6,12,37,40:10,5,1,37," +
+"10,7,37:2,41:26,35,39,36,37,43,37,13,16,23,15,19,22,26,30,25,42:2,18,27,14," +
+"17,28,42,29,21,24,20,32,42:2,31,42,8,37,9,37:66,41:23,37,41:7,42:24,37,42:8" +
+",37:65280,0:2")[0];
 
-	private int yy_rmap[] = unpackFromString(1,131,
-"0,1:9,2,1:2,3,4:2,1,4:4,1,5,4:15,1:11,6,7,8,9,10,11,12,13,14,4,15,16,8,17,1" +
-"8,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,4" +
-"3,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,6" +
-"8,69,70,71,72,73,74,75,76,4,77,78,79,80,81,82,83,84")[0];
+	private int yy_rmap[] = unpackFromString(1,134,
+"0,1:11,2,1:2,3,1,4:2,1:2,4:4,5,4:15,1:11,6,7,8,9,10,11,12,13,14,4,15,16,8,1" +
+"7,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,4" +
+"2,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,6" +
+"7,68,69,70,71,72,73,74,75,76,4,77,78,79,80,81,82,83,84")[0];
 
-	private int yy_nxt[][] = unpackFromString(85,42,
-"1,2,3,4,5,6,7,8,9,10,109,120,121,50,122,123,122,124,125,122,126,54,127,122:" +
-"2,128,122:2,129,49,11:2,53,-1:2,12,-1,13,122:2,-1,11,-1:51,122,56,122:18,-1" +
-":8,58:2,122,58,-1:9,57,-1:28,13,-1:13,122:20,-1:8,58:2,122,58,-1:16,59,-1:2" +
-"1,22,-1:33,55,-1:21,122:16,14,122:3,-1:8,58:2,122,58,-1:38,51,-1:37,40,-1:4" +
-"0,16,-1:18,122,76,122:7,15,122:4,113,122:5,-1:8,58:2,122,58,-1:2,55:30,21,5" +
-"5:10,-1:9,122:2,17,122:17,-1:8,58:2,122,58,-1:38,22,-1:33,61,-1:7,51,-1:13," +
-"122:5,18,122:14,-1:8,58:2,122,58,-1:10,122:7,130,122:12,-1:8,58:2,122,58,-1" +
-",1,38:29,-1,39,38,52,38:8,-1:9,122:4,112,122:15,-1:8,58:2,122,58,-1,1,-1:50" +
-",122:2,19,122:17,-1:8,58:2,122,58,-1,1,41:29,-1:2,41:3,42,43,41:5,-1:9,122:" +
-"8,79,122:11,-1:8,58:2,122,58,-1,1,44:9,45,44:9,46,44:9,-1:2,44:3,47,48,44:5" +
-",-1:9,122:16,115,122:3,-1:8,58:2,122,58,-1:10,122:5,80,122:14,-1:8,58:2,122" +
-",58,-1:10,122,81,122:18,-1:8,58:2,122,58,-1:10,122:3,82,122:16,-1:8,58:2,12" +
-"2,58,-1:10,122:6,84,122:13,-1:8,58:2,122,58,-1:10,122:15,85,122:4,-1:8,58:2" +
-",122,58,-1:10,122:11,86,122:8,-1:8,58:2,122,58,-1:10,122:16,20,122:3,-1:8,5" +
-"8:2,122,58,-1:10,122:12,90,122:7,-1:8,58:2,122,58,-1:10,122:6,23,122:13,-1:" +
-"8,58:2,122,58,-1:10,122:8,92,122:11,-1:8,58:2,122,58,-1:10,122:10,93,122:9," +
-"-1:8,58:2,122,58,-1:10,122:5,94,122:14,-1:8,58:2,122,58,-1:10,122:6,24,122:" +
-"13,-1:8,58:2,122,58,-1:10,122,25,122:18,-1:8,58:2,122,58,-1:10,122:6,26,122" +
-":13,-1:8,58:2,122,58,-1:10,122:6,95,122:13,-1:8,58:2,122,58,-1:10,122:4,96," +
-"122:15,-1:8,58:2,122,58,-1:10,122:3,97,122:16,-1:8,58:2,122,58,-1:10,122:7," +
-"118,122:12,-1:8,58:2,122,58,-1:10,122:2,27,122:17,-1:8,58:2,122,58,-1:10,12" +
-"2,99,122:18,-1:8,58:2,122,58,-1:10,122:6,28,122:13,-1:8,58:2,122,58,-1:10,1" +
-"22:11,100,122:8,-1:8,58:2,122,58,-1:10,122:6,29,122:13,-1:8,58:2,122,58,-1:" +
-"10,122:13,101,122:6,-1:8,58:2,122,58,-1:10,122:16,102,122:3,-1:8,58:2,122,5" +
-"8,-1:10,103,122:19,-1:8,58:2,122,58,-1:10,122:6,30,122:13,-1:8,58:2,122,58," +
-"-1:10,122:13,31,122:6,-1:8,58:2,122,58,-1:10,122:12,106,122:7,-1:8,58:2,122" +
-",58,-1:10,122:6,107,122:13,-1:8,58:2,122,58,-1:10,122:11,32,122:8,-1:8,58:2" +
-",122,58,-1:10,122:5,33,122:14,-1:8,58:2,122,58,-1:10,122,34,122:18,-1:8,58:" +
-"2,122,58,-1:10,122,35,122:18,-1:8,58:2,122,58,-1:10,122:4,108,122:15,-1:8,5" +
-"8:2,122,58,-1:10,122:16,36,122:3,-1:8,58:2,122,58,-1:10,122,37,122:18,-1:8," +
-"58:2,122,58,-1:10,122:12,60,122:7,-1:8,58:2,122,58,-1:10,122:7,83,122:12,-1" +
-":8,58:2,122,58,-1:10,122:4,88,122:15,-1:8,58:2,122,58,-1:10,122:5,117,122:1" +
-"4,-1:8,58:2,122,58,-1:10,122:15,87,122:4,-1:8,58:2,122,58,-1:10,122:11,89,1" +
-"22:8,-1:8,58:2,122,58,-1:10,122:12,91,122:7,-1:8,58:2,122,58,-1:10,122:5,98" +
-",122:14,-1:8,58:2,122,58,-1:10,122:6,119,122:13,-1:8,58:2,122,58,-1:10,122:" +
-"16,104,122:3,-1:8,58:2,122,58,-1:10,105,122:19,-1:8,58:2,122,58,-1:10,122:4" +
-",62,122:15,-1:8,58:2,122,58,-1:10,122:4,64,122:15,-1:8,58:2,122,58,-1:10,12" +
-"2,66,122:3,68,122:14,-1:8,58:2,122,58,-1:10,122:11,70,122:8,-1:8,58:2,122,5" +
-"8,-1:10,71,122:6,72,122:12,-1:8,58:2,122,58,-1:10,73,122:15,110,74,75,122,-" +
-"1:8,58:2,122,58,-1:10,122:5,111,122:14,-1:8,58:2,122,58,-1:10,122:6,114,122" +
-":13,-1:8,58:2,122,58,-1:10,77,122:3,78,122:15,-1:8,58:2,122,58,-1:10,122:3," +
-"116,122:16,-1:8,58:2,122,58,-1");
+	private int yy_nxt[][] = unpackFromString(85,45,
+"1,2,3,4,5,6,52,-1,7,8,9,10,11,12,112,123,124,53,125,126,125,127,128,125,129" +
+",57,130,125:2,131,125:2,132,13:2,56,-1:2,14,-1,15,125:2,-1,13,-1:58,125,59," +
+"125:18,-1:7,61:2,125,61,-1:13,60,-1:27,15,-1:17,125:20,-1:7,61:2,125,61,-1:" +
+"20,62,-1:20,25,-1:10,58,16,-1:50,125:16,17,125:3,-1:7,61:2,125,61,-1:41,54," +
+"-1:40,43,-1:43,19,-1:22,125,79,125:7,18,125:4,116,125:5,-1:7,61:2,125,61,-1" +
+":2,58:33,20,58:10,-1:13,125:2,21,125:17,-1:7,61:2,125,61,-1:41,25,-1:10,64," +
+"-1:33,54,-1:17,125:5,22,125:14,-1:7,61:2,125,61,-1:14,125:7,133,125:12,-1:7" +
+",61:2,125,61,-1,1,41:32,-1,42,41,55,41:8,-1:13,125:4,115,125:15,-1:7,61:2,1" +
+"25,61,-1,1,-1:57,125:2,23,125:17,-1:7,61:2,125,61,-1,1,44:32,-1:2,44:3,45,4" +
+"6,44:5,-1:13,125:8,82,125:11,-1:7,61:2,125,61,-1,1,47:13,48,47:9,49,47:8,-1" +
+":2,47:3,50,51,47:5,-1:13,125:16,118,125:3,-1:7,61:2,125,61,-1:14,125:5,83,1" +
+"25:14,-1:7,61:2,125,61,-1:14,125,84,125:18,-1:7,61:2,125,61,-1:14,125:3,85," +
+"125:16,-1:7,61:2,125,61,-1:14,125:6,87,125:13,-1:7,61:2,125,61,-1:14,125:15" +
+",88,125:4,-1:7,61:2,125,61,-1:14,125:11,89,125:8,-1:7,61:2,125,61,-1:14,125" +
+":16,24,125:3,-1:7,61:2,125,61,-1:14,125:12,93,125:7,-1:7,61:2,125,61,-1:14," +
+"125:6,26,125:13,-1:7,61:2,125,61,-1:14,125:8,95,125:11,-1:7,61:2,125,61,-1:" +
+"14,125:10,96,125:9,-1:7,61:2,125,61,-1:14,125:5,97,125:14,-1:7,61:2,125,61," +
+"-1:14,125:6,27,125:13,-1:7,61:2,125,61,-1:14,125,28,125:18,-1:7,61:2,125,61" +
+",-1:14,125:6,29,125:13,-1:7,61:2,125,61,-1:14,125:6,98,125:13,-1:7,61:2,125" +
+",61,-1:14,125:4,99,125:15,-1:7,61:2,125,61,-1:14,125:3,100,125:16,-1:7,61:2" +
+",125,61,-1:14,125:7,121,125:12,-1:7,61:2,125,61,-1:14,125:2,30,125:17,-1:7," +
+"61:2,125,61,-1:14,125,102,125:18,-1:7,61:2,125,61,-1:14,125:6,31,125:13,-1:" +
+"7,61:2,125,61,-1:14,125:11,103,125:8,-1:7,61:2,125,61,-1:14,125:6,32,125:13" +
+",-1:7,61:2,125,61,-1:14,125:13,104,125:6,-1:7,61:2,125,61,-1:14,125:16,105," +
+"125:3,-1:7,61:2,125,61,-1:14,106,125:19,-1:7,61:2,125,61,-1:14,125:6,33,125" +
+":13,-1:7,61:2,125,61,-1:14,125:13,34,125:6,-1:7,61:2,125,61,-1:14,125:12,10" +
+"9,125:7,-1:7,61:2,125,61,-1:14,125:6,110,125:13,-1:7,61:2,125,61,-1:14,125:" +
+"11,35,125:8,-1:7,61:2,125,61,-1:14,125:5,36,125:14,-1:7,61:2,125,61,-1:14,1" +
+"25,37,125:18,-1:7,61:2,125,61,-1:14,125,38,125:18,-1:7,61:2,125,61,-1:14,12" +
+"5:4,111,125:15,-1:7,61:2,125,61,-1:14,125:16,39,125:3,-1:7,61:2,125,61,-1:1" +
+"4,125,40,125:18,-1:7,61:2,125,61,-1:14,125:12,63,125:7,-1:7,61:2,125,61,-1:" +
+"14,125:7,86,125:12,-1:7,61:2,125,61,-1:14,125:4,91,125:15,-1:7,61:2,125,61," +
+"-1:14,125:5,120,125:14,-1:7,61:2,125,61,-1:14,125:15,90,125:4,-1:7,61:2,125" +
+",61,-1:14,125:11,92,125:8,-1:7,61:2,125,61,-1:14,125:12,94,125:7,-1:7,61:2," +
+"125,61,-1:14,125:5,101,125:14,-1:7,61:2,125,61,-1:14,125:6,122,125:13,-1:7," +
+"61:2,125,61,-1:14,125:16,107,125:3,-1:7,61:2,125,61,-1:14,108,125:19,-1:7,6" +
+"1:2,125,61,-1:14,125:4,65,125:15,-1:7,61:2,125,61,-1:14,125:4,67,125:15,-1:" +
+"7,61:2,125,61,-1:14,125,69,125:3,71,125:14,-1:7,61:2,125,61,-1:14,125:11,73" +
+",125:8,-1:7,61:2,125,61,-1:14,74,125:6,75,125:12,-1:7,61:2,125,61,-1:14,76," +
+"125:15,113,77,78,125,-1:7,61:2,125,61,-1:14,125:5,114,125:14,-1:7,61:2,125," +
+"61,-1:14,125:6,117,125:13,-1:7,61:2,125,61,-1:14,80,125:3,81,125:15,-1:7,61" +
+":2,125,61,-1:14,125:3,119,125:16,-1:7,61:2,125,61,-1");
 
 	public java_cup.runtime.Symbol next_token ()
 		throws java.io.IOException {
@@ -477,47 +480,47 @@ public class Yylex implements java_cup.runtime.Scanner {
 					case -7:
 						break;
 					case 7:
-						{ return new Symbol(sym._SYMB_5); }
+						{ return new Symbol(sym._SYMB_6); }
 					case -8:
 						break;
 					case 8:
-						{ return new Symbol(sym._SYMB_6); }
+						{ return new Symbol(sym._SYMB_7); }
 					case -9:
 						break;
 					case 9:
-						{ return new Symbol(sym._SYMB_7); }
+						{ return new Symbol(sym._SYMB_8); }
 					case -10:
 						break;
 					case 10:
-						{ return new Symbol(sym._IDENT_, yytext().intern()); }
+						{ return new Symbol(sym._SYMB_9); }
 					case -11:
 						break;
 					case 11:
-						{ /* ignore white space. */ }
+						{ return new Symbol(sym._SYMB_10); }
 					case -12:
 						break;
 					case 12:
-						{ yybegin(STRING); }
+						{ return new Symbol(sym._IDENT_, yytext().intern()); }
 					case -13:
 						break;
 					case 13:
-						{ return new Symbol(sym._INTEGER_, new Integer(yytext())); }
+						{ /* ignore white space. */ }
 					case -14:
 						break;
 					case 14:
-						{ return new Symbol(sym._SYMB_20); }
+						{ yybegin(STRING); }
 					case -15:
 						break;
 					case 15:
-						{ return new Symbol(sym._SYMB_16); }
+						{ return new Symbol(sym._INTEGER_, new Integer(yytext())); }
 					case -16:
 						break;
 					case 16:
-						{ yybegin(COMMENT); }
+						{ return new Symbol(sym._SYMB_5); }
 					case -17:
 						break;
 					case 17:
-						{ return new Symbol(sym._SYMB_8); }
+						{ return new Symbol(sym._SYMB_23); }
 					case -18:
 						break;
 					case 18:
@@ -525,35 +528,35 @@ public class Yylex implements java_cup.runtime.Scanner {
 					case -19:
 						break;
 					case 19:
-						{ return new Symbol(sym._SYMB_12); }
+						{ yybegin(COMMENT); }
 					case -20:
 						break;
 					case 20:
-						{ return new Symbol(sym._SYMB_27); }
+						{ /* BNFC single-line comment */ }
 					case -21:
 						break;
 					case 21:
-						{ /* BNFC single-line comment */ }
+						{ return new Symbol(sym._SYMB_11); }
 					case -22:
 						break;
 					case 22:
-						{ return new Symbol(sym._DOUBLE_, new Double(yytext())); }
+						{ return new Symbol(sym._SYMB_22); }
 					case -23:
 						break;
 					case 23:
-						{ return new Symbol(sym._SYMB_11); }
+						{ return new Symbol(sym._SYMB_15); }
 					case -24:
 						break;
 					case 24:
-						{ return new Symbol(sym._SYMB_25); }
+						{ return new Symbol(sym._SYMB_30); }
 					case -25:
 						break;
 					case 25:
-						{ return new Symbol(sym._SYMB_24); }
+						{ return new Symbol(sym._DOUBLE_, new Double(yytext())); }
 					case -26:
 						break;
 					case 26:
-						{ return new Symbol(sym._SYMB_26); }
+						{ return new Symbol(sym._SYMB_14); }
 					case -27:
 						break;
 					case 27:
@@ -561,35 +564,35 @@ public class Yylex implements java_cup.runtime.Scanner {
 					case -28:
 						break;
 					case 28:
-						{ return new Symbol(sym._SYMB_13); }
+						{ return new Symbol(sym._SYMB_27); }
 					case -29:
 						break;
 					case 29:
-						{ return new Symbol(sym._SYMB_23); }
+						{ return new Symbol(sym._SYMB_29); }
 					case -30:
 						break;
 					case 30:
-						{ return new Symbol(sym._SYMB_10); }
+						{ return new Symbol(sym._SYMB_31); }
 					case -31:
 						break;
 					case 31:
-						{ return new Symbol(sym._SYMB_22); }
+						{ return new Symbol(sym._SYMB_16); }
 					case -32:
 						break;
 					case 32:
-						{ return new Symbol(sym._SYMB_17); }
+						{ return new Symbol(sym._SYMB_26); }
 					case -33:
 						break;
 					case 33:
-						{ return new Symbol(sym._SYMB_15); }
+						{ return new Symbol(sym._SYMB_13); }
 					case -34:
 						break;
 					case 34:
-						{ return new Symbol(sym._SYMB_21); }
+						{ return new Symbol(sym._SYMB_25); }
 					case -35:
 						break;
 					case 35:
-						{ return new Symbol(sym._SYMB_9); }
+						{ return new Symbol(sym._SYMB_20); }
 					case -36:
 						break;
 					case 36:
@@ -597,106 +600,106 @@ public class Yylex implements java_cup.runtime.Scanner {
 					case -37:
 						break;
 					case 37:
-						{ return new Symbol(sym._SYMB_14); }
+						{ return new Symbol(sym._SYMB_24); }
 					case -38:
 						break;
 					case 38:
-						{ }
+						{ return new Symbol(sym._SYMB_12); }
 					case -39:
 						break;
 					case 39:
-						{ }
+						{ return new Symbol(sym._SYMB_21); }
 					case -40:
 						break;
 					case 40:
-						{ yybegin(YYINITIAL); }
+						{ return new Symbol(sym._SYMB_17); }
 					case -41:
 						break;
 					case 41:
-						{ pstring += yytext(); }
+						{ }
 					case -42:
 						break;
 					case 42:
-						{ String foo = pstring; pstring = new String(); yybegin(YYINITIAL); return new Symbol(sym._STRING_, foo.intern()); }
+						{ }
 					case -43:
 						break;
 					case 43:
-						{ yybegin(ESCAPED); }
+						{ yybegin(YYINITIAL); }
 					case -44:
 						break;
 					case 44:
-						{ pstring += yytext(); yybegin(STRING); }
+						{ pstring += yytext(); }
 					case -45:
 						break;
 					case 45:
-						{ pstring +=  "\n"; yybegin(STRING); }
+						{ String foo = pstring; pstring = new String(); yybegin(YYINITIAL); return new Symbol(sym._STRING_, foo.intern()); }
 					case -46:
 						break;
 					case 46:
-						{ pstring += "\t"; yybegin(STRING); }
+						{ yybegin(ESCAPED); }
 					case -47:
 						break;
 					case 47:
-						{ pstring += "\""; yybegin(STRING); }
+						{ pstring += yytext(); yybegin(STRING); }
 					case -48:
 						break;
 					case 48:
-						{ pstring += "\\"; yybegin(STRING); }
+						{ pstring +=  "\n"; yybegin(STRING); }
 					case -49:
 						break;
-					case 50:
-						{ return new Symbol(sym._IDENT_, yytext().intern()); }
+					case 49:
+						{ pstring += "\t"; yybegin(STRING); }
 					case -50:
 						break;
-					case 51:
-						{ return new Symbol(sym._DOUBLE_, new Double(yytext())); }
+					case 50:
+						{ pstring += "\""; yybegin(STRING); }
 					case -51:
 						break;
-					case 52:
-						{ }
+					case 51:
+						{ pstring += "\\"; yybegin(STRING); }
 					case -52:
 						break;
-					case 54:
+					case 53:
 						{ return new Symbol(sym._IDENT_, yytext().intern()); }
 					case -53:
 						break;
-					case 56:
-						{ return new Symbol(sym._IDENT_, yytext().intern()); }
+					case 54:
+						{ return new Symbol(sym._DOUBLE_, new Double(yytext())); }
 					case -54:
 						break;
-					case 58:
-						{ return new Symbol(sym._IDENT_, yytext().intern()); }
+					case 55:
+						{ }
 					case -55:
 						break;
-					case 60:
+					case 57:
 						{ return new Symbol(sym._IDENT_, yytext().intern()); }
 					case -56:
 						break;
-					case 62:
+					case 59:
 						{ return new Symbol(sym._IDENT_, yytext().intern()); }
 					case -57:
 						break;
-					case 64:
+					case 61:
 						{ return new Symbol(sym._IDENT_, yytext().intern()); }
 					case -58:
 						break;
-					case 66:
+					case 63:
 						{ return new Symbol(sym._IDENT_, yytext().intern()); }
 					case -59:
 						break;
-					case 68:
+					case 65:
 						{ return new Symbol(sym._IDENT_, yytext().intern()); }
 					case -60:
 						break;
-					case 70:
+					case 67:
 						{ return new Symbol(sym._IDENT_, yytext().intern()); }
 					case -61:
 						break;
-					case 71:
+					case 69:
 						{ return new Symbol(sym._IDENT_, yytext().intern()); }
 					case -62:
 						break;
-					case 72:
+					case 71:
 						{ return new Symbol(sym._IDENT_, yytext().intern()); }
 					case -63:
 						break;
@@ -931,6 +934,18 @@ public class Yylex implements java_cup.runtime.Scanner {
 					case 130:
 						{ return new Symbol(sym._IDENT_, yytext().intern()); }
 					case -121:
+						break;
+					case 131:
+						{ return new Symbol(sym._IDENT_, yytext().intern()); }
+					case -122:
+						break;
+					case 132:
+						{ return new Symbol(sym._IDENT_, yytext().intern()); }
+					case -123:
+						break;
+					case 133:
+						{ return new Symbol(sym._IDENT_, yytext().intern()); }
+					case -124:
 						break;
 					default:
 						yy_error(YY_E_INTERNAL,false);

@@ -66,6 +66,18 @@ public class ComposVisitor<A> implements
       String ident_2 = p.ident_2;
       Program program_ = p.program_.accept(this, arg);
       return new sample.Absyn.TypeAlFunc(ident_1, fargs_, ident_2, program_);
+    }    public Expr visit(sample.Absyn.AnonymFunc p, A arg)
+    {
+      FArgs fargs_ = p.fargs_.accept(this, arg);
+      Program program_ = p.program_.accept(this, arg);
+      Type type_ = p.type_.accept(this, arg);
+      return new sample.Absyn.AnonymFunc(fargs_, program_, type_);
+    }    public Expr visit(sample.Absyn.TypeAlAnonymFunc p, A arg)
+    {
+      FArgs fargs_ = p.fargs_.accept(this, arg);
+      Program program_ = p.program_.accept(this, arg);
+      String ident_ = p.ident_;
+      return new sample.Absyn.TypeAlAnonymFunc(fargs_, program_, ident_);
     }    public Expr visit(sample.Absyn.Return p, A arg)
     {
       Expr expr_ = p.expr_.accept(this, arg);

@@ -18,6 +18,8 @@ FuncArgs.         FArgs ::= [Dec] ;
 separator Dec ",";
 Func.             Expr ::= "function" Ident "(" FArgs ")" ":" Type Program "end";
 TypeAlFunc.       Expr ::= "function" Ident "(" FArgs ")" ":" Ident Program "end";
+AnonymFunc.       Expr ::= "(" FArgs ")" "->" "{" Program "}" ":" Type;
+TypeAlAnonymFunc. Expr ::= "(" FArgs ")" "->" "{" Program "}" ":" Ident;
 Return.           Expr ::= "return" Expr;
 
 StringType.       Type ::= "string" ;

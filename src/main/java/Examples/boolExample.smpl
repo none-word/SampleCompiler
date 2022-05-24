@@ -1,8 +1,2 @@
 --1
-str : type = string;
-x : str = "ff";
-x;
-
---2
-str : type = string;
-x : str = 10;
+a = (p: integer, p2: boolean, p3: integer) -> {p = p3; return p2;} : boolean;
