@@ -38,29 +38,58 @@ public class TypeChecker {
         }
 
         if (expr instanceof TypeAliasing){
-            var ident = ((TypeAlIdent) ((TypeAliasing) expr).type_1).ident_;
-            var type = ((TypeAliasing) expr).type_2;
+            var ident = ((TypeAlIdent) ((TypeAliasing) expr).typeal_).ident_;
+            var type = ((TypeAliasing) expr).type_;
             context.aliasedTypes.add(new AliasedTypes(ident, type));
             return type;
         }
 
         if (expr instanceof OnlyDecl){
-            var ident = ((Declaration) ((OnlyDecl) expr).dec_).ident_;
-            var type = ((Declaration) ((OnlyDecl) expr).dec_).type_;
+            String ident = null;
+            Type type = null;
+
+            var decl = ((OnlyDecl) expr).dec_;
+            if (decl instanceof Declaration) {
+                ident = ((Declaration) decl).ident_;
+                type = ((Declaration) decl).type_;
+            }
+            if (decl instanceof TypeAlDecl){
+                ident = ((TypeAlDecl) decl).ident_1;
+                type = getRealType(context, ((TypeAlDecl) decl).ident_2);
+            }
+
             context.variables.add(new Variable(ident, type));
             return type;
         }
 
         if (expr instanceof OnlyGlDecl){
-            var ident = ((GlDeclaration) ((OnlyGlDecl) expr).gldec_).ident_;
-            var type = ((GlDeclaration) ((OnlyGlDecl) expr).gldec_).type_;
+            String ident = null;
+            Type type = null;
+
+            var decl = ((OnlyGlDecl) expr).gldec_;
+            if (decl instanceof GlDeclaration) {
+                ident = ((GlDeclaration) decl).ident_;
+                type = ((GlDeclaration) decl).type_;
+            }
+            if (decl instanceof TypeAlGlDec){
+                ident = ((TypeAlGlDec) decl).ident_1;
+                type = getRealType(context, ((TypeAlGlDec) decl).ident_2);
+            }
+
             context.variables.add(new Variable(ident, type));
             return type;
         }
 
         if (expr instanceof InitDecl){
-            var ident = ((Declaration) ((InitDecl) expr).dec_).ident_;
-            var type = ((Declaration) ((InitDecl) expr).dec_).type_;
+            String ident = null;
+            Type type = null;
+            try {
+                ident = ((Declaration) ((InitDecl) expr).dec_).ident_;
+                type = ((Declaration) ((InitDecl) expr).dec_).type_;
+            }catch (Exception e){
+                ident = ((TypeAlDecl) ((InitDecl) expr).dec_).ident_1;
+                type = getRealType(context, ((TypeAlDecl) ((InitDecl) expr).dec_).ident_2);
+            }
             var decExpr = ((InitDecl) expr).expr_;
 
             if (decExpr instanceof NilKeyword)
@@ -72,8 +101,15 @@ public class TypeChecker {
         }
 
         if (expr instanceof InitGlDecl){
-            var ident = ((GlDeclaration) ((InitGlDecl) expr).gldec_).ident_;
-            var type = ((GlDeclaration) ((InitGlDecl) expr).gldec_).type_;
+            String ident = null;
+            Type type = null;
+            try {
+                ident = ((GlDeclaration) ((InitGlDecl) expr).gldec_).ident_;
+                type = ((GlDeclaration) ((InitGlDecl) expr).gldec_).type_;
+            }catch (Exception e){
+                ident = ((TypeAlGlDec) ((InitGlDecl) expr).gldec_).ident_1;
+                type = getRealType(context, ((TypeAlGlDec) ((InitGlDecl) expr).gldec_).ident_2);
+            }
             var decExpr = ((InitGlDecl) expr).expr_;
 
             if (decExpr instanceof NilKeyword)
@@ -124,7 +160,7 @@ public class TypeChecker {
         if (expr instanceof TableDecl){
             var ident = ((Declaration) ((TableDecl) expr).dec_).ident_;
             var type = ((Declaration) ((TableDecl) expr).dec_).type_;
-            if (!isSameType(context, type, new TableType()))
+            if (!isSameType(type, new TableType()))
                 throw new TypeException(new TableType(), type, expr);
 
             var identVar_1 = ((TableDecl) expr).ident_1;
@@ -145,7 +181,7 @@ public class TypeChecker {
         if (expr instanceof GlTableDecl){
             var ident = ((GlDeclaration) ((GlTableDecl) expr).gldec_).ident_;
             var type = ((GlDeclaration) ((GlTableDecl) expr).gldec_).type_;
-            if (!isSameType(context, type, new TableType()))
+            if (!isSameType(type, new TableType()))
                 throw new TypeException(new TableType(), type, expr);
 
             var identVar_1 = ((GlTableDecl) expr).ident_1;
@@ -166,7 +202,7 @@ public class TypeChecker {
         if (expr instanceof InitTableDecl){
             var ident = ((Declaration) ((InitTableDecl) expr).dec_1).ident_;
             var type = ((Declaration) ((InitTableDecl) expr).dec_1).type_;
-            if (!isSameType(context, type, new TableType()))
+            if (!isSameType(type, new TableType()))
                 throw new TypeException(new TableType(), type, expr);
 
             var identVar_1 = ((Declaration) ((InitTableDecl) expr).dec_2).ident_;
@@ -183,7 +219,7 @@ public class TypeChecker {
         if (expr instanceof InitGlTableDecl){
             var ident = ((GlDeclaration) ((InitGlTableDecl) expr).gldec_).ident_;
             var type = ((GlDeclaration) ((InitGlTableDecl) expr).gldec_).type_;
-            if (!isSameType(context, type, new TableType()))
+            if (!isSameType(type, new TableType()))
                 throw new TypeException(new TableType(), type, expr);
 
             var identVar_1 = ((Declaration) ((InitGlTableDecl) expr).dec_1).ident_;
@@ -236,7 +272,7 @@ public class TypeChecker {
             var tableExpr = ((TableElementAssignment) expr).expr_;
             var exprType = typeOf(context, tableExpr);
 
-            if (!isSameType(context, varType, exprType))
+            if (!isSameType(varType, exprType))
                 throw new TypeException(varType, exprType, tableExpr);
             return new VoidType();
         }
@@ -262,7 +298,7 @@ public class TypeChecker {
                 for (int i = 0; i < function.args.listdec_.size(); i++){
                     var varType = typeOf(context, funcCallArgs.get(i));
                     var argType = ((Declaration) function.args.listdec_.get(i)).type_;
-                    if (!isSameType(context, varType, argType))
+                    if (!isSameType(varType, argType))
                         throw new TypeException(argType, varType, expr);
                 }
                 return function.type;
@@ -279,13 +315,16 @@ public class TypeChecker {
             var body = ((ProgramExprs) ((Func) expr).program_).listexpr_;
 
             var funcType = ((Func) expr).type_;
-            context.functions.add(new Function(ident, funcType, args));
+            return checkFunction(context, ident, args, body, funcType);
+        }
 
-            var newContext = new Context();
-            for (Dec arg : args.listdec_){
-                newContext.variables.add(new Variable(((Declaration) arg).ident_, ((Declaration) arg).type_));
-            }
-            return checkAndGetProgramType(newContext, body, funcType);
+        if (expr instanceof TypeAlFunc){
+            var ident = ((TypeAlFunc) expr).ident_1;
+            var args = ((FuncArgs) ((TypeAlFunc) expr).fargs_);
+            var body = ((ProgramExprs) ((TypeAlFunc) expr).program_).listexpr_;
+
+            var funcType = getRealType(context, ((TypeAlFunc) expr).ident_2);
+            return checkFunction(context, ident, args, body, funcType);
         }
 
         if (expr instanceof FuncTypeAnnotation){
@@ -321,6 +360,16 @@ public class TypeChecker {
         }
 
         return null;
+    }
+
+    private Type checkFunction(Context context, String ident, FuncArgs args, ListExpr body, Type funcType) throws TypeException {
+        context.functions.add(new Function(ident, funcType, args));
+
+        var newContext = new Context();
+        for (Dec arg : args.listdec_){
+            newContext.variables.add(new Variable(((Declaration) arg).ident_, ((Declaration) arg).type_));
+        }
+        return checkAndGetProgramType(newContext, body, funcType);
     }
 
     private Type getType(Context context, String ident) {
@@ -363,7 +412,7 @@ public class TypeChecker {
         var returnType = getReturnTypeOfProgram(context, body);
         var returnExpr = getReturnExpr(body);
 
-        if (isSameType(context, expectedType, returnType)) {
+        if (isSameType(expectedType, returnType)) {
             return returnType;
         }
         else {
@@ -381,7 +430,7 @@ public class TypeChecker {
                 if (returnType == null)
                     returnType = type;
                 else
-                    if (!isSameType(context, returnType, type))
+                    if (!isSameType(returnType, type))
                         throw new TypeException(returnType, type, expr);
             }
 
@@ -389,18 +438,18 @@ public class TypeChecker {
                 var thenType = getReturnTypeOfProgram(context, ((ProgramExprs) ((If) expr).program_1).listexpr_);
                 var elseType = getReturnTypeOfProgram(context, ((ProgramExprs) ((If) expr).program_2).listexpr_);
 
-                if (!isSameType(context, thenType, new VoidType()))
+                if (!isSameType(thenType, new VoidType()))
                     if (returnType == null)
                         returnType = thenType;
                     else
-                        if (!isSameType(context, returnType, thenType))
+                        if (!isSameType(returnType, thenType))
                             throw new TypeException(returnType, thenType, getReturnExpr(((ProgramExprs) ((If) expr).program_1).listexpr_));
 
-                if (!isSameType(context, elseType, new VoidType()))
+                if (!isSameType(elseType, new VoidType()))
                     if (returnType == null)
                         returnType = elseType;
                     else
-                    if (!isSameType(context, returnType, elseType))
+                    if (!isSameType(returnType, elseType))
                         throw new TypeException(returnType, elseType, getReturnExpr(((ProgramExprs) ((If) expr).program_2).listexpr_));
             }
         }
@@ -433,35 +482,19 @@ public class TypeChecker {
         return type1.getClass().equals(type2.getClass());
     }
 
-    public boolean isSameType(Context context, Type type1, Type type2){
-        var result = isSameType(type1, type2);
-        if (result != true){
-            if (type1 instanceof TypeAlIdent){
-                var t1Ident = ((TypeAlIdent) type1).ident_;
-                var t1 = context.aliasedTypes.stream()
-                        .filter(c -> t1Ident.equals(c.ident))
-                        .findAny()
-                        .orElse(null);
-                if (t1 != null)
-                    type1 = t1.aliasedType;
-            }
-            if (type2 instanceof TypeAlIdent){
-                var t2Ident = ((TypeAlIdent) type2).ident_;
-                var t2 = context.aliasedTypes.stream()
-                        .filter(c -> t2Ident.equals(c.ident))
-                        .findAny()
-                        .orElse(null);
-                if (t2 != null)
-                    type1 = t2.aliasedType;
-            }
-            result = isSameType(type1, type2);
-        }
-        return result;
+    public Type getRealType(Context context, String ident){
+        var t = context.aliasedTypes.stream()
+                .filter(c -> ident.equals(c.ident))
+                .findAny()
+                .orElse(null);
+        if (t != null)
+            return t.aliasedType;
+        return null;
     }
 
     private Type typeCheck(Context context, Expr expr, Type expected_type) throws TypeException{
         var actual_type = typeOf(context, expr);
-        if (isSameType(context, expected_type, actual_type)){
+        if (isSameType(expected_type, actual_type)){
             return actual_type;
         }
         else {

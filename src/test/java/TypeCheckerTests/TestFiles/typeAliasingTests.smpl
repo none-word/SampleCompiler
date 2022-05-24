@@ -6,3 +6,17 @@ x;
 --2
 str : type = string;
 x : str = 10;
+
+--3
+int : type = integer;
+function f() : int
+    return 5;
+end;
+f();
+
+--4
+str : type = string;
+function f() : str
+    return 5;
+end;
+f();

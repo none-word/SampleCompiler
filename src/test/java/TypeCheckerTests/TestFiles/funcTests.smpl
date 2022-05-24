@@ -197,7 +197,7 @@ function gcd(a : integer, b : boolean) : integer
   end;
 end;
 
-x : var = 40;
+x : integer = 40;
 y : integer = 35;
 gcd(x, y);
 

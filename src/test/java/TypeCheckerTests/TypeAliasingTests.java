@@ -65,4 +65,21 @@ public class TypeAliasingTests {
         var type = typeChecker.typeOf(context, exprs.get(3));
         type = typeChecker.typeOf(context, exprs.get(4));
     }
+
+    @Test
+    public void test_3() throws TypeException {
+        var context = new Context();
+        var type = typeChecker.typeOf(context, exprs.get(5));
+        type = typeChecker.typeOf(context, exprs.get(6));
+        type = typeChecker.typeOf(context, exprs.get(7));
+        Assert.assertTrue(typeChecker.isSameType(type, new IntType()));
+    }
+
+    @Test(expected = TypeException.class)
+    public void test_4() throws TypeException {
+        var context = new Context();
+        var type = typeChecker.typeOf(context, exprs.get(8));
+        type = typeChecker.typeOf(context, exprs.get(9));
+        type = typeChecker.typeOf(context, exprs.get(10));
+    }
 }
