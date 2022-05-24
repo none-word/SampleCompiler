@@ -52,6 +52,13 @@ public class VisitSkel
       p.type_.accept(new TypeVisitor<R,A>(), arg);
       p.program_.accept(new ProgramVisitor<R,A>(), arg);
       return null;
+    }    public R visit(sample.Absyn.TypeAlFunc p, A arg)
+    { /* Code For TypeAlFunc Goes Here */
+      //p.ident_1;
+      p.fargs_.accept(new FArgsVisitor<R,A>(), arg);
+      //p.ident_2;
+      p.program_.accept(new ProgramVisitor<R,A>(), arg);
+      return null;
     }    public R visit(sample.Absyn.Return p, A arg)
     { /* Code For Return Goes Here */
       p.expr_.accept(new ExprVisitor<R,A>(), arg);
@@ -267,14 +274,24 @@ public class VisitSkel
       //p.ident_;
       p.type_.accept(new TypeVisitor<R,A>(), arg);
       return null;
+    }    public R visit(sample.Absyn.TypeAlDecl p, A arg)
+    { /* Code For TypeAlDecl Goes Here */
+      //p.ident_1;
+      //p.ident_2;
+      return null;
     }
   }
   public class GlDecVisitor<R,A> implements GlDec.Visitor<R,A>
   {
     public R visit(sample.Absyn.GlDeclaration p, A arg)
     { /* Code For GlDeclaration Goes Here */
-      //p.ident_;
-      p.type_.accept(new TypeVisitor<R,A>(), arg);
+      //p.ident_1;
+      //p.ident_2;
+      return null;
+    }    public R visit(sample.Absyn.TypeAlGlDec p, A arg)
+    { /* Code For TypeAlGlDec Goes Here */
+      //p.ident_1;
+      //p.ident_2;
       return null;
     }
   }

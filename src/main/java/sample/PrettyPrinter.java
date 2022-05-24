@@ -352,6 +352,21 @@ public class PrettyPrinter
        render("end");
        if (_i_ > 0) render(_R_PAREN);
     }
+    else     if (foo instanceof sample.Absyn.TypeAlFunc)
+    {
+       sample.Absyn.TypeAlFunc _typealfunc = (sample.Absyn.TypeAlFunc) foo;
+       if (_i_ > 0) render(_L_PAREN);
+       render("function");
+       pp(_typealfunc.ident_1, 0);
+       render("(");
+       pp(_typealfunc.fargs_, 0);
+       render(")");
+       render(":");
+       pp(_typealfunc.ident_2, 0);
+       pp(_typealfunc.program_, 0);
+       render("end");
+       if (_i_ > 0) render(_R_PAREN);
+    }
     else     if (foo instanceof sample.Absyn.Return)
     {
        sample.Absyn.Return _return = (sample.Absyn.Return) foo;
@@ -749,6 +764,15 @@ public class PrettyPrinter
        pp(_declaration.type_, 0);
        if (_i_ > 0) render(_R_PAREN);
     }
+    else     if (foo instanceof sample.Absyn.TypeAlDecl)
+    {
+       sample.Absyn.TypeAlDecl _typealdecl = (sample.Absyn.TypeAlDecl) foo;
+       if (_i_ > 0) render(_L_PAREN);
+       pp(_typealdecl.ident_1, 0);
+       render(":");
+       pp(_typealdecl.ident_2, 0);
+       if (_i_ > 0) render(_R_PAREN);
+    }
   }
 
   private static void pp(sample.Absyn.GlDec foo, int _i_)
@@ -758,9 +782,19 @@ public class PrettyPrinter
        sample.Absyn.GlDeclaration _gldeclaration = (sample.Absyn.GlDeclaration) foo;
        if (_i_ > 0) render(_L_PAREN);
        render("global");
-       pp(_gldeclaration.ident_, 0);
+       pp(_gldeclaration.ident_1, 0);
        render(":");
-       pp(_gldeclaration.type_, 0);
+       pp(_gldeclaration.ident_2, 0);
+       if (_i_ > 0) render(_R_PAREN);
+    }
+    else     if (foo instanceof sample.Absyn.TypeAlGlDec)
+    {
+       sample.Absyn.TypeAlGlDec _typealgldec = (sample.Absyn.TypeAlGlDec) foo;
+       if (_i_ > 0) render(_L_PAREN);
+       render("global");
+       pp(_typealgldec.ident_1, 0);
+       render(":");
+       pp(_typealgldec.ident_2, 0);
        if (_i_ > 0) render(_R_PAREN);
     }
   }
@@ -846,6 +880,17 @@ public class PrettyPrinter
        sh(_func.fargs_);
        sh(_func.type_);
        sh(_func.program_);
+       render(")");
+    }
+    if (foo instanceof sample.Absyn.TypeAlFunc)
+    {
+       sample.Absyn.TypeAlFunc _typealfunc = (sample.Absyn.TypeAlFunc) foo;
+       render("(");
+       render("TypeAlFunc");
+       sh(_typealfunc.ident_1);
+       sh(_typealfunc.fargs_);
+       sh(_typealfunc.ident_2);
+       sh(_typealfunc.program_);
        render(")");
     }
     if (foo instanceof sample.Absyn.Return)
@@ -1215,6 +1260,15 @@ public class PrettyPrinter
        sh(_declaration.type_);
        render(")");
     }
+    if (foo instanceof sample.Absyn.TypeAlDecl)
+    {
+       sample.Absyn.TypeAlDecl _typealdecl = (sample.Absyn.TypeAlDecl) foo;
+       render("(");
+       render("TypeAlDecl");
+       sh(_typealdecl.ident_1);
+       sh(_typealdecl.ident_2);
+       render(")");
+    }
   }
 
   private static void sh(sample.Absyn.GlDec foo)
@@ -1224,8 +1278,17 @@ public class PrettyPrinter
        sample.Absyn.GlDeclaration _gldeclaration = (sample.Absyn.GlDeclaration) foo;
        render("(");
        render("GlDeclaration");
-       sh(_gldeclaration.ident_);
-       sh(_gldeclaration.type_);
+       sh(_gldeclaration.ident_1);
+       sh(_gldeclaration.ident_2);
+       render(")");
+    }
+    if (foo instanceof sample.Absyn.TypeAlGlDec)
+    {
+       sample.Absyn.TypeAlGlDec _typealgldec = (sample.Absyn.TypeAlGlDec) foo;
+       render("(");
+       render("TypeAlGlDec");
+       sh(_typealgldec.ident_1);
+       sh(_typealgldec.ident_2);
        render(")");
     }
   }

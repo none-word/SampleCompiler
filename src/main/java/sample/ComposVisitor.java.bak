@@ -9,7 +9,7 @@ public class ComposVisitor<A> implements
   sample.Absyn.ComaExprs.Visitor<sample.Absyn.ComaExprs,A>,
   sample.Absyn.FArgs.Visitor<sample.Absyn.FArgs,A>,
   sample.Absyn.Type.Visitor<sample.Absyn.Type,A>,
-  sample.Absyn.TypeName.Visitor<sample.Absyn.TypeName,A>,
+  sample.Absyn.TypeAl.Visitor<sample.Absyn.TypeAl,A>,
   sample.Absyn.VarKW.Visitor<sample.Absyn.VarKW,A>,
   sample.Absyn.TAnnot.Visitor<sample.Absyn.TAnnot,A>,
   sample.Absyn.TAscript.Visitor<sample.Absyn.TAscript,A>,
@@ -66,6 +66,11 @@ public class ComposVisitor<A> implements
     }    public Expr visit(sample.Absyn.NilKeyword p, A arg)
     {
       return new sample.Absyn.NilKeyword();
+    }    public Expr visit(sample.Absyn.TypeAliasing p, A arg)
+    {
+      TypeAl typeal_ = p.typeal_.accept(this, arg);
+      Type type_ = p.type_.accept(this, arg);
+      return new sample.Absyn.TypeAliasing(typeal_, type_);
     }    public Expr visit(sample.Absyn.Not p, A arg)
     {
       Expr expr_ = p.expr_.accept(this, arg);
@@ -80,11 +85,6 @@ public class ComposVisitor<A> implements
       Expr expr_1 = p.expr_1.accept(this, arg);
       Expr expr_2 = p.expr_2.accept(this, arg);
       return new sample.Absyn.Or(expr_1, expr_2);
-    }    public Expr visit(sample.Absyn.TypeAliasing p, A arg)
-    {
-      String ident_ = p.ident_;
-      Type type_ = p.type_.accept(this, arg);
-      return new sample.Absyn.TypeAliasing(ident_, type_);
     }    public Expr visit(sample.Absyn.VarTypeAnnotation p, A arg)
     {
       String ident_ = p.ident_;
@@ -234,8 +234,8 @@ public class ComposVisitor<A> implements
     {
       return new sample.Absyn.VoidType();
     }
-/* TypeName */
-    public TypeName visit(sample.Absyn.TypeAlIdent p, A arg)
+/* TypeAl */
+    public TypeAl visit(sample.Absyn.TypeAlIdent p, A arg)
     {
       String ident_ = p.ident_;
       return new sample.Absyn.TypeAlIdent(ident_);
@@ -264,6 +264,11 @@ public class ComposVisitor<A> implements
       String ident_ = p.ident_;
       Type type_ = p.type_.accept(this, arg);
       return new sample.Absyn.Declaration(ident_, type_);
+    }    public Dec visit(sample.Absyn.TypeAlDecl p, A arg)
+    {
+      String ident_1 = p.ident_1;
+      String ident_2 = p.ident_2;
+      return new sample.Absyn.TypeAlDecl(ident_1, ident_2);
     }
 /* GlDec */
     public GlDec visit(sample.Absyn.GlDeclaration p, A arg)

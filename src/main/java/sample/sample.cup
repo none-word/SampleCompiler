@@ -97,6 +97,7 @@ Expr ::= _SYMB_17 _IDENT_:p_2  {: RESULT = new sample.Absyn.Import(p_2); :}
   | _SYMB_16 Expr:p_2 _SYMB_24 Program:p_4 _SYMB_11 Program:p_6 _SYMB_12  {: RESULT = new sample.Absyn.If(p_2,p_4,p_6); :}
   | _IDENT_:p_1 _SYMB_2 ComaExprs:p_3 _SYMB_3  {: RESULT = new sample.Absyn.FuncCall(p_1,p_3); :}
   | _SYMB_14 _IDENT_:p_2 _SYMB_2 FArgs:p_4 _SYMB_3 _SYMB_4 Type:p_7 Program:p_8 _SYMB_12  {: RESULT = new sample.Absyn.Func(p_2,p_4,p_7,p_8); :}
+  | _SYMB_14 _IDENT_:p_2 _SYMB_2 FArgs:p_4 _SYMB_3 _SYMB_4 _IDENT_:p_7 Program:p_8 _SYMB_12  {: RESULT = new sample.Absyn.TypeAlFunc(p_2,p_4,p_7,p_8); :}
   | _SYMB_21 Expr:p_2  {: RESULT = new sample.Absyn.Return(p_2); :}
   | _SYMB_19  {: RESULT = new sample.Absyn.NilKeyword(); :}
   | TypeAl:p_1 _SYMB_5 Type:p_3  {: RESULT = new sample.Absyn.TypeAliasing(p_1,p_3); :}
@@ -144,8 +145,10 @@ Expr1 ::= _INTEGER_:p_1  {: RESULT = new sample.Absyn.EInt(p_1); :}
   | Expr2:p_1  {: RESULT = p_1; :}
 ;
 Dec ::= _IDENT_:p_1 _SYMB_4 Type:p_3  {: RESULT = new sample.Absyn.Declaration(p_1,p_3); :} 
+  | _IDENT_:p_1 _SYMB_4 _IDENT_:p_3  {: RESULT = new sample.Absyn.TypeAlDecl(p_1,p_3); :}
 ;
-GlDec ::= _SYMB_15 _IDENT_:p_2 _SYMB_4 Type:p_4  {: RESULT = new sample.Absyn.GlDeclaration(p_2,p_4); :} 
+GlDec ::= _SYMB_15 _IDENT_:p_2 _SYMB_4 _IDENT_:p_4  {: RESULT = new sample.Absyn.GlDeclaration(p_2,p_4); :} 
+  | _SYMB_15 _IDENT_:p_2 _SYMB_4 _IDENT_:p_4  {: RESULT = new sample.Absyn.TypeAlGlDec(p_2,p_4); :}
 ;
 Expr2 ::= Dec:p_1  {: RESULT = new sample.Absyn.OnlyDecl(p_1); :} 
   | GlDec:p_1  {: RESULT = new sample.Absyn.OnlyGlDecl(p_1); :}

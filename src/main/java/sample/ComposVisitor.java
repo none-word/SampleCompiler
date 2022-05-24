@@ -59,6 +59,13 @@ public class ComposVisitor<A> implements
       Type type_ = p.type_.accept(this, arg);
       Program program_ = p.program_.accept(this, arg);
       return new sample.Absyn.Func(ident_, fargs_, type_, program_);
+    }    public Expr visit(sample.Absyn.TypeAlFunc p, A arg)
+    {
+      String ident_1 = p.ident_1;
+      FArgs fargs_ = p.fargs_.accept(this, arg);
+      String ident_2 = p.ident_2;
+      Program program_ = p.program_.accept(this, arg);
+      return new sample.Absyn.TypeAlFunc(ident_1, fargs_, ident_2, program_);
     }    public Expr visit(sample.Absyn.Return p, A arg)
     {
       Expr expr_ = p.expr_.accept(this, arg);
@@ -264,12 +271,22 @@ public class ComposVisitor<A> implements
       String ident_ = p.ident_;
       Type type_ = p.type_.accept(this, arg);
       return new sample.Absyn.Declaration(ident_, type_);
+    }    public Dec visit(sample.Absyn.TypeAlDecl p, A arg)
+    {
+      String ident_1 = p.ident_1;
+      String ident_2 = p.ident_2;
+      return new sample.Absyn.TypeAlDecl(ident_1, ident_2);
     }
 /* GlDec */
     public GlDec visit(sample.Absyn.GlDeclaration p, A arg)
     {
-      String ident_ = p.ident_;
-      Type type_ = p.type_.accept(this, arg);
-      return new sample.Absyn.GlDeclaration(ident_, type_);
+      String ident_1 = p.ident_1;
+      String ident_2 = p.ident_2;
+      return new sample.Absyn.GlDeclaration(ident_1, ident_2);
+    }    public GlDec visit(sample.Absyn.TypeAlGlDec p, A arg)
+    {
+      String ident_1 = p.ident_1;
+      String ident_2 = p.ident_2;
+      return new sample.Absyn.TypeAlGlDec(ident_1, ident_2);
     }
 }
