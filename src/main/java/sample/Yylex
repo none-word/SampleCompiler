@@ -45,17 +45,19 @@ IDENT = ({LETTER}|{DIGIT}|['_])
 <YYINITIAL>global { return new Symbol(sym._SYMB_18); }
 <YYINITIAL>if { return new Symbol(sym._SYMB_19); }
 <YYINITIAL>import { return new Symbol(sym._SYMB_20); }
-<YYINITIAL>integer { return new Symbol(sym._SYMB_21); }
-<YYINITIAL>nil { return new Symbol(sym._SYMB_22); }
-<YYINITIAL>or { return new Symbol(sym._SYMB_23); }
-<YYINITIAL>return { return new Symbol(sym._SYMB_24); }
-<YYINITIAL>string { return new Symbol(sym._SYMB_25); }
-<YYINITIAL>table { return new Symbol(sym._SYMB_26); }
-<YYINITIAL>then { return new Symbol(sym._SYMB_27); }
-<YYINITIAL>true { return new Symbol(sym._SYMB_28); }
-<YYINITIAL>type { return new Symbol(sym._SYMB_29); }
-<YYINITIAL>var { return new Symbol(sym._SYMB_30); }
-<YYINITIAL>void { return new Symbol(sym._SYMB_31); }
+<YYINITIAL>in { return new Symbol(sym._SYMB_21); }
+<YYINITIAL>integer { return new Symbol(sym._SYMB_22); }
+<YYINITIAL>let { return new Symbol(sym._SYMB_23); }
+<YYINITIAL>nil { return new Symbol(sym._SYMB_24); }
+<YYINITIAL>or { return new Symbol(sym._SYMB_25); }
+<YYINITIAL>return { return new Symbol(sym._SYMB_26); }
+<YYINITIAL>string { return new Symbol(sym._SYMB_27); }
+<YYINITIAL>table { return new Symbol(sym._SYMB_28); }
+<YYINITIAL>then { return new Symbol(sym._SYMB_29); }
+<YYINITIAL>true { return new Symbol(sym._SYMB_30); }
+<YYINITIAL>type { return new Symbol(sym._SYMB_31); }
+<YYINITIAL>var { return new Symbol(sym._SYMB_32); }
+<YYINITIAL>void { return new Symbol(sym._SYMB_33); }
 <YYINITIAL>"--"[^\n]*\n { /* BNFC single-line comment */ }
 <YYINITIAL>"[[" { yybegin(COMMENT); }
 <COMMENT>"]]" { yybegin(YYINITIAL); }

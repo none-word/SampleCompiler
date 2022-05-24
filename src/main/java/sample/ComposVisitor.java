@@ -14,7 +14,9 @@ public class ComposVisitor<A> implements
   sample.Absyn.TAnnot.Visitor<sample.Absyn.TAnnot,A>,
   sample.Absyn.TAscript.Visitor<sample.Absyn.TAscript,A>,
   sample.Absyn.Dec.Visitor<sample.Absyn.Dec,A>,
-  sample.Absyn.GlDec.Visitor<sample.Absyn.GlDec,A>
+  sample.Absyn.GlDec.Visitor<sample.Absyn.GlDec,A>,
+  sample.Absyn.Field.Visitor<sample.Absyn.Field,A>,
+  sample.Absyn.Fields.Visitor<sample.Absyn.Fields,A>
 {
 /* Program */
     public Program visit(sample.Absyn.ProgramExprs p, A arg)
@@ -104,6 +106,11 @@ public class ComposVisitor<A> implements
       Expr expr_1 = p.expr_1.accept(this, arg);
       Expr expr_2 = p.expr_2.accept(this, arg);
       return new sample.Absyn.Or(expr_1, expr_2);
+    }    public Expr visit(sample.Absyn.LetBinding p, A arg)
+    {
+      Fields fields_ = p.fields_.accept(this, arg);
+      Expr expr_ = p.expr_.accept(this, arg);
+      return new sample.Absyn.LetBinding(fields_, expr_);
     }    public Expr visit(sample.Absyn.VarTypeAnnotation p, A arg)
     {
       String ident_ = p.ident_;
@@ -300,5 +307,28 @@ public class ComposVisitor<A> implements
       String ident_1 = p.ident_1;
       String ident_2 = p.ident_2;
       return new sample.Absyn.TypeAlGlDec(ident_1, ident_2);
+    }
+/* Field */
+    public Field visit(sample.Absyn.TypeAnField p, A arg)
+    {
+      String ident_ = p.ident_;
+      VarKW varkw_ = p.varkw_.accept(this, arg);
+      Expr expr_ = p.expr_.accept(this, arg);
+      return new sample.Absyn.TypeAnField(ident_, varkw_, expr_);
+    }    public Field visit(sample.Absyn.LBField p, A arg)
+    {
+      Dec dec_ = p.dec_.accept(this, arg);
+      Expr expr_ = p.expr_.accept(this, arg);
+      return new sample.Absyn.LBField(dec_, expr_);
+    }
+/* Fields */
+    public Fields visit(sample.Absyn.LBFields p, A arg)
+    {
+      ListField listfield_ = new ListField();
+      for (Field x : p.listfield_)
+      {
+        listfield_.add(x.accept(this,arg));
+      }
+      return new sample.Absyn.LBFields(listfield_);
     }
 }

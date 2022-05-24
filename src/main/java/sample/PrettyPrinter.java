@@ -258,6 +258,51 @@ public class PrettyPrinter
     buf_.delete(0,buf_.length());
     return temp;
   }
+  public static String print(sample.Absyn.Field foo)
+  {
+    pp(foo, 0);
+    trim();
+    String temp = buf_.toString();
+    buf_.delete(0,buf_.length());
+    return temp;
+  }
+  public static String show(sample.Absyn.Field foo)
+  {
+    sh(foo);
+    String temp = buf_.toString();
+    buf_.delete(0,buf_.length());
+    return temp;
+  }
+  public static String print(sample.Absyn.Fields foo)
+  {
+    pp(foo, 0);
+    trim();
+    String temp = buf_.toString();
+    buf_.delete(0,buf_.length());
+    return temp;
+  }
+  public static String show(sample.Absyn.Fields foo)
+  {
+    sh(foo);
+    String temp = buf_.toString();
+    buf_.delete(0,buf_.length());
+    return temp;
+  }
+  public static String print(sample.Absyn.ListField foo)
+  {
+    pp(foo, 0);
+    trim();
+    String temp = buf_.toString();
+    buf_.delete(0,buf_.length());
+    return temp;
+  }
+  public static String show(sample.Absyn.ListField foo)
+  {
+    sh(foo);
+    String temp = buf_.toString();
+    buf_.delete(0,buf_.length());
+    return temp;
+  }
   /***   You shouldn't need to change anything beyond this point.   ***/
 
   private static void pp(sample.Absyn.Program foo, int _i_)
@@ -445,6 +490,16 @@ public class PrettyPrinter
        pp(_or.expr_1, 0);
        render("or");
        pp(_or.expr_2, 0);
+       if (_i_ > 0) render(_R_PAREN);
+    }
+    else     if (foo instanceof sample.Absyn.LetBinding)
+    {
+       sample.Absyn.LetBinding _letbinding = (sample.Absyn.LetBinding) foo;
+       if (_i_ > 0) render(_L_PAREN);
+       render("let");
+       pp(_letbinding.fields_, 0);
+       render("in");
+       pp(_letbinding.expr_, 0);
        if (_i_ > 0) render(_R_PAREN);
     }
     else     if (foo instanceof sample.Absyn.VarTypeAnnotation)
@@ -829,6 +884,53 @@ public class PrettyPrinter
     }
   }
 
+  private static void pp(sample.Absyn.Field foo, int _i_)
+  {
+    if (foo instanceof sample.Absyn.TypeAnField)
+    {
+       sample.Absyn.TypeAnField _typeanfield = (sample.Absyn.TypeAnField) foo;
+       if (_i_ > 0) render(_L_PAREN);
+       pp(_typeanfield.ident_, 0);
+       render(":");
+       pp(_typeanfield.varkw_, 0);
+       render("=");
+       pp(_typeanfield.expr_, 0);
+       if (_i_ > 0) render(_R_PAREN);
+    }
+    else     if (foo instanceof sample.Absyn.LBField)
+    {
+       sample.Absyn.LBField _lbfield = (sample.Absyn.LBField) foo;
+       if (_i_ > 0) render(_L_PAREN);
+       pp(_lbfield.dec_, 0);
+       render("=");
+       pp(_lbfield.expr_, 0);
+       if (_i_ > 0) render(_R_PAREN);
+    }
+  }
+
+  private static void pp(sample.Absyn.Fields foo, int _i_)
+  {
+    if (foo instanceof sample.Absyn.LBFields)
+    {
+       sample.Absyn.LBFields _lbfields = (sample.Absyn.LBFields) foo;
+       if (_i_ > 0) render(_L_PAREN);
+       pp(_lbfields.listfield_, 0);
+       if (_i_ > 0) render(_R_PAREN);
+    }
+  }
+
+  private static void pp(sample.Absyn.ListField foo, int _i_)
+  {
+     for (java.util.Iterator<Field> it = foo.iterator(); it.hasNext();)
+     {
+       pp(it.next(), _i_);
+       if (it.hasNext()) {
+         render(",");
+       } else {
+         render("");
+       }
+     }  }
+
 
   private static void sh(sample.Absyn.Program foo)
   {
@@ -989,6 +1091,15 @@ public class PrettyPrinter
        render("Or");
        sh(_or.expr_1);
        sh(_or.expr_2);
+       render(")");
+    }
+    if (foo instanceof sample.Absyn.LetBinding)
+    {
+       sample.Absyn.LetBinding _letbinding = (sample.Absyn.LetBinding) foo;
+       render("(");
+       render("LetBinding");
+       sh(_letbinding.fields_);
+       sh(_letbinding.expr_);
        render(")");
     }
     if (foo instanceof sample.Absyn.VarTypeAnnotation)
@@ -1341,6 +1452,53 @@ public class PrettyPrinter
        sh(_typealgldec.ident_2);
        render(")");
     }
+  }
+
+  private static void sh(sample.Absyn.Field foo)
+  {
+    if (foo instanceof sample.Absyn.TypeAnField)
+    {
+       sample.Absyn.TypeAnField _typeanfield = (sample.Absyn.TypeAnField) foo;
+       render("(");
+       render("TypeAnField");
+       sh(_typeanfield.ident_);
+       sh(_typeanfield.varkw_);
+       sh(_typeanfield.expr_);
+       render(")");
+    }
+    if (foo instanceof sample.Absyn.LBField)
+    {
+       sample.Absyn.LBField _lbfield = (sample.Absyn.LBField) foo;
+       render("(");
+       render("LBField");
+       sh(_lbfield.dec_);
+       sh(_lbfield.expr_);
+       render(")");
+    }
+  }
+
+  private static void sh(sample.Absyn.Fields foo)
+  {
+    if (foo instanceof sample.Absyn.LBFields)
+    {
+       sample.Absyn.LBFields _lbfields = (sample.Absyn.LBFields) foo;
+       render("(");
+       render("LBFields");
+       render("[");
+       sh(_lbfields.listfield_);
+       render("]");
+       render(")");
+    }
+  }
+
+  private static void sh(sample.Absyn.ListField foo)
+  {
+     for (java.util.Iterator<Field> it = foo.iterator(); it.hasNext();)
+     {
+       sh(it.next());
+       if (it.hasNext())
+         render(",");
+     }
   }
 
 

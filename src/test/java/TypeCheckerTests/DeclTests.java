@@ -194,4 +194,31 @@ public class DeclTests {
         type = typeChecker.typeOf(context, exprs.get(41));
         type = typeChecker.typeOf(context, exprs.get(42));
     }
+    @Test
+    public void test_19() throws TypeException {
+        var context = new Context();
+        var type = typeChecker.typeOf(context, exprs.get(43));
+        Assert.assertTrue(typeChecker.isSameType(type, new IntType()));
+    }
+
+    @Test
+    public void test_20() throws TypeException {
+        var context = new Context();
+        var type = typeChecker.typeOf(context, exprs.get(44));
+        Assert.assertTrue(typeChecker.isSameType(type, new IntType()));
+    }
+
+    @Test
+    public void test_21() throws TypeException {
+        var context = new Context();
+        var type = typeChecker.typeOf(context, exprs.get(45));
+        Assert.assertTrue(typeChecker.isSameType(type, new IntType()));
+    }
+
+    @Test(expected = TypeException.class)
+    public void test_22() throws TypeException {
+        var context = new Context();
+        var type = typeChecker.typeOf(context, exprs.get(46));
+        Assert.assertTrue(typeChecker.isSameType(type, new IntType()));
+    }
 }

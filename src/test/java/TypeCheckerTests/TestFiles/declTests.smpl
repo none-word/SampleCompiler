@@ -82,3 +82,24 @@ t: table = (x, y);
 z: integer = 10;
 t.y = z;
 
+--19
+x : var = let x1: integer = 2,
+              x2: integer = 3
+              in x1;
+
+--20
+x : var = let x1: var = 2,
+              x2: integer = 2
+              in x1;
+
+--21
+int : type = integer;
+x : var = let x1: var = 2,
+              x2: int = 2
+              in x2;
+
+--22
+int : type = integer;
+x : var = let x1: var = 2,
+              x2: int = "2"
+              in x2;

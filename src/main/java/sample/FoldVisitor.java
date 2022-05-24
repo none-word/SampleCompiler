@@ -107,6 +107,12 @@ public abstract class FoldVisitor<R,A> implements AllVisitor<R,A> {
       r = combine(p.expr_2.accept(this, arg), r, arg);
       return r;
     }
+    public R visit(sample.Absyn.LetBinding p, A arg) {
+      R r = leaf(arg);
+      r = combine(p.fields_.accept(this, arg), r, arg);
+      r = combine(p.expr_.accept(this, arg), r, arg);
+      return r;
+    }
     public R visit(sample.Absyn.VarTypeAnnotation p, A arg) {
       R r = leaf(arg);
       r = combine(p.tannot_.accept(this, arg), r, arg);
@@ -310,6 +316,30 @@ public abstract class FoldVisitor<R,A> implements AllVisitor<R,A> {
     }
     public R visit(sample.Absyn.TypeAlGlDec p, A arg) {
       R r = leaf(arg);
+      return r;
+    }
+
+/* Field */
+    public R visit(sample.Absyn.TypeAnField p, A arg) {
+      R r = leaf(arg);
+      r = combine(p.varkw_.accept(this, arg), r, arg);
+      r = combine(p.expr_.accept(this, arg), r, arg);
+      return r;
+    }
+    public R visit(sample.Absyn.LBField p, A arg) {
+      R r = leaf(arg);
+      r = combine(p.dec_.accept(this, arg), r, arg);
+      r = combine(p.expr_.accept(this, arg), r, arg);
+      return r;
+    }
+
+/* Fields */
+    public R visit(sample.Absyn.LBFields p, A arg) {
+      R r = leaf(arg);
+      for (Field x : p.listfield_)
+      {
+        r = combine(x.accept(this, arg), r, arg);
+      }
       return r;
     }
 

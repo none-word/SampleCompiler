@@ -11,6 +11,8 @@ public abstract class Expr implements java.io.Serializable {
     public R visit(sample.Absyn.FuncCall p, A arg);
     public R visit(sample.Absyn.Func p, A arg);
     public R visit(sample.Absyn.TypeAlFunc p, A arg);
+    public R visit(sample.Absyn.AnonymFunc p, A arg);
+    public R visit(sample.Absyn.TypeAlAnonymFunc p, A arg);
     public R visit(sample.Absyn.Return p, A arg);
     public R visit(sample.Absyn.NilKeyword p, A arg);
     public R visit(sample.Absyn.TypeAliasing p, A arg);

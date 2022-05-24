@@ -1,2 +1,3 @@
---1
-a = (p: integer, p2: boolean, p3: integer) -> {p = p3; return p2;} : boolean;
+x = let y: var = add(2, 4),
+        z: integer = add(4, 6)
+        in  add(y, z);

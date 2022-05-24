@@ -4,6 +4,7 @@ import sample.Absyn.*;
 import sample.PrettyPrinter;
 
 import java.text.BreakIterator;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TypeChecker {
@@ -372,6 +373,34 @@ public class TypeChecker {
             context.functions.add(new Function(ident, funcType, args));
 
             return funcType;
+        }
+
+        if (expr instanceof LetBinding){
+            var newContext = context;
+            newContext.variables = new ArrayList<>();
+            newContext.tables = new ArrayList<>();
+            var fields = ((LBFields) ((LetBinding) expr).fields_).listfield_;
+            for (var field : fields) {
+                if (field instanceof LBField){
+                    String fieldVarIdent = null;
+                    Type fieldVarType = null;
+                    var fieldExpr = ((LBField) field).expr_;
+                    var fieldDec = ((LBField) field).dec_;
+                    if (fieldDec instanceof Declaration){
+                        fieldVarIdent = ((Declaration) fieldDec).ident_;
+                        fieldVarType = ((Declaration) fieldDec).type_;
+                        typeCheck(newContext, fieldExpr, fieldVarType);
+                    }
+                    if (fieldDec instanceof TypeAlDecl){
+                        fieldVarIdent = ((TypeAlDecl) fieldDec).ident_1;
+                        fieldVarType = getRealType(newContext, ((TypeAlDecl) fieldDec).ident_2);
+                        typeCheck(newContext, fieldExpr, fieldVarType);
+                    }
+
+                    newContext.variables.add(new Variable(fieldVarIdent, fieldVarType));
+                }
+            }
+            return typeOf(newContext, ((LetBinding) expr).expr_);
         }
 
         if (expr instanceof Not){

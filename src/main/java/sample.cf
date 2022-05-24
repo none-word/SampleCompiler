@@ -71,6 +71,12 @@ TableElementAssignment. Expr2 ::= Ident "." Ident "=" Expr;
 
 Assignment.         Expr2 ::= Ident "=" Expr;
 
+TypeAnField.        Field ::= Ident ":" VarKW "=" Expr;
+LBField.            Field ::= Dec "=" Expr;
+LBFields.           Fields ::= [Field];
+separator Field ",";
+LetBinding.         Expr ::= "let" Fields "in" Expr;
+
 _. Expr ::= "(" Expr ")" ;
 _. Expr ::= Expr1 ;
 _. Expr1 ::= Expr2 ;
