@@ -53,7 +53,7 @@ Or.                  Expr  ::= Expr "or" Expr ;
 
 Declaration.        Dec ::= Ident ":" Type ;
 TypeAlDecl.         Dec ::= Ident ":" Ident;
-GlDeclaration.      GlDec ::= "global" Ident ":" Ident;
+GlDeclaration.      GlDec ::= "global" Type ":" Ident;
 TypeAlGlDec.        GlDec ::= "global" Ident ":" Ident;
 OnlyDecl.           Expr2 ::= Dec ;
 OnlyGlDecl.         Expr2 ::= GlDec ;
