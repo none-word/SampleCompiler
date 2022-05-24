@@ -1,6 +1,7 @@
 package Intepreter;
 
 import sample.Absyn.Expr;
+import sample.Absyn.ListExpr;
 import sample.Absyn.ProgramExprs;
 import sample.PrettyPrinter;
 import sample.Yylex;
@@ -8,10 +9,11 @@ import sample.parser;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
 
 public class Interpreter {
     private final String programFilePath;
-    private final Eval eval = new EvalImpl();
+//    private final Eval eval = new EvalImpl();
 
     public Interpreter(String programFilePath) {
         this.programFilePath = programFilePath;
@@ -34,14 +36,14 @@ public class Interpreter {
         parser = new parser(l);
         try {
             ProgramExprs programExprs = ((ProgramExprs) parser.pProgram());
+            typeCheck(programExprs.listexpr_);
+
             //System.out.println(sample.PrettyPrinter.show(ast));
 
-            for (var expr : programExprs.listexpr_) {
-                evalAndTypeCheck(expr);
-            }
-            var result = eval.evalProgram(programExprs);
-            System.out.println();
-            System.out.println("Result: " + PrettyPrinter.print(result));
+
+//            var result = eval.evalProgram(programExprs);
+//            System.out.println();
+//            System.out.println("Result: " + PrettyPrinter.print(result));
         }
         catch (Exception e){
             System.out.println("Parse error in line " + e.getMessage());
@@ -50,20 +52,12 @@ public class Interpreter {
 
     }
 
-    private void evalAndTypeCheck(Expr expr){
-        try {
-//            var typeChecker = new TypeChecker();
-//            var type = typeChecker.typeOf(new ArrayList<TypeChecker.Variable>(), expr);
-//            System.out.print(PrettyPrinter.print(expr));
-//            System.out.print(" has type ");
-//            if (type != null)
-//                System.out.println(PrettyPrinter.print(type));
-//            else
-//                System.out.println("null");
-        }
-        catch (Exception e){
-            System.out.println(e.getMessage());
-        }
+    private void typeCheck(ListExpr exprs) throws TypeException{
+        var typeChecker = new TypeChecker();
+        Context context = new Context();
 
+        for (var expr : exprs) {
+            var type = typeChecker.typeOf(context, expr);
+        }
     }
 }

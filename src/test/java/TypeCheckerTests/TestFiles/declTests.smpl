@@ -35,3 +35,50 @@ y = x;
 x : var = "10";
 y : integer;
 y = x;
+
+--11
+t: table = (x: integer, y: integer);
+
+--12
+t: table = (x: integer, y: integer);
+t.x;
+
+--13
+x: integer = 10;
+y: integer;
+t: table = (x, y);
+
+--14
+x: integer;
+y: boolean;
+t: table = (x, y);
+t.y;
+
+--15
+x: integer;
+y: boolean;
+t: table = (x, y);
+z: var = t.y;
+z;
+
+--16
+x: integer;
+y: boolean;
+t: table = (x, y);
+z: var = t;
+z;
+
+--17
+x: integer;
+y: boolean;
+t: table = (x, y);
+z: integer = 10;
+t = z;
+
+--18
+x: integer;
+y: boolean;
+t: table = (x, y);
+z: integer = 10;
+t.y = z;
+

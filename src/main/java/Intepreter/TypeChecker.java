@@ -7,7 +7,7 @@ import java.util.List;
 
 public class TypeChecker {
 
-    public Type typeOf(Context context, GlobalContext globalContext, Expr expr) throws TypeException{
+    public Type typeOf(Context context, Expr expr) throws TypeException{
 
         if (expr instanceof EInt)
             return new IntType();
@@ -25,9 +25,9 @@ public class TypeChecker {
         }
 
         if (expr instanceof If){
-            var exprType = typeCheck(context, globalContext, ((If) expr).expr_, new BoolType());
-            var typeOfThen = getReturnTypeOfProgram(context, globalContext, ((ProgramExprs) ((If) expr).program_1).listexpr_);
-            var typeOfElse = getReturnTypeOfProgram(context, globalContext, ((ProgramExprs) ((If) expr).program_2).listexpr_);
+            var exprType = typeCheck(context, ((If) expr).expr_, new BoolType());
+            var typeOfThen = getReturnTypeOfProgram(context, ((ProgramExprs) ((If) expr).program_1).listexpr_);
+            var typeOfElse = getReturnTypeOfProgram(context, ((ProgramExprs) ((If) expr).program_2).listexpr_);
 
             return new VoidType();
         }
@@ -35,16 +35,23 @@ public class TypeChecker {
         if (expr instanceof ConstZero)
             return new IntType();
         if (expr instanceof Succ){
-            typeCheck(context, globalContext, ((Succ) expr).expr_, new IntType());
+            typeCheck(context, ((Succ) expr).expr_, new IntType());
             return new IntType();
         }
         if (expr instanceof Pred){
-            typeCheck(context, globalContext, ((Pred) expr).expr_, new IntType());
+            typeCheck(context, ((Pred) expr).expr_, new IntType());
             return new IntType();
         }
         if (expr instanceof IsZero){
-            typeCheck(context, globalContext, ((IsZero) expr).expr_, new IntType());
+            typeCheck(context, ((IsZero) expr).expr_, new IntType());
             return new BoolType();
+        }
+
+        if (expr instanceof TypeAliasing){
+            var ident = ((TypeAlIdent) ((TypeAliasing) expr).type_1).ident_;
+            var type = ((TypeAliasing) expr).type_2;
+            context.aliasedTypes.add(new AliasedTypes(ident, type));
+            return type;
         }
 
         if (expr instanceof OnlyDecl){
@@ -57,7 +64,7 @@ public class TypeChecker {
         if (expr instanceof OnlyGlDecl){
             var ident = ((GlDeclaration) ((OnlyGlDecl) expr).gldec_).ident_;
             var type = ((GlDeclaration) ((OnlyGlDecl) expr).gldec_).type_;
-            globalContext.variables.add(new Variable(ident, type));
+            context.variables.add(new Variable(ident, type));
             return type;
         }
 
@@ -69,7 +76,7 @@ public class TypeChecker {
             if (decExpr instanceof NilKeyword)
                 return type;
 
-            var exprType = typeCheck(context, globalContext, decExpr, type);
+            var exprType = typeCheck(context, decExpr, type);
             context.variables.add(new Variable(ident, type));
             return type;
         }
@@ -82,8 +89,8 @@ public class TypeChecker {
             if (decExpr instanceof NilKeyword)
                 return type;
 
-            var exprType = typeCheck(context, globalContext, decExpr, type);
-            globalContext.variables.add(new Variable(ident, type));
+            var exprType = typeCheck(context, decExpr, type);
+            context.variables.add(new Variable(ident, type));
             return type;
         }
 
@@ -95,7 +102,7 @@ public class TypeChecker {
             if (decExpr instanceof NilKeyword)
                 throw new TypeException("Cannot infer type: variable initializer is nil");
 
-            var exprType = typeOf(context,globalContext, decExpr);
+            var exprType = typeOf(context, decExpr);
 
             context.variables.add(new Variable(ident, exprType));
             return exprType;
@@ -108,35 +115,33 @@ public class TypeChecker {
             if (decExpr instanceof NilKeyword)
                 throw new TypeException("Cannot infer type: variable initializer is nil");
 
-            var exprType = typeOf(context, globalContext, decExpr);
+            var exprType = typeOf(context, decExpr);
 
-            globalContext.variables.add(new Variable(ident, exprType));
+            context.variables.add(new Variable(ident, exprType));
             return exprType;
         }
 
         if (expr instanceof Var){
             var ident = ((Var) expr).ident_;
-            var variable = getVariable(context, globalContext, ident);
-
-            if (variable != null)
-                return variable.type;
-            else {
+            var type = getType(context, ident);
+            if (type == null){
                 undefinedVar(expr);
                 return null;
             }
+            return type;
         }
 
         if (expr instanceof TableDecl){
             var ident = ((Declaration) ((TableDecl) expr).dec_).ident_;
             var type = ((Declaration) ((TableDecl) expr).dec_).type_;
-            if (isSameType(type, new TableType()))
+            if (!isSameType(type, new TableType()))
                 throw new TypeException(new TableType(), type, expr);
 
             var identVar_1 = ((TableDecl) expr).ident_1;
             var identVar_2 = ((TableDecl) expr).ident_2;
 
-            var var_1 = getVariable(context, globalContext, identVar_1);
-            var var_2 = getVariable(context, globalContext, identVar_2);
+            var var_1 = getVariable(context, identVar_1);
+            var var_2 = getVariable(context, identVar_2);
 
             if (var_1 == null || var_2 == null){
                 undefinedVar(expr);
@@ -150,28 +155,28 @@ public class TypeChecker {
         if (expr instanceof GlTableDecl){
             var ident = ((GlDeclaration) ((GlTableDecl) expr).gldec_).ident_;
             var type = ((GlDeclaration) ((GlTableDecl) expr).gldec_).type_;
-            if (isSameType(type, new TableType()))
+            if (!isSameType(type, new TableType()))
                 throw new TypeException(new TableType(), type, expr);
 
             var identVar_1 = ((GlTableDecl) expr).ident_1;
             var identVar_2 = ((GlTableDecl) expr).ident_2;
 
-            var var_1 = getVariable(context, globalContext, identVar_1);
-            var var_2 = getVariable(context, globalContext, identVar_2);
+            var var_1 = getVariable(context, identVar_1);
+            var var_2 = getVariable(context, identVar_2);
 
             if (var_1 == null || var_2 == null){
                 undefinedVar(expr);
                 return null;
             }
 
-            globalContext.tables.add(new Table(ident, type, var_1, var_2));
+            context.tables.add(new Table(ident, type, var_1, var_2));
             return type;
         }
 
         if (expr instanceof InitTableDecl){
             var ident = ((Declaration) ((InitTableDecl) expr).dec_1).ident_;
             var type = ((Declaration) ((InitTableDecl) expr).dec_1).type_;
-            if (isSameType(type, new TableType()))
+            if (!isSameType(type, new TableType()))
                 throw new TypeException(new TableType(), type, expr);
 
             var identVar_1 = ((Declaration) ((InitTableDecl) expr).dec_2).ident_;
@@ -188,7 +193,7 @@ public class TypeChecker {
         if (expr instanceof InitGlTableDecl){
             var ident = ((GlDeclaration) ((InitGlTableDecl) expr).gldec_).ident_;
             var type = ((GlDeclaration) ((InitGlTableDecl) expr).gldec_).type_;
-            if (isSameType(type, new TableType()))
+            if (!isSameType(type, new TableType()))
                 throw new TypeException(new TableType(), type, expr);
 
             var identVar_1 = ((Declaration) ((InitGlTableDecl) expr).dec_1).ident_;
@@ -197,7 +202,7 @@ public class TypeChecker {
             var identVar_2 = ((Declaration) ((InitGlTableDecl) expr).dec_2).ident_;
             var typeVar_2 = ((Declaration) ((InitGlTableDecl) expr).dec_2).type_;
 
-            globalContext.tables.add(new Table(ident, type, new Variable(identVar_1, typeVar_2),
+            context.tables.add(new Table(ident, type, new Variable(identVar_1, typeVar_2),
                     new Variable(identVar_2, typeVar_2)));
             return type;
         }
@@ -205,7 +210,7 @@ public class TypeChecker {
         if (expr instanceof TableElementCall){
             var tableIdent = ((TableElementCall) expr).ident_1;
 
-            var table =  getTable(context, globalContext, tableIdent);
+            var table =  getTable(context, tableIdent);
             if (table == null){
                 undefinedVar(expr);
                 return null;
@@ -224,7 +229,7 @@ public class TypeChecker {
         if (expr instanceof TableElementAssignment){
             var tableIdent = ((TableElementAssignment) expr).ident_1;
 
-            var table =  getTable(context, globalContext, tableIdent);
+            var table =  getTable(context, tableIdent);
             if (table == null){
                 undefinedVar(expr);
                 return null;
@@ -239,7 +244,7 @@ public class TypeChecker {
             }
 
             var tableExpr = ((TableElementAssignment) expr).expr_;
-            var exprType = typeOf(context, globalContext, tableExpr);
+            var exprType = typeOf(context, tableExpr);
 
             if (!isSameType(varType, exprType))
                 throw new TypeException(varType, exprType, tableExpr);
@@ -248,15 +253,13 @@ public class TypeChecker {
 
         if (expr instanceof Assignment){
             var ident = ((Assignment) expr).ident_;
-            var variable = getVariable(context, globalContext, ident);
-
-            if (variable != null) {
-                var exprType = typeCheck(context, globalContext, ((Assignment) expr).expr_, variable.type);
+            var type = getType(context, ident);
+            if (type != null) {
+                var exprType = typeCheck(context, ((Assignment) expr).expr_, type);
                 return new VoidType();
-            }else {
-                undefinedVar(expr);
-                return null;
             }
+            undefinedVar(expr);
+            return null;
         }
 
         if (expr instanceof FuncCall){
@@ -267,7 +270,7 @@ public class TypeChecker {
             if (function != null){
                 var funcCallArgs = ((Vars) ((FuncCall) expr).comaexprs_).listexpr_;
                 for (int i = 0; i < function.args.listdec_.size(); i++){
-                    var varType = typeOf(context, globalContext, funcCallArgs.get(i));
+                    var varType = typeOf(context, funcCallArgs.get(i));
                     var argType = ((Declaration) function.args.listdec_.get(i)).type_;
                     if (!isSameType(varType, argType))
                         throw new TypeException(argType, varType, expr);
@@ -292,7 +295,7 @@ public class TypeChecker {
             for (Dec arg : args.listdec_){
                 newContext.variables.add(new Variable(((Declaration) arg).ident_, ((Declaration) arg).type_));
             }
-            return checkAndGetProgramType(newContext, globalContext, body, funcType);
+            return checkAndGetProgramType(newContext, body, funcType);
         }
 
         if (expr instanceof FuncTypeAnnotation){
@@ -304,28 +307,40 @@ public class TypeChecker {
             for (Dec arg : args.listdec_){
                 newContext.variables.add(new Variable(((Declaration) arg).ident_, ((Declaration) arg).type_));
             }
-            var funcType = getReturnTypeOfProgram(newContext, globalContext, body);
+            var funcType = getReturnTypeOfProgram(newContext, body);
             context.functions.add(new Function(ident, funcType, args));
 
             return funcType;
         }
 
         if (expr instanceof Not){
-            var boolExpr = typeCheck(context, globalContext, ((Not) expr).expr_, new BoolType());
+            var boolExpr = typeCheck(context, ((Not) expr).expr_, new BoolType());
             return boolExpr;
         }
 
         if (expr instanceof And){
-            var boolExpr_1 = typeCheck(context, globalContext, ((And) expr).expr_1, new BoolType());
-            var boolExpr_2 = typeCheck(context, globalContext, ((And) expr).expr_2, new BoolType());
+            var boolExpr_1 = typeCheck(context, ((And) expr).expr_1, new BoolType());
+            var boolExpr_2 = typeCheck(context, ((And) expr).expr_2, new BoolType());
             return boolExpr_1;
         }
 
         if (expr instanceof Or){
-            var boolExpr_1 = typeCheck(context, globalContext, ((Or) expr).expr_1, new BoolType());
-            var boolExpr_2 = typeCheck(context, globalContext, ((Or) expr).expr_2, new BoolType());
+            var boolExpr_1 = typeCheck(context, ((Or) expr).expr_1, new BoolType());
+            var boolExpr_2 = typeCheck(context, ((Or) expr).expr_2, new BoolType());
             return boolExpr_1;
         }
+
+        return null;
+    }
+
+    private Type getType(Context context, String ident) {
+        Variable variable = getVariable(context, ident);
+        if (variable != null)
+            return variable.type;
+
+        Table table = getTable(context, ident);
+        if (table != null)
+            return table.type;
 
         return null;
     }
@@ -338,35 +353,24 @@ public class TypeChecker {
         return null;
     }
 
-    private Table getTable(Context context, GlobalContext globalContext, String tableIdent) {
+    private Table getTable(Context context, String tableIdent) {
         var table = context.tables.stream()
                 .filter(c -> tableIdent.equals(c.ident))
                 .findAny()
                 .orElse(null);
-        if (table == null)
-            table = globalContext.tables.stream()
-                    .filter(c -> tableIdent.equals(c.ident))
-                    .findAny()
-                    .orElse(null);
         return table;
     }
 
-    private Variable getVariable(Context context, GlobalContext globalContext, String ident) {
+    private Variable getVariable(Context context, String ident) {
         var variable = context.variables.stream()
                 .filter(c -> ident.equals(c.ident))
                 .findAny()
                 .orElse(null);
-        if (variable == null)
-            variable = globalContext.variables.stream()
-                    .filter(c -> ident.equals(c.ident))
-                    .findAny()
-                    .orElse(null);
-
         return variable;
     }
 
-    private Type checkAndGetProgramType(Context context, GlobalContext globalContext, List<Expr> body, Type expectedType) throws TypeException{
-        var returnType = getReturnTypeOfProgram(context, globalContext, body);
+    private Type checkAndGetProgramType(Context context, List<Expr> body, Type expectedType) throws TypeException{
+        var returnType = getReturnTypeOfProgram(context, body);
         var returnExpr = getReturnExpr(body);
 
         if (isSameType(expectedType, returnType)) {
@@ -377,13 +381,13 @@ public class TypeChecker {
         }
     }
 
-    private Type getReturnTypeOfProgram(Context context, GlobalContext globalContext, List<Expr> body) throws TypeException{
+    private Type getReturnTypeOfProgram(Context context, List<Expr> body) throws TypeException{
         Type returnType = null;
         for (var expr : body) {
-            typeOf(context, globalContext, expr);
+            typeOf(context, expr);
 
             if (expr instanceof Return) {
-                var type = typeOf(context, globalContext, ((Return) expr).expr_);
+                var type = typeOf(context, ((Return) expr).expr_);
                 if (returnType == null)
                     returnType = type;
                 else
@@ -392,8 +396,8 @@ public class TypeChecker {
             }
 
             if (expr instanceof If){
-                var thenType = getReturnTypeOfProgram(context, globalContext, ((ProgramExprs) ((If) expr).program_1).listexpr_);
-                var elseType = getReturnTypeOfProgram(context, globalContext, ((ProgramExprs) ((If) expr).program_2).listexpr_);
+                var thenType = getReturnTypeOfProgram(context, ((ProgramExprs) ((If) expr).program_1).listexpr_);
+                var elseType = getReturnTypeOfProgram(context, ((ProgramExprs) ((If) expr).program_2).listexpr_);
 
                 if (!isSameType(thenType, new VoidType()))
                     if (returnType == null)
@@ -439,8 +443,34 @@ public class TypeChecker {
         return type1.getClass().equals(type2.getClass());
     }
 
-    private Type typeCheck(Context context, GlobalContext globalContext, Expr expr, Type expected_type) throws TypeException{
-        var actual_type = typeOf(context, globalContext, expr);
+    public boolean isSameType(Context context, Type type1, Type type2){
+        var result = isSameType(type1, type2);
+        if (result != true){
+            if (type1 instanceof TypeAlIdent){
+                var t1Ident = ((TypeAlIdent) type1).ident_;
+                var t1 = context.aliasedTypes.stream()
+                        .filter(c -> t1Ident.equals(c.ident))
+                        .findAny()
+                        .orElse(null);
+                if (t1 != null)
+                    type1 = t1.aliasedType;
+            }
+            if (type2 instanceof TypeAlIdent){
+                var t2Ident = ((TypeAlIdent) type2).ident_;
+                var t2 = context.aliasedTypes.stream()
+                        .filter(c -> t2Ident.equals(c.ident))
+                        .findAny()
+                        .orElse(null);
+                if (t2 != null)
+                    type1 = t2.aliasedType;
+            }
+            result = isSameType(type1, type2);
+        }
+        return result;
+    }
+
+    private Type typeCheck(Context context, Expr expr, Type expected_type) throws TypeException{
+        var actual_type = typeOf(context, expr);
         if (isSameType(expected_type, actual_type)){
             return actual_type;
         }

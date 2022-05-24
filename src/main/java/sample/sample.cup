@@ -125,10 +125,11 @@ Type ::= _SYMB_24  {: RESULT = new sample.Absyn.StringType(); :}
   | _SYMB_11  {: RESULT = new sample.Absyn.DoubleType(); :}
   | _SYMB_26  {: RESULT = new sample.Absyn.TableType(); :}
   | _SYMB_31  {: RESULT = new sample.Absyn.VoidType(); :}
+  | _IDENT_:p_1  {: RESULT = new sample.Absyn.TypeAlIdent(p_1); :}
 ;
 TypeKW ::= _SYMB_29  {: RESULT = new sample.Absyn.TypeKeyword(); :} 
 ;
-Expr3 ::= _IDENT_:p_1 _SYMB_4 TypeKW:p_3 _SYMB_5 Type:p_5  {: RESULT = new sample.Absyn.TypeAliasing(p_1,p_3,p_5); :} 
+Expr3 ::= Type:p_1 _SYMB_4 TypeKW:p_3 _SYMB_5 Type:p_5  {: RESULT = new sample.Absyn.TypeAliasing(p_1,p_3,p_5); :} 
   | _IDENT_:p_1 TAnnot:p_2 _SYMB_5 Expr:p_4  {: RESULT = new sample.Absyn.VarTypeAnnotation(p_1,p_2,p_4); :}
   | _SYMB_16 _IDENT_:p_2 TAnnot:p_3 _SYMB_5 Expr:p_5  {: RESULT = new sample.Absyn.GlVarTypeAnnotation(p_2,p_3,p_5); :}
   | _SYMB_15 _IDENT_:p_2 _SYMB_2 FArgs:p_4 _SYMB_3 TAnnot:p_6 Program:p_7 _SYMB_13  {: RESULT = new sample.Absyn.FuncTypeAnnotation(p_2,p_4,p_6,p_7); :}
