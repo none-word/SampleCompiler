@@ -61,6 +61,8 @@ public class EvalImpl implements Eval {
                 return evalType((EStr) expr);
             case ("OnlyDecl"):
                 return evalType((OnlyDecl) expr);
+            case ("OnlyGlDecl"):
+                return evalType((OnlyGlDecl) expr);
             case ("Assignment"):
                 return evalType((Assignment) expr);
             case ("Func"):
@@ -77,6 +79,12 @@ public class EvalImpl implements Eval {
                 return evalType((GlVarTypeAscription) expr);
             case ("FuncTypeAscription"):
                 return evalType((FuncTypeAscription) expr);
+            case ("VarTypeAnnotation"):
+                return evalType((VarTypeAnnotation) expr);
+            case ("GlVarTypeAnnotation"):
+                return evalType((GlVarTypeAnnotation) expr);
+            case ("FuncTypeAnnotation"):
+                return evalType((FuncTypeAnnotation) expr);
             default:
                 return null;
         }
@@ -320,5 +328,55 @@ public class EvalImpl implements Eval {
                 expr.program_
         ));
         return null;
+    }
+
+    @Override
+    public Expr evalType(VarTypeAnnotation expr) {
+        var typeChecker = new TypeChecker();
+        Context context = new Context();
+        try {
+            Type type = typeChecker.typeOf(context, expr);
+            evalType(new InitDecl(
+                    new Declaration(expr.ident_, type),
+                    expr.expr_
+            ));
+            return null;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @Override
+    public Expr evalType(GlVarTypeAnnotation expr) {
+        var typeChecker = new TypeChecker();
+        Context context = new Context();
+        try {
+            Type type = typeChecker.typeOf(context, expr);
+            evalType(new InitGlDecl(
+                    new GlDeclaration(expr.ident_, type),
+                    expr.expr_
+            ));
+            return null;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @Override
+    public Expr evalType(FuncTypeAnnotation expr) {
+        var typeChecker = new TypeChecker();
+        Context context = new Context();
+        try {
+            Type type = typeChecker.typeOf(context, expr);
+            evalType(new Func(
+                    expr.ident_,
+                    expr.fargs_,
+                    type,
+                    expr.program_
+            ));
+            return null;
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

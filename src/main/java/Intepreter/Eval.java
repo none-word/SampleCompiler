@@ -37,4 +37,7 @@ public interface Eval {
     Expr evalType(VarTypeAscription expr);
     Expr evalType(GlVarTypeAscription expr);
     Expr evalType(FuncTypeAscription expr);
+    Expr evalType(VarTypeAnnotation expr);
+    Expr evalType(GlVarTypeAnnotation expr);
+    Expr evalType(FuncTypeAnnotation expr);
 }
