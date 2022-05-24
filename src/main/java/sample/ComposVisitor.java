@@ -27,7 +27,11 @@ public class ComposVisitor<A> implements
       return new sample.Absyn.ProgramExprs(listexpr_);
     }
 /* Expr */
-    public Expr visit(sample.Absyn.Var p, A arg)
+    public Expr visit(sample.Absyn.Import p, A arg)
+    {
+      String ident_ = p.ident_;
+      return new sample.Absyn.Import(ident_);
+    }    public Expr visit(sample.Absyn.Var p, A arg)
     {
       String ident_ = p.ident_;
       return new sample.Absyn.Var(ident_);
@@ -76,21 +80,6 @@ public class ComposVisitor<A> implements
       Expr expr_1 = p.expr_1.accept(this, arg);
       Expr expr_2 = p.expr_2.accept(this, arg);
       return new sample.Absyn.Or(expr_1, expr_2);
-    }    public Expr visit(sample.Absyn.ConstZero p, A arg)
-    {
-      return new sample.Absyn.ConstZero();
-    }    public Expr visit(sample.Absyn.Succ p, A arg)
-    {
-      Expr expr_ = p.expr_.accept(this, arg);
-      return new sample.Absyn.Succ(expr_);
-    }    public Expr visit(sample.Absyn.Pred p, A arg)
-    {
-      Expr expr_ = p.expr_.accept(this, arg);
-      return new sample.Absyn.Pred(expr_);
-    }    public Expr visit(sample.Absyn.IsZero p, A arg)
-    {
-      Expr expr_ = p.expr_.accept(this, arg);
-      return new sample.Absyn.IsZero(expr_);
     }    public Expr visit(sample.Absyn.TypeAliasing p, A arg)
     {
       Type type_1 = p.type_1.accept(this, arg);

@@ -285,7 +285,15 @@ public class PrettyPrinter
 
   private static void pp(sample.Absyn.Expr foo, int _i_)
   {
-    if (foo instanceof sample.Absyn.Var)
+    if (foo instanceof sample.Absyn.Import)
+    {
+       sample.Absyn.Import _import = (sample.Absyn.Import) foo;
+       if (_i_ > 0) render(_L_PAREN);
+       render("import");
+       pp(_import.ident_, 0);
+       if (_i_ > 0) render(_R_PAREN);
+    }
+    else     if (foo instanceof sample.Absyn.Var)
     {
        sample.Absyn.Var _var = (sample.Absyn.Var) foo;
        if (_i_ > 0) render(_L_PAREN);
@@ -383,37 +391,6 @@ public class PrettyPrinter
        pp(_or.expr_1, 0);
        render("or");
        pp(_or.expr_2, 0);
-       if (_i_ > 0) render(_R_PAREN);
-    }
-    else     if (foo instanceof sample.Absyn.ConstZero)
-    {
-       sample.Absyn.ConstZero _constzero = (sample.Absyn.ConstZero) foo;
-       if (_i_ > 0) render(_L_PAREN);
-       render("0");
-       if (_i_ > 0) render(_R_PAREN);
-    }
-    else     if (foo instanceof sample.Absyn.Succ)
-    {
-       sample.Absyn.Succ _succ = (sample.Absyn.Succ) foo;
-       if (_i_ > 0) render(_L_PAREN);
-       render("succ");
-       pp(_succ.expr_, 0);
-       if (_i_ > 0) render(_R_PAREN);
-    }
-    else     if (foo instanceof sample.Absyn.Pred)
-    {
-       sample.Absyn.Pred _pred = (sample.Absyn.Pred) foo;
-       if (_i_ > 0) render(_L_PAREN);
-       render("pred");
-       pp(_pred.expr_, 0);
-       if (_i_ > 0) render(_R_PAREN);
-    }
-    else     if (foo instanceof sample.Absyn.IsZero)
-    {
-       sample.Absyn.IsZero _iszero = (sample.Absyn.IsZero) foo;
-       if (_i_ > 0) render(_L_PAREN);
-       render("iszero");
-       pp(_iszero.expr_, 0);
        if (_i_ > 0) render(_R_PAREN);
     }
     else     if (foo instanceof sample.Absyn.TypeAliasing)
@@ -822,6 +799,14 @@ public class PrettyPrinter
 
   private static void sh(sample.Absyn.Expr foo)
   {
+    if (foo instanceof sample.Absyn.Import)
+    {
+       sample.Absyn.Import _import = (sample.Absyn.Import) foo;
+       render("(");
+       render("Import");
+       sh(_import.ident_);
+       render(")");
+    }
     if (foo instanceof sample.Absyn.Var)
     {
        sample.Absyn.Var _var = (sample.Absyn.Var) foo;
@@ -907,35 +892,6 @@ public class PrettyPrinter
        render("Or");
        sh(_or.expr_1);
        sh(_or.expr_2);
-       render(")");
-    }
-    if (foo instanceof sample.Absyn.ConstZero)
-    {
-       sample.Absyn.ConstZero _constzero = (sample.Absyn.ConstZero) foo;
-       render("ConstZero");
-    }
-    if (foo instanceof sample.Absyn.Succ)
-    {
-       sample.Absyn.Succ _succ = (sample.Absyn.Succ) foo;
-       render("(");
-       render("Succ");
-       sh(_succ.expr_);
-       render(")");
-    }
-    if (foo instanceof sample.Absyn.Pred)
-    {
-       sample.Absyn.Pred _pred = (sample.Absyn.Pred) foo;
-       render("(");
-       render("Pred");
-       sh(_pred.expr_);
-       render(")");
-    }
-    if (foo instanceof sample.Absyn.IsZero)
-    {
-       sample.Absyn.IsZero _iszero = (sample.Absyn.IsZero) foo;
-       render("(");
-       render("IsZero");
-       sh(_iszero.expr_);
        render(")");
     }
     if (foo instanceof sample.Absyn.TypeAliasing)
