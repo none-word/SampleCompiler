@@ -17,6 +17,7 @@ FuncCall.         Expr  ::= Ident "(" ComaExprs ")" ;
 FuncArgs.         FArgs ::= [Dec] ;
 separator Dec ",";
 Func.             Expr ::= "function" Ident "(" FArgs ")" ":" Type Program "end";
+TypeAlFunc.       Expr ::= "function" Ident "(" FArgs ")" ":" Ident Program "end";
 Return.           Expr ::= "return" Expr;
 
 StringType.       Type ::= "string" ;
@@ -28,9 +29,8 @@ VoidType.         Type ::= "void" ;
 
 NilKeyword.       Expr ::= "nil";
 
-TypeAlIdent.      Type ::= Ident;
-TypeKeyword.      TypeKW ::= "type" ;
-TypeAliasing.     Expr3 ::= Type ":" TypeKW "=" Type;
+TypeAlIdent.      TypeAl ::= Ident ":" "type" ;
+TypeAliasing.     Expr ::= TypeAl "=" Type;
 
 VarKeyword.          VarKW ::= "var";
 TypeAnnotation.      TAnnot ::= ":" VarKW;
@@ -52,7 +52,9 @@ And.                 Expr  ::= Expr "and" Expr ;
 Or.                  Expr  ::= Expr "or" Expr ;
 
 Declaration.        Dec ::= Ident ":" Type ;
-GlDeclaration.      GlDec ::= "global" Ident ":" Type;
+TypeAlDecl.         Dec ::= Ident ":" Ident;
+GlDeclaration.      GlDec ::= "global" Type ":" Ident;
+TypeAlGlDec.        GlDec ::= "global" Ident ":" Ident;
 OnlyDecl.           Expr2 ::= Dec ;
 OnlyGlDecl.         Expr2 ::= GlDec ;
 InitDecl.           Expr2 ::= Dec "=" Expr ;

@@ -9,7 +9,7 @@ public interface AllVisitor<R,A> extends
   sample.Absyn.ComaExprs.Visitor<R,A>,
   sample.Absyn.FArgs.Visitor<R,A>,
   sample.Absyn.Type.Visitor<R,A>,
-  sample.Absyn.TypeKW.Visitor<R,A>,
+  sample.Absyn.TypeAl.Visitor<R,A>,
   sample.Absyn.VarKW.Visitor<R,A>,
   sample.Absyn.TAnnot.Visitor<R,A>,
   sample.Absyn.TAscript.Visitor<R,A>,

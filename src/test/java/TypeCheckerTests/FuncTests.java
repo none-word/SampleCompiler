@@ -162,4 +162,13 @@ public class FuncTests {
 
         Assert.assertNull(type);
     }
+
+    @Test(expected = TypeException.class)
+    public void test_16() throws TypeException {
+        var context = new Context();
+        var type = typeChecker.typeOf(context, exprs.get(38));
+        type = typeChecker.typeOf(context, exprs.get(39));
+        type = typeChecker.typeOf(context, exprs.get(40));
+        type = typeChecker.typeOf(context, exprs.get(41));
+    }
 }

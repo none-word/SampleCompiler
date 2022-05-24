@@ -147,7 +147,7 @@ Expr1 ::= _INTEGER_:p_1  {: RESULT = new sample.Absyn.EInt(p_1); :}
 Dec ::= _IDENT_:p_1 _SYMB_4 Type:p_3  {: RESULT = new sample.Absyn.Declaration(p_1,p_3); :} 
   | _IDENT_:p_1 _SYMB_4 _IDENT_:p_3  {: RESULT = new sample.Absyn.TypeAlDecl(p_1,p_3); :}
 ;
-GlDec ::= _SYMB_15 Type:p_2 _SYMB_4 _IDENT_:p_4  {: RESULT = new sample.Absyn.GlDeclaration(p_2,p_4); :} 
+GlDec ::= _SYMB_15 _IDENT_:p_2 _SYMB_4 _IDENT_:p_4  {: RESULT = new sample.Absyn.GlDeclaration(p_2,p_4); :} 
   | _SYMB_15 _IDENT_:p_2 _SYMB_4 _IDENT_:p_4  {: RESULT = new sample.Absyn.TypeAlGlDec(p_2,p_4); :}
 ;
 Expr2 ::= Dec:p_1  {: RESULT = new sample.Absyn.OnlyDecl(p_1); :} 

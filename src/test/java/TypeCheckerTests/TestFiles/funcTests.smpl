@@ -188,3 +188,16 @@ t1: integer = 10;
 t2: integer = 20;
 func(t1, t2);
 
+--16
+function gcd(a : integer, b : boolean) : integer
+  if (true) then
+    return a;
+  else
+    return gcd(b, mod(a, b));
+  end;
+end;
+
+x : var = 40;
+y : integer = 35;
+gcd(x, y);
+

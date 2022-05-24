@@ -280,9 +280,9 @@ public class ComposVisitor<A> implements
 /* GlDec */
     public GlDec visit(sample.Absyn.GlDeclaration p, A arg)
     {
-      Type type_ = p.type_.accept(this, arg);
-      String ident_ = p.ident_;
-      return new sample.Absyn.GlDeclaration(type_, ident_);
+      String ident_1 = p.ident_1;
+      String ident_2 = p.ident_2;
+      return new sample.Absyn.GlDeclaration(ident_1, ident_2);
     }    public GlDec visit(sample.Absyn.TypeAlGlDec p, A arg)
     {
       String ident_1 = p.ident_1;
