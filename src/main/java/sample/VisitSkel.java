@@ -20,7 +20,11 @@ public class VisitSkel
   }
   public class ExprVisitor<R,A> implements Expr.Visitor<R,A>
   {
-    public R visit(sample.Absyn.Var p, A arg)
+    public R visit(sample.Absyn.Import p, A arg)
+    { /* Code For Import Goes Here */
+      //p.ident_;
+      return null;
+    }    public R visit(sample.Absyn.Var p, A arg)
     { /* Code For Var Goes Here */
       //p.ident_;
       return null;
@@ -68,21 +72,6 @@ public class VisitSkel
     { /* Code For Or Goes Here */
       p.expr_1.accept(new ExprVisitor<R,A>(), arg);
       p.expr_2.accept(new ExprVisitor<R,A>(), arg);
-      return null;
-    }    public R visit(sample.Absyn.ConstZero p, A arg)
-    { /* Code For ConstZero Goes Here */
-      return null;
-    }    public R visit(sample.Absyn.Succ p, A arg)
-    { /* Code For Succ Goes Here */
-      p.expr_.accept(new ExprVisitor<R,A>(), arg);
-      return null;
-    }    public R visit(sample.Absyn.Pred p, A arg)
-    { /* Code For Pred Goes Here */
-      p.expr_.accept(new ExprVisitor<R,A>(), arg);
-      return null;
-    }    public R visit(sample.Absyn.IsZero p, A arg)
-    { /* Code For IsZero Goes Here */
-      p.expr_.accept(new ExprVisitor<R,A>(), arg);
       return null;
     }            public R visit(sample.Absyn.TypeAliasing p, A arg)
     { /* Code For TypeAliasing Goes Here */

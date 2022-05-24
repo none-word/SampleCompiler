@@ -8,6 +8,7 @@ public class AbstractVisitor<R,A> implements AllVisitor<R,A> {
       throw new IllegalArgumentException(this.getClass().getName() + ": " + p);
     }
 /* Expr */
+    public R visit(sample.Absyn.Import p, A arg) { return visitDefault(p, arg); }
     public R visit(sample.Absyn.Var p, A arg) { return visitDefault(p, arg); }
     public R visit(sample.Absyn.ConstTrue p, A arg) { return visitDefault(p, arg); }
     public R visit(sample.Absyn.ConstFalse p, A arg) { return visitDefault(p, arg); }
@@ -19,10 +20,6 @@ public class AbstractVisitor<R,A> implements AllVisitor<R,A> {
     public R visit(sample.Absyn.Not p, A arg) { return visitDefault(p, arg); }
     public R visit(sample.Absyn.And p, A arg) { return visitDefault(p, arg); }
     public R visit(sample.Absyn.Or p, A arg) { return visitDefault(p, arg); }
-    public R visit(sample.Absyn.ConstZero p, A arg) { return visitDefault(p, arg); }
-    public R visit(sample.Absyn.Succ p, A arg) { return visitDefault(p, arg); }
-    public R visit(sample.Absyn.Pred p, A arg) { return visitDefault(p, arg); }
-    public R visit(sample.Absyn.IsZero p, A arg) { return visitDefault(p, arg); }
 
 
     public R visit(sample.Absyn.TypeAliasing p, A arg) { return visitDefault(p, arg); }

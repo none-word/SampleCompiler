@@ -5,6 +5,7 @@ ProgramExprs.  Program ::= [Expr] ;
 
 separator Expr ";" ;
 
+Import.     Expr ::= "import" Ident;
 Var.        Expr  ::= Ident ;
 ConstTrue.  Expr  ::= "true" ;
 ConstFalse. Expr  ::= "false" ;
@@ -49,11 +50,6 @@ EStr.	          Expr1	::=	String	;
 Not.                 Expr  ::= "!" Expr ;
 And.                 Expr  ::= Expr "and" Expr ;
 Or.                  Expr  ::= Expr "or" Expr ;
-
-ConstZero.  Expr  ::= "0" ;
-Succ.       Expr  ::= "succ" Expr ;
-Pred.       Expr  ::= "pred" Expr ;
-IsZero.     Expr  ::= "iszero" Expr ;
 
 Declaration.        Dec ::= Ident ":" Type ;
 GlDeclaration.      GlDec ::= "global" Ident ":" Type;
