@@ -1,6 +1,5 @@
 package TypeCheckerTests;
 import Intepreter.Context;
-import Intepreter.GlobalContext;
 import Intepreter.TypeChecker;
 import Intepreter.TypeException;
 import org.junit.*;
