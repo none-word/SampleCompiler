@@ -12,6 +12,7 @@ public interface Eval {
     Expr evalType(If expr);
     Expr evalType(TypeAliasing expr);
     Expr evalType(InitDecl expr);
+    Expr evalType(InitGlDecl expr);
     Expr evalType(And expr);
     Expr evalType(Or expr);
     Expr evalType(Not expr);
