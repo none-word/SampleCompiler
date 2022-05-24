@@ -41,6 +41,8 @@ public class EvalImpl implements Eval {
                 return evalType((TypeAliasing) expr);
             case ("InitDecl"):
                 return evalType((InitDecl) expr);
+            case ("InitGlDecl"):
+                return evalType((InitGlDecl) expr);
             case ("And"):
                 return evalType((And) expr);
             case ("Or"):
@@ -102,10 +104,13 @@ public class EvalImpl implements Eval {
     @Override
     public Expr evalType(InitDecl expr) {
         Expr result = evalExpr(expr.expr_);
-        String type = expr.dec_.getClass().getSimpleName();
-        return type.equals("Declaration") ?
-                evalType((Declaration) expr.dec_, result) :
-                evalType((GlDeclaration) expr.dec_, result);
+        return evalType((Declaration) expr.dec_, result);
+    }
+
+    @Override
+    public Expr evalType(InitGlDecl expr) {
+        Expr result = evalExpr(expr.expr_);
+        return evalType((GlDeclaration) expr.gldec_, result);
     }
 
     @Override
