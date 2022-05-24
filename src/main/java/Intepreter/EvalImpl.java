@@ -1,8 +1,12 @@
 package Intepreter;
 
+import Intepreter.Storage.FunctionStorage;
+import Intepreter.Storage.TypeStorage;
+import Intepreter.Storage.VariableStorage;
 import sample.Absyn.*;
 import sample.PrettyPrinter;
 
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,6 +15,7 @@ public class EvalImpl implements Eval {
     private final VariableStorage variableStorage = new VariableStorage();
     private final FunctionStorage functionStorage = new FunctionStorage();
     private final StandardLibrary standardLibrary = new StandardLibraryImpl();
+    private final TypeStorage typeStorage = new TypeStorage();
 
     @Override
     public Expr evalProgram(ProgramExprs program) {
@@ -18,6 +23,10 @@ public class EvalImpl implements Eval {
             String type = expr.getClass().getSimpleName();
             if (type.equals("Return")) {
                 return evalExpr(expr);
+            }
+            if (type.equals("Import")) {
+                evalType((Import) expr, program);
+                return null;
             }
             var result = evalExpr(expr);
             if (type.equals("If") && result != null) {
@@ -33,8 +42,6 @@ public class EvalImpl implements Eval {
     public Expr evalExpr(Expr expr) {
         String type = expr.getClass().getSimpleName();
         switch (type) {
-            case ("Import"):
-                return evalType((Import) expr);
             case ("Var"):
                 return evalType((Var) expr);
             case ("ConstTrue"):
@@ -48,6 +55,8 @@ public class EvalImpl implements Eval {
                 return evalType((FuncCall) expr);
             case ("Func"):
                 return evalType((Func) expr);
+            case ("TypeAlFunc"):
+                return evalType((TypeAlFunc) expr);
             case ("Return"):
                 return evalType((Return) expr);
             /*---------------------------------**/
@@ -108,8 +117,19 @@ public class EvalImpl implements Eval {
 /**------------------------------------------------------------**/
 
     @Override
-    public Expr evalType(Import expr) {
-        return null;
+    public void evalType(Import expr, ProgramExprs programExprs) {
+        var currentPath = System.getProperty("user.dir");
+        var path = currentPath + Paths.get("/src/main/java/Examples/" + expr.ident_ + ".smpl");
+        ProgramExprs importProgram = null;
+        try {
+            importProgram = Interpreter.readFile(path);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        programExprs.listexpr_.removeFirst();
+        assert importProgram != null;
+        programExprs.listexpr_.addAll(0, importProgram.listexpr_);
+        Interpreter.runProgram(programExprs);
     }
 
     @Override
@@ -208,6 +228,11 @@ public class EvalImpl implements Eval {
     }
 
     @Override
+    public Expr evalType(TypeAlFunc expr) {
+        return null;
+    }
+
+    @Override
     public Expr evalType(Return expr) {
         return evalExpr(expr.expr_);
     }
@@ -223,7 +248,7 @@ public class EvalImpl implements Eval {
 
     @Override
     public Expr evalType(TypeAliasing expr) {
-//        variableStorage.saveVariable(expr.ident_, expr.type_, null);
+        typeStorage.saveType(((TypeAlIdent) expr.typeal_).ident_, expr.type_);
         return null;
     }
 
@@ -367,14 +392,30 @@ public class EvalImpl implements Eval {
     }
 
     @Override
+    public Expr evalType(TypeAlDecl dec) {
+        variableStorage.saveVariable(dec.ident_1, typeStorage.getType(dec.ident_2), null);
+        return variableStorage.getVariable(dec.ident_1);
+    }
+
+    @Override
     public Expr evalType(GlDeclaration dec) {
         variableStorage.saveGlobalVariable(dec.ident_, dec.type_, null);
         return variableStorage.getVariable(dec.ident_);
     }
 
     @Override
+    public Expr evalType(TypeAlGlDec dec) {
+        return null;
+    }
+
+    @Override
     public Expr evalType(OnlyDecl expr) {
-        return evalType((Declaration) expr.dec_);
+        String type = expr.getClass().getSimpleName();
+        if (type.equals("Declaration")) {
+            return evalType((Declaration) expr.dec_);
+        } else {
+            return evalType((TypeAlDecl) expr.dec_);
+        }
     }
 
     @Override
@@ -385,9 +426,18 @@ public class EvalImpl implements Eval {
     @Override
     public Expr evalType(InitDecl expr) {
         Expr result = evalExpr(expr.expr_);
-        Declaration dec = (Declaration) expr.dec_;
-        variableStorage.saveVariable(dec.ident_, dec.type_, result);
-        return variableStorage.getVariable(dec.ident_);
+        String type = expr.dec_.getClass().getSimpleName();
+        String ident;
+        if (type.equals("Declaration")) {
+            Declaration dec = (Declaration) expr.dec_;
+            variableStorage.saveVariable(dec.ident_, dec.type_, result);
+            ident = dec.ident_;
+        } else {
+            TypeAlDecl typeAlDecl = (TypeAlDecl) expr.dec_;
+            variableStorage.saveVariable(typeAlDecl.ident_1, typeStorage.getType(typeAlDecl.ident_2), result);
+            ident = typeAlDecl.ident_1;
+        }
+        return variableStorage.getVariable(ident);
     }
 
     @Override

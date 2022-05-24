@@ -9,7 +9,7 @@ public interface Eval {
 /**--------------------------------------**/
     Expr evalExpr(Expr expr);
 /**--------------------------------------**/
-    Expr evalType(Import expr); // ToDo
+    void evalType(Import expr, ProgramExprs programExprs); // ToDo
     Expr evalType(Var expr);
     Expr evalType(ConstTrue expr);
     Expr evalType(ConstFalse expr);
@@ -19,11 +19,12 @@ public interface Eval {
     Expr evalType(FuncCall expr);
     List<Expr> evalType(FuncArgs args, List<Expr> exprs);
     Expr evalType(Func expr);
+    Expr evalType(TypeAlFunc expr); // ToDo
     Expr evalType(Return expr);
 /**--------------------------------------**/
     Expr evalType(NilKeyword expr);
 /**--------------------------------------**/
-    Expr evalType(TypeAliasing expr); // ToDo
+    Expr evalType(TypeAliasing expr);
 /**--------------------------------------**/
     Expr evalType(VarTypeAnnotation expr);
     Expr evalType(GlVarTypeAnnotation expr);
@@ -42,7 +43,9 @@ public interface Eval {
     Expr evalType(Or expr);
 /**--------------------------------------**/
     Expr evalType(Declaration dec);
+    Expr evalType(TypeAlDecl dec);
     Expr evalType(GlDeclaration dec);
+    Expr evalType(TypeAlGlDec dec); // ToDo
     Expr evalType(OnlyDecl expr);
     Expr evalType(OnlyGlDecl expr);
     Expr evalType(InitDecl expr);

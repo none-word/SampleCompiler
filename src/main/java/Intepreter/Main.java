@@ -7,6 +7,10 @@ public class Main {
         var currentPath = System.getProperty("user.dir");
         var path = currentPath + Paths.get("/src/main/java/Examples/boolExample.smpl");
         var interpreter = new Interpreter(path);
-        interpreter.run();
+        try {
+            interpreter.run();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

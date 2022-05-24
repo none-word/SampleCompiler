@@ -1,0 +1,3 @@
+function add_1(a : integer) : integer
+		return add(a, 1);
+end;
