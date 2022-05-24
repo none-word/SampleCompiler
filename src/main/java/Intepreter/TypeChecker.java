@@ -1,9 +1,9 @@
 package Intepreter;
 
-import java.util.List;
-
 import sample.Absyn.*;
 import sample.PrettyPrinter;
+
+import java.util.List;
 
 public class TypeChecker {
 
