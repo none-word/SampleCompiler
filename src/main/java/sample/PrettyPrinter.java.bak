@@ -168,7 +168,7 @@ public class PrettyPrinter
     buf_.delete(0,buf_.length());
     return temp;
   }
-  public static String print(sample.Absyn.TypeAl foo)
+  public static String print(sample.Absyn.TypeName foo)
   {
     pp(foo, 0);
     trim();
@@ -176,7 +176,7 @@ public class PrettyPrinter
     buf_.delete(0,buf_.length());
     return temp;
   }
-  public static String show(sample.Absyn.TypeAl foo)
+  public static String show(sample.Absyn.TypeName foo)
   {
     sh(foo);
     String temp = buf_.toString();
@@ -367,15 +367,6 @@ public class PrettyPrinter
        render("nil");
        if (_i_ > 0) render(_R_PAREN);
     }
-    else     if (foo instanceof sample.Absyn.TypeAliasing)
-    {
-       sample.Absyn.TypeAliasing _typealiasing = (sample.Absyn.TypeAliasing) foo;
-       if (_i_ > 0) render(_L_PAREN);
-       pp(_typealiasing.typeal_, 0);
-       render("=");
-       pp(_typealiasing.type_, 0);
-       if (_i_ > 0) render(_R_PAREN);
-    }
     else     if (foo instanceof sample.Absyn.Not)
     {
        sample.Absyn.Not _not = (sample.Absyn.Not) foo;
@@ -401,6 +392,16 @@ public class PrettyPrinter
        render("or");
        pp(_or.expr_2, 0);
        if (_i_ > 0) render(_R_PAREN);
+    }
+    else     if (foo instanceof sample.Absyn.TypeAliasing)
+    {
+       sample.Absyn.TypeAliasing _typealiasing = (sample.Absyn.TypeAliasing) foo;
+       if (_i_ > 3) render(_L_PAREN);
+       pp(_typealiasing.ident_, 0);
+       render(": type");
+       render("=");
+       pp(_typealiasing.type_, 0);
+       if (_i_ > 3) render(_R_PAREN);
     }
     else     if (foo instanceof sample.Absyn.VarTypeAnnotation)
     {
@@ -688,15 +689,13 @@ public class PrettyPrinter
     }
   }
 
-  private static void pp(sample.Absyn.TypeAl foo, int _i_)
+  private static void pp(sample.Absyn.TypeName foo, int _i_)
   {
     if (foo instanceof sample.Absyn.TypeAlIdent)
     {
        sample.Absyn.TypeAlIdent _typealident = (sample.Absyn.TypeAlIdent) foo;
        if (_i_ > 0) render(_L_PAREN);
        pp(_typealident.ident_, 0);
-       render(":");
-       render("type");
        if (_i_ > 0) render(_R_PAREN);
     }
   }
@@ -861,15 +860,6 @@ public class PrettyPrinter
        sample.Absyn.NilKeyword _nilkeyword = (sample.Absyn.NilKeyword) foo;
        render("NilKeyword");
     }
-    if (foo instanceof sample.Absyn.TypeAliasing)
-    {
-       sample.Absyn.TypeAliasing _typealiasing = (sample.Absyn.TypeAliasing) foo;
-       render("(");
-       render("TypeAliasing");
-       sh(_typealiasing.typeal_);
-       sh(_typealiasing.type_);
-       render(")");
-    }
     if (foo instanceof sample.Absyn.Not)
     {
        sample.Absyn.Not _not = (sample.Absyn.Not) foo;
@@ -894,6 +884,15 @@ public class PrettyPrinter
        render("Or");
        sh(_or.expr_1);
        sh(_or.expr_2);
+       render(")");
+    }
+    if (foo instanceof sample.Absyn.TypeAliasing)
+    {
+       sample.Absyn.TypeAliasing _typealiasing = (sample.Absyn.TypeAliasing) foo;
+       render("(");
+       render("TypeAliasing");
+       sh(_typealiasing.ident_);
+       sh(_typealiasing.type_);
        render(")");
     }
     if (foo instanceof sample.Absyn.VarTypeAnnotation)
@@ -1158,7 +1157,7 @@ public class PrettyPrinter
     }
   }
 
-  private static void sh(sample.Absyn.TypeAl foo)
+  private static void sh(sample.Absyn.TypeName foo)
   {
     if (foo instanceof sample.Absyn.TypeAlIdent)
     {
