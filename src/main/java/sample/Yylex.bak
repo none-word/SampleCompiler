@@ -39,21 +39,22 @@ IDENT = ({LETTER}|{DIGIT}|['_])
 <YYINITIAL>end { return new Symbol(sym._SYMB_12); }
 <YYINITIAL>false { return new Symbol(sym._SYMB_13); }
 <YYINITIAL>function { return new Symbol(sym._SYMB_14); }
-<YYINITIAL>if { return new Symbol(sym._SYMB_15); }
-<YYINITIAL>integer { return new Symbol(sym._SYMB_16); }
-<YYINITIAL>iszero { return new Symbol(sym._SYMB_17); }
-<YYINITIAL>nil { return new Symbol(sym._SYMB_18); }
-<YYINITIAL>or { return new Symbol(sym._SYMB_19); }
-<YYINITIAL>pred { return new Symbol(sym._SYMB_20); }
-<YYINITIAL>return { return new Symbol(sym._SYMB_21); }
-<YYINITIAL>string { return new Symbol(sym._SYMB_22); }
-<YYINITIAL>succ { return new Symbol(sym._SYMB_23); }
-<YYINITIAL>table { return new Symbol(sym._SYMB_24); }
-<YYINITIAL>then { return new Symbol(sym._SYMB_25); }
-<YYINITIAL>true { return new Symbol(sym._SYMB_26); }
-<YYINITIAL>type { return new Symbol(sym._SYMB_27); }
-<YYINITIAL>var { return new Symbol(sym._SYMB_28); }
-<YYINITIAL>void { return new Symbol(sym._SYMB_29); }
+<YYINITIAL>global { return new Symbol(sym._SYMB_15); }
+<YYINITIAL>if { return new Symbol(sym._SYMB_16); }
+<YYINITIAL>integer { return new Symbol(sym._SYMB_17); }
+<YYINITIAL>iszero { return new Symbol(sym._SYMB_18); }
+<YYINITIAL>nil { return new Symbol(sym._SYMB_19); }
+<YYINITIAL>or { return new Symbol(sym._SYMB_20); }
+<YYINITIAL>pred { return new Symbol(sym._SYMB_21); }
+<YYINITIAL>return { return new Symbol(sym._SYMB_22); }
+<YYINITIAL>string { return new Symbol(sym._SYMB_23); }
+<YYINITIAL>succ { return new Symbol(sym._SYMB_24); }
+<YYINITIAL>table { return new Symbol(sym._SYMB_25); }
+<YYINITIAL>then { return new Symbol(sym._SYMB_26); }
+<YYINITIAL>true { return new Symbol(sym._SYMB_27); }
+<YYINITIAL>type { return new Symbol(sym._SYMB_28); }
+<YYINITIAL>var { return new Symbol(sym._SYMB_29); }
+<YYINITIAL>void { return new Symbol(sym._SYMB_30); }
 <YYINITIAL>"--"[^\n]*\n { /* BNFC single-line comment */ }
 <YYINITIAL>"[[" { yybegin(COMMENT); }
 <COMMENT>"]]" { yybegin(YYINITIAL); }

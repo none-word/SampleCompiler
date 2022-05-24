@@ -182,7 +182,7 @@ public abstract class FoldVisitor<R,A> implements AllVisitor<R,A> {
     }
     public R visit(sample.Absyn.GlTableDecl p, A arg) {
       R r = leaf(arg);
-      r = combine(p.gldec_.accept(this, arg), r, arg);
+      r = combine(p.dec_.accept(this, arg), r, arg);
       return r;
     }
     public R visit(sample.Absyn.InitTableDecl p, A arg) {

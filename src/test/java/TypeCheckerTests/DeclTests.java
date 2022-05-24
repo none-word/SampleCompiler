@@ -1,5 +1,7 @@
 package TypeCheckerTests;
 
+import Intepreter.Context;
+import Intepreter.GlobalContext;
 import Intepreter.TypeChecker;
 import Intepreter.TypeException;
 import Intepreter.Utils.Pair;
@@ -53,71 +55,76 @@ public class DeclTests {
 
     @Test
     public void test_1() throws TypeException {
-        var type = typeChecker.typeOf(new Pair<>(new ArrayList<>(), new ArrayList<>()), exprs.get(0));
+        var type = typeChecker.typeOf(new Context(), new GlobalContext(), exprs.get(0));
         Assert.assertTrue(typeChecker.isSameType(type, new IntType()));
     }
 
     @Test(expected = TypeException.class)
     public void test_2() throws TypeException {
-        var type = typeChecker.typeOf(new Pair<>(new ArrayList<>(), new ArrayList<>()), exprs.get(1));
+        var type = typeChecker.typeOf(new Context(), new GlobalContext(), exprs.get(1));
     }
 
     @Test
     public void test_3() throws TypeException {
-        var type = typeChecker.typeOf(new Pair<>(new ArrayList<>(), new ArrayList<>()), exprs.get(2));
+        var type = typeChecker.typeOf(new Context(), new GlobalContext(), exprs.get(2));
         Assert.assertTrue(typeChecker.isSameType(type, new StringType()));
     }
 
     @Test
     public void test_4() throws TypeException {
-        var context = new Pair<>(new ArrayList<TypeChecker.Variable>(), new ArrayList<TypeChecker.Function>());
-        var type = typeChecker.typeOf(context, exprs.get(3));
-        type = typeChecker.typeOf(context, exprs.get(4));
+        var context = new Context();
+        var globalContext = new GlobalContext();
+        var type = typeChecker.typeOf(context, globalContext, exprs.get(3));
+        type = typeChecker.typeOf(context, globalContext, exprs.get(4));
 
         Assert.assertTrue(typeChecker.isSameType(type, new IntType()));
     }
 
     @Test(expected = TypeException.class)
     public void test_5() throws TypeException {
-        var context = new Pair<>(new ArrayList<TypeChecker.Variable>(), new ArrayList<TypeChecker.Function>());
-        var type = typeChecker.typeOf(context, exprs.get(5));
-        type = typeChecker.typeOf(context, exprs.get(6));
+        var context = new Context();
+        var globalContext = new GlobalContext();
+        var type = typeChecker.typeOf(context, globalContext, exprs.get(5));
+        type = typeChecker.typeOf(context, globalContext, exprs.get(6));
     }
 
     @Test
     public void test_6() throws TypeException {
-        var type = typeChecker.typeOf(new Pair<>(new ArrayList<>(), new ArrayList<>()), exprs.get(7));
+        var type = typeChecker.typeOf(new Context(), new GlobalContext(), exprs.get(7));
         Assert.assertTrue(typeChecker.isSameType(type, new IntType()));
     }
 
     @Test(expected = TypeException.class)
     public void test_7() throws TypeException {
-        var type = typeChecker.typeOf(new Pair<>(new ArrayList<>(), new ArrayList<>()), exprs.get(8));
+        var type = typeChecker.typeOf(new Context(), new GlobalContext(), exprs.get(8));
     }
 
     @Test
     public void test_8() throws TypeException {
-        var context = new Pair<>(new ArrayList<TypeChecker.Variable>(), new ArrayList<TypeChecker.Function>());
-        var type = typeChecker.typeOf(context, exprs.get(9));
-        type = typeChecker.typeOf(context, exprs.get(10));
-        type = typeChecker.typeOf(context, exprs.get(11));
+        var context = new Context();
+        var globalContext = new GlobalContext();
+        var type = typeChecker.typeOf(context, globalContext, exprs.get(9));
+        type = typeChecker.typeOf(context, globalContext, exprs.get(10));
+        type = typeChecker.typeOf(context, globalContext, exprs.get(11));
 
         Assert.assertTrue(typeChecker.isSameType(type, new VoidType()));
     }
 
     @Test(expected = TypeException.class)
     public void test_9() throws TypeException {
-        var context = new Pair<>(new ArrayList<TypeChecker.Variable>(), new ArrayList<TypeChecker.Function>());
-        var type = typeChecker.typeOf(context, exprs.get(12));
-        type = typeChecker.typeOf(context, exprs.get(13));
-        type = typeChecker.typeOf(context, exprs.get(14));
+        var context = new Context();
+        var globalContext = new GlobalContext();
+        var type = typeChecker.typeOf(context, globalContext, exprs.get(12));
+        type = typeChecker.typeOf(context, globalContext, exprs.get(13));
+        type = typeChecker.typeOf(context, globalContext, exprs.get(14));
     }
 
     @Test(expected = TypeException.class)
     public void test_10() throws TypeException {
-        var context = new Pair<>(new ArrayList<TypeChecker.Variable>(), new ArrayList<TypeChecker.Function>());
-        var type = typeChecker.typeOf(context, exprs.get(15));
-        type = typeChecker.typeOf(context, exprs.get(16));
-        type = typeChecker.typeOf(context, exprs.get(17));
+        var context = new Context();
+        var globalContext = new GlobalContext();
+        var type = typeChecker.typeOf(context, globalContext, exprs.get(15));
+        type = typeChecker.typeOf(context, globalContext, exprs.get(16));
+        type = typeChecker.typeOf(context, globalContext, exprs.get(17));
     }
 }

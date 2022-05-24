@@ -13,5 +13,6 @@ public interface AllVisitor<R,A> extends
   sample.Absyn.VarKW.Visitor<R,A>,
   sample.Absyn.TAnnot.Visitor<R,A>,
   sample.Absyn.TAscript.Visitor<R,A>,
-  sample.Absyn.Dec.Visitor<R,A>
+  sample.Absyn.Dec.Visitor<R,A>,
+  sample.Absyn.GlDec.Visitor<R,A>
 {}
