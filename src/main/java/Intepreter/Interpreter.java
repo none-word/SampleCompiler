@@ -1,6 +1,5 @@
 package Intepreter;
 
-import sample.Absyn.Expr;
 import sample.Absyn.ListExpr;
 import sample.Absyn.ProgramExprs;
 import sample.PrettyPrinter;
@@ -9,11 +8,10 @@ import sample.parser;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.ArrayList;
 
 public class Interpreter {
     private final String programFilePath;
-//    private final Eval eval = new EvalImpl();
+    private final Eval eval = new EvalImpl();
 
     public Interpreter(String programFilePath) {
         this.programFilePath = programFilePath;
@@ -41,9 +39,9 @@ public class Interpreter {
             //System.out.println(sample.PrettyPrinter.show(ast));
 
 
-//            var result = eval.evalProgram(programExprs);
-//            System.out.println();
-//            System.out.println("Result: " + PrettyPrinter.print(result));
+            var result = eval.evalProgram(programExprs);
+            System.out.println();
+            System.out.println("Result: " + PrettyPrinter.print(result));
         }
         catch (Exception e){
             System.out.println("Parse error in line " + e.getMessage());

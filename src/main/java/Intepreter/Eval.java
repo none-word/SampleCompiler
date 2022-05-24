@@ -22,8 +22,10 @@ public interface Eval {
     Expr evalType(EDouble expr);
     Expr evalType(EStr expr);
     Expr evalType(OnlyDecl expr);
+    Expr evalType(OnlyGlDecl expr);
     Expr evalType(Declaration dec);
     Expr evalType(Declaration dec, Expr value);
+    Expr evalType(GlDeclaration dec);
     Expr evalType(GlDeclaration dec, Expr value);
     Expr evalType(Assignment expr);
     Expr evalType(Func expr);
@@ -32,4 +34,7 @@ public interface Eval {
     Expr evalType(InitTableDecl args);
     Expr evalType(FuncCall expr);
     Expr evalType(Return expr);
+    Expr evalType(VarTypeAscription expr);
+    Expr evalType(GlVarTypeAscription expr);
+    Expr evalType(FuncTypeAscription expr);
 }
