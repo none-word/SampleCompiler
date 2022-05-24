@@ -27,67 +27,94 @@ public class EvalImpl implements Eval {
         return null;
     }
 
+/**------------------------------------------------------------**/
+
     @Override
     public Expr evalExpr(Expr expr) {
         String type = expr.getClass().getSimpleName();
         switch (type) {
+            case ("Import"):
+                return evalType((Import) expr);
+            case ("Var"):
+                return evalType((Var) expr);
             case ("ConstTrue"):
                 return evalType((ConstTrue) expr);
             case ("ConstFalse"):
                 return evalType((ConstFalse) expr);
             case ("If"):
                 return evalType((If) expr);
-            case ("TypeAliasing"):
-                return evalType((TypeAliasing) expr);
-            case ("InitDecl"):
-                return evalType((InitDecl) expr);
-            case ("InitGlDecl"):
-                return evalType((InitGlDecl) expr);
-            case ("And"):
-                return evalType((And) expr);
-            case ("Or"):
-                return evalType((Or) expr);
-            case ("Not"):
-                return evalType((Not) expr);
-            case ("Var"):
-                return evalType((Var) expr);
-            case ("NilKeyword"):
-                return evalType((NilKeyword) expr);
-            case ("EInt"):
-                return evalType((EInt) expr);
-            case ("EDouble"):
-                return evalType((EDouble) expr);
-            case ("EStr"):
-                return evalType((EStr) expr);
-            case ("OnlyDecl"):
-                return evalType((OnlyDecl) expr);
-            case ("OnlyGlDecl"):
-                return evalType((OnlyGlDecl) expr);
-            case ("Assignment"):
-                return evalType((Assignment) expr);
-            case ("Func"):
-                return evalType((Func) expr);
-            case ("InitTableDecl"):
-                return evalType((InitTableDecl) expr);
+            /*---------------------------------**/
             case ("FuncCall"):
                 return evalType((FuncCall) expr);
+            case ("Func"):
+                return evalType((Func) expr);
             case ("Return"):
                 return evalType((Return) expr);
-            case ("VarTypeAscription"):
-                return evalType((VarTypeAscription) expr);
-            case ("GlVarTypeAscription"):
-                return evalType((GlVarTypeAscription) expr);
-            case ("FuncTypeAscription"):
-                return evalType((FuncTypeAscription) expr);
+            /*---------------------------------**/
+            case ("NilKeyword"):
+                return evalType((NilKeyword) expr);
+            /*---------------------------------**/
+            case ("TypeAliasing"):
+                return evalType((TypeAliasing) expr);
+            /*---------------------------------**/
             case ("VarTypeAnnotation"):
                 return evalType((VarTypeAnnotation) expr);
             case ("GlVarTypeAnnotation"):
                 return evalType((GlVarTypeAnnotation) expr);
             case ("FuncTypeAnnotation"):
                 return evalType((FuncTypeAnnotation) expr);
+            /*---------------------------------**/
+            case ("VarTypeAscription"):
+                return evalType((VarTypeAscription) expr);
+            case ("GlVarTypeAscription"):
+                return evalType((GlVarTypeAscription) expr);
+            case ("FuncTypeAscription"):
+                return evalType((FuncTypeAscription) expr);
+            /*---------------------------------**/
+            case ("EInt"):
+                return evalType((EInt) expr);
+            case ("EDouble"):
+                return evalType((EDouble) expr);
+            case ("EStr"):
+                return evalType((EStr) expr);
+            /*---------------------------------**/
+            case ("Not"):
+                return evalType((Not) expr);
+            case ("And"):
+                return evalType((And) expr);
+            case ("Or"):
+                return evalType((Or) expr);
+            /*---------------------------------**/
+            case ("OnlyDecl"):
+                return evalType((OnlyDecl) expr);
+            case ("OnlyGlDecl"):
+                return evalType((OnlyGlDecl) expr);
+            case ("InitDecl"):
+                return evalType((InitDecl) expr);
+            case ("InitGlDecl"):
+                return evalType((InitGlDecl) expr);
+            /*---------------------------------**/
+            case ("InitTableDecl"):
+                return evalType((InitTableDecl) expr);
+            /*---------------------------------**/
+            case ("Assignment"):
+                return evalType((Assignment) expr);
+            /*---------------------------------**/
             default:
                 return null;
         }
+    }
+
+/**------------------------------------------------------------**/
+
+    @Override
+    public Expr evalType(Import expr) {
+        return null;
+    }
+
+    @Override
+    public Expr evalType(Var expr) {
+        return variableStorage.getVariable(expr.ident_);
     }
 
     @Override
@@ -110,143 +137,11 @@ public class EvalImpl implements Eval {
     }
 
     @Override
-    public Expr evalType(TypeAliasing expr) {
-//        variableStorage.saveVariable(expr.ident_, expr.type_, null);
-        return null;
-    }
-
-    @Override
-    public Expr evalType(InitDecl expr) {
-        Expr result = evalExpr(expr.expr_);
-        return evalType((Declaration) expr.dec_, result);
-    }
-
-    @Override
-    public Expr evalType(InitGlDecl expr) {
-        Expr result = evalExpr(expr.expr_);
-        return evalType((GlDeclaration) expr.gldec_, result);
-    }
-
-    @Override
-    public Expr evalType(And expr) {
-        if (evalExpr(expr.expr_1) instanceof ConstTrue &&
-                        evalExpr(expr.expr_2) instanceof ConstTrue) {
-            return new ConstTrue();
-        } else {
-            return new ConstFalse();
-        }
-    }
-
-    @Override
-    public Expr evalType(Or expr) {
-        if (evalExpr(expr.expr_1) instanceof ConstTrue ||
-                evalExpr(expr.expr_2) instanceof ConstTrue) {
-            return new ConstTrue();
-        } else {
-            return new ConstFalse();
-        }
-    }
-
-    @Override
-    public Expr evalType(Not expr) {
-        if (evalExpr(expr.expr_) instanceof ConstTrue) {
-            return new ConstFalse();
-        } else {
-            return new ConstTrue();
-        }
-    }
-
-    @Override
-    public Expr evalType(Var expr) {
-        return variableStorage.getVariable(expr.ident_);
-    }
-
-    @Override
-    public Expr evalType(NilKeyword expr) {
-        return new NilKeyword();
-    }
-
-    @Override
-    public Expr evalType(EInt expr) {
-        return expr;
-    }
-
-    @Override
-    public Expr evalType(EDouble expr) {
-        return expr;
-    }
-
-    @Override
-    public Expr evalType(EStr expr) {
-        return expr;
-    }
-
-    @Override
-    public Expr evalType(OnlyDecl expr) {
-        return evalType((Declaration) expr.dec_);
-    }
-
-    @Override
-    public Expr evalType(OnlyGlDecl expr) {
-        return evalType((GlDeclaration) expr.gldec_);
-    }
-
-    @Override
-    public Expr evalType(Declaration dec) {
-        variableStorage.saveVariable(dec.ident_, dec.type_, null);
-        return variableStorage.getVariable(dec.ident_);
-    }
-
-    @Override
-    public Expr evalType(Declaration dec, Expr value) {
-        variableStorage.saveVariable(dec.ident_, dec.type_, value);
-        return variableStorage.getVariable(dec.ident_);
-    }
-
-    @Override
-    public Expr evalType(GlDeclaration dec) {
-        variableStorage.saveGlobalVariable(dec.ident_, dec.type_, null);
-        return variableStorage.getVariable(dec.ident_);
-    }
-
-    @Override
-    public Expr evalType(GlDeclaration dec, Expr value) {
-        variableStorage.saveGlobalVariable(dec.ident_, dec.type_, value);
-        return variableStorage.getVariable(dec.ident_);
-    }
-
-    @Override
-    public Expr evalType(Assignment expr) {
-        Expr result = evalExpr(expr.expr_);
-        variableStorage.updateVariable(expr.ident_, result);
-        return variableStorage.getVariable(expr.ident_);
-    }
-
-    @Override
-    public Expr evalType(Func expr) {
-        functionStorage.saveFunction(expr.ident_, (FuncArgs) expr.fargs_, expr.type_, expr.program_);
-        return expr;
-    }
-
-    @Override
-    public List<Expr> evalType(FuncArgs args, List<Expr> exprs) {
-        List<Expr> result = new ArrayList<>();
-        ListDec declarations = args.listdec_;
-        for (int i = 0; i < args.listdec_.size(); i++) {
-            result.add(new InitDecl(declarations.get(i), exprs.get(i)));
-        }
-        return result;
-    }
-
-    @Override
     public List<Expr> evalType(Vars args) {
         return args.listexpr_.stream().map(this::evalExpr).collect(Collectors.toList());
     }
 
-    @Override
-    public Expr evalType(InitTableDecl args) {
-        return null;
-    }
+/**------------------------------------------------------------**/
 
     @Override
     public Expr evalType(FuncCall expr) {
@@ -297,38 +192,42 @@ public class EvalImpl implements Eval {
     }
 
     @Override
+    public List<Expr> evalType(FuncArgs args, List<Expr> exprs) {
+        List<Expr> result = new ArrayList<>();
+        ListDec declarations = args.listdec_;
+        for (int i = 0; i < args.listdec_.size(); i++) {
+            result.add(new InitDecl(declarations.get(i), exprs.get(i)));
+        }
+        return result;
+    }
+
+    @Override
+    public Expr evalType(Func expr) {
+        functionStorage.saveFunction(expr.ident_, (FuncArgs) expr.fargs_, expr.type_, expr.program_);
+        return expr;
+    }
+
+    @Override
     public Expr evalType(Return expr) {
         return evalExpr(expr.expr_);
     }
 
+/**------------------------------------------------------------**/
+
     @Override
-    public Expr evalType(VarTypeAscription expr) {
-        evalType(new InitDecl(
-                new Declaration(expr.ident_, ((TypeAscription) expr.tascript_).type_),
-                expr.expr_
-        ));
+    public Expr evalType(NilKeyword expr) {
+        return new NilKeyword();
+    }
+
+/**------------------------------------------------------------**/
+
+    @Override
+    public Expr evalType(TypeAliasing expr) {
+//        variableStorage.saveVariable(expr.ident_, expr.type_, null);
         return null;
     }
 
-    @Override
-    public Expr evalType(GlVarTypeAscription expr) {
-        evalType(new InitGlDecl(
-                new GlDeclaration(expr.ident_, ((TypeAscription) expr.tascript_).type_),
-                expr.expr_
-        ));
-        return null;
-    }
-
-    @Override
-    public Expr evalType(FuncTypeAscription expr) {
-        evalType(new Func(
-                expr.ident_,
-                expr.fargs_,
-                ((TypeAscription) expr.tascript_).type_,
-                expr.program_
-        ));
-        return null;
-    }
+/**------------------------------------------------------------**/
 
     @Override
     public Expr evalType(VarTypeAnnotation expr) {
@@ -379,4 +278,165 @@ public class EvalImpl implements Eval {
             return null;
         }
     }
+
+/**------------------------------------------------------------**/
+
+    @Override
+    public Expr evalType(VarTypeAscription expr) {
+        evalType(new InitDecl(
+                new Declaration(expr.ident_, ((TypeAscription) expr.tascript_).type_),
+                expr.expr_
+        ));
+        return null;
+    }
+
+    @Override
+    public Expr evalType(GlVarTypeAscription expr) {
+        evalType(new InitGlDecl(
+                new GlDeclaration(expr.ident_, ((TypeAscription) expr.tascript_).type_),
+                expr.expr_
+        ));
+        return null;
+    }
+
+    @Override
+    public Expr evalType(FuncTypeAscription expr) {
+        evalType(new Func(
+                expr.ident_,
+                expr.fargs_,
+                ((TypeAscription) expr.tascript_).type_,
+                expr.program_
+        ));
+        return null;
+    }
+
+/**------------------------------------------------------------**/
+
+    @Override
+    public Expr evalType(EInt expr) {
+        return expr;
+    }
+
+    @Override
+    public Expr evalType(EDouble expr) {
+        return expr;
+    }
+
+    @Override
+    public Expr evalType(EStr expr) {
+        return expr;
+    }
+
+/**------------------------------------------------------------**/
+
+    @Override
+    public Expr evalType(Not expr) {
+        if (evalExpr(expr.expr_) instanceof ConstTrue) {
+            return new ConstFalse();
+        } else {
+            return new ConstTrue();
+        }
+    }
+
+    @Override
+    public Expr evalType(And expr) {
+        if (evalExpr(expr.expr_1) instanceof ConstTrue &&
+                evalExpr(expr.expr_2) instanceof ConstTrue) {
+            return new ConstTrue();
+        } else {
+            return new ConstFalse();
+        }
+    }
+
+    @Override
+    public Expr evalType(Or expr) {
+        if (evalExpr(expr.expr_1) instanceof ConstTrue ||
+                evalExpr(expr.expr_2) instanceof ConstTrue) {
+            return new ConstTrue();
+        } else {
+            return new ConstFalse();
+        }
+    }
+
+/**------------------------------------------------------------**/
+
+    @Override
+    public Expr evalType(Declaration dec) {
+        variableStorage.saveVariable(dec.ident_, dec.type_, null);
+        return variableStorage.getVariable(dec.ident_);
+    }
+
+    @Override
+    public Expr evalType(GlDeclaration dec) {
+        variableStorage.saveGlobalVariable(dec.ident_, dec.type_, null);
+        return variableStorage.getVariable(dec.ident_);
+    }
+
+    @Override
+    public Expr evalType(OnlyDecl expr) {
+        return evalType((Declaration) expr.dec_);
+    }
+
+    @Override
+    public Expr evalType(OnlyGlDecl expr) {
+        return evalType((GlDeclaration) expr.gldec_);
+    }
+
+    @Override
+    public Expr evalType(InitDecl expr) {
+        Expr result = evalExpr(expr.expr_);
+        Declaration dec = (Declaration) expr.dec_;
+        variableStorage.saveVariable(dec.ident_, dec.type_, result);
+        return variableStorage.getVariable(dec.ident_);
+    }
+
+    @Override
+    public Expr evalType(InitGlDecl expr) {
+        Expr result = evalExpr(expr.expr_);
+        GlDeclaration dec = (GlDeclaration) expr.gldec_;
+        variableStorage.saveGlobalVariable(dec.ident_, dec.type_, result);
+        return variableStorage.getVariable(dec.ident_);
+    }
+
+/**------------------------------------------------------------**/
+
+    @Override
+    public Expr evalType(TableDecl expr) {
+        return null;
+    }
+
+    @Override
+    public Expr evalType(GlTableDecl expr) {
+        return null;
+    }
+
+    @Override
+    public Expr evalType(InitTableDecl args) {
+        return null;
+    }
+
+    @Override
+    public Expr evalType(InitGlTableDecl expr) {
+        return null;
+    }
+
+    @Override
+    public Expr evalType(TableElementCall expr) {
+        return null;
+    }
+
+    @Override
+    public Expr evalType(TableElementAssignment expr) {
+        return null;
+    }
+
+/**------------------------------------------------------------**/
+
+    @Override
+    public Expr evalType(Assignment expr) {
+        Expr result = evalExpr(expr.expr_);
+        variableStorage.updateVariable(expr.ident_, result);
+        return variableStorage.getVariable(expr.ident_);
+    }
+
 }
