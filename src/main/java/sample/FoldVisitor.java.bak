@@ -65,12 +65,6 @@ public abstract class FoldVisitor<R,A> implements AllVisitor<R,A> {
       R r = leaf(arg);
       return r;
     }
-    public R visit(sample.Absyn.TypeAliasing p, A arg) {
-      R r = leaf(arg);
-      r = combine(p.typeal_.accept(this, arg), r, arg);
-      r = combine(p.type_.accept(this, arg), r, arg);
-      return r;
-    }
     public R visit(sample.Absyn.Not p, A arg) {
       R r = leaf(arg);
       r = combine(p.expr_.accept(this, arg), r, arg);
@@ -86,6 +80,11 @@ public abstract class FoldVisitor<R,A> implements AllVisitor<R,A> {
       R r = leaf(arg);
       r = combine(p.expr_1.accept(this, arg), r, arg);
       r = combine(p.expr_2.accept(this, arg), r, arg);
+      return r;
+    }
+    public R visit(sample.Absyn.TypeAliasing p, A arg) {
+      R r = leaf(arg);
+      r = combine(p.type_.accept(this, arg), r, arg);
       return r;
     }
     public R visit(sample.Absyn.VarTypeAnnotation p, A arg) {
@@ -245,7 +244,7 @@ public abstract class FoldVisitor<R,A> implements AllVisitor<R,A> {
       return r;
     }
 
-/* TypeAl */
+/* TypeName */
     public R visit(sample.Absyn.TypeAlIdent p, A arg) {
       R r = leaf(arg);
       return r;

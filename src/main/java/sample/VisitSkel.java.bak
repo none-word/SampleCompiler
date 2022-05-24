@@ -59,11 +59,6 @@ public class VisitSkel
     }    public R visit(sample.Absyn.NilKeyword p, A arg)
     { /* Code For NilKeyword Goes Here */
       return null;
-    }    public R visit(sample.Absyn.TypeAliasing p, A arg)
-    { /* Code For TypeAliasing Goes Here */
-      p.typeal_.accept(new TypeAlVisitor<R,A>(), arg);
-      p.type_.accept(new TypeVisitor<R,A>(), arg);
-      return null;
     }    public R visit(sample.Absyn.Not p, A arg)
     { /* Code For Not Goes Here */
       p.expr_.accept(new ExprVisitor<R,A>(), arg);
@@ -78,7 +73,12 @@ public class VisitSkel
       p.expr_1.accept(new ExprVisitor<R,A>(), arg);
       p.expr_2.accept(new ExprVisitor<R,A>(), arg);
       return null;
-    }            public R visit(sample.Absyn.VarTypeAnnotation p, A arg)
+    }            public R visit(sample.Absyn.TypeAliasing p, A arg)
+    { /* Code For TypeAliasing Goes Here */
+      //p.ident_;
+      p.type_.accept(new TypeVisitor<R,A>(), arg);
+      return null;
+    }    public R visit(sample.Absyn.VarTypeAnnotation p, A arg)
     { /* Code For VarTypeAnnotation Goes Here */
       //p.ident_;
       p.tannot_.accept(new TAnnotVisitor<R,A>(), arg);
@@ -228,7 +228,7 @@ public class VisitSkel
       return null;
     }
   }
-  public class TypeAlVisitor<R,A> implements TypeAl.Visitor<R,A>
+  public class TypeNameVisitor<R,A> implements TypeName.Visitor<R,A>
   {
     public R visit(sample.Absyn.TypeAlIdent p, A arg)
     { /* Code For TypeAlIdent Goes Here */
