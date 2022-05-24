@@ -29,8 +29,7 @@ VoidType.         Type ::= "void" ;
 NilKeyword.       Expr ::= "nil";
 
 TypeAlIdent.      Type ::= Ident;
-TypeKeyword.      TypeKW ::= "type" ;
-TypeAliasing.     Expr3 ::= Type ":" TypeKW "=" Type;
+TypeAliasing.     Expr3 ::= Type ":" "type" "=" Type;
 
 VarKeyword.          VarKW ::= "var";
 TypeAnnotation.      TAnnot ::= ":" VarKW;
