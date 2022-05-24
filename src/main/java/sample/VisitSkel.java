@@ -86,9 +86,9 @@ public class VisitSkel
       return null;
     }            public R visit(sample.Absyn.TypeAliasing p, A arg)
     { /* Code For TypeAliasing Goes Here */
-      //p.ident_;
+      p.type_1.accept(new TypeVisitor<R,A>(), arg);
       p.typekw_.accept(new TypeKWVisitor<R,A>(), arg);
-      p.type_.accept(new TypeVisitor<R,A>(), arg);
+      p.type_2.accept(new TypeVisitor<R,A>(), arg);
       return null;
     }    public R visit(sample.Absyn.VarTypeAnnotation p, A arg)
     { /* Code For VarTypeAnnotation Goes Here */
@@ -237,6 +237,10 @@ public class VisitSkel
       return null;
     }    public R visit(sample.Absyn.VoidType p, A arg)
     { /* Code For VoidType Goes Here */
+      return null;
+    }    public R visit(sample.Absyn.TypeAlIdent p, A arg)
+    { /* Code For TypeAlIdent Goes Here */
+      //p.ident_;
       return null;
     }
   }

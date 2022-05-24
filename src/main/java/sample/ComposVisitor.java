@@ -93,10 +93,10 @@ public class ComposVisitor<A> implements
       return new sample.Absyn.IsZero(expr_);
     }    public Expr visit(sample.Absyn.TypeAliasing p, A arg)
     {
-      String ident_ = p.ident_;
+      Type type_1 = p.type_1.accept(this, arg);
       TypeKW typekw_ = p.typekw_.accept(this, arg);
-      Type type_ = p.type_.accept(this, arg);
-      return new sample.Absyn.TypeAliasing(ident_, typekw_, type_);
+      Type type_2 = p.type_2.accept(this, arg);
+      return new sample.Absyn.TypeAliasing(type_1, typekw_, type_2);
     }    public Expr visit(sample.Absyn.VarTypeAnnotation p, A arg)
     {
       String ident_ = p.ident_;
@@ -245,6 +245,10 @@ public class ComposVisitor<A> implements
     }    public Type visit(sample.Absyn.VoidType p, A arg)
     {
       return new sample.Absyn.VoidType();
+    }    public Type visit(sample.Absyn.TypeAlIdent p, A arg)
+    {
+      String ident_ = p.ident_;
+      return new sample.Absyn.TypeAlIdent(ident_);
     }
 /* TypeKW */
     public TypeKW visit(sample.Absyn.TypeKeyword p, A arg)

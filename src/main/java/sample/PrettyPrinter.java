@@ -420,11 +420,11 @@ public class PrettyPrinter
     {
        sample.Absyn.TypeAliasing _typealiasing = (sample.Absyn.TypeAliasing) foo;
        if (_i_ > 3) render(_L_PAREN);
-       pp(_typealiasing.ident_, 0);
+       pp(_typealiasing.type_1, 0);
        render(":");
        pp(_typealiasing.typekw_, 0);
        render("=");
-       pp(_typealiasing.type_, 0);
+       pp(_typealiasing.type_2, 0);
        if (_i_ > 3) render(_R_PAREN);
     }
     else     if (foo instanceof sample.Absyn.VarTypeAnnotation)
@@ -711,6 +711,13 @@ public class PrettyPrinter
        render("void");
        if (_i_ > 0) render(_R_PAREN);
     }
+    else     if (foo instanceof sample.Absyn.TypeAlIdent)
+    {
+       sample.Absyn.TypeAlIdent _typealident = (sample.Absyn.TypeAlIdent) foo;
+       if (_i_ > 0) render(_L_PAREN);
+       pp(_typealident.ident_, 0);
+       if (_i_ > 0) render(_R_PAREN);
+    }
   }
 
   private static void pp(sample.Absyn.TypeKW foo, int _i_)
@@ -936,9 +943,9 @@ public class PrettyPrinter
        sample.Absyn.TypeAliasing _typealiasing = (sample.Absyn.TypeAliasing) foo;
        render("(");
        render("TypeAliasing");
-       sh(_typealiasing.ident_);
+       sh(_typealiasing.type_1);
        sh(_typealiasing.typekw_);
-       sh(_typealiasing.type_);
+       sh(_typealiasing.type_2);
        render(")");
     }
     if (foo instanceof sample.Absyn.VarTypeAnnotation)
@@ -1200,6 +1207,14 @@ public class PrettyPrinter
     {
        sample.Absyn.VoidType _voidtype = (sample.Absyn.VoidType) foo;
        render("VoidType");
+    }
+    if (foo instanceof sample.Absyn.TypeAlIdent)
+    {
+       sample.Absyn.TypeAlIdent _typealident = (sample.Absyn.TypeAlIdent) foo;
+       render("(");
+       render("TypeAlIdent");
+       sh(_typealident.ident_);
+       render(")");
     }
   }
 
