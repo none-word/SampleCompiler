@@ -32,21 +32,6 @@ public class TypeChecker {
             return new VoidType();
         }
 
-        if (expr instanceof ConstZero)
-            return new IntType();
-        if (expr instanceof Succ){
-            typeCheck(context, ((Succ) expr).expr_, new IntType());
-            return new IntType();
-        }
-        if (expr instanceof Pred){
-            typeCheck(context, ((Pred) expr).expr_, new IntType());
-            return new IntType();
-        }
-        if (expr instanceof IsZero){
-            typeCheck(context, ((IsZero) expr).expr_, new IntType());
-            return new BoolType();
-        }
-
         if (expr instanceof TypeAliasing){
             var ident = ((TypeAlIdent) ((TypeAliasing) expr).type_1).ident_;
             var type = ((TypeAliasing) expr).type_2;
