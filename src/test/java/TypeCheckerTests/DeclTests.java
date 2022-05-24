@@ -127,4 +127,86 @@ public class DeclTests {
         type = typeChecker.typeOf(context, globalContext, exprs.get(16));
         type = typeChecker.typeOf(context, globalContext, exprs.get(17));
     }
+
+    @Test
+    public void test_11() throws TypeException {
+        var type = typeChecker.typeOf(new Context(), new GlobalContext(), exprs.get(18));
+        Assert.assertTrue(typeChecker.isSameType(type, new TableType()));
+    }
+
+    @Test
+    public void test_12() throws TypeException {
+        var context = new Context();
+        var globalContext = new GlobalContext();
+        var type = typeChecker.typeOf(context, globalContext, exprs.get(19));
+        type = typeChecker.typeOf(context, globalContext, exprs.get(20));
+        Assert.assertTrue(typeChecker.isSameType(type, new IntType()));
+    }
+
+    @Test
+    public void test_13() throws TypeException {
+        var context = new Context();
+        var globalContext = new GlobalContext();
+        var type = typeChecker.typeOf(context, globalContext, exprs.get(21));
+        type = typeChecker.typeOf(context, globalContext, exprs.get(22));
+        type = typeChecker.typeOf(context, globalContext, exprs.get(23));
+        Assert.assertTrue(typeChecker.isSameType(type, new TableType()));
+    }
+
+    @Test
+    public void test_14() throws TypeException {
+        var context = new Context();
+        var globalContext = new GlobalContext();
+        var type = typeChecker.typeOf(context, globalContext, exprs.get(24));
+        type = typeChecker.typeOf(context, globalContext, exprs.get(25));
+        type = typeChecker.typeOf(context, globalContext, exprs.get(26));
+        type = typeChecker.typeOf(context, globalContext, exprs.get(27));
+        Assert.assertTrue(typeChecker.isSameType(type, new BoolType()));
+    }
+
+    @Test
+    public void test_15() throws TypeException {
+        var context = new Context();
+        var globalContext = new GlobalContext();
+        var type = typeChecker.typeOf(context, globalContext, exprs.get(28));
+        type = typeChecker.typeOf(context, globalContext, exprs.get(29));
+        type = typeChecker.typeOf(context, globalContext, exprs.get(30));
+        type = typeChecker.typeOf(context, globalContext, exprs.get(31));
+        type = typeChecker.typeOf(context, globalContext, exprs.get(32));
+        Assert.assertTrue(typeChecker.isSameType(type, new BoolType()));
+    }
+
+    @Test
+    public void test_16() throws TypeException {
+        var context = new Context();
+        var globalContext = new GlobalContext();
+        var type = typeChecker.typeOf(context, globalContext, exprs.get(33));
+        type = typeChecker.typeOf(context, globalContext, exprs.get(34));
+        type = typeChecker.typeOf(context, globalContext, exprs.get(35));
+        type = typeChecker.typeOf(context, globalContext, exprs.get(36));
+        type = typeChecker.typeOf(context, globalContext, exprs.get(37));
+        Assert.assertTrue(typeChecker.isSameType(type, new TableType()));
+    }
+
+    @Test(expected = TypeException.class)
+    public void test_17() throws TypeException {
+        var context = new Context();
+        var globalContext = new GlobalContext();
+        var type = typeChecker.typeOf(context, globalContext, exprs.get(38));
+        type = typeChecker.typeOf(context, globalContext, exprs.get(39));
+        type = typeChecker.typeOf(context, globalContext, exprs.get(40));
+        type = typeChecker.typeOf(context, globalContext, exprs.get(41));
+        type = typeChecker.typeOf(context, globalContext, exprs.get(42));
+    }
+
+    @Test(expected = TypeException.class)
+    public void test_18() throws TypeException {
+        var context = new Context();
+        var globalContext = new GlobalContext();
+        var type = typeChecker.typeOf(context, globalContext, exprs.get(38));
+        type = typeChecker.typeOf(context, globalContext, exprs.get(39));
+        type = typeChecker.typeOf(context, globalContext, exprs.get(40));
+        type = typeChecker.typeOf(context, globalContext, exprs.get(41));
+        type = typeChecker.typeOf(context, globalContext, exprs.get(42));
+    }
 }

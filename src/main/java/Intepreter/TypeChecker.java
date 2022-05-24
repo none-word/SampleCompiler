@@ -116,20 +116,18 @@ public class TypeChecker {
 
         if (expr instanceof Var){
             var ident = ((Var) expr).ident_;
-            var variable = getVariable(context, globalContext, ident);
-
-            if (variable != null)
-                return variable.type;
-            else {
+            var type = getType(context, globalContext, ident);
+            if (type == null){
                 undefinedVar(expr);
                 return null;
             }
+            return type;
         }
 
         if (expr instanceof TableDecl){
             var ident = ((Declaration) ((TableDecl) expr).dec_).ident_;
             var type = ((Declaration) ((TableDecl) expr).dec_).type_;
-            if (isSameType(type, new TableType()))
+            if (!isSameType(type, new TableType()))
                 throw new TypeException(new TableType(), type, expr);
 
             var identVar_1 = ((TableDecl) expr).ident_1;
@@ -150,7 +148,7 @@ public class TypeChecker {
         if (expr instanceof GlTableDecl){
             var ident = ((GlDeclaration) ((GlTableDecl) expr).gldec_).ident_;
             var type = ((GlDeclaration) ((GlTableDecl) expr).gldec_).type_;
-            if (isSameType(type, new TableType()))
+            if (!isSameType(type, new TableType()))
                 throw new TypeException(new TableType(), type, expr);
 
             var identVar_1 = ((GlTableDecl) expr).ident_1;
@@ -171,7 +169,7 @@ public class TypeChecker {
         if (expr instanceof InitTableDecl){
             var ident = ((Declaration) ((InitTableDecl) expr).dec_1).ident_;
             var type = ((Declaration) ((InitTableDecl) expr).dec_1).type_;
-            if (isSameType(type, new TableType()))
+            if (!isSameType(type, new TableType()))
                 throw new TypeException(new TableType(), type, expr);
 
             var identVar_1 = ((Declaration) ((InitTableDecl) expr).dec_2).ident_;
@@ -188,7 +186,7 @@ public class TypeChecker {
         if (expr instanceof InitGlTableDecl){
             var ident = ((GlDeclaration) ((InitGlTableDecl) expr).gldec_).ident_;
             var type = ((GlDeclaration) ((InitGlTableDecl) expr).gldec_).type_;
-            if (isSameType(type, new TableType()))
+            if (!isSameType(type, new TableType()))
                 throw new TypeException(new TableType(), type, expr);
 
             var identVar_1 = ((Declaration) ((InitGlTableDecl) expr).dec_1).ident_;
@@ -248,15 +246,13 @@ public class TypeChecker {
 
         if (expr instanceof Assignment){
             var ident = ((Assignment) expr).ident_;
-            var variable = getVariable(context, globalContext, ident);
-
-            if (variable != null) {
-                var exprType = typeCheck(context, globalContext, ((Assignment) expr).expr_, variable.type);
+            var type = getType(context, globalContext, ident);
+            if (type != null) {
+                var exprType = typeCheck(context, globalContext, ((Assignment) expr).expr_, type);
                 return new VoidType();
-            }else {
-                undefinedVar(expr);
-                return null;
             }
+            undefinedVar(expr);
+            return null;
         }
 
         if (expr instanceof FuncCall){
@@ -326,6 +322,18 @@ public class TypeChecker {
             var boolExpr_2 = typeCheck(context, globalContext, ((Or) expr).expr_2, new BoolType());
             return boolExpr_1;
         }
+
+        return null;
+    }
+
+    private Type getType(Context context, GlobalContext globalContext, String ident) {
+        Variable variable = getVariable(context, globalContext, ident);
+        if (variable != null)
+            return variable.type;
+
+        Table table = getTable(context, globalContext, ident);
+        if (table != null)
+            return table.type;
 
         return null;
     }
