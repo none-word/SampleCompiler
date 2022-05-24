@@ -782,9 +782,9 @@ public class PrettyPrinter
        sample.Absyn.GlDeclaration _gldeclaration = (sample.Absyn.GlDeclaration) foo;
        if (_i_ > 0) render(_L_PAREN);
        render("global");
-       pp(_gldeclaration.type_, 0);
-       render(":");
        pp(_gldeclaration.ident_, 0);
+       render(":");
+       pp(_gldeclaration.type_, 0);
        if (_i_ > 0) render(_R_PAREN);
     }
     else     if (foo instanceof sample.Absyn.TypeAlGlDec)
@@ -1278,8 +1278,8 @@ public class PrettyPrinter
        sample.Absyn.GlDeclaration _gldeclaration = (sample.Absyn.GlDeclaration) foo;
        render("(");
        render("GlDeclaration");
-       sh(_gldeclaration.type_);
        sh(_gldeclaration.ident_);
+       sh(_gldeclaration.type_);
        render(")");
     }
     if (foo instanceof sample.Absyn.TypeAlGlDec)
