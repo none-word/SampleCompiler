@@ -9,7 +9,7 @@ public interface Eval {
 /**--------------------------------------**/
     Expr evalExpr(Expr expr);
 /**--------------------------------------**/
-    void evalType(Import expr, ProgramExprs programExprs); // ToDo
+    void evalType(Import expr, ProgramExprs programExprs);
     Expr evalType(Var expr);
     Expr evalType(ConstTrue expr);
     Expr evalType(ConstFalse expr);
@@ -30,9 +30,8 @@ public interface Eval {
     Expr evalType(GlVarTypeAnnotation expr);
     Expr evalType(FuncTypeAnnotation expr);
 /**--------------------------------------**/
-    Expr evalType(VarTypeAscription expr);
-    Expr evalType(GlVarTypeAscription expr);
-    Expr evalType(FuncTypeAscription expr);
+    Expr evalType(TypeAscription expr);
+    Expr evalType(TypeAscWithTypeAl expr);
 /**--------------------------------------**/
     Expr evalType(EInt expr);
     Expr evalType(EDouble expr);
@@ -51,12 +50,15 @@ public interface Eval {
     Expr evalType(InitDecl expr);
     Expr evalType(InitGlDecl expr);
 /**--------------------------------------**/
-    Expr evalType(TableDecl expr); // ToDo
-    Expr evalType(GlTableDecl expr); // ToDo
-    Expr evalType(InitTableDecl expr); // ToDo
-    Expr evalType(InitGlTableDecl expr); // ToDo
-    Expr evalType(TableElementCall expr); // ToDo
-    Expr evalType(TableElementAssignment expr); // ToDo
+    Expr evalType(TableDecl expr);
+    Expr evalType(GlTableDecl expr);
+    Expr evalType(InitTableDecl expr);
+    Expr evalType(InitGlTableDecl expr);
+    Expr evalType(TableElementCall expr);
+    Expr evalType(TableElementAssignment expr);
 /**--------------------------------------**/
     Expr evalType(Assignment expr);
+/**--------------------------------------**/
+    Expr evalType(LBFields fields);
+    Expr evalType(LetBinding expr); // ToDo
 }

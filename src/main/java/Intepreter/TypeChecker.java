@@ -31,7 +31,7 @@ public class TypeChecker {
 
             return new VoidType();
         }
-
+      
         if (expr instanceof TypeAliasing){
             var ident = ((TypeAlIdent) ((TypeAliasing) expr).typeal_).ident_;
             var type = ((TypeAliasing) expr).type_;
