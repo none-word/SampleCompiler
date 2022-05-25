@@ -12,9 +12,10 @@ public class ComposVisitor<A> implements
   sample.Absyn.TypeAl.Visitor<sample.Absyn.TypeAl,A>,
   sample.Absyn.VarKW.Visitor<sample.Absyn.VarKW,A>,
   sample.Absyn.TAnnot.Visitor<sample.Absyn.TAnnot,A>,
-  sample.Absyn.TAscript.Visitor<sample.Absyn.TAscript,A>,
   sample.Absyn.Dec.Visitor<sample.Absyn.Dec,A>,
-  sample.Absyn.GlDec.Visitor<sample.Absyn.GlDec,A>
+  sample.Absyn.GlDec.Visitor<sample.Absyn.GlDec,A>,
+  sample.Absyn.Field.Visitor<sample.Absyn.Field,A>,
+  sample.Absyn.Fields.Visitor<sample.Absyn.Fields,A>
 {
 /* Program */
     public Program visit(sample.Absyn.ProgramExprs p, A arg)
@@ -66,6 +67,18 @@ public class ComposVisitor<A> implements
       String ident_2 = p.ident_2;
       Program program_ = p.program_.accept(this, arg);
       return new sample.Absyn.TypeAlFunc(ident_1, fargs_, ident_2, program_);
+    }    public Expr visit(sample.Absyn.AnonymFunc p, A arg)
+    {
+      FArgs fargs_ = p.fargs_.accept(this, arg);
+      Program program_ = p.program_.accept(this, arg);
+      Type type_ = p.type_.accept(this, arg);
+      return new sample.Absyn.AnonymFunc(fargs_, program_, type_);
+    }    public Expr visit(sample.Absyn.TypeAlAnonymFunc p, A arg)
+    {
+      FArgs fargs_ = p.fargs_.accept(this, arg);
+      Program program_ = p.program_.accept(this, arg);
+      String ident_ = p.ident_;
+      return new sample.Absyn.TypeAlAnonymFunc(fargs_, program_, ident_);
     }    public Expr visit(sample.Absyn.Return p, A arg)
     {
       Expr expr_ = p.expr_.accept(this, arg);
@@ -92,6 +105,11 @@ public class ComposVisitor<A> implements
       Expr expr_1 = p.expr_1.accept(this, arg);
       Expr expr_2 = p.expr_2.accept(this, arg);
       return new sample.Absyn.Or(expr_1, expr_2);
+    }    public Expr visit(sample.Absyn.LetBinding p, A arg)
+    {
+      Fields fields_ = p.fields_.accept(this, arg);
+      Expr expr_ = p.expr_.accept(this, arg);
+      return new sample.Absyn.LetBinding(fields_, expr_);
     }    public Expr visit(sample.Absyn.VarTypeAnnotation p, A arg)
     {
       String ident_ = p.ident_;
@@ -111,25 +129,16 @@ public class ComposVisitor<A> implements
       TAnnot tannot_ = p.tannot_.accept(this, arg);
       Program program_ = p.program_.accept(this, arg);
       return new sample.Absyn.FuncTypeAnnotation(ident_, fargs_, tannot_, program_);
-    }    public Expr visit(sample.Absyn.VarTypeAscription p, A arg)
+    }    public Expr visit(sample.Absyn.TypeAscription p, A arg)
     {
-      String ident_ = p.ident_;
-      TAscript tascript_ = p.tascript_.accept(this, arg);
+      Type type_ = p.type_.accept(this, arg);
       Expr expr_ = p.expr_.accept(this, arg);
-      return new sample.Absyn.VarTypeAscription(ident_, tascript_, expr_);
-    }    public Expr visit(sample.Absyn.GlVarTypeAscription p, A arg)
+      return new sample.Absyn.TypeAscription(type_, expr_);
+    }    public Expr visit(sample.Absyn.TypeAscWithTypeAl p, A arg)
     {
       String ident_ = p.ident_;
-      TAscript tascript_ = p.tascript_.accept(this, arg);
       Expr expr_ = p.expr_.accept(this, arg);
-      return new sample.Absyn.GlVarTypeAscription(ident_, tascript_, expr_);
-    }    public Expr visit(sample.Absyn.FuncTypeAscription p, A arg)
-    {
-      String ident_ = p.ident_;
-      FArgs fargs_ = p.fargs_.accept(this, arg);
-      TAscript tascript_ = p.tascript_.accept(this, arg);
-      Program program_ = p.program_.accept(this, arg);
-      return new sample.Absyn.FuncTypeAscription(ident_, fargs_, tascript_, program_);
+      return new sample.Absyn.TypeAscWithTypeAl(ident_, expr_);
     }    public Expr visit(sample.Absyn.EInt p, A arg)
     {
       Integer integer_ = p.integer_;
@@ -258,13 +267,6 @@ public class ComposVisitor<A> implements
       VarKW varkw_ = p.varkw_.accept(this, arg);
       return new sample.Absyn.TypeAnnotation(varkw_);
     }
-/* TAscript */
-    public TAscript visit(sample.Absyn.TypeAscription p, A arg)
-    {
-      TAnnot tannot_ = p.tannot_.accept(this, arg);
-      Type type_ = p.type_.accept(this, arg);
-      return new sample.Absyn.TypeAscription(tannot_, type_);
-    }
 /* Dec */
     public Dec visit(sample.Absyn.Declaration p, A arg)
     {
@@ -288,5 +290,28 @@ public class ComposVisitor<A> implements
       String ident_1 = p.ident_1;
       String ident_2 = p.ident_2;
       return new sample.Absyn.TypeAlGlDec(ident_1, ident_2);
+    }
+/* Field */
+    public Field visit(sample.Absyn.TypeAnField p, A arg)
+    {
+      String ident_ = p.ident_;
+      VarKW varkw_ = p.varkw_.accept(this, arg);
+      Expr expr_ = p.expr_.accept(this, arg);
+      return new sample.Absyn.TypeAnField(ident_, varkw_, expr_);
+    }    public Field visit(sample.Absyn.LBField p, A arg)
+    {
+      Dec dec_ = p.dec_.accept(this, arg);
+      Expr expr_ = p.expr_.accept(this, arg);
+      return new sample.Absyn.LBField(dec_, expr_);
+    }
+/* Fields */
+    public Fields visit(sample.Absyn.LBFields p, A arg)
+    {
+      ListField listfield_ = new ListField();
+      for (Field x : p.listfield_)
+      {
+        listfield_.add(x.accept(this,arg));
+      }
+      return new sample.Absyn.LBFields(listfield_);
     }
 }

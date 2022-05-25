@@ -3,7 +3,8 @@ package Intepreter;
 import sample.Absyn.*;
 import sample.PrettyPrinter;
 
-import java.util.Arrays;
+import java.text.BreakIterator;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TypeChecker {
@@ -344,6 +345,34 @@ public class TypeChecker {
             return funcType;
         }
 
+        if (expr instanceof LetBinding){
+            var newContext = context;
+            newContext.variables = new ArrayList<>();
+            newContext.tables = new ArrayList<>();
+            var fields = ((LBFields) ((LetBinding) expr).fields_).listfield_;
+            for (var field : fields) {
+                if (field instanceof LBField){
+                    String fieldVarIdent = null;
+                    Type fieldVarType = null;
+                    var fieldExpr = ((LBField) field).expr_;
+                    var fieldDec = ((LBField) field).dec_;
+                    if (fieldDec instanceof Declaration){
+                        fieldVarIdent = ((Declaration) fieldDec).ident_;
+                        fieldVarType = ((Declaration) fieldDec).type_;
+                        typeCheck(newContext, fieldExpr, fieldVarType);
+                    }
+                    if (fieldDec instanceof TypeAlDecl){
+                        fieldVarIdent = ((TypeAlDecl) fieldDec).ident_1;
+                        fieldVarType = getRealType(newContext, ((TypeAlDecl) fieldDec).ident_2);
+                        typeCheck(newContext, fieldExpr, fieldVarType);
+                    }
+
+                    newContext.variables.add(new Variable(fieldVarIdent, fieldVarType));
+                }
+            }
+            return typeOf(newContext, ((LetBinding) expr).expr_);
+        }
+
         if (expr instanceof Not){
             var boolExpr = typeCheck(context, ((Not) expr).expr_, new BoolType());
             return boolExpr;
@@ -359,6 +388,24 @@ public class TypeChecker {
             var boolExpr_1 = typeCheck(context, ((Or) expr).expr_1, new BoolType());
             var boolExpr_2 = typeCheck(context, ((Or) expr).expr_2, new BoolType());
             return boolExpr_1;
+        }
+
+        if (expr instanceof TypeAscription){
+            var type = ((TypeAscription) expr).type_;
+            var expression = ((TypeAscription) expr).expr_;
+
+            return typeCheck(context, expression, type);
+        }
+
+        if (expr instanceof TypeAscWithTypeAl){
+            var type = getRealType(context, ((TypeAscWithTypeAl) expr).ident_);
+            var expression = ((TypeAscWithTypeAl) expr).expr_;
+
+            return typeCheck(context, expression, type);
+        }
+
+        if (expr instanceof Return){
+            return typeOf(context, ((Return) expr).expr_);
         }
 
         return null;

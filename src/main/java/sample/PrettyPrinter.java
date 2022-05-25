@@ -213,21 +213,6 @@ public class PrettyPrinter
     buf_.delete(0,buf_.length());
     return temp;
   }
-  public static String print(sample.Absyn.TAscript foo)
-  {
-    pp(foo, 0);
-    trim();
-    String temp = buf_.toString();
-    buf_.delete(0,buf_.length());
-    return temp;
-  }
-  public static String show(sample.Absyn.TAscript foo)
-  {
-    sh(foo);
-    String temp = buf_.toString();
-    buf_.delete(0,buf_.length());
-    return temp;
-  }
   public static String print(sample.Absyn.Dec foo)
   {
     pp(foo, 0);
@@ -252,6 +237,51 @@ public class PrettyPrinter
     return temp;
   }
   public static String show(sample.Absyn.GlDec foo)
+  {
+    sh(foo);
+    String temp = buf_.toString();
+    buf_.delete(0,buf_.length());
+    return temp;
+  }
+  public static String print(sample.Absyn.Field foo)
+  {
+    pp(foo, 0);
+    trim();
+    String temp = buf_.toString();
+    buf_.delete(0,buf_.length());
+    return temp;
+  }
+  public static String show(sample.Absyn.Field foo)
+  {
+    sh(foo);
+    String temp = buf_.toString();
+    buf_.delete(0,buf_.length());
+    return temp;
+  }
+  public static String print(sample.Absyn.Fields foo)
+  {
+    pp(foo, 0);
+    trim();
+    String temp = buf_.toString();
+    buf_.delete(0,buf_.length());
+    return temp;
+  }
+  public static String show(sample.Absyn.Fields foo)
+  {
+    sh(foo);
+    String temp = buf_.toString();
+    buf_.delete(0,buf_.length());
+    return temp;
+  }
+  public static String print(sample.Absyn.ListField foo)
+  {
+    pp(foo, 0);
+    trim();
+    String temp = buf_.toString();
+    buf_.delete(0,buf_.length());
+    return temp;
+  }
+  public static String show(sample.Absyn.ListField foo)
   {
     sh(foo);
     String temp = buf_.toString();
@@ -367,6 +397,36 @@ public class PrettyPrinter
        render("end");
        if (_i_ > 0) render(_R_PAREN);
     }
+    else     if (foo instanceof sample.Absyn.AnonymFunc)
+    {
+       sample.Absyn.AnonymFunc _anonymfunc = (sample.Absyn.AnonymFunc) foo;
+       if (_i_ > 0) render(_L_PAREN);
+       render("(");
+       pp(_anonymfunc.fargs_, 0);
+       render(")");
+       render("->");
+       render("{");
+       pp(_anonymfunc.program_, 0);
+       render("}");
+       render(":");
+       pp(_anonymfunc.type_, 0);
+       if (_i_ > 0) render(_R_PAREN);
+    }
+    else     if (foo instanceof sample.Absyn.TypeAlAnonymFunc)
+    {
+       sample.Absyn.TypeAlAnonymFunc _typealanonymfunc = (sample.Absyn.TypeAlAnonymFunc) foo;
+       if (_i_ > 0) render(_L_PAREN);
+       render("(");
+       pp(_typealanonymfunc.fargs_, 0);
+       render(")");
+       render("->");
+       render("{");
+       pp(_typealanonymfunc.program_, 0);
+       render("}");
+       render(":");
+       pp(_typealanonymfunc.ident_, 0);
+       if (_i_ > 0) render(_R_PAREN);
+    }
     else     if (foo instanceof sample.Absyn.Return)
     {
        sample.Absyn.Return _return = (sample.Absyn.Return) foo;
@@ -417,6 +477,16 @@ public class PrettyPrinter
        pp(_or.expr_2, 0);
        if (_i_ > 0) render(_R_PAREN);
     }
+    else     if (foo instanceof sample.Absyn.LetBinding)
+    {
+       sample.Absyn.LetBinding _letbinding = (sample.Absyn.LetBinding) foo;
+       if (_i_ > 0) render(_L_PAREN);
+       render("let");
+       pp(_letbinding.fields_, 0);
+       render("in");
+       pp(_letbinding.expr_, 0);
+       if (_i_ > 0) render(_R_PAREN);
+    }
     else     if (foo instanceof sample.Absyn.VarTypeAnnotation)
     {
        sample.Absyn.VarTypeAnnotation _vartypeannotation = (sample.Absyn.VarTypeAnnotation) foo;
@@ -452,39 +522,26 @@ public class PrettyPrinter
        render("end");
        if (_i_ > 3) render(_R_PAREN);
     }
-    else     if (foo instanceof sample.Absyn.VarTypeAscription)
+    else     if (foo instanceof sample.Absyn.TypeAscription)
     {
-       sample.Absyn.VarTypeAscription _vartypeascription = (sample.Absyn.VarTypeAscription) foo;
+       sample.Absyn.TypeAscription _typeascription = (sample.Absyn.TypeAscription) foo;
        if (_i_ > 4) render(_L_PAREN);
-       pp(_vartypeascription.ident_, 0);
-       pp(_vartypeascription.tascript_, 0);
-       render("=");
-       pp(_vartypeascription.expr_, 0);
-       if (_i_ > 4) render(_R_PAREN);
-    }
-    else     if (foo instanceof sample.Absyn.GlVarTypeAscription)
-    {
-       sample.Absyn.GlVarTypeAscription _glvartypeascription = (sample.Absyn.GlVarTypeAscription) foo;
-       if (_i_ > 4) render(_L_PAREN);
-       render("global");
-       pp(_glvartypeascription.ident_, 0);
-       pp(_glvartypeascription.tascript_, 0);
-       render("=");
-       pp(_glvartypeascription.expr_, 0);
-       if (_i_ > 4) render(_R_PAREN);
-    }
-    else     if (foo instanceof sample.Absyn.FuncTypeAscription)
-    {
-       sample.Absyn.FuncTypeAscription _functypeascription = (sample.Absyn.FuncTypeAscription) foo;
-       if (_i_ > 4) render(_L_PAREN);
-       render("function");
-       pp(_functypeascription.ident_, 0);
+       pp(_typeascription.type_, 0);
+       render(":");
        render("(");
-       pp(_functypeascription.fargs_, 0);
+       pp(_typeascription.expr_, 0);
        render(")");
-       pp(_functypeascription.tascript_, 0);
-       pp(_functypeascription.program_, 0);
-       render("end");
+       if (_i_ > 4) render(_R_PAREN);
+    }
+    else     if (foo instanceof sample.Absyn.TypeAscWithTypeAl)
+    {
+       sample.Absyn.TypeAscWithTypeAl _typeascwithtypeal = (sample.Absyn.TypeAscWithTypeAl) foo;
+       if (_i_ > 4) render(_L_PAREN);
+       pp(_typeascwithtypeal.ident_, 0);
+       render(":");
+       render("(");
+       pp(_typeascwithtypeal.expr_, 0);
+       render(")");
        if (_i_ > 4) render(_R_PAREN);
     }
     else     if (foo instanceof sample.Absyn.EInt)
@@ -739,20 +796,6 @@ public class PrettyPrinter
     }
   }
 
-  private static void pp(sample.Absyn.TAscript foo, int _i_)
-  {
-    if (foo instanceof sample.Absyn.TypeAscription)
-    {
-       sample.Absyn.TypeAscription _typeascription = (sample.Absyn.TypeAscription) foo;
-       if (_i_ > 0) render(_L_PAREN);
-       pp(_typeascription.tannot_, 0);
-       render("(");
-       pp(_typeascription.type_, 0);
-       render(")");
-       if (_i_ > 0) render(_R_PAREN);
-    }
-  }
-
   private static void pp(sample.Absyn.Dec foo, int _i_)
   {
     if (foo instanceof sample.Absyn.Declaration)
@@ -798,6 +841,53 @@ public class PrettyPrinter
        if (_i_ > 0) render(_R_PAREN);
     }
   }
+
+  private static void pp(sample.Absyn.Field foo, int _i_)
+  {
+    if (foo instanceof sample.Absyn.TypeAnField)
+    {
+       sample.Absyn.TypeAnField _typeanfield = (sample.Absyn.TypeAnField) foo;
+       if (_i_ > 0) render(_L_PAREN);
+       pp(_typeanfield.ident_, 0);
+       render(":");
+       pp(_typeanfield.varkw_, 0);
+       render("=");
+       pp(_typeanfield.expr_, 0);
+       if (_i_ > 0) render(_R_PAREN);
+    }
+    else     if (foo instanceof sample.Absyn.LBField)
+    {
+       sample.Absyn.LBField _lbfield = (sample.Absyn.LBField) foo;
+       if (_i_ > 0) render(_L_PAREN);
+       pp(_lbfield.dec_, 0);
+       render("=");
+       pp(_lbfield.expr_, 0);
+       if (_i_ > 0) render(_R_PAREN);
+    }
+  }
+
+  private static void pp(sample.Absyn.Fields foo, int _i_)
+  {
+    if (foo instanceof sample.Absyn.LBFields)
+    {
+       sample.Absyn.LBFields _lbfields = (sample.Absyn.LBFields) foo;
+       if (_i_ > 0) render(_L_PAREN);
+       pp(_lbfields.listfield_, 0);
+       if (_i_ > 0) render(_R_PAREN);
+    }
+  }
+
+  private static void pp(sample.Absyn.ListField foo, int _i_)
+  {
+     for (java.util.Iterator<Field> it = foo.iterator(); it.hasNext();)
+     {
+       pp(it.next(), _i_);
+       if (it.hasNext()) {
+         render(",");
+       } else {
+         render("");
+       }
+     }  }
 
 
   private static void sh(sample.Absyn.Program foo)
@@ -893,6 +983,26 @@ public class PrettyPrinter
        sh(_typealfunc.program_);
        render(")");
     }
+    if (foo instanceof sample.Absyn.AnonymFunc)
+    {
+       sample.Absyn.AnonymFunc _anonymfunc = (sample.Absyn.AnonymFunc) foo;
+       render("(");
+       render("AnonymFunc");
+       sh(_anonymfunc.fargs_);
+       sh(_anonymfunc.program_);
+       sh(_anonymfunc.type_);
+       render(")");
+    }
+    if (foo instanceof sample.Absyn.TypeAlAnonymFunc)
+    {
+       sample.Absyn.TypeAlAnonymFunc _typealanonymfunc = (sample.Absyn.TypeAlAnonymFunc) foo;
+       render("(");
+       render("TypeAlAnonymFunc");
+       sh(_typealanonymfunc.fargs_);
+       sh(_typealanonymfunc.program_);
+       sh(_typealanonymfunc.ident_);
+       render(")");
+    }
     if (foo instanceof sample.Absyn.Return)
     {
        sample.Absyn.Return _return = (sample.Absyn.Return) foo;
@@ -941,6 +1051,15 @@ public class PrettyPrinter
        sh(_or.expr_2);
        render(")");
     }
+    if (foo instanceof sample.Absyn.LetBinding)
+    {
+       sample.Absyn.LetBinding _letbinding = (sample.Absyn.LetBinding) foo;
+       render("(");
+       render("LetBinding");
+       sh(_letbinding.fields_);
+       sh(_letbinding.expr_);
+       render(")");
+    }
     if (foo instanceof sample.Absyn.VarTypeAnnotation)
     {
        sample.Absyn.VarTypeAnnotation _vartypeannotation = (sample.Absyn.VarTypeAnnotation) foo;
@@ -972,35 +1091,22 @@ public class PrettyPrinter
        sh(_functypeannotation.program_);
        render(")");
     }
-    if (foo instanceof sample.Absyn.VarTypeAscription)
+    if (foo instanceof sample.Absyn.TypeAscription)
     {
-       sample.Absyn.VarTypeAscription _vartypeascription = (sample.Absyn.VarTypeAscription) foo;
+       sample.Absyn.TypeAscription _typeascription = (sample.Absyn.TypeAscription) foo;
        render("(");
-       render("VarTypeAscription");
-       sh(_vartypeascription.ident_);
-       sh(_vartypeascription.tascript_);
-       sh(_vartypeascription.expr_);
+       render("TypeAscription");
+       sh(_typeascription.type_);
+       sh(_typeascription.expr_);
        render(")");
     }
-    if (foo instanceof sample.Absyn.GlVarTypeAscription)
+    if (foo instanceof sample.Absyn.TypeAscWithTypeAl)
     {
-       sample.Absyn.GlVarTypeAscription _glvartypeascription = (sample.Absyn.GlVarTypeAscription) foo;
+       sample.Absyn.TypeAscWithTypeAl _typeascwithtypeal = (sample.Absyn.TypeAscWithTypeAl) foo;
        render("(");
-       render("GlVarTypeAscription");
-       sh(_glvartypeascription.ident_);
-       sh(_glvartypeascription.tascript_);
-       sh(_glvartypeascription.expr_);
-       render(")");
-    }
-    if (foo instanceof sample.Absyn.FuncTypeAscription)
-    {
-       sample.Absyn.FuncTypeAscription _functypeascription = (sample.Absyn.FuncTypeAscription) foo;
-       render("(");
-       render("FuncTypeAscription");
-       sh(_functypeascription.ident_);
-       sh(_functypeascription.fargs_);
-       sh(_functypeascription.tascript_);
-       sh(_functypeascription.program_);
+       render("TypeAscWithTypeAl");
+       sh(_typeascwithtypeal.ident_);
+       sh(_typeascwithtypeal.expr_);
        render(")");
     }
     if (foo instanceof sample.Absyn.EInt)
@@ -1236,19 +1342,6 @@ public class PrettyPrinter
     }
   }
 
-  private static void sh(sample.Absyn.TAscript foo)
-  {
-    if (foo instanceof sample.Absyn.TypeAscription)
-    {
-       sample.Absyn.TypeAscription _typeascription = (sample.Absyn.TypeAscription) foo;
-       render("(");
-       render("TypeAscription");
-       sh(_typeascription.tannot_);
-       sh(_typeascription.type_);
-       render(")");
-    }
-  }
-
   private static void sh(sample.Absyn.Dec foo)
   {
     if (foo instanceof sample.Absyn.Declaration)
@@ -1291,6 +1384,53 @@ public class PrettyPrinter
        sh(_typealgldec.ident_2);
        render(")");
     }
+  }
+
+  private static void sh(sample.Absyn.Field foo)
+  {
+    if (foo instanceof sample.Absyn.TypeAnField)
+    {
+       sample.Absyn.TypeAnField _typeanfield = (sample.Absyn.TypeAnField) foo;
+       render("(");
+       render("TypeAnField");
+       sh(_typeanfield.ident_);
+       sh(_typeanfield.varkw_);
+       sh(_typeanfield.expr_);
+       render(")");
+    }
+    if (foo instanceof sample.Absyn.LBField)
+    {
+       sample.Absyn.LBField _lbfield = (sample.Absyn.LBField) foo;
+       render("(");
+       render("LBField");
+       sh(_lbfield.dec_);
+       sh(_lbfield.expr_);
+       render(")");
+    }
+  }
+
+  private static void sh(sample.Absyn.Fields foo)
+  {
+    if (foo instanceof sample.Absyn.LBFields)
+    {
+       sample.Absyn.LBFields _lbfields = (sample.Absyn.LBFields) foo;
+       render("(");
+       render("LBFields");
+       render("[");
+       sh(_lbfields.listfield_);
+       render("]");
+       render(")");
+    }
+  }
+
+  private static void sh(sample.Absyn.ListField foo)
+  {
+     for (java.util.Iterator<Field> it = foo.iterator(); it.hasNext();)
+     {
+       sh(it.next());
+       if (it.hasNext())
+         render(",");
+     }
   }
 
 

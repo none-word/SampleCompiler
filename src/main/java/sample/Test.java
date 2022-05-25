@@ -24,7 +24,7 @@ public class Test
     /* The default parser is the first-defined entry point. */
     /* You may want to change this. Other options are: */
     /* pListExpr, pExpr, pComaExprs, pFArgs, pListDec, pType, pTypeAl,
-       pVarKW, pTAnnot, pTAscript, pDec, pGlDec */
+       pVarKW, pTAnnot, pDec, pGlDec, pField, pFields, pListField */
     try
     {
       sample.Absyn.Program parse_tree = p.pProgram();
