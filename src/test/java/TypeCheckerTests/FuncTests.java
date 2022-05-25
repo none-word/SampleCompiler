@@ -149,15 +149,13 @@ public class FuncTests {
         type = typeChecker.typeOf(context, exprs.get(33));
     }
 
-    @Test
+    @Test(expected = UndefinedIdentifierExpression.class)
     public void test_15() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
         var context = new Context();
         var type = typeChecker.typeOf(context, exprs.get(34));
         type = typeChecker.typeOf(context, exprs.get(35));
         type = typeChecker.typeOf(context, exprs.get(36));
         type = typeChecker.typeOf(context, exprs.get(37));
-
-        Assert.assertNull(type);
     }
 
     @Test(expected = TypeException.class)
@@ -167,5 +165,15 @@ public class FuncTests {
         type = typeChecker.typeOf(context, exprs.get(39));
         type = typeChecker.typeOf(context, exprs.get(40));
         type = typeChecker.typeOf(context, exprs.get(41));
+    }
+
+    @Test
+    public void test_17() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+        var context = new Context();
+        var type = typeChecker.typeOf(context, exprs.get(42));
+        type = typeChecker.typeOf(context, exprs.get(43));
+        type = typeChecker.typeOf(context, exprs.get(44));
+        type = typeChecker.typeOf(context, exprs.get(45));
+        Assert.assertTrue(typeChecker.isSameType(type, new IntType()));
     }
 }

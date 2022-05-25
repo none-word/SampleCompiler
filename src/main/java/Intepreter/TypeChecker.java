@@ -5,6 +5,7 @@ import sample.Absyn.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.PatternSyntaxException;
 
 public class TypeChecker {
 
@@ -25,8 +26,8 @@ public class TypeChecker {
 
         if (expr instanceof If){
             var exprType = typeCheck(context, ((If) expr).expr_, new BoolType());
-            var typeOfThen = getReturnTypeOfProgram(context, ((ProgramExprs) ((If) expr).program_1).listexpr_);
-            var typeOfElse = getReturnTypeOfProgram(context, ((ProgramExprs) ((If) expr).program_2).listexpr_);
+            var typeOfThen = getReturnTypeOfProgram(context, ((ProgramExprs) ((If) expr).program_1).listexpr_, null);
+            var typeOfElse = getReturnTypeOfProgram(context, ((ProgramExprs) ((If) expr).program_2).listexpr_, null);
 
             return new VoidType();
         }
@@ -305,7 +306,13 @@ public class TypeChecker {
             var body = ((ProgramExprs) ((Func) expr).program_).listexpr_;
 
             var funcType = ((Func) expr).type_;
-            return checkFunction(context, ident, args, body, funcType);
+
+            context.functions.add(new Function(ident, funcType, args));
+
+            var newContext = context;
+            addToContext(newContext, args.listdec_);
+
+            return checkAndGetReturnType(newContext, body, funcType);
         }
 
         if (expr instanceof TypeAlFunc){
@@ -314,7 +321,12 @@ public class TypeChecker {
             var body = ((ProgramExprs) ((TypeAlFunc) expr).program_).listexpr_;
 
             var funcType = getRealType(context, ((TypeAlFunc) expr).ident_2);
-            return checkFunction(context, ident, args, body, funcType);
+
+            context.functions.add(new Function(ident, funcType, args));
+
+            var newContext = context;
+            addToContext(newContext, args.listdec_);
+            return checkAndGetReturnType(newContext, body, funcType);
         }
 
         if (expr instanceof FuncTypeAnnotation){
@@ -322,11 +334,9 @@ public class TypeChecker {
             var args = ((FuncArgs) ((FuncTypeAnnotation) expr).fargs_);
             var body = ((ProgramExprs) ((FuncTypeAnnotation) expr).program_).listexpr_;
 
-            var newContext = new Context();
-            for (Dec arg : args.listdec_){
-                newContext.variables.add(new Variable(((Declaration) arg).ident_, ((Declaration) arg).type_));
-            }
-            var funcType = getReturnTypeOfProgram(newContext, body);
+            var newContext = context;
+            addToContext(newContext, args.listdec_);
+            var funcType = getReturnTypeOfProgram(newContext, body, ident);
             context.functions.add(new Function(ident, funcType, args));
 
             return funcType;
@@ -427,20 +437,39 @@ public class TypeChecker {
         return null;
     }
 
+    private void addToContext(Context newContext, ListDec args) throws TypeException {
+        for (var arg : args) {
+            if (arg instanceof Declaration) {
+                var ident = ((Declaration) arg).ident_;
+                var type = ((Declaration) arg).type_;
+                if (type instanceof TableType)
+                    throw new TypeException("Incorrect table declaration");
+                if (type instanceof FuncType) {
+                    newContext.functions.add(new Function(ident, ((FuncType) type).type_, ((FuncArgs) ((FuncType) type).fargs_)));
+                }
+                else {
+                    newContext.variables.add(new Variable(ident, type));
+                }
+            }
+            if (arg instanceof TypeAlDecl){
+                var ident = ((TypeAlDecl) arg).ident_1;
+                var type = getRealType(newContext, ((TypeAlDecl) arg).ident_2);
+                if (type instanceof TableType)
+                    throw new TypeException("Incorrect table declaration");
+                if (type instanceof FuncType) {
+                    newContext.functions.add(new Function(ident, ((FuncType) type).type_, ((FuncArgs) ((FuncType) type).fargs_)));
+                }
+                else {
+                    newContext.variables.add(new Variable(ident, type));
+                }
+            }
+        }
+    }
+
     private void checkName(Context context, String ident, Expr expr) throws NameAlreadyUsedException {
         var type = getType(context, ident);
         if (type != null)
             throw new NameAlreadyUsedException(ident, expr);
-    }
-
-    private Type checkFunction(Context context, String ident, FuncArgs args, ListExpr body, Type funcType) throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
-        context.functions.add(new Function(ident, funcType, args));
-
-        var newContext = new Context();
-        for (Dec arg : args.listdec_){
-            newContext.variables.add(new Variable(((Declaration) arg).ident_, ((Declaration) arg).type_));
-        }
-        return checkAndGetReturnType(newContext, body, funcType);
     }
 
     private Type getType(Context context, String ident) {
@@ -492,7 +521,7 @@ public class TypeChecker {
     }
 
     private Type checkAndGetReturnType(Context context, List<Expr> body, Type expectedType) throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
-        var returnType = getReturnTypeOfProgram(context, body);
+        var returnType = getReturnTypeOfProgram(context, body, null);
         var returnExpr = getReturnExpr(body);
 
         if (isSameType(expectedType, returnType)) {
@@ -503,7 +532,7 @@ public class TypeChecker {
         }
     }
 
-    private Type getReturnTypeOfProgram(Context context, List<Expr> body) throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    private Type getReturnTypeOfProgram(Context context, List<Expr> body, String programIdent) throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
         Type returnType = null;
         for (var expr : body) {
             typeOf(context, expr);
@@ -518,8 +547,8 @@ public class TypeChecker {
             }
 
             if (expr instanceof If){
-                var thenType = getReturnTypeOfProgram(context, ((ProgramExprs) ((If) expr).program_1).listexpr_);
-                var elseType = getReturnTypeOfProgram(context, ((ProgramExprs) ((If) expr).program_2).listexpr_);
+                var thenType = getReturnTypeOfProgram(context, ((ProgramExprs) ((If) expr).program_1).listexpr_, programIdent);
+                var elseType = getReturnTypeOfProgram(context, ((ProgramExprs) ((If) expr).program_2).listexpr_, programIdent);
 
                 if (!isSameType(thenType, new VoidType()))
                     if (returnType == null)

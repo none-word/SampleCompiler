@@ -1,0 +1,11 @@
+--1
+function func_1 (x : func (x1: integer -> integer), y : func (x1 : integer -> boolean)): boolean
+    f: integer = 5;
+    return y(x(f));
+end;
+
+--2
+function func_1 (x : func (x1: integer -> integer), y : func (x1 : integer -> boolean)): integer
+    f: integer = 5;
+    return y(x(f));
+end;
