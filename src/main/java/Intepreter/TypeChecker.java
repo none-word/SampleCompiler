@@ -452,7 +452,14 @@ public class TypeChecker {
             var returnType = ((AnonymFunc) expr).type_;
             var body = ((ProgramExprs) ((AnonymFunc) expr).program_).listexpr_;
 
-            checkAndGetReturnType(context, body, returnType, null);
+            var newContext = new Context();
+            newContext.variables = new ArrayList<>(context.variables);
+            newContext.functions = new ArrayList<>(context.functions);
+            newContext.tables = new ArrayList<>(context.tables);
+            newContext.aliasedTypes = new ArrayList<>(context.aliasedTypes);
+            addToContext(newContext, ((FuncArgs) funcArgs).listdec_, expr);
+
+            checkAndGetReturnType(newContext, body, returnType, null);
             return new FuncType(funcArgs, returnType);
         }
 
@@ -461,7 +468,14 @@ public class TypeChecker {
             var returnType = getRealType(context, ((TypeAlAnonymFunc) expr).ident_);
             var body = ((ProgramExprs) ((TypeAlAnonymFunc) expr).program_).listexpr_;
 
-            checkAndGetReturnType(context, body, returnType, null);
+            var newContext = new Context();
+            newContext.variables = new ArrayList<>(context.variables);
+            newContext.functions = new ArrayList<>(context.functions);
+            newContext.tables = new ArrayList<>(context.tables);
+            newContext.aliasedTypes = new ArrayList<>(context.aliasedTypes);
+            addToContext(newContext, ((FuncArgs) funcArgs).listdec_, expr);
+
+            checkAndGetReturnType(newContext, body, returnType, null);
             return new FuncType(funcArgs, returnType);
         }
 
