@@ -45,52 +45,52 @@ public class FuncTests {
     }
 
     @Test
-    public void test_1() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_1() throws TypeException, UndefinedIdentifierExpression {
         var type = typeChecker.typeOf(new Context(), exprs.get(0));
         Assert.assertTrue(typeChecker.isSameType(type, new IntType()));
     }
 
     @Test
-    public void test_2() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_2() throws TypeException, UndefinedIdentifierExpression {
         var type = typeChecker.typeOf(new Context(), exprs.get(1));
         Assert.assertTrue(typeChecker.isSameType(type, new BoolType()));
     }
 
     @Test(expected = TypeException.class)
-    public void test_3() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_3() throws TypeException, UndefinedIdentifierExpression {
         var type = typeChecker.typeOf(new Context(), exprs.get(2));
     }
 
     @Test
-    public void test_4() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_4() throws TypeException, UndefinedIdentifierExpression {
         var type = typeChecker.typeOf(new Context(), exprs.get(3));
         Assert.assertTrue(typeChecker.isSameType(type, new IntType()));
     }
 
     @Test
-    public void test_5() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_5() throws TypeException, UndefinedIdentifierExpression {
         var type = typeChecker.typeOf(new Context(), exprs.get(4));
         Assert.assertTrue(typeChecker.isSameType(type, new IntType()));
     }
 
     @Test(expected = TypeException.class)
-    public void test_6() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_6() throws TypeException, UndefinedIdentifierExpression {
         var type = typeChecker.typeOf(new Context(), exprs.get(5));
     }
 
     @Test
-    public void test_7() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_7() throws TypeException, UndefinedIdentifierExpression {
         var type = typeChecker.typeOf(new Context(), exprs.get(6));
         Assert.assertTrue(typeChecker.isSameType(type, new VoidType()));
     }
 
     @Test(expected = TypeException.class)
-    public void test_8() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_8() throws TypeException, UndefinedIdentifierExpression {
         var type = typeChecker.typeOf(new Context(), exprs.get(7));
     }
 
     @Test
-    public void test_9() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_9() throws TypeException, UndefinedIdentifierExpression {
         var context = new Context();
         var type = typeChecker.typeOf(context, exprs.get(8));
         type = typeChecker.typeOf(context, exprs.get(9));
@@ -101,7 +101,7 @@ public class FuncTests {
     }
 
     @Test(expected = TypeException.class)
-    public void test_10() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_10() throws TypeException, UndefinedIdentifierExpression {
         var context = new Context();
         var type = typeChecker.typeOf(context, exprs.get(12));
         type = typeChecker.typeOf(context, exprs.get(13));
@@ -110,7 +110,7 @@ public class FuncTests {
     }
 
     @Test(expected = TypeException.class)
-    public void test_11() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_11() throws TypeException, UndefinedIdentifierExpression {
         var context = new Context();
         var type = typeChecker.typeOf(context, exprs.get(16));
         type = typeChecker.typeOf(context, exprs.get(17));
@@ -119,7 +119,7 @@ public class FuncTests {
     }
 
     @Test(expected = TypeException.class)
-    public void test_12() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_12() throws TypeException, UndefinedIdentifierExpression {
         var context = new Context();
         var type = typeChecker.typeOf(context, exprs.get(20));
         type = typeChecker.typeOf(context, exprs.get(21));
@@ -130,7 +130,7 @@ public class FuncTests {
     }
 
     @Test
-    public void test_13() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_13() throws TypeException, UndefinedIdentifierExpression {
         var context = new Context();
         var type = typeChecker.typeOf(context, exprs.get(26));
         type = typeChecker.typeOf(context, exprs.get(27));
@@ -141,7 +141,7 @@ public class FuncTests {
     }
 
     @Test(expected = TypeException.class)
-    public void test_14() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_14() throws TypeException, UndefinedIdentifierExpression {
         var context = new Context();
         var type = typeChecker.typeOf(context, exprs.get(30));
         type = typeChecker.typeOf(context, exprs.get(31));
@@ -150,7 +150,7 @@ public class FuncTests {
     }
 
     @Test(expected = UndefinedIdentifierExpression.class)
-    public void test_15() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_15() throws TypeException, UndefinedIdentifierExpression {
         var context = new Context();
         var type = typeChecker.typeOf(context, exprs.get(34));
         type = typeChecker.typeOf(context, exprs.get(35));
@@ -159,7 +159,7 @@ public class FuncTests {
     }
 
     @Test(expected = TypeException.class)
-    public void test_16() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_16() throws TypeException, UndefinedIdentifierExpression {
         var context = new Context();
         var type = typeChecker.typeOf(context, exprs.get(38));
         type = typeChecker.typeOf(context, exprs.get(39));
@@ -168,7 +168,7 @@ public class FuncTests {
     }
 
     @Test
-    public void test_17() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_17() throws TypeException, UndefinedIdentifierExpression {
         var context = new Context();
         var type = typeChecker.typeOf(context, exprs.get(42));
         type = typeChecker.typeOf(context, exprs.get(43));

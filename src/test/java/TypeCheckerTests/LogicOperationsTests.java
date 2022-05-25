@@ -51,40 +51,40 @@ public class LogicOperationsTests {
     }
 
     @Test
-    public void test_1() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_1() throws TypeException, UndefinedIdentifierExpression {
         var type = typeChecker.typeOf(new Context(), exprs.get(0));
         Assert.assertTrue(typeChecker.isSameType(type, new BoolType()));
     }
 
     @Test
-    public void test_2() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_2() throws TypeException, UndefinedIdentifierExpression {
         var type = typeChecker.typeOf(new Context(), exprs.get(1));
         Assert.assertTrue(typeChecker.isSameType(type, new BoolType()));
     }
 
     @Test
-    public void test_3() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_3() throws TypeException, UndefinedIdentifierExpression {
         var type = typeChecker.typeOf(new Context(), exprs.get(2));
         Assert.assertTrue(typeChecker.isSameType(type, new BoolType()));
     }
 
     @Test(expected = TypeException.class)
-    public void test_4() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_4() throws TypeException, UndefinedIdentifierExpression {
         var type = typeChecker.typeOf(new Context(), exprs.get(3));
     }
 
     @Test(expected = TypeException.class)
-    public void test_5() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_5() throws TypeException, UndefinedIdentifierExpression {
         var type = typeChecker.typeOf(new Context(), exprs.get(4));
     }
 
     @Test(expected = TypeException.class)
-    public void test_6() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_6() throws TypeException, UndefinedIdentifierExpression {
         var type = typeChecker.typeOf(new Context(), exprs.get(5));
     }
 
     @Test
-    public void test_7() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_7() throws TypeException, UndefinedIdentifierExpression {
         var context = new Context();
         var type = typeChecker.typeOf(context, exprs.get(6));
         type = typeChecker.typeOf(context, exprs.get(7));
@@ -94,7 +94,7 @@ public class LogicOperationsTests {
     }
 
     @Test(expected = TypeException.class)
-    public void test_8() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_8() throws TypeException, UndefinedIdentifierExpression {
         var context = new Context();
         var type = typeChecker.typeOf(context, exprs.get(9));
         type = typeChecker.typeOf(context, exprs.get(10));
@@ -102,7 +102,7 @@ public class LogicOperationsTests {
     }
 
     @Test
-    public void test_9() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_9() throws TypeException, UndefinedIdentifierExpression {
         var context = new Context();
         var type = typeChecker.typeOf(context, exprs.get(12));
         type = typeChecker.typeOf(context, exprs.get(13));
@@ -112,7 +112,7 @@ public class LogicOperationsTests {
     }
 
     @Test(expected = TypeException.class)
-    public void test_10() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_10() throws TypeException, UndefinedIdentifierExpression {
         var context = new Context();
         var type = typeChecker.typeOf(context, exprs.get(15));
         type = typeChecker.typeOf(context, exprs.get(16));
@@ -120,7 +120,7 @@ public class LogicOperationsTests {
     }
 
     @Test
-    public void test_11() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_11() throws TypeException, UndefinedIdentifierExpression {
         var context = new Context();
         var type = typeChecker.typeOf(context, exprs.get(18));
         type = typeChecker.typeOf(context, exprs.get(19));
@@ -129,7 +129,7 @@ public class LogicOperationsTests {
     }
 
     @Test(expected = TypeException.class)
-    public void test_12() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_12() throws TypeException, UndefinedIdentifierExpression {
         var context = new Context();
         var type = typeChecker.typeOf(context, exprs.get(20));
         type = typeChecker.typeOf(context, exprs.get(21));
