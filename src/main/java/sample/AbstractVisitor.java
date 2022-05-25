@@ -50,6 +50,7 @@ public class AbstractVisitor<R,A> implements AllVisitor<R,A> {
     public R visit(sample.Absyn.GlTableDecl p, A arg) { return visitDefault(p, arg); }
     public R visit(sample.Absyn.InitTableDecl p, A arg) { return visitDefault(p, arg); }
     public R visit(sample.Absyn.InitGlTableDecl p, A arg) { return visitDefault(p, arg); }
+    public R visit(sample.Absyn.InitFuncDecl p, A arg) { return visitDefault(p, arg); }
     public R visit(sample.Absyn.TableElementCall p, A arg) { return visitDefault(p, arg); }
     public R visit(sample.Absyn.TableElementAssignment p, A arg) { return visitDefault(p, arg); }
     public R visit(sample.Absyn.Assignment p, A arg) { return visitDefault(p, arg); }

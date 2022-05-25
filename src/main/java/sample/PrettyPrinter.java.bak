@@ -93,6 +93,36 @@ public class PrettyPrinter
     buf_.delete(0,buf_.length());
     return temp;
   }
+  public static String print(sample.Absyn.Idts foo)
+  {
+    pp(foo, 0);
+    trim();
+    String temp = buf_.toString();
+    buf_.delete(0,buf_.length());
+    return temp;
+  }
+  public static String show(sample.Absyn.Idts foo)
+  {
+    sh(foo);
+    String temp = buf_.toString();
+    buf_.delete(0,buf_.length());
+    return temp;
+  }
+  public static String print(sample.Absyn.ListIdent foo)
+  {
+    pp(foo, 0);
+    trim();
+    String temp = buf_.toString();
+    buf_.delete(0,buf_.length());
+    return temp;
+  }
+  public static String show(sample.Absyn.ListIdent foo)
+  {
+    sh(foo);
+    String temp = buf_.toString();
+    buf_.delete(0,buf_.length());
+    return temp;
+  }
   public static String print(sample.Absyn.Expr foo)
   {
     pp(foo, 0);
@@ -313,6 +343,29 @@ public class PrettyPrinter
        }
      }  }
 
+  private static void pp(sample.Absyn.Idts foo, int _i_)
+  {
+    if (foo instanceof sample.Absyn.Idents)
+    {
+       sample.Absyn.Idents _idents = (sample.Absyn.Idents) foo;
+       if (_i_ > 0) render(_L_PAREN);
+       pp(_idents.listident_, 0);
+       if (_i_ > 0) render(_R_PAREN);
+    }
+  }
+
+  private static void pp(sample.Absyn.ListIdent foo, int _i_)
+  {
+     for (java.util.Iterator<String> it = foo.iterator(); it.hasNext();)
+     {
+       pp(it.next(), _i_);
+       if (it.hasNext()) {
+         render(",");
+       } else {
+         render("");
+       }
+     }  }
+
   private static void pp(sample.Absyn.Expr foo, int _i_)
   {
     if (foo instanceof sample.Absyn.Import)
@@ -320,7 +373,7 @@ public class PrettyPrinter
        sample.Absyn.Import _import = (sample.Absyn.Import) foo;
        if (_i_ > 0) render(_L_PAREN);
        render("import");
-       pp(_import.ident_, 0);
+       pp(_import.idts_, 0);
        if (_i_ > 0) render(_R_PAREN);
     }
     else     if (foo instanceof sample.Absyn.Var)
@@ -401,6 +454,10 @@ public class PrettyPrinter
     {
        sample.Absyn.AnonymFunc _anonymfunc = (sample.Absyn.AnonymFunc) foo;
        if (_i_ > 0) render(_L_PAREN);
+       pp(_anonymfunc.ident_, 0);
+       render(":");
+       render("func");
+       render("=");
        render("(");
        pp(_anonymfunc.fargs_, 0);
        render(")");
@@ -416,6 +473,10 @@ public class PrettyPrinter
     {
        sample.Absyn.TypeAlAnonymFunc _typealanonymfunc = (sample.Absyn.TypeAlAnonymFunc) foo;
        if (_i_ > 0) render(_L_PAREN);
+       pp(_typealanonymfunc.ident_1, 0);
+       render(":");
+       render("func");
+       render("=");
        render("(");
        pp(_typealanonymfunc.fargs_, 0);
        render(")");
@@ -424,7 +485,7 @@ public class PrettyPrinter
        pp(_typealanonymfunc.program_, 0);
        render("}");
        render(":");
-       pp(_typealanonymfunc.ident_, 0);
+       pp(_typealanonymfunc.ident_2, 0);
        if (_i_ > 0) render(_R_PAREN);
     }
     else     if (foo instanceof sample.Absyn.Return)
@@ -926,6 +987,30 @@ public class PrettyPrinter
      }
   }
 
+  private static void sh(sample.Absyn.Idts foo)
+  {
+    if (foo instanceof sample.Absyn.Idents)
+    {
+       sample.Absyn.Idents _idents = (sample.Absyn.Idents) foo;
+       render("(");
+       render("Idents");
+       render("[");
+       sh(_idents.listident_);
+       render("]");
+       render(")");
+    }
+  }
+
+  private static void sh(sample.Absyn.ListIdent foo)
+  {
+     for (java.util.Iterator<String> it = foo.iterator(); it.hasNext();)
+     {
+       sh(it.next());
+       if (it.hasNext())
+         render(",");
+     }
+  }
+
   private static void sh(sample.Absyn.Expr foo)
   {
     if (foo instanceof sample.Absyn.Import)
@@ -933,7 +1018,7 @@ public class PrettyPrinter
        sample.Absyn.Import _import = (sample.Absyn.Import) foo;
        render("(");
        render("Import");
-       sh(_import.ident_);
+       sh(_import.idts_);
        render(")");
     }
     if (foo instanceof sample.Absyn.Var)
@@ -1000,6 +1085,7 @@ public class PrettyPrinter
        sample.Absyn.AnonymFunc _anonymfunc = (sample.Absyn.AnonymFunc) foo;
        render("(");
        render("AnonymFunc");
+       sh(_anonymfunc.ident_);
        sh(_anonymfunc.fargs_);
        sh(_anonymfunc.program_);
        sh(_anonymfunc.type_);
@@ -1010,9 +1096,10 @@ public class PrettyPrinter
        sample.Absyn.TypeAlAnonymFunc _typealanonymfunc = (sample.Absyn.TypeAlAnonymFunc) foo;
        render("(");
        render("TypeAlAnonymFunc");
+       sh(_typealanonymfunc.ident_1);
        sh(_typealanonymfunc.fargs_);
        sh(_typealanonymfunc.program_);
-       sh(_typealanonymfunc.ident_);
+       sh(_typealanonymfunc.ident_2);
        render(")");
     }
     if (foo instanceof sample.Absyn.Return)

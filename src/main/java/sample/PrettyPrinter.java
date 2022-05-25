@@ -454,10 +454,6 @@ public class PrettyPrinter
     {
        sample.Absyn.AnonymFunc _anonymfunc = (sample.Absyn.AnonymFunc) foo;
        if (_i_ > 0) render(_L_PAREN);
-       pp(_anonymfunc.ident_, 0);
-       render(":");
-       render("func");
-       render("=");
        render("(");
        pp(_anonymfunc.fargs_, 0);
        render(")");
@@ -473,10 +469,6 @@ public class PrettyPrinter
     {
        sample.Absyn.TypeAlAnonymFunc _typealanonymfunc = (sample.Absyn.TypeAlAnonymFunc) foo;
        if (_i_ > 0) render(_L_PAREN);
-       pp(_typealanonymfunc.ident_1, 0);
-       render(":");
-       render("func");
-       render("=");
        render("(");
        pp(_typealanonymfunc.fargs_, 0);
        render(")");
@@ -485,7 +477,7 @@ public class PrettyPrinter
        pp(_typealanonymfunc.program_, 0);
        render("}");
        render(":");
-       pp(_typealanonymfunc.ident_2, 0);
+       pp(_typealanonymfunc.ident_, 0);
        if (_i_ > 0) render(_R_PAREN);
     }
     else     if (foo instanceof sample.Absyn.Return)
@@ -708,6 +700,17 @@ public class PrettyPrinter
        render(",");
        pp(_initgltabledecl.dec_2, 0);
        render(")");
+       if (_i_ > 2) render(_R_PAREN);
+    }
+    else     if (foo instanceof sample.Absyn.InitFuncDecl)
+    {
+       sample.Absyn.InitFuncDecl _initfuncdecl = (sample.Absyn.InitFuncDecl) foo;
+       if (_i_ > 2) render(_L_PAREN);
+       pp(_initfuncdecl.ident_, 0);
+       render(":");
+       render("func");
+       render("=");
+       pp(_initfuncdecl.expr_, 0);
        if (_i_ > 2) render(_R_PAREN);
     }
     else     if (foo instanceof sample.Absyn.TableElementCall)
@@ -1085,7 +1088,6 @@ public class PrettyPrinter
        sample.Absyn.AnonymFunc _anonymfunc = (sample.Absyn.AnonymFunc) foo;
        render("(");
        render("AnonymFunc");
-       sh(_anonymfunc.ident_);
        sh(_anonymfunc.fargs_);
        sh(_anonymfunc.program_);
        sh(_anonymfunc.type_);
@@ -1096,10 +1098,9 @@ public class PrettyPrinter
        sample.Absyn.TypeAlAnonymFunc _typealanonymfunc = (sample.Absyn.TypeAlAnonymFunc) foo;
        render("(");
        render("TypeAlAnonymFunc");
-       sh(_typealanonymfunc.ident_1);
        sh(_typealanonymfunc.fargs_);
        sh(_typealanonymfunc.program_);
-       sh(_typealanonymfunc.ident_2);
+       sh(_typealanonymfunc.ident_);
        render(")");
     }
     if (foo instanceof sample.Absyn.Return)
@@ -1304,6 +1305,15 @@ public class PrettyPrinter
        sh(_initgltabledecl.gldec_);
        sh(_initgltabledecl.dec_1);
        sh(_initgltabledecl.dec_2);
+       render(")");
+    }
+    if (foo instanceof sample.Absyn.InitFuncDecl)
+    {
+       sample.Absyn.InitFuncDecl _initfuncdecl = (sample.Absyn.InitFuncDecl) foo;
+       render("(");
+       render("InitFuncDecl");
+       sh(_initfuncdecl.ident_);
+       sh(_initfuncdecl.expr_);
        render(")");
     }
     if (foo instanceof sample.Absyn.TableElementCall)

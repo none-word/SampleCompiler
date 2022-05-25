@@ -1,8 +1,6 @@
 package TypeCheckerTests;
 
-import Intepreter.Context;
-import Intepreter.TypeChecker;
-import Intepreter.TypeException;
+import Intepreter.*;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -54,7 +52,7 @@ public class TypeAscriptionTests {
     }
 
     @Test
-    public void test_1() throws TypeException {
+    public void test_1() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
         var context = new Context();
         var type = typeChecker.typeOf(context, exprs.get(0));
         type = typeChecker.typeOf(context, exprs.get(1));
@@ -63,14 +61,14 @@ public class TypeAscriptionTests {
     }
 
     @Test(expected = TypeException.class)
-    public void test_2() throws TypeException {
+    public void test_2() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
         var context = new Context();
         var type = typeChecker.typeOf(context, exprs.get(3));
         type = typeChecker.typeOf(context, exprs.get(4));
     }
 
     @Test
-    public void test_3() throws TypeException {
+    public void test_3() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
         var context = new Context();
         var type = typeChecker.typeOf(context, exprs.get(5));
         type = typeChecker.typeOf(context, exprs.get(6));
@@ -81,7 +79,7 @@ public class TypeAscriptionTests {
     }
 
     @Test(expected = TypeException.class)
-    public void test_4() throws TypeException {
+    public void test_4() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
         var context = new Context();
         var type = typeChecker.typeOf(context, exprs.get(10));
         type = typeChecker.typeOf(context, exprs.get(11));

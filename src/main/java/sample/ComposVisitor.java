@@ -76,18 +76,16 @@ public class ComposVisitor<A> implements
       return new sample.Absyn.TypeAlFunc(ident_1, fargs_, ident_2, program_);
     }    public Expr visit(sample.Absyn.AnonymFunc p, A arg)
     {
-      String ident_ = p.ident_;
       FArgs fargs_ = p.fargs_.accept(this, arg);
       Program program_ = p.program_.accept(this, arg);
       Type type_ = p.type_.accept(this, arg);
-      return new sample.Absyn.AnonymFunc(ident_, fargs_, program_, type_);
+      return new sample.Absyn.AnonymFunc(fargs_, program_, type_);
     }    public Expr visit(sample.Absyn.TypeAlAnonymFunc p, A arg)
     {
-      String ident_1 = p.ident_1;
       FArgs fargs_ = p.fargs_.accept(this, arg);
       Program program_ = p.program_.accept(this, arg);
-      String ident_2 = p.ident_2;
-      return new sample.Absyn.TypeAlAnonymFunc(ident_1, fargs_, program_, ident_2);
+      String ident_ = p.ident_;
+      return new sample.Absyn.TypeAlAnonymFunc(fargs_, program_, ident_);
     }    public Expr visit(sample.Absyn.Return p, A arg)
     {
       Expr expr_ = p.expr_.accept(this, arg);
@@ -202,6 +200,11 @@ public class ComposVisitor<A> implements
       Dec dec_1 = p.dec_1.accept(this, arg);
       Dec dec_2 = p.dec_2.accept(this, arg);
       return new sample.Absyn.InitGlTableDecl(gldec_, dec_1, dec_2);
+    }    public Expr visit(sample.Absyn.InitFuncDecl p, A arg)
+    {
+      String ident_ = p.ident_;
+      Expr expr_ = p.expr_.accept(this, arg);
+      return new sample.Absyn.InitFuncDecl(ident_, expr_);
     }    public Expr visit(sample.Absyn.TableElementCall p, A arg)
     {
       String ident_1 = p.ident_1;
