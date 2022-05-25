@@ -1,0 +1,21 @@
+--1
+y : var = 5;
+x : integer = integer : (y);
+return x;
+
+--2
+y : var = 5;
+x : string = string : (y);
+
+--3
+y : var = 5;
+int : type = integer;
+x : integer;
+x = int : (y);
+return x;
+
+--4
+y : var = 5;
+str : type = string;
+x : str = "ff";
+x = str : (y);

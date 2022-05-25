@@ -1,5 +1,6 @@
 package Intepreter;
 
+import Intepreter.Storage.VariableStorage;
 import sample.Absyn.Expr;
 
 public interface StandardLibrary {

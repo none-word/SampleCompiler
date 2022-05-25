@@ -1,5 +1,6 @@
 package Intepreter;
 
+import Intepreter.Storage.VariableStorage;
 import sample.Absyn.*;
 
 import java.util.Objects;
