@@ -5,6 +5,7 @@ import sample.PrettyPrinter;
 
 import java.text.BreakIterator;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class TypeChecker {
@@ -19,13 +20,10 @@ public class TypeChecker {
         if (expr instanceof EStr)
             return new StringType();
 
-        if (expr instanceof ConstFalse) {
+        if (expr instanceof ConstFalse)
             return new BoolType();
-        }
-
-        if (expr instanceof ConstTrue) {
+        if (expr instanceof ConstTrue)
             return new BoolType();
-        }
 
         if (expr instanceof If){
             var exprType = typeCheck(context, ((If) expr).expr_, new BoolType());
@@ -33,11 +31,6 @@ public class TypeChecker {
             var typeOfElse = getReturnTypeOfProgram(context, ((ProgramExprs) ((If) expr).program_2).listexpr_);
 
             return new VoidType();
-        }
-
-        if (expr instanceof Import){
-            var libraryName = ((Import) expr).ident_;
-
         }
 
         if (expr instanceof TypeAliasing){
@@ -122,7 +115,6 @@ public class TypeChecker {
             context.variables.add(new Variable(ident, type));
             return type;
         }
-
 
         if (expr instanceof VarTypeAnnotation){
             var ident = ((VarTypeAnnotation) expr).ident_;
@@ -310,7 +302,6 @@ public class TypeChecker {
                 return null;
             }
         }
-
 
         if (expr instanceof Func){
             var ident = ((Func) expr).ident_;
