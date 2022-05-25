@@ -1,16 +1,14 @@
 package Intepreter;
 
 import sample.Absyn.*;
-import sample.PrettyPrinter;
 
-import java.text.BreakIterator;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class TypeChecker {
 
-    public Type typeOf(Context context, Expr expr) throws TypeException{
+    public Type typeOf(Context context, Expr expr) throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
         addBultInFunctions(context);
 
         if (expr instanceof EInt)
@@ -116,6 +114,19 @@ public class TypeChecker {
             return type;
         }
 
+        if (expr instanceof InitFuncDecl){
+            var ident = ((InitFuncDecl) expr).ident_;
+            var expression = ((InitFuncDecl) expr).expr_;
+
+            var type = typeOf(context, expression);
+            if (type instanceof FuncType) {
+                checkName(context, ident, expr);
+                context.functions.add(new Function(ident, ((FuncType) type).type_, ((FuncArgs) ((FuncType) type).fargs_)));
+            }
+            else
+                throw new TypeException(new FuncType(null, null), type, expression);
+        }
+
         if (expr instanceof VarTypeAnnotation){
             var ident = ((VarTypeAnnotation) expr).ident_;
             var decExpr = ((VarTypeAnnotation) expr).expr_;
@@ -145,10 +156,8 @@ public class TypeChecker {
         if (expr instanceof Var){
             var ident = ((Var) expr).ident_;
             var type = getType(context, ident);
-            if (type == null){
-                undefinedVar(expr);
-                return null;
-            }
+            if (type == null)
+                throw new UndefinedIdentifierExpression(expr);
             return type;
         }
 
@@ -164,10 +173,8 @@ public class TypeChecker {
             var var_1 = getVariable(context, identVar_1);
             var var_2 = getVariable(context, identVar_2);
 
-            if (var_1 == null || var_2 == null){
-                undefinedVar(expr);
-                return null;
-            }
+            if (var_1 == null || var_2 == null)
+                throw new UndefinedIdentifierExpression(expr);
 
             context.tables.add(new Table(ident, type, var_1, var_2));
             return type;
@@ -185,10 +192,8 @@ public class TypeChecker {
             var var_1 = getVariable(context, identVar_1);
             var var_2 = getVariable(context, identVar_2);
 
-            if (var_1 == null || var_2 == null){
-                undefinedVar(expr);
-                return null;
-            }
+            if (var_1 == null || var_2 == null)
+                throw new UndefinedIdentifierExpression(expr);
 
             context.tables.add(new Table(ident, type, var_1, var_2));
             return type;
@@ -232,10 +237,8 @@ public class TypeChecker {
             var tableIdent = ((TableElementCall) expr).ident_1;
 
             var table =  getTable(context, tableIdent);
-            if (table == null){
-                undefinedVar(expr);
-                return null;
-            }
+            if (table == null)
+                throw new UndefinedIdentifierExpression(expr);
 
             var varIdent = ((TableElementCall) expr).ident_2;
             var varType = getVarType(table, varIdent);
@@ -243,26 +246,21 @@ public class TypeChecker {
             if (varType != null)
                 return varType;
 
-            undefinedVar(expr);
-            return null;
+            throw new UndefinedIdentifierExpression(expr);
         }
 
         if (expr instanceof TableElementAssignment){
             var tableIdent = ((TableElementAssignment) expr).ident_1;
 
             var table =  getTable(context, tableIdent);
-            if (table == null){
-                undefinedVar(expr);
-                return null;
-            }
+            if (table == null)
+                throw new UndefinedIdentifierExpression(expr);
 
             var varIdent = ((TableElementAssignment) expr).ident_2;
             var varType = getVarType(table, varIdent);
 
-            if (varType == null){
-                undefinedVar(expr);
-                return null;
-            }
+            if (varType == null)
+                throw new UndefinedIdentifierExpression(expr);
 
             var tableExpr = ((TableElementAssignment) expr).expr_;
             var exprType = typeOf(context, tableExpr);
@@ -279,8 +277,8 @@ public class TypeChecker {
                 var exprType = typeCheck(context, ((Assignment) expr).expr_, type);
                 return new VoidType();
             }
-            undefinedVar(expr);
-            return null;
+            else
+                throw new UndefinedIdentifierExpression(expr);
         }
 
         if (expr instanceof FuncCall){
@@ -296,11 +294,9 @@ public class TypeChecker {
                     if (!isSameType(varType, argType))
                         throw new TypeException(argType, varType, expr);
                 }
-                return function.type;
-            } else {
-                undefinedFunc(expr);
-                return null;
-            }
+                return function.returnType;
+            } else
+                throw new UndefinedIdentifierExpression(expr);
         }
 
         if (expr instanceof Func){
@@ -360,6 +356,17 @@ public class TypeChecker {
 
                     newContext.variables.add(new Variable(fieldVarIdent, fieldVarType));
                 }
+                if (field instanceof TypeAnField){
+                    var fieldVarIdent = ((TypeAnField) field).ident_;
+                    var fieldVarExpr = ((TypeAnField) field).expr_;
+
+                    if (fieldVarExpr instanceof NilKeyword)
+                        throw new TypeException("Cannot infer type: variable initializer is nil");
+
+                    var fieldVarType = typeOf(context, fieldVarExpr);
+
+                    newContext.variables.add(new Variable(fieldVarIdent, fieldVarType));
+                }
             }
             return typeOf(newContext, ((LetBinding) expr).expr_);
         }
@@ -399,17 +406,41 @@ public class TypeChecker {
             return typeOf(context, ((Return) expr).expr_);
         }
 
+        if (expr instanceof AnonymFunc){
+            var funcArgs = ((AnonymFunc) expr).fargs_;
+            var returnType = ((AnonymFunc) expr).type_;
+            var body = ((ProgramExprs) ((AnonymFunc) expr).program_).listexpr_;
+
+            checkAndGetReturnType(context, body, returnType);
+            return new FuncType(funcArgs, returnType);
+        }
+
+        if (expr instanceof TypeAlAnonymFunc){
+            var funcArgs = ((TypeAlAnonymFunc) expr).fargs_;
+            var returnType = getRealType(context, ((TypeAlAnonymFunc) expr).ident_);
+            var body = ((ProgramExprs) ((TypeAlAnonymFunc) expr).program_).listexpr_;
+
+            checkAndGetReturnType(context, body, returnType);
+            return new FuncType(funcArgs, returnType);
+        }
+
         return null;
     }
 
-    private Type checkFunction(Context context, String ident, FuncArgs args, ListExpr body, Type funcType) throws TypeException {
+    private void checkName(Context context, String ident, Expr expr) throws NameAlreadyUsedException {
+        var type = getType(context, ident);
+        if (type != null)
+            throw new NameAlreadyUsedException(ident, expr);
+    }
+
+    private Type checkFunction(Context context, String ident, FuncArgs args, ListExpr body, Type funcType) throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
         context.functions.add(new Function(ident, funcType, args));
 
         var newContext = new Context();
         for (Dec arg : args.listdec_){
             newContext.variables.add(new Variable(((Declaration) arg).ident_, ((Declaration) arg).type_));
         }
-        return checkAndGetProgramType(newContext, body, funcType);
+        return checkAndGetReturnType(newContext, body, funcType);
     }
 
     private Type getType(Context context, String ident) {
@@ -420,6 +451,10 @@ public class TypeChecker {
         Table table = getTable(context, ident);
         if (table != null)
             return table.type;
+
+        Function function = getFunction(context, ident);
+        if (function != null)
+            return new FuncType(function.args, function.returnType);
 
         return null;
     }
@@ -432,9 +467,9 @@ public class TypeChecker {
         return null;
     }
 
-    private Table getTable(Context context, String tableIdent) {
+    private Table getTable(Context context, String ident) {
         var table = context.tables.stream()
-                .filter(c -> tableIdent.equals(c.ident))
+                .filter(c -> ident.equals(c.ident))
                 .findAny()
                 .orElse(null);
         return table;
@@ -448,7 +483,15 @@ public class TypeChecker {
         return variable;
     }
 
-    private Type checkAndGetProgramType(Context context, List<Expr> body, Type expectedType) throws TypeException{
+    private Function getFunction(Context context, String ident){
+        var function = context.functions.stream()
+                .filter(c -> ident.equals(c.ident))
+                .findAny()
+                .orElse(null);
+        return function;
+    }
+
+    private Type checkAndGetReturnType(Context context, List<Expr> body, Type expectedType) throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
         var returnType = getReturnTypeOfProgram(context, body);
         var returnExpr = getReturnExpr(body);
 
@@ -460,7 +503,7 @@ public class TypeChecker {
         }
     }
 
-    private Type getReturnTypeOfProgram(Context context, List<Expr> body) throws TypeException{
+    private Type getReturnTypeOfProgram(Context context, List<Expr> body) throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
         Type returnType = null;
         for (var expr : body) {
             typeOf(context, expr);
@@ -508,16 +551,6 @@ public class TypeChecker {
         return null;
     }
 
-    private void undefinedVar(Expr expr) {
-        System.out.println("undefined variable with unknown type \n");
-        PrettyPrinter.print(expr);
-    }
-
-    private void undefinedFunc(Expr expr) {
-//        System.out.println("undefined function with unknown type \n");
-//        System.out.println(PrettyPrinter.print(expr));
-    }
-
     public boolean isSameType(Type type1, Type type2) {
         return type1.getClass().equals(type2.getClass());
     }
@@ -532,7 +565,7 @@ public class TypeChecker {
         return null;
     }
 
-    private Type typeCheck(Context context, Expr expr, Type expected_type) throws TypeException{
+    private Type typeCheck(Context context, Expr expr, Type expected_type) throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
         var actual_type = typeOf(context, expr);
         if (isSameType(expected_type, actual_type)){
             return actual_type;

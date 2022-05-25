@@ -86,20 +86,30 @@ t.y = z;
 x : var = let x1: integer = 2,
               x2: integer = 3
               in x1;
+x;
 
 --20
 x : var = let x1: var = 2,
               x2: integer = 2
               in x1;
+x;
 
 --21
 int : type = integer;
 x : var = let x1: var = 2,
               x2: int = 2
               in x2;
+x;
 
 --22
 int : type = integer;
 x : var = let x1: var = 2,
               x2: int = "2"
+              in x2;
+
+--23
+str : type = string;
+int : type = integer;
+x : str = let x1: var = 2,
+              x2: int = 2
               in x2;

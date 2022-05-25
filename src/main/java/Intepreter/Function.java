@@ -5,12 +5,12 @@ import sample.Absyn.Type;
 
 public class Function{
     public String ident;
-    public Type type;
+    public Type returnType;
     public FuncArgs args;
 
-    public Function(String ident, Type type, FuncArgs args){
+    public Function(String ident, Type returnType, FuncArgs args){
         this.ident = ident;
-        this.type = type;
+        this.returnType = returnType;
         this.args = args;
     }
 }

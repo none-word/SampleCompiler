@@ -1,8 +1,6 @@
 package TypeCheckerTests;
 
-import Intepreter.Context;
-import Intepreter.TypeChecker;
-import Intepreter.TypeException;
+import Intepreter.*;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -51,19 +49,19 @@ public class IfTests {
     }
 
     @Test
-    public void test_1() throws TypeException {
+    public void test_1() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
         var type = typeChecker.typeOf(new Context(), exprs.get(0));
         Assert.assertTrue(typeChecker.isSameType(type, new VoidType()));
     }
 
     @Test
-    public void test_2() throws TypeException {
+    public void test_2() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
         var type = typeChecker.typeOf(new Context(), exprs.get(1));
         Assert.assertTrue(typeChecker.isSameType(type, new VoidType()));
     }
 
     @Test
-    public void test_3() throws TypeException {
+    public void test_3() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
         var context = new Context();
         var type = typeChecker.typeOf(context, exprs.get(2));
         type = typeChecker.typeOf(context, exprs.get(3));
@@ -72,7 +70,7 @@ public class IfTests {
     }
 
     @Test(expected = TypeException.class)
-    public void test_4() throws TypeException {
+    public void test_4() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
         var context = new Context();
         var type = typeChecker.typeOf(context, exprs.get(4));
         type = typeChecker.typeOf(context, exprs.get(5));
