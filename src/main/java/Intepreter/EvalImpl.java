@@ -22,17 +22,21 @@ public class EvalImpl implements Eval {
     @Override
     public Expr evalProgram(ProgramExprs program) {
         for (Expr expr : program.listexpr_) {
-            String type = expr.getClass().getSimpleName();
-            if (type.equals("Return")) {
-                return evalExpr(expr);
-            }
-            if (type.equals("Import")) {
-                evalType((Import) expr, program);
-                return null;
-            }
-            var result = evalExpr(expr);
-            if (type.equals("If") && result != null) {
-                return result;
+            try {
+                String type = expr.getClass().getSimpleName();
+                if (type.equals("Return")) {
+                    return evalExpr(expr);
+                }
+                if (type.equals("Import")) {
+                    evalType((Import) expr, program);
+                    return null;
+                }
+                var result = evalExpr(expr);
+                if (type.equals("If") && result != null) {
+                    return result;
+                }
+            } catch (Exception e) {
+                throw new RuntimeException(PrettyPrinter.print(expr));
             }
         }
         return null;
@@ -313,16 +317,17 @@ public class EvalImpl implements Eval {
     public Expr evalType(VarTypeAnnotation expr) {
         var typeChecker = new TypeChecker();
         Context context = new Context();
+        Type type;
         try {
-            Type type = typeChecker.typeOf(context, expr);
-            evalType(new InitDecl(
-                    new Declaration(expr.ident_, type),
-                    expr.expr_
-            ));
-            return null;
+            type = typeChecker.typeOf(context, expr);
         } catch (Exception e) {
-            return null;
+            type = new IntType();
         }
+        evalType(new InitDecl(
+                new Declaration(expr.ident_, type),
+                expr.expr_
+        ));
+        return null;
     }
 
     @Override
@@ -470,6 +475,10 @@ public class EvalImpl implements Eval {
         Expr result = evalExpr(expr.expr_);
         String type = expr.dec_.getClass().getSimpleName();
         String ident;
+        if (((Declaration) expr.dec_).type_ instanceof FuncType ) {
+            functionStorage.saveFunction(((Declaration)expr.dec_).ident_, (FuncArgs) ((AnonymFunc) result).fargs_, ((AnonymFunc) result).type_, ((AnonymFunc) result).program_);
+            return null;
+        }
         if (type.equals("Declaration")) {
             Declaration dec = (Declaration) expr.dec_;
             variableStorage.saveVariable(dec.ident_, dec.type_, result);
@@ -519,6 +528,7 @@ public class EvalImpl implements Eval {
     @Override
     public Expr evalType(InitFuncDecl expr) {
         functionStorage.saveFunction(expr.ident_, (FuncArgs) ((AnonymFunc) expr.expr_).fargs_, ((AnonymFunc) expr.expr_).type_, ((AnonymFunc) expr.expr_).program_);
+        variableStorage.saveVariable(expr.ident_, new FuncType(((AnonymFunc) expr.expr_).fargs_, ((AnonymFunc) expr.expr_).type_), expr.expr_);
         return null;
     }
 

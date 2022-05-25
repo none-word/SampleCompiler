@@ -10,11 +10,11 @@ function gcd_1(a : integer, b : integer) : integer
 end;
 
 function lcm(a : integer, b : integer) : integer
-		function gcd(a : integer, b : integer) : integer
-			if (equal(b, 0)) then
-				return a;
+		function gcd(r : integer, t : integer) : integer
+			if (equal(t, 0)) then
+				return r;
 		    else
-				return gcd(b, mod(a, b););
+				return gcd(t, mod(r, t););
 		    end;
         end;
 
@@ -28,4 +28,5 @@ end;
 
 x : integer = 40;
 y : var = 35;
-return(apply_function_to_lcm(x, y, (a: integer) -> {return add_int_1(a)} : integer));
+f : func = (a: integer) -> {return add_int_1(a);} : integer;
+return(apply_function_to_lcm(x, y, f));

@@ -27,10 +27,10 @@ public class Interpreter {
             typeCheck(programExprs.listexpr_);
             var result = eval.evalProgram(programExprs);
             System.out.println();
-            System.out.println("Result: " + PrettyPrinter.print(result));
+            System.out.println(PrettyPrinter.print(result));
         }
-        catch (Exception e){
-            System.out.println("Parse error in line " + e.getMessage());
+        catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
         }
     }
 
