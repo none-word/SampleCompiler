@@ -1,21 +1,28 @@
 package Intepreter;
 
-import Intepreter.Storage.VariableStorage;
 import sample.Absyn.*;
 
 import java.util.Objects;
 
 public class StandardLibraryImpl implements StandardLibrary {
     @Override
-    public Expr add(Expr expr1, Expr expr2, VariableStorage variableStorage) {
+    public Expr add(Expr expr1, Expr expr2, Eval eval) {
         String type1 = expr1.getClass().getSimpleName();
         String type2 = expr2.getClass().getSimpleName();
         if (type1.equals("Var")) {
-            expr1 = variableStorage.getVariable(((Var) expr1).ident_);
+            expr1 = eval.evalType((Var) expr1);
             type1 = expr1.getClass().getSimpleName();
         }
         if (type2.equals("Var")) {
-            expr2 = variableStorage.getVariable(((Var) expr2).ident_);
+            expr2 = eval.evalType((Var) expr2);
+            type2 = expr2.getClass().getSimpleName();
+        }
+        if (type1.equals("FuncCall")) {
+            expr1 = eval.evalType((FuncCall) expr1);
+            type1 = expr1.getClass().getSimpleName();
+        }
+        if (type2.equals("FuncCall")) {
+            expr2 = eval.evalType((FuncCall) expr2);
             type2 = expr2.getClass().getSimpleName();
         }
         if (type1.equals("EInt") && type2.equals("EInt"))
@@ -28,15 +35,23 @@ public class StandardLibraryImpl implements StandardLibrary {
     }
 
     @Override
-    public Expr sub(Expr expr1, Expr expr2, VariableStorage variableStorage) {
+    public Expr sub(Expr expr1, Expr expr2, Eval eval) {
         String type1 = expr1.getClass().getSimpleName();
         String type2 = expr2.getClass().getSimpleName();
         if (type1.equals("Var")) {
-            expr1 = variableStorage.getVariable(((Var) expr1).ident_);
+            expr1 = eval.evalType((Var) expr1);
             type1 = expr1.getClass().getSimpleName();
         }
         if (type2.equals("Var")) {
-            expr2 = variableStorage.getVariable(((Var) expr2).ident_);
+            expr2 = eval.evalType((Var) expr2);
+            type2 = expr2.getClass().getSimpleName();
+        }
+        if (type1.equals("FuncCall")) {
+            expr1 = eval.evalType((FuncCall) expr1);
+            type1 = expr1.getClass().getSimpleName();
+        }
+        if (type2.equals("FuncCall")) {
+            expr2 = eval.evalType((FuncCall) expr2);
             type2 = expr2.getClass().getSimpleName();
         }
         if (type1.equals("EInt") && type2.equals("EInt"))
@@ -47,15 +62,23 @@ public class StandardLibraryImpl implements StandardLibrary {
     }
 
     @Override
-    public Expr mul(Expr expr1, Expr expr2, VariableStorage variableStorage) {
+    public Expr mul(Expr expr1, Expr expr2, Eval eval) {
         String type1 = expr1.getClass().getSimpleName();
         String type2 = expr2.getClass().getSimpleName();
         if (type1.equals("Var")) {
-            expr1 = variableStorage.getVariable(((Var) expr1).ident_);
+            expr1 = eval.evalType((Var) expr1);
             type1 = expr1.getClass().getSimpleName();
         }
         if (type2.equals("Var")) {
-            expr2 = variableStorage.getVariable(((Var) expr2).ident_);
+            expr2 = eval.evalType((Var) expr2);
+            type2 = expr2.getClass().getSimpleName();
+        }
+        if (type1.equals("FuncCall")) {
+            expr1 = eval.evalType((FuncCall) expr1);
+            type1 = expr1.getClass().getSimpleName();
+        }
+        if (type2.equals("FuncCall")) {
+            expr2 = eval.evalType((FuncCall) expr2);
             type2 = expr2.getClass().getSimpleName();
         }
         if (type1.equals("EInt") && type2.equals("EInt"))
@@ -66,15 +89,23 @@ public class StandardLibraryImpl implements StandardLibrary {
     }
 
     @Override
-    public Expr div(Expr expr1, Expr expr2, VariableStorage variableStorage) {
+    public Expr div(Expr expr1, Expr expr2, Eval eval) {
         String type1 = expr1.getClass().getSimpleName();
         String type2 = expr2.getClass().getSimpleName();
         if (type1.equals("Var")) {
-            expr1 = variableStorage.getVariable(((Var) expr1).ident_);
+            expr1 = eval.evalType((Var) expr1);
             type1 = expr1.getClass().getSimpleName();
         }
         if (type2.equals("Var")) {
-            expr2 = variableStorage.getVariable(((Var) expr2).ident_);
+            expr2 = eval.evalType((Var) expr2);
+            type2 = expr2.getClass().getSimpleName();
+        }
+        if (type1.equals("FuncCall")) {
+            expr1 = eval.evalType((FuncCall) expr1);
+            type1 = expr1.getClass().getSimpleName();
+        }
+        if (type2.equals("FuncCall")) {
+            expr2 = eval.evalType((FuncCall) expr2);
             type2 = expr2.getClass().getSimpleName();
         }
         if (type1.equals("EInt") && type2.equals("EInt"))
@@ -85,15 +116,23 @@ public class StandardLibraryImpl implements StandardLibrary {
     }
 
     @Override
-    public Expr mod(Expr expr1, Expr expr2, VariableStorage variableStorage) {
+    public Expr mod(Expr expr1, Expr expr2, Eval eval) {
         String type1 = expr1.getClass().getSimpleName();
         String type2 = expr2.getClass().getSimpleName();
         if (type1.equals("Var")) {
-            expr1 = variableStorage.getVariable(((Var) expr1).ident_);
+            expr1 = eval.evalType((Var) expr1);
             type1 = expr1.getClass().getSimpleName();
         }
         if (type2.equals("Var")) {
-            expr2 = variableStorage.getVariable(((Var) expr2).ident_);
+            expr2 = eval.evalType((Var) expr2);
+            type2 = expr2.getClass().getSimpleName();
+        }
+        if (type1.equals("FuncCall")) {
+            expr1 = eval.evalType((FuncCall) expr1);
+            type1 = expr1.getClass().getSimpleName();
+        }
+        if (type2.equals("FuncCall")) {
+            expr2 = eval.evalType((FuncCall) expr2);
             type2 = expr2.getClass().getSimpleName();
         }
         if (type1.equals("EInt") && type2.equals("EInt"))
@@ -104,10 +143,14 @@ public class StandardLibraryImpl implements StandardLibrary {
     }
 
     @Override
-    public Expr neg(Expr expr1, VariableStorage variableStorage) {
+    public Expr neg(Expr expr1, Eval eval) {
         String type1 = expr1.getClass().getSimpleName();
         if (type1.equals("Var")) {
-            expr1 = variableStorage.getVariable(((Var) expr1).ident_);
+            expr1 = eval.evalType((Var) expr1);
+            type1 = expr1.getClass().getSimpleName();
+        }
+        if (type1.equals("FuncCall")) {
+            expr1 = eval.evalType((FuncCall) expr1);
             type1 = expr1.getClass().getSimpleName();
         }
         if (type1.equals("EInt"))
@@ -118,15 +161,23 @@ public class StandardLibraryImpl implements StandardLibrary {
     }
 
     @Override
-    public Expr exp(Expr expr1, Expr expr2, VariableStorage variableStorage) {
+    public Expr exp(Expr expr1, Expr expr2, Eval eval) {
         String type1 = expr1.getClass().getSimpleName();
         String type2 = expr2.getClass().getSimpleName();
         if (type1.equals("Var")) {
-            expr1 = variableStorage.getVariable(((Var) expr1).ident_);
+            expr1 = eval.evalType((Var) expr1);
             type1 = expr1.getClass().getSimpleName();
         }
         if (type2.equals("Var")) {
-            expr2 = variableStorage.getVariable(((Var) expr2).ident_);
+            expr2 = eval.evalType((Var) expr2);
+            type2 = expr2.getClass().getSimpleName();
+        }
+        if (type1.equals("FuncCall")) {
+            expr1 = eval.evalType((FuncCall) expr1);
+            type1 = expr1.getClass().getSimpleName();
+        }
+        if (type2.equals("FuncCall")) {
+            expr2 = eval.evalType((FuncCall) expr2);
             type2 = expr2.getClass().getSimpleName();
         }
         if (type1.equals("EInt") && type2.equals("EInt"))
@@ -137,15 +188,23 @@ public class StandardLibraryImpl implements StandardLibrary {
     }
 
     @Override
-    public Expr greater(Expr expr1, Expr expr2, VariableStorage variableStorage) {
+    public Expr greater(Expr expr1, Expr expr2, Eval eval) {
         String type1 = expr1.getClass().getSimpleName();
         String type2 = expr2.getClass().getSimpleName();
         if (type1.equals("Var")) {
-            expr1 = variableStorage.getVariable(((Var) expr1).ident_);
+            expr1 = eval.evalType((Var) expr1);
             type1 = expr1.getClass().getSimpleName();
         }
         if (type2.equals("Var")) {
-            expr2 = variableStorage.getVariable(((Var) expr2).ident_);
+            expr2 = eval.evalType((Var) expr2);
+            type2 = expr2.getClass().getSimpleName();
+        }
+        if (type1.equals("FuncCall")) {
+            expr1 = eval.evalType((FuncCall) expr1);
+            type1 = expr1.getClass().getSimpleName();
+        }
+        if (type2.equals("FuncCall")) {
+            expr2 = eval.evalType((FuncCall) expr2);
             type2 = expr2.getClass().getSimpleName();
         }
         if (type1.equals("EInt") && type2.equals("EInt"))
@@ -156,15 +215,23 @@ public class StandardLibraryImpl implements StandardLibrary {
     }
 
     @Override
-    public Expr less(Expr expr1, Expr expr2, VariableStorage variableStorage) {
+    public Expr less(Expr expr1, Expr expr2, Eval eval) {
         String type1 = expr1.getClass().getSimpleName();
         String type2 = expr2.getClass().getSimpleName();
         if (type1.equals("Var")) {
-            expr1 = variableStorage.getVariable(((Var) expr1).ident_);
+            expr1 = eval.evalType((Var) expr1);
             type1 = expr1.getClass().getSimpleName();
         }
         if (type2.equals("Var")) {
-            expr2 = variableStorage.getVariable(((Var) expr2).ident_);
+            expr2 = eval.evalType((Var) expr2);
+            type2 = expr2.getClass().getSimpleName();
+        }
+        if (type1.equals("FuncCall")) {
+            expr1 = eval.evalType((FuncCall) expr1);
+            type1 = expr1.getClass().getSimpleName();
+        }
+        if (type2.equals("FuncCall")) {
+            expr2 = eval.evalType((FuncCall) expr2);
             type2 = expr2.getClass().getSimpleName();
         }
         if (type1.equals("EInt") && type2.equals("EInt"))
@@ -175,15 +242,23 @@ public class StandardLibraryImpl implements StandardLibrary {
     }
 
     @Override
-    public Expr equal(Expr expr1, Expr expr2, VariableStorage variableStorage) {
+    public Expr equal(Expr expr1, Expr expr2, Eval eval) {
         String type1 = expr1.getClass().getSimpleName();
         String type2 = expr2.getClass().getSimpleName();
         if (type1.equals("Var")) {
-            expr1 = variableStorage.getVariable(((Var) expr1).ident_);
+            expr1 = eval.evalType((Var) expr1);
             type1 = expr1.getClass().getSimpleName();
         }
         if (type2.equals("Var")) {
-            expr2 = variableStorage.getVariable(((Var) expr2).ident_);
+            expr2 = eval.evalType((Var) expr2);
+            type2 = expr2.getClass().getSimpleName();
+        }
+        if (type1.equals("FuncCall")) {
+            expr1 = eval.evalType((FuncCall) expr1);
+            type1 = expr1.getClass().getSimpleName();
+        }
+        if (type2.equals("FuncCall")) {
+            expr2 = eval.evalType((FuncCall) expr2);
             type2 = expr2.getClass().getSimpleName();
         }
         if (type1.equals("EInt") && type2.equals("EInt"))
@@ -194,15 +269,23 @@ public class StandardLibraryImpl implements StandardLibrary {
     }
 
     @Override
-    public Expr gOrE(Expr expr1, Expr expr2, VariableStorage variableStorage) {
+    public Expr gOrE(Expr expr1, Expr expr2, Eval eval) {
         String type1 = expr1.getClass().getSimpleName();
         String type2 = expr2.getClass().getSimpleName();
         if (type1.equals("Var")) {
-            expr1 = variableStorage.getVariable(((Var) expr1).ident_);
+            expr1 = eval.evalType((Var) expr1);
             type1 = expr1.getClass().getSimpleName();
         }
         if (type2.equals("Var")) {
-            expr2 = variableStorage.getVariable(((Var) expr2).ident_);
+            expr2 = eval.evalType((Var) expr2);
+            type2 = expr2.getClass().getSimpleName();
+        }
+        if (type1.equals("FuncCall")) {
+            expr1 = eval.evalType((FuncCall) expr1);
+            type1 = expr1.getClass().getSimpleName();
+        }
+        if (type2.equals("FuncCall")) {
+            expr2 = eval.evalType((FuncCall) expr2);
             type2 = expr2.getClass().getSimpleName();
         }
         if (type1.equals("EInt") && type2.equals("EInt"))
@@ -213,15 +296,23 @@ public class StandardLibraryImpl implements StandardLibrary {
     }
 
     @Override
-    public Expr lOrE(Expr expr1, Expr expr2, VariableStorage variableStorage) {
+    public Expr lOrE(Expr expr1, Expr expr2, Eval eval) {
         String type1 = expr1.getClass().getSimpleName();
         String type2 = expr2.getClass().getSimpleName();
         if (type1.equals("Var")) {
-            expr1 = variableStorage.getVariable(((Var) expr1).ident_);
+            expr1 = eval.evalType((Var) expr1);
             type1 = expr1.getClass().getSimpleName();
         }
         if (type2.equals("Var")) {
-            expr2 = variableStorage.getVariable(((Var) expr2).ident_);
+            expr2 = eval.evalType((Var) expr2);
+            type2 = expr2.getClass().getSimpleName();
+        }
+        if (type1.equals("FuncCall")) {
+            expr1 = eval.evalType((FuncCall) expr1);
+            type1 = expr1.getClass().getSimpleName();
+        }
+        if (type2.equals("FuncCall")) {
+            expr2 = eval.evalType((FuncCall) expr2);
             type2 = expr2.getClass().getSimpleName();
         }
         if (type1.equals("EInt") && type2.equals("EInt"))

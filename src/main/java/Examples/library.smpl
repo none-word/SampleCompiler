@@ -1,22 +1,20 @@
-global pi : var = 3.1415926;
-
-function add_int_1(a : integer) : integer
+[[function add_double_1(a : double) : double
 		return add(a, 1);
 end;
 
-function sub_int_1(a : integer) : integer
+function sub_double_1(a : double) : double
 		return sub(a, 1);
 end;
 
-function exp_int(a : integer, e : integer) : integer
+function exp_double(a : double, e : double) : double
         if (equal(0, e)) then
                 return 1;
         else
-                return mul(a, exp_int(a, sub_int_1(e)));
+                return mul(a, exp_double(a, sub_double_1(e)));
         end;
 end;
 
-function abs_int(a : integer) : integer
+function abs_double(a : double) : double
         if (greater(a, 0)) then
                 return a;
         else
@@ -24,7 +22,7 @@ function abs_int(a : integer) : integer
         end;
 end;
 
-function max_int(a : integer, b : integer) : integer
+function max_double(a : double, b : double) : double
         if (greater(a, b)) then
                 return a;
         else
@@ -33,10 +31,10 @@ function max_int(a : integer, b : integer) : integer
 end;
 
 
-function min_int(a : integer, b : integer) : integer
+function min_double(a : double, b : double) : double
         if (greater(a, b)) then
                 return b;
         else
                 return a;
         end;
-end;
+end;]]

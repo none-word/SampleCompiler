@@ -185,29 +185,29 @@ public class EvalImpl implements Eval {
         List<Expr> args = ((Vars) expr.comaexprs_).listexpr_;
         switch (funcName) {
             case ("add"):
-                return standardLibrary.add(args.get(0), args.get(1), variableStorage);
+                return standardLibrary.add(args.get(0), args.get(1), this);
             case ("sub"):
-                return standardLibrary.sub(args.get(0), args.get(1), variableStorage);
+                return standardLibrary.sub(args.get(0), args.get(1), this);
             case ("mul"):
-                return standardLibrary.mul(args.get(0), args.get(1), variableStorage);
+                return standardLibrary.mul(args.get(0), args.get(1), this);
             case ("div"):
-                return standardLibrary.div(args.get(0), args.get(1), variableStorage);
+                return standardLibrary.div(args.get(0), args.get(1), this);
             case ("mod"):
-                return standardLibrary.mod(args.get(0), args.get(1), variableStorage);
+                return standardLibrary.mod(args.get(0), args.get(1), this);
             case ("neg"):
-                return standardLibrary.neg(args.get(0), variableStorage);
-            case ("exp"):
-                return standardLibrary.exp(args.get(0), args.get(1), variableStorage);
+                return standardLibrary.neg(args.get(0), this);
+            case ("exponentiation"):
+                return standardLibrary.exp(args.get(0), args.get(1), this);
             case ("greater"):
-                return standardLibrary.greater(args.get(0), args.get(1), variableStorage);
+                return standardLibrary.greater(args.get(0), args.get(1), this);
             case ("less"):
-                return standardLibrary.less(args.get(0), args.get(1), variableStorage);
+                return standardLibrary.less(args.get(0), args.get(1), this);
             case ("equal"):
-                return standardLibrary.equal(args.get(0), args.get(1), variableStorage);
+                return standardLibrary.equal(args.get(0), args.get(1), this);
             case ("gOrE"):
-                return standardLibrary.gOrE(args.get(0), args.get(1), variableStorage);
+                return standardLibrary.gOrE(args.get(0), args.get(1), this);
             case ("lOrE"):
-                return standardLibrary.lOrE(args.get(0), args.get(1), variableStorage);
+                return standardLibrary.lOrE(args.get(0), args.get(1), this);
             case ("print"):
                 evalType((Vars) expr.comaexprs_).forEach(e -> System.out.print(PrettyPrinter.print(e)));
                 System.out.println();
@@ -494,7 +494,7 @@ public class EvalImpl implements Eval {
 /**------------------------------------------------------------**/
 
     @Override
-    public Expr evalType(LBFields fields) {
+    public void evalType(LBFields fields) {
         fields.listfield_.forEach(field -> {
             String type = field.getClass().getSimpleName();
             if (type.equals("LBField")) {
@@ -504,12 +504,11 @@ public class EvalImpl implements Eval {
                 TypeAnField typeAnField = (TypeAnField) field;
                 try {
                     variableStorage.saveVariable(typeAnField.ident_, (new TypeChecker()).typeOf(new Context(), typeAnField.expr_), typeAnField.expr_);
-                } catch (TypeException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
-        return null;
     }
 
     @Override

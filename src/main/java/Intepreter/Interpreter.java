@@ -52,7 +52,7 @@ public class Interpreter {
         return programExprs;
     }
 
-    private static void typeCheck(ListExpr exprs) throws TypeException{
+    private static void typeCheck(ListExpr exprs) throws TypeException, UndefinedIdentifierExpression, NameAlreadyUsedException {
         var typeChecker = new TypeChecker();
         Context context = new Context();
         for (var expr : exprs) {
