@@ -59,6 +59,10 @@ public class EvalImpl implements Eval {
                 return evalType((Func) expr);
             case ("TypeAlFunc"):
                 return evalType((TypeAlFunc) expr);
+            case ("AnonymFunc"):
+                return evalType((AnonymFunc) expr);
+            case ("TypeAlAnonymFunc"):
+                return evalType((TypeAlAnonymFunc) expr);
             case ("Return"):
                 return evalType((Return) expr);
             /*---------------------------------**/
@@ -111,6 +115,8 @@ public class EvalImpl implements Eval {
                 return evalType((InitTableDecl) expr);
             case ("InitGlTableDecl"):
                 return evalType((InitGlTableDecl) expr);
+            case ("InitFuncDecl"):
+                return evalType((InitFuncDecl) expr);
             case ("TableElementCall"):
                 return evalType((TableElementCall) expr);
             case ("TableElementAssignment"):
@@ -219,12 +225,22 @@ public class EvalImpl implements Eval {
 
     private Expr funcCall(FuncCall call) {
         Eval eval = new EvalImpl();
-        FuncArgs funcArgs = functionStorage.getArguments(call.ident_);
-        List<Expr> args = evalType((Vars) call.comaexprs_);
-        List<Expr> declarations = eval.evalType(funcArgs, args);
-        declarations.forEach(initDec -> eval.evalType((InitDecl) initDec));
-        Program program = functionStorage.getFunction(call.ident_);
-        return eval.evalProgram((ProgramExprs) program);
+        try {
+            FuncArgs funcArgs = functionStorage.getArguments(call.ident_);
+            List<Expr> args = evalType((Vars) call.comaexprs_);
+            List<Expr> declarations = eval.evalType(funcArgs, args);
+            declarations.forEach(initDec -> eval.evalType((InitDecl) initDec));
+            Program program = functionStorage.getFunction(call.ident_);
+            return eval.evalProgram((ProgramExprs) program);
+        } catch (Exception e) {
+            AnonymFunc anonymFunc = (AnonymFunc) variableStorage.getVariable(call.ident_);
+            FuncArgs funcArgs = (FuncArgs) anonymFunc.fargs_;
+            List<Expr> args = evalType((Vars) call.comaexprs_);
+            List<Expr> declarations = eval.evalType(funcArgs, args);
+            declarations.forEach(initDec -> eval.evalType((InitDecl) initDec));
+            Program program = anonymFunc.program_;
+            return eval.evalProgram((ProgramExprs) program);
+        }
     }
 
     @Override
@@ -245,7 +261,18 @@ public class EvalImpl implements Eval {
 
     @Override
     public Expr evalType(TypeAlFunc expr) {
-        return null;
+        functionStorage.saveFunction(expr.ident_1, (FuncArgs) expr.fargs_, typeStorage.getType(expr.ident_2), expr.program_);
+        return expr;
+    }
+
+    @Override
+    public Expr evalType(AnonymFunc expr) {
+        return expr;
+    }
+
+    @Override
+    public Expr evalType(TypeAlAnonymFunc expr) {
+        return expr;
     }
 
     @Override
@@ -402,7 +429,8 @@ public class EvalImpl implements Eval {
 
     @Override
     public Expr evalType(TypeAlGlDec dec) {
-        return null;
+        variableStorage.saveGlobalVariable(dec.ident_1, typeStorage.getType(dec.ident_2), null);
+        return variableStorage.getVariable(dec.ident_1);
     }
 
     @Override
@@ -417,7 +445,12 @@ public class EvalImpl implements Eval {
 
     @Override
     public Expr evalType(OnlyGlDecl expr) {
-        return evalType((GlDeclaration) expr.gldec_);
+        String type = expr.getClass().getSimpleName();
+        if (type.equals("GlDeclaration")) {
+            return evalType((GlDeclaration) expr.gldec_);
+        } else {
+            return evalType((TypeAlGlDec) expr.gldec_);
+        }
     }
 
     @Override
@@ -468,6 +501,12 @@ public class EvalImpl implements Eval {
     @Override
     public Expr evalType(InitGlTableDecl dec) {
         tableStorage.saveGlobalTable(dec);
+        return null;
+    }
+
+    @Override
+    public Expr evalType(InitFuncDecl expr) {
+        functionStorage.saveFunction(expr.ident_, (FuncArgs) ((AnonymFunc) expr.expr_).fargs_, ((AnonymFunc) expr.expr_).type_, ((AnonymFunc) expr.expr_).program_);
         return null;
     }
 
