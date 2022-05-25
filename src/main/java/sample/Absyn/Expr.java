@@ -19,9 +19,8 @@ public abstract class Expr implements java.io.Serializable {
     public R visit(sample.Absyn.VarTypeAnnotation p, A arg);
     public R visit(sample.Absyn.GlVarTypeAnnotation p, A arg);
     public R visit(sample.Absyn.FuncTypeAnnotation p, A arg);
-    public R visit(sample.Absyn.VarTypeAscription p, A arg);
-    public R visit(sample.Absyn.GlVarTypeAscription p, A arg);
-    public R visit(sample.Absyn.FuncTypeAscription p, A arg);
+    public R visit(sample.Absyn.TypeAscription p, A arg);
+    public R visit(sample.Absyn.TypeAscWithTypeAl p, A arg);
     public R visit(sample.Absyn.EInt p, A arg);
     public R visit(sample.Absyn.EDouble p, A arg);
     public R visit(sample.Absyn.EStr p, A arg);

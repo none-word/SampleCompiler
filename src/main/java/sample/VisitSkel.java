@@ -121,24 +121,15 @@ public class VisitSkel
       p.tannot_.accept(new TAnnotVisitor<R,A>(), arg);
       p.program_.accept(new ProgramVisitor<R,A>(), arg);
       return null;
-    }        public R visit(sample.Absyn.VarTypeAscription p, A arg)
-    { /* Code For VarTypeAscription Goes Here */
-      //p.ident_;
-      p.tascript_.accept(new TAscriptVisitor<R,A>(), arg);
+    }        public R visit(sample.Absyn.TypeAscription p, A arg)
+    { /* Code For TypeAscription Goes Here */
+      p.type_.accept(new TypeVisitor<R,A>(), arg);
       p.expr_.accept(new ExprVisitor<R,A>(), arg);
       return null;
-    }    public R visit(sample.Absyn.GlVarTypeAscription p, A arg)
-    { /* Code For GlVarTypeAscription Goes Here */
+    }    public R visit(sample.Absyn.TypeAscWithTypeAl p, A arg)
+    { /* Code For TypeAscWithTypeAl Goes Here */
       //p.ident_;
-      p.tascript_.accept(new TAscriptVisitor<R,A>(), arg);
       p.expr_.accept(new ExprVisitor<R,A>(), arg);
-      return null;
-    }    public R visit(sample.Absyn.FuncTypeAscription p, A arg)
-    { /* Code For FuncTypeAscription Goes Here */
-      //p.ident_;
-      p.fargs_.accept(new FArgsVisitor<R,A>(), arg);
-      p.tascript_.accept(new TAscriptVisitor<R,A>(), arg);
-      p.program_.accept(new ProgramVisitor<R,A>(), arg);
       return null;
     }    public R visit(sample.Absyn.EInt p, A arg)
     { /* Code For EInt Goes Here */
@@ -272,15 +263,6 @@ public class VisitSkel
     public R visit(sample.Absyn.TypeAnnotation p, A arg)
     { /* Code For TypeAnnotation Goes Here */
       p.varkw_.accept(new VarKWVisitor<R,A>(), arg);
-      return null;
-    }
-  }
-  public class TAscriptVisitor<R,A> implements TAscript.Visitor<R,A>
-  {
-    public R visit(sample.Absyn.TypeAscription p, A arg)
-    { /* Code For TypeAscription Goes Here */
-      p.tannot_.accept(new TAnnotVisitor<R,A>(), arg);
-      p.type_.accept(new TypeVisitor<R,A>(), arg);
       return null;
     }
   }

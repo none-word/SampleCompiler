@@ -213,21 +213,6 @@ public class PrettyPrinter
     buf_.delete(0,buf_.length());
     return temp;
   }
-  public static String print(sample.Absyn.TAscript foo)
-  {
-    pp(foo, 0);
-    trim();
-    String temp = buf_.toString();
-    buf_.delete(0,buf_.length());
-    return temp;
-  }
-  public static String show(sample.Absyn.TAscript foo)
-  {
-    sh(foo);
-    String temp = buf_.toString();
-    buf_.delete(0,buf_.length());
-    return temp;
-  }
   public static String print(sample.Absyn.Dec foo)
   {
     pp(foo, 0);
@@ -537,39 +522,26 @@ public class PrettyPrinter
        render("end");
        if (_i_ > 3) render(_R_PAREN);
     }
-    else     if (foo instanceof sample.Absyn.VarTypeAscription)
+    else     if (foo instanceof sample.Absyn.TypeAscription)
     {
-       sample.Absyn.VarTypeAscription _vartypeascription = (sample.Absyn.VarTypeAscription) foo;
+       sample.Absyn.TypeAscription _typeascription = (sample.Absyn.TypeAscription) foo;
        if (_i_ > 4) render(_L_PAREN);
-       pp(_vartypeascription.ident_, 0);
-       pp(_vartypeascription.tascript_, 0);
-       render("=");
-       pp(_vartypeascription.expr_, 0);
-       if (_i_ > 4) render(_R_PAREN);
-    }
-    else     if (foo instanceof sample.Absyn.GlVarTypeAscription)
-    {
-       sample.Absyn.GlVarTypeAscription _glvartypeascription = (sample.Absyn.GlVarTypeAscription) foo;
-       if (_i_ > 4) render(_L_PAREN);
-       render("global");
-       pp(_glvartypeascription.ident_, 0);
-       pp(_glvartypeascription.tascript_, 0);
-       render("=");
-       pp(_glvartypeascription.expr_, 0);
-       if (_i_ > 4) render(_R_PAREN);
-    }
-    else     if (foo instanceof sample.Absyn.FuncTypeAscription)
-    {
-       sample.Absyn.FuncTypeAscription _functypeascription = (sample.Absyn.FuncTypeAscription) foo;
-       if (_i_ > 4) render(_L_PAREN);
-       render("function");
-       pp(_functypeascription.ident_, 0);
+       pp(_typeascription.type_, 0);
+       render(":");
        render("(");
-       pp(_functypeascription.fargs_, 0);
+       pp(_typeascription.expr_, 0);
        render(")");
-       pp(_functypeascription.tascript_, 0);
-       pp(_functypeascription.program_, 0);
-       render("end");
+       if (_i_ > 4) render(_R_PAREN);
+    }
+    else     if (foo instanceof sample.Absyn.TypeAscWithTypeAl)
+    {
+       sample.Absyn.TypeAscWithTypeAl _typeascwithtypeal = (sample.Absyn.TypeAscWithTypeAl) foo;
+       if (_i_ > 4) render(_L_PAREN);
+       pp(_typeascwithtypeal.ident_, 0);
+       render(":");
+       render("(");
+       pp(_typeascwithtypeal.expr_, 0);
+       render(")");
        if (_i_ > 4) render(_R_PAREN);
     }
     else     if (foo instanceof sample.Absyn.EInt)
@@ -820,20 +792,6 @@ public class PrettyPrinter
        if (_i_ > 0) render(_L_PAREN);
        render(":");
        pp(_typeannotation.varkw_, 0);
-       if (_i_ > 0) render(_R_PAREN);
-    }
-  }
-
-  private static void pp(sample.Absyn.TAscript foo, int _i_)
-  {
-    if (foo instanceof sample.Absyn.TypeAscription)
-    {
-       sample.Absyn.TypeAscription _typeascription = (sample.Absyn.TypeAscription) foo;
-       if (_i_ > 0) render(_L_PAREN);
-       pp(_typeascription.tannot_, 0);
-       render("(");
-       pp(_typeascription.type_, 0);
-       render(")");
        if (_i_ > 0) render(_R_PAREN);
     }
   }
@@ -1133,35 +1091,22 @@ public class PrettyPrinter
        sh(_functypeannotation.program_);
        render(")");
     }
-    if (foo instanceof sample.Absyn.VarTypeAscription)
+    if (foo instanceof sample.Absyn.TypeAscription)
     {
-       sample.Absyn.VarTypeAscription _vartypeascription = (sample.Absyn.VarTypeAscription) foo;
+       sample.Absyn.TypeAscription _typeascription = (sample.Absyn.TypeAscription) foo;
        render("(");
-       render("VarTypeAscription");
-       sh(_vartypeascription.ident_);
-       sh(_vartypeascription.tascript_);
-       sh(_vartypeascription.expr_);
+       render("TypeAscription");
+       sh(_typeascription.type_);
+       sh(_typeascription.expr_);
        render(")");
     }
-    if (foo instanceof sample.Absyn.GlVarTypeAscription)
+    if (foo instanceof sample.Absyn.TypeAscWithTypeAl)
     {
-       sample.Absyn.GlVarTypeAscription _glvartypeascription = (sample.Absyn.GlVarTypeAscription) foo;
+       sample.Absyn.TypeAscWithTypeAl _typeascwithtypeal = (sample.Absyn.TypeAscWithTypeAl) foo;
        render("(");
-       render("GlVarTypeAscription");
-       sh(_glvartypeascription.ident_);
-       sh(_glvartypeascription.tascript_);
-       sh(_glvartypeascription.expr_);
-       render(")");
-    }
-    if (foo instanceof sample.Absyn.FuncTypeAscription)
-    {
-       sample.Absyn.FuncTypeAscription _functypeascription = (sample.Absyn.FuncTypeAscription) foo;
-       render("(");
-       render("FuncTypeAscription");
-       sh(_functypeascription.ident_);
-       sh(_functypeascription.fargs_);
-       sh(_functypeascription.tascript_);
-       sh(_functypeascription.program_);
+       render("TypeAscWithTypeAl");
+       sh(_typeascwithtypeal.ident_);
+       sh(_typeascwithtypeal.expr_);
        render(")");
     }
     if (foo instanceof sample.Absyn.EInt)
@@ -1393,19 +1338,6 @@ public class PrettyPrinter
        render("(");
        render("TypeAnnotation");
        sh(_typeannotation.varkw_);
-       render(")");
-    }
-  }
-
-  private static void sh(sample.Absyn.TAscript foo)
-  {
-    if (foo instanceof sample.Absyn.TypeAscription)
-    {
-       sample.Absyn.TypeAscription _typeascription = (sample.Absyn.TypeAscription) foo;
-       render("(");
-       render("TypeAscription");
-       sh(_typeascription.tannot_);
-       sh(_typeascription.type_);
        render(")");
     }
   }

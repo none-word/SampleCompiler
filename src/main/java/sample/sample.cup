@@ -33,7 +33,6 @@ nonterminal sample.Absyn.TypeAl TypeAl;
 nonterminal sample.Absyn.VarKW VarKW;
 nonterminal sample.Absyn.TAnnot TAnnot;
 nonterminal sample.Absyn.Expr Expr3;
-nonterminal sample.Absyn.TAscript TAscript;
 nonterminal sample.Absyn.Expr Expr4;
 nonterminal sample.Absyn.Expr Expr1;
 nonterminal sample.Absyn.Dec Dec;
@@ -144,11 +143,8 @@ Expr3 ::= _IDENT_:p_1 TAnnot:p_2 _SYMB_8 Expr:p_4  {: RESULT = new sample.Absyn.
   | _SYMB_17 _IDENT_:p_2 _SYMB_2 FArgs:p_4 _SYMB_3 TAnnot:p_6 Program:p_7 _SYMB_15  {: RESULT = new sample.Absyn.FuncTypeAnnotation(p_2,p_4,p_6,p_7); :}
   | Expr4:p_1  {: RESULT = p_1; :}
 ;
-TAscript ::= TAnnot:p_1 _SYMB_2 Type:p_3 _SYMB_3  {: RESULT = new sample.Absyn.TypeAscription(p_1,p_3); :} 
-;
-Expr4 ::= _IDENT_:p_1 TAscript:p_2 _SYMB_8 Expr:p_4  {: RESULT = new sample.Absyn.VarTypeAscription(p_1,p_2,p_4); :} 
-  | _SYMB_18 _IDENT_:p_2 TAscript:p_3 _SYMB_8 Expr:p_5  {: RESULT = new sample.Absyn.GlVarTypeAscription(p_2,p_3,p_5); :}
-  | _SYMB_17 _IDENT_:p_2 _SYMB_2 FArgs:p_4 _SYMB_3 TAscript:p_6 Program:p_7 _SYMB_15  {: RESULT = new sample.Absyn.FuncTypeAscription(p_2,p_4,p_6,p_7); :}
+Expr4 ::= Type:p_1 _SYMB_4 _SYMB_2 Expr:p_4 _SYMB_3  {: RESULT = new sample.Absyn.TypeAscription(p_1,p_4); :} 
+  | _IDENT_:p_1 _SYMB_4 _SYMB_2 Expr:p_4 _SYMB_3  {: RESULT = new sample.Absyn.TypeAscWithTypeAl(p_1,p_4); :}
 ;
 Expr1 ::= _INTEGER_:p_1  {: RESULT = new sample.Absyn.EInt(p_1); :} 
   | _DOUBLE_:p_1  {: RESULT = new sample.Absyn.EDouble(p_1); :}

@@ -132,23 +132,15 @@ public abstract class FoldVisitor<R,A> implements AllVisitor<R,A> {
       r = combine(p.program_.accept(this, arg), r, arg);
       return r;
     }
-    public R visit(sample.Absyn.VarTypeAscription p, A arg) {
+    public R visit(sample.Absyn.TypeAscription p, A arg) {
       R r = leaf(arg);
-      r = combine(p.tascript_.accept(this, arg), r, arg);
+      r = combine(p.type_.accept(this, arg), r, arg);
       r = combine(p.expr_.accept(this, arg), r, arg);
       return r;
     }
-    public R visit(sample.Absyn.GlVarTypeAscription p, A arg) {
+    public R visit(sample.Absyn.TypeAscWithTypeAl p, A arg) {
       R r = leaf(arg);
-      r = combine(p.tascript_.accept(this, arg), r, arg);
       r = combine(p.expr_.accept(this, arg), r, arg);
-      return r;
-    }
-    public R visit(sample.Absyn.FuncTypeAscription p, A arg) {
-      R r = leaf(arg);
-      r = combine(p.fargs_.accept(this, arg), r, arg);
-      r = combine(p.tascript_.accept(this, arg), r, arg);
-      r = combine(p.program_.accept(this, arg), r, arg);
       return r;
     }
     public R visit(sample.Absyn.EInt p, A arg) {
@@ -286,14 +278,6 @@ public abstract class FoldVisitor<R,A> implements AllVisitor<R,A> {
     public R visit(sample.Absyn.TypeAnnotation p, A arg) {
       R r = leaf(arg);
       r = combine(p.varkw_.accept(this, arg), r, arg);
-      return r;
-    }
-
-/* TAscript */
-    public R visit(sample.Absyn.TypeAscription p, A arg) {
-      R r = leaf(arg);
-      r = combine(p.tannot_.accept(this, arg), r, arg);
-      r = combine(p.type_.accept(this, arg), r, arg);
       return r;
     }
 

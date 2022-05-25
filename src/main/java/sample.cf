@@ -40,10 +40,8 @@ VarTypeAnnotation.   Expr3 ::= Ident TAnnot "=" Expr;
 GlVarTypeAnnotation. Expr3 ::= "global" Ident TAnnot "=" Expr;
 FuncTypeAnnotation.  Expr3 ::= "function" Ident "(" FArgs ")" TAnnot Program "end";
 
-TypeAscription.      TAscript ::= TAnnot "(" Type ")";
-VarTypeAscription.   Expr4 ::= Ident TAscript "=" Expr;
-GlVarTypeAscription. Expr4 ::= "global" Ident TAscript "=" Expr;
-FuncTypeAscription.  Expr4 ::= "function" Ident "(" FArgs ")" TAscript Program "end";
+TypeAscription.      Expr4 ::= Type ":" "(" Expr ")";
+TypeAscWithTypeAl.   Expr4 ::= Ident ":" "(" Expr ")";
 
 EInt.	          Expr1	::=	Integer	;
 EDouble.	      Expr1	::=	Double	;
