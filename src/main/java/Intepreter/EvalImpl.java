@@ -494,7 +494,28 @@ public class EvalImpl implements Eval {
 /**------------------------------------------------------------**/
 
     @Override
-    public Expr evalType(LetBinding expr) {
+    public Expr evalType(LBFields fields) {
+        fields.listfield_.forEach(field -> {
+            String type = field.getClass().getSimpleName();
+            if (type.equals("LBField")) {
+                LBField lbField = (LBField) field;
+                variableStorage.saveVariable(((Declaration) lbField.dec_).ident_, ((Declaration) lbField.dec_).type_, lbField.expr_);
+            } else {
+                TypeAnField typeAnField = (TypeAnField) field;
+                try {
+                    variableStorage.saveVariable(typeAnField.ident_, (new TypeChecker()).typeOf(new Context(), typeAnField.expr_), typeAnField.expr_);
+                } catch (TypeException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
         return null;
+    }
+
+    @Override
+    public Expr evalType(LetBinding expr) {
+        Eval eval = new EvalImpl();
+        eval.evalType((LBFields) expr.fields_);
+        return eval.evalExpr(expr.expr_);
     }
 }
