@@ -59,6 +59,18 @@ public class VisitSkel
       //p.ident_2;
       p.program_.accept(new ProgramVisitor<R,A>(), arg);
       return null;
+    }    public R visit(sample.Absyn.AnonymFunc p, A arg)
+    { /* Code For AnonymFunc Goes Here */
+      p.fargs_.accept(new FArgsVisitor<R,A>(), arg);
+      p.program_.accept(new ProgramVisitor<R,A>(), arg);
+      p.type_.accept(new TypeVisitor<R,A>(), arg);
+      return null;
+    }    public R visit(sample.Absyn.TypeAlAnonymFunc p, A arg)
+    { /* Code For TypeAlAnonymFunc Goes Here */
+      p.fargs_.accept(new FArgsVisitor<R,A>(), arg);
+      p.program_.accept(new ProgramVisitor<R,A>(), arg);
+      //p.ident_;
+      return null;
     }    public R visit(sample.Absyn.Return p, A arg)
     { /* Code For Return Goes Here */
       p.expr_.accept(new ExprVisitor<R,A>(), arg);
@@ -84,6 +96,11 @@ public class VisitSkel
     { /* Code For Or Goes Here */
       p.expr_1.accept(new ExprVisitor<R,A>(), arg);
       p.expr_2.accept(new ExprVisitor<R,A>(), arg);
+      return null;
+    }    public R visit(sample.Absyn.LetBinding p, A arg)
+    { /* Code For LetBinding Goes Here */
+      p.fields_.accept(new FieldsVisitor<R,A>(), arg);
+      p.expr_.accept(new ExprVisitor<R,A>(), arg);
       return null;
     }            public R visit(sample.Absyn.VarTypeAnnotation p, A arg)
     { /* Code For VarTypeAnnotation Goes Here */
@@ -285,13 +302,37 @@ public class VisitSkel
   {
     public R visit(sample.Absyn.GlDeclaration p, A arg)
     { /* Code For GlDeclaration Goes Here */
-      p.type_.accept(new TypeVisitor<R,A>(), arg);
       //p.ident_;
+      p.type_.accept(new TypeVisitor<R,A>(), arg);
       return null;
     }    public R visit(sample.Absyn.TypeAlGlDec p, A arg)
     { /* Code For TypeAlGlDec Goes Here */
       //p.ident_1;
       //p.ident_2;
+      return null;
+    }
+  }
+  public class FieldVisitor<R,A> implements Field.Visitor<R,A>
+  {
+    public R visit(sample.Absyn.TypeAnField p, A arg)
+    { /* Code For TypeAnField Goes Here */
+      //p.ident_;
+      p.varkw_.accept(new VarKWVisitor<R,A>(), arg);
+      p.expr_.accept(new ExprVisitor<R,A>(), arg);
+      return null;
+    }    public R visit(sample.Absyn.LBField p, A arg)
+    { /* Code For LBField Goes Here */
+      p.dec_.accept(new DecVisitor<R,A>(), arg);
+      p.expr_.accept(new ExprVisitor<R,A>(), arg);
+      return null;
+    }
+  }
+  public class FieldsVisitor<R,A> implements Fields.Visitor<R,A>
+  {
+    public R visit(sample.Absyn.LBFields p, A arg)
+    { /* Code For LBFields Goes Here */
+      for (Field x: p.listfield_)
+      { /* ... */ }
       return null;
     }
   }

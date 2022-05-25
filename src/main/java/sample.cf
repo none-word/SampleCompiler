@@ -18,6 +18,8 @@ FuncArgs.         FArgs ::= [Dec] ;
 separator Dec ",";
 Func.             Expr ::= "function" Ident "(" FArgs ")" ":" Type Program "end";
 TypeAlFunc.       Expr ::= "function" Ident "(" FArgs ")" ":" Ident Program "end";
+AnonymFunc.       Expr ::= "(" FArgs ")" "->" "{" Program "}" ":" Type;
+TypeAlAnonymFunc. Expr ::= "(" FArgs ")" "->" "{" Program "}" ":" Ident;
 Return.           Expr ::= "return" Expr;
 
 StringType.       Type ::= "string" ;
@@ -53,7 +55,7 @@ Or.                  Expr  ::= Expr "or" Expr ;
 
 Declaration.        Dec ::= Ident ":" Type ;
 TypeAlDecl.         Dec ::= Ident ":" Ident;
-GlDeclaration.      GlDec ::= "global" Type ":" Ident;
+GlDeclaration.      GlDec ::= "global" Ident ":" Type;
 TypeAlGlDec.        GlDec ::= "global" Ident ":" Ident;
 OnlyDecl.           Expr2 ::= Dec ;
 OnlyGlDecl.         Expr2 ::= GlDec ;
@@ -68,6 +70,12 @@ TableElementCall.   Expr2 ::= Ident "." Ident;
 TableElementAssignment. Expr2 ::= Ident "." Ident "=" Expr;
 
 Assignment.         Expr2 ::= Ident "=" Expr;
+
+TypeAnField.        Field ::= Ident ":" VarKW "=" Expr;
+LBField.            Field ::= Dec "=" Expr;
+LBFields.           Fields ::= [Field];
+separator Field ",";
+LetBinding.         Expr ::= "let" Fields "in" Expr;
 
 _. Expr ::= "(" Expr ")" ;
 _. Expr ::= Expr1 ;

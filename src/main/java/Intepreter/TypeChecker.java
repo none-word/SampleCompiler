@@ -3,6 +3,8 @@ package Intepreter;
 import sample.Absyn.*;
 import sample.PrettyPrinter;
 
+import java.text.BreakIterator;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TypeChecker {
@@ -145,6 +147,22 @@ public class TypeChecker {
 
             context.variables.add(new Variable(ident, exprType));
             return exprType;
+        }
+
+        if (expr instanceof VarTypeAscription){
+            var ident = ((VarTypeAscription) expr).ident_;
+            var predType = ((TypeAscription) ((VarTypeAscription) expr).tascript_).type_;
+            var decExpr = ((VarTypeAscription) expr).expr_;
+
+            return getTypeAndAddVariable(context, ident, predType, decExpr);
+        }
+
+        if (expr instanceof GlVarTypeAscription){
+            var ident = ((GlVarTypeAscription) expr).ident_;
+            var predType = ((TypeAscription) ((GlVarTypeAscription) expr).tascript_).type_;
+            var decExpr = ((GlVarTypeAscription) expr).expr_;
+
+            return getTypeAndAddVariable(context, ident, predType, decExpr);
         }
 
         if (expr instanceof Var){
@@ -342,6 +360,49 @@ public class TypeChecker {
             return funcType;
         }
 
+        if (expr instanceof FuncTypeAscription){
+            var ident = ((FuncTypeAscription) expr).ident_;
+            var args = ((FuncArgs) ((FuncTypeAscription) expr).fargs_);
+            var body = ((ProgramExprs) ((FuncTypeAscription) expr).program_).listexpr_;
+
+            var newContext = new Context();
+            for (Dec arg : args.listdec_){
+                newContext.variables.add(new Variable(((Declaration) arg).ident_, ((Declaration) arg).type_));
+            }
+            var funcType = getReturnTypeOfProgram(newContext, body);
+            context.functions.add(new Function(ident, funcType, args));
+
+            return funcType;
+        }
+
+        if (expr instanceof LetBinding){
+            var newContext = context;
+            newContext.variables = new ArrayList<>();
+            newContext.tables = new ArrayList<>();
+            var fields = ((LBFields) ((LetBinding) expr).fields_).listfield_;
+            for (var field : fields) {
+                if (field instanceof LBField){
+                    String fieldVarIdent = null;
+                    Type fieldVarType = null;
+                    var fieldExpr = ((LBField) field).expr_;
+                    var fieldDec = ((LBField) field).dec_;
+                    if (fieldDec instanceof Declaration){
+                        fieldVarIdent = ((Declaration) fieldDec).ident_;
+                        fieldVarType = ((Declaration) fieldDec).type_;
+                        typeCheck(newContext, fieldExpr, fieldVarType);
+                    }
+                    if (fieldDec instanceof TypeAlDecl){
+                        fieldVarIdent = ((TypeAlDecl) fieldDec).ident_1;
+                        fieldVarType = getRealType(newContext, ((TypeAlDecl) fieldDec).ident_2);
+                        typeCheck(newContext, fieldExpr, fieldVarType);
+                    }
+
+                    newContext.variables.add(new Variable(fieldVarIdent, fieldVarType));
+                }
+            }
+            return typeOf(newContext, ((LetBinding) expr).expr_);
+        }
+
         if (expr instanceof Not){
             var boolExpr = typeCheck(context, ((Not) expr).expr_, new BoolType());
             return boolExpr;
@@ -360,6 +421,26 @@ public class TypeChecker {
         }
 
         return null;
+    }
+
+    private Type getTypeAndAddVariable(Context context, String ident, Type predType, Expr decExpr) throws TypeException {
+        if (decExpr instanceof NilKeyword)
+            throw new TypeException("Cannot infer type: variable initializer is nil");
+
+        Type exprType = null;
+        if (!isSameType(predType, new IntType()) && decExpr instanceof EInt)
+            exprType = new IntType();
+        if (!isSameType(predType, new DoubleType()) && decExpr instanceof EDouble)
+            exprType = new DoubleType();
+        if (!isSameType(predType, new StringType()) && decExpr instanceof EStr)
+            exprType = new StringType();
+
+        if (exprType == null)
+            exprType = typeOf(context, decExpr);
+
+
+        context.variables.add(new Variable(ident, exprType));
+        return exprType;
     }
 
     private Type checkFunction(Context context, String ident, FuncArgs args, ListExpr body, Type funcType) throws TypeException {
