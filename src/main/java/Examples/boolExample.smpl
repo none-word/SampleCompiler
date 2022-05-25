@@ -1,6 +1,6 @@
 import standard_library, library;
 
-[[function gcd(a : integer, b : integer) : integer
+function gcd(a : integer, b : integer) : integer
 		print("Result: ", g);
 		if (equal(b, 0)) then
 				return a;
@@ -10,18 +10,19 @@ import standard_library, library;
 end;
 
 global g : integer = 10;
---a : table = (x : integer, y : integer);
---a.x = 7;
---print("Table: ", a.x);
+a : table = (x : integer, y : integer);
+a.x = 7;
+print("Table: ", a.x);
 int : type = integer;
 x : integer = 40;
 y : int = 35;
---y = add_1(y);
---let x : integer = 5, y : integer = 7 in print(gcd(x, y));
---print(add_2(x));
-return(gcd(x, y));]]
+y = add_int_1(y);
+let i : integer = 5, j : integer = 7 in print(gcd(i, j));
 
-
-x : integer = 3;
-y : integer = 4;
-return(exp_int(y, x));
+n : integer = 3;
+m : integer = 4;
+print(exp_int(m, n));
+o : double = 3.0;
+u : double = 4.0;
+print(max_double(o, u));
+return(gcd(x, y));

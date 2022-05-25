@@ -1,0 +1,31 @@
+import standard_library;
+
+function gcd_1(a : integer, b : integer) : integer
+		if (equal(b, 0)) then
+				return a;
+		else
+				c : integer = mod(a, b);
+				return gcd_1(b, c);
+		end;
+end;
+
+function lcm(a : integer, b : integer) : integer
+		function gcd(a : integer, b : integer) : integer
+			if (equal(b, 0)) then
+				return a;
+		    else
+				return gcd(b, mod(a, b););
+		    end;
+        end;
+
+		c : var = mul(a, b);
+		return div(c, gcd(a, b));
+end;
+
+function apply_function_to_lcm(a : integer, b : integer, f : func (a: integer -> integer)) : integer
+		return f(lcm(a, b));
+end;
+
+x : integer = 40;
+y : var = 35;
+return(apply_function_to_lcm(x, y, (a: integer) -> {return add_int_1(a)} : integer));

@@ -191,28 +191,40 @@ public class EvalImpl implements Eval {
         List<Expr> args = ((Vars) expr.comaexprs_).listexpr_;
         switch (funcName) {
             case ("add"):
+            case ("add_d"):
                 return standardLibrary.add(args.get(0), args.get(1), this);
             case ("sub"):
+            case ("sub_d"):
                 return standardLibrary.sub(args.get(0), args.get(1), this);
             case ("mul"):
+            case ("mul_d"):
                 return standardLibrary.mul(args.get(0), args.get(1), this);
             case ("div"):
+            case ("div_d"):
                 return standardLibrary.div(args.get(0), args.get(1), this);
             case ("mod"):
+            case ("mod_d"):
                 return standardLibrary.mod(args.get(0), args.get(1), this);
             case ("neg"):
+            case ("neg_d"):
                 return standardLibrary.neg(args.get(0), this);
             case ("exponentiation"):
+            case ("exponentiation_d"):
                 return standardLibrary.exp(args.get(0), args.get(1), this);
             case ("greater"):
+            case ("greater_d"):
                 return standardLibrary.greater(args.get(0), args.get(1), this);
             case ("less"):
+            case ("less_d"):
                 return standardLibrary.less(args.get(0), args.get(1), this);
             case ("equal"):
+            case ("equal_d"):
                 return standardLibrary.equal(args.get(0), args.get(1), this);
             case ("gOrE"):
+            case ("gOrE_d"):
                 return standardLibrary.gOrE(args.get(0), args.get(1), this);
             case ("lOrE"):
+            case ("lOrE_d"):
                 return standardLibrary.lOrE(args.get(0), args.get(1), this);
             case ("print"):
                 evalType((Vars) expr.comaexprs_).forEach(e -> System.out.print(PrettyPrinter.print(e)));
