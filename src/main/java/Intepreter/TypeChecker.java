@@ -312,7 +312,7 @@ public class TypeChecker {
             var newContext = context;
             addToContext(newContext, args.listdec_);
 
-            return checkAndGetReturnType(newContext, body, funcType);
+            return checkAndGetReturnType(newContext, body, funcType, ident);
         }
 
         if (expr instanceof TypeAlFunc){
@@ -326,7 +326,7 @@ public class TypeChecker {
 
             var newContext = context;
             addToContext(newContext, args.listdec_);
-            return checkAndGetReturnType(newContext, body, funcType);
+            return checkAndGetReturnType(newContext, body, funcType, ident);
         }
 
         if (expr instanceof FuncTypeAnnotation){
@@ -421,7 +421,7 @@ public class TypeChecker {
             var returnType = ((AnonymFunc) expr).type_;
             var body = ((ProgramExprs) ((AnonymFunc) expr).program_).listexpr_;
 
-            checkAndGetReturnType(context, body, returnType);
+            checkAndGetReturnType(context, body, returnType, null);
             return new FuncType(funcArgs, returnType);
         }
 
@@ -430,7 +430,7 @@ public class TypeChecker {
             var returnType = getRealType(context, ((TypeAlAnonymFunc) expr).ident_);
             var body = ((ProgramExprs) ((TypeAlAnonymFunc) expr).program_).listexpr_;
 
-            checkAndGetReturnType(context, body, returnType);
+            checkAndGetReturnType(context, body, returnType, null);
             return new FuncType(funcArgs, returnType);
         }
 
@@ -520,8 +520,8 @@ public class TypeChecker {
         return function;
     }
 
-    private Type checkAndGetReturnType(Context context, List<Expr> body, Type expectedType) throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
-        var returnType = getReturnTypeOfProgram(context, body, null);
+    private Type checkAndGetReturnType(Context context, List<Expr> body, Type expectedType, String programIdent) throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+        var returnType = getReturnTypeOfProgram(context, body, programIdent);
         var returnExpr = getReturnExpr(body);
 
         if (isSameType(expectedType, returnType)) {
@@ -535,9 +535,14 @@ public class TypeChecker {
     private Type getReturnTypeOfProgram(Context context, List<Expr> body, String programIdent) throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
         Type returnType = null;
         for (var expr : body) {
-            typeOf(context, expr);
+            if (programIdent != null && expr instanceof FuncCall)
+                if (((FuncCall) expr).ident_.equals(programIdent))
+                    continue;
 
             if (expr instanceof Return) {
+                if (programIdent != null && ((Return) expr).expr_ instanceof FuncCall)
+                    if (((FuncCall) ((Return) expr).expr_).ident_.equals(programIdent))
+                        continue;
                 var type = typeOf(context, ((Return) expr).expr_);
                 if (returnType == null)
                     returnType = type;
@@ -564,6 +569,7 @@ public class TypeChecker {
                     if (!isSameType(returnType, elseType))
                         throw new TypeException(returnType, elseType, getReturnExpr(((ProgramExprs) ((If) expr).program_2).listexpr_));
             }
+            typeOf(context, expr);
         }
         if (returnType != null)
             return returnType;
