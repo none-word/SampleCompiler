@@ -59,6 +59,6 @@ public interface Eval {
 /**--------------------------------------**/
     Expr evalType(Assignment expr);
 /**--------------------------------------**/
-    Expr evalType(LBFields fields);
-    Expr evalType(LetBinding expr); // ToDo
+    void evalType(LBFields fields);
+    Expr evalType(LetBinding expr);
 }
