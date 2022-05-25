@@ -12,7 +12,6 @@ public class ComposVisitor<A> implements
   sample.Absyn.TypeAl.Visitor<sample.Absyn.TypeAl,A>,
   sample.Absyn.VarKW.Visitor<sample.Absyn.VarKW,A>,
   sample.Absyn.TAnnot.Visitor<sample.Absyn.TAnnot,A>,
-  sample.Absyn.TAscript.Visitor<sample.Absyn.TAscript,A>,
   sample.Absyn.Dec.Visitor<sample.Absyn.Dec,A>,
   sample.Absyn.GlDec.Visitor<sample.Absyn.GlDec,A>,
   sample.Absyn.Field.Visitor<sample.Absyn.Field,A>,
@@ -130,25 +129,16 @@ public class ComposVisitor<A> implements
       TAnnot tannot_ = p.tannot_.accept(this, arg);
       Program program_ = p.program_.accept(this, arg);
       return new sample.Absyn.FuncTypeAnnotation(ident_, fargs_, tannot_, program_);
-    }    public Expr visit(sample.Absyn.VarTypeAscription p, A arg)
+    }    public Expr visit(sample.Absyn.TypeAscription p, A arg)
     {
-      String ident_ = p.ident_;
-      TAscript tascript_ = p.tascript_.accept(this, arg);
+      Type type_ = p.type_.accept(this, arg);
       Expr expr_ = p.expr_.accept(this, arg);
-      return new sample.Absyn.VarTypeAscription(ident_, tascript_, expr_);
-    }    public Expr visit(sample.Absyn.GlVarTypeAscription p, A arg)
+      return new sample.Absyn.TypeAscription(type_, expr_);
+    }    public Expr visit(sample.Absyn.TypeAscWithTypeAl p, A arg)
     {
       String ident_ = p.ident_;
-      TAscript tascript_ = p.tascript_.accept(this, arg);
       Expr expr_ = p.expr_.accept(this, arg);
-      return new sample.Absyn.GlVarTypeAscription(ident_, tascript_, expr_);
-    }    public Expr visit(sample.Absyn.FuncTypeAscription p, A arg)
-    {
-      String ident_ = p.ident_;
-      FArgs fargs_ = p.fargs_.accept(this, arg);
-      TAscript tascript_ = p.tascript_.accept(this, arg);
-      Program program_ = p.program_.accept(this, arg);
-      return new sample.Absyn.FuncTypeAscription(ident_, fargs_, tascript_, program_);
+      return new sample.Absyn.TypeAscWithTypeAl(ident_, expr_);
     }    public Expr visit(sample.Absyn.EInt p, A arg)
     {
       Integer integer_ = p.integer_;
@@ -276,13 +266,6 @@ public class ComposVisitor<A> implements
     {
       VarKW varkw_ = p.varkw_.accept(this, arg);
       return new sample.Absyn.TypeAnnotation(varkw_);
-    }
-/* TAscript */
-    public TAscript visit(sample.Absyn.TypeAscription p, A arg)
-    {
-      TAnnot tannot_ = p.tannot_.accept(this, arg);
-      Type type_ = p.type_.accept(this, arg);
-      return new sample.Absyn.TypeAscription(tannot_, type_);
     }
 /* Dec */
     public Dec visit(sample.Absyn.Declaration p, A arg)

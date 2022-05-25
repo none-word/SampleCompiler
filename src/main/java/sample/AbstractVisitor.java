@@ -31,9 +31,8 @@ public class AbstractVisitor<R,A> implements AllVisitor<R,A> {
     public R visit(sample.Absyn.GlVarTypeAnnotation p, A arg) { return visitDefault(p, arg); }
     public R visit(sample.Absyn.FuncTypeAnnotation p, A arg) { return visitDefault(p, arg); }
 
-    public R visit(sample.Absyn.VarTypeAscription p, A arg) { return visitDefault(p, arg); }
-    public R visit(sample.Absyn.GlVarTypeAscription p, A arg) { return visitDefault(p, arg); }
-    public R visit(sample.Absyn.FuncTypeAscription p, A arg) { return visitDefault(p, arg); }
+    public R visit(sample.Absyn.TypeAscription p, A arg) { return visitDefault(p, arg); }
+    public R visit(sample.Absyn.TypeAscWithTypeAl p, A arg) { return visitDefault(p, arg); }
     public R visit(sample.Absyn.EInt p, A arg) { return visitDefault(p, arg); }
     public R visit(sample.Absyn.EDouble p, A arg) { return visitDefault(p, arg); }
     public R visit(sample.Absyn.EStr p, A arg) { return visitDefault(p, arg); }
@@ -86,11 +85,6 @@ public class AbstractVisitor<R,A> implements AllVisitor<R,A> {
 /* TAnnot */
     public R visit(sample.Absyn.TypeAnnotation p, A arg) { return visitDefault(p, arg); }
     public R visitDefault(sample.Absyn.TAnnot p, A arg) {
-      throw new IllegalArgumentException(this.getClass().getName() + ": " + p);
-    }
-/* TAscript */
-    public R visit(sample.Absyn.TypeAscription p, A arg) { return visitDefault(p, arg); }
-    public R visitDefault(sample.Absyn.TAscript p, A arg) {
       throw new IllegalArgumentException(this.getClass().getName() + ": " + p);
     }
 /* Dec */
