@@ -49,7 +49,7 @@ public class TypeAliasingTests {
     }
 
     @Test
-    public void test_1() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_1() throws TypeException, UndefinedIdentifierExpression {
         var context = new Context();
         var type = typeChecker.typeOf(context, exprs.get(0));
         type = typeChecker.typeOf(context, exprs.get(1));
@@ -58,14 +58,14 @@ public class TypeAliasingTests {
     }
 
     @Test(expected = TypeException.class)
-    public void test_2() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_2() throws TypeException, UndefinedIdentifierExpression {
         var context = new Context();
         var type = typeChecker.typeOf(context, exprs.get(3));
         type = typeChecker.typeOf(context, exprs.get(4));
     }
 
     @Test
-    public void test_3() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_3() throws TypeException, UndefinedIdentifierExpression {
         var context = new Context();
         var type = typeChecker.typeOf(context, exprs.get(5));
         type = typeChecker.typeOf(context, exprs.get(6));
@@ -74,7 +74,7 @@ public class TypeAliasingTests {
     }
 
     @Test(expected = TypeException.class)
-    public void test_4() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_4() throws TypeException, UndefinedIdentifierExpression {
         var context = new Context();
         var type = typeChecker.typeOf(context, exprs.get(8));
         type = typeChecker.typeOf(context, exprs.get(9));

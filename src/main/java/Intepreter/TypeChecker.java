@@ -8,7 +8,7 @@ import java.util.List;
 
 public class TypeChecker {
 
-    public Type typeOf(Context context, Expr expr) throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public Type typeOf(Context context, Expr expr) throws TypeException, UndefinedIdentifierExpression {
         addBultInFunctions(context);
 
         if (expr instanceof EInt)
@@ -34,7 +34,8 @@ public class TypeChecker {
         if (expr instanceof TypeAliasing){
             var ident = ((TypeAlIdent) ((TypeAliasing) expr).typeal_).ident_;
             var type = ((TypeAliasing) expr).type_;
-            checkName(context, ident, expr);
+
+
             context.aliasedTypes.add(new AliasedTypes(ident, type));
             return type;
         }
@@ -53,7 +54,7 @@ public class TypeChecker {
                 type = getRealType(context, ((TypeAlDecl) decl).ident_2);
             }
 
-            checkName(context, ident, expr);
+
             context.variables.add(new Variable(ident, type));
             return type;
         }
@@ -72,7 +73,7 @@ public class TypeChecker {
                 type = getRealType(context, ((TypeAlGlDec) decl).ident_2);
             }
 
-            checkName(context, ident, expr);
+
             context.variables.add(new Variable(ident, type));
             return type;
         }
@@ -93,7 +94,7 @@ public class TypeChecker {
                 return type;
 
             var exprType = typeCheck(context, decExpr, type);
-            checkName(context, ident, expr);
+
             context.variables.add(new Variable(ident, type));
             return type;
         }
@@ -114,7 +115,7 @@ public class TypeChecker {
                 return type;
 
             var exprType = typeCheck(context, decExpr, type);
-            checkName(context, ident, expr);
+
             context.variables.add(new Variable(ident, type));
             return type;
         }
@@ -125,8 +126,6 @@ public class TypeChecker {
 
             var type = typeOf(context, expression);
             if (type instanceof FuncType) {
-                checkName(context, ident, expr);
-                checkName(context, ident, expr);
                 context.functions.add(new Function(ident, ((FuncType) type).type_, ((FuncArgs) ((FuncType) type).fargs_)));
             }
             else
@@ -142,7 +141,7 @@ public class TypeChecker {
 
             var exprType = typeOf(context, decExpr);
 
-            checkName(context, ident, expr);
+
             context.variables.add(new Variable(ident, exprType));
             return exprType;
         }
@@ -156,7 +155,7 @@ public class TypeChecker {
 
             var exprType = typeOf(context, decExpr);
 
-            checkName(context, ident, expr);
+
             context.variables.add(new Variable(ident, exprType));
             return exprType;
         }
@@ -184,7 +183,7 @@ public class TypeChecker {
             if (var_1 == null || var_2 == null)
                 throw new UndefinedIdentifierExpression(expr);
 
-            checkName(context, ident, expr);
+
             context.tables.add(new Table(ident, type, var_1, var_2));
             return type;
         }
@@ -204,7 +203,7 @@ public class TypeChecker {
             if (var_1 == null || var_2 == null)
                 throw new UndefinedIdentifierExpression(expr);
 
-            checkName(context, ident, expr);
+
             context.tables.add(new Table(ident, type, var_1, var_2));
             return type;
         }
@@ -221,7 +220,7 @@ public class TypeChecker {
             var identVar_2 = ((Declaration) ((InitTableDecl) expr).dec_3).ident_;
             var typeVar_2 = ((Declaration) ((InitTableDecl) expr).dec_3).type_;
 
-            checkName(context, ident, expr);
+
             context.tables.add(new Table(ident, type, new Variable(identVar_1, typeVar_2),
                     new Variable(identVar_2, typeVar_2)));
             return type;
@@ -239,7 +238,7 @@ public class TypeChecker {
             var identVar_2 = ((Declaration) ((InitGlTableDecl) expr).dec_2).ident_;
             var typeVar_2 = ((Declaration) ((InitGlTableDecl) expr).dec_2).type_;
 
-            checkName(context, ident, expr);
+
             context.tables.add(new Table(ident, type, new Variable(identVar_1, typeVar_2),
                     new Variable(identVar_2, typeVar_2)));
             return type;
@@ -318,7 +317,7 @@ public class TypeChecker {
 
             var funcType = ((Func) expr).type_;
 
-            checkName(context, ident, expr);
+
             context.functions.add(new Function(ident, funcType, args));
 
             var newContext = new Context();
@@ -326,7 +325,7 @@ public class TypeChecker {
             newContext.functions = new ArrayList<>(context.functions);
             newContext.tables = new ArrayList<>(context.tables);
             newContext.aliasedTypes = new ArrayList<>(context.aliasedTypes);
-            addToContext(newContext, args.listdec_, expr);
+            addToContext(newContext, args.listdec_);
 
             return checkAndGetReturnType(newContext, body, funcType, ident);
         }
@@ -338,7 +337,7 @@ public class TypeChecker {
 
             var funcType = getRealType(context, ((TypeAlFunc) expr).ident_2);
 
-            checkName(context, ident, expr);
+
             context.functions.add(new Function(ident, funcType, args));
 
             var newContext = new Context();
@@ -346,7 +345,7 @@ public class TypeChecker {
             newContext.functions = new ArrayList<>(context.functions);
             newContext.tables = new ArrayList<>(context.tables);
             newContext.aliasedTypes = new ArrayList<>(context.aliasedTypes);
-            addToContext(newContext, args.listdec_, expr);
+            addToContext(newContext, args.listdec_);
             return checkAndGetReturnType(newContext, body, funcType, ident);
         }
 
@@ -360,9 +359,9 @@ public class TypeChecker {
             newContext.functions = new ArrayList<>(context.functions);
             newContext.tables = new ArrayList<>(context.tables);
             newContext.aliasedTypes = new ArrayList<>(context.aliasedTypes);
-            addToContext(newContext, args.listdec_, expr);
+            addToContext(newContext, args.listdec_);
             var funcType = getReturnTypeOfProgram(newContext, body, ident);
-            checkName(context, ident, expr);
+
             context.functions.add(new Function(ident, funcType, args));
 
             return funcType;
@@ -392,7 +391,6 @@ public class TypeChecker {
                         typeCheck(newContext, fieldExpr, fieldVarType);
                     }
 
-                    checkName(context, fieldVarIdent, expr);
                     newContext.variables.add(new Variable(fieldVarIdent, fieldVarType));
                 }
                 if (field instanceof TypeAnField){
@@ -404,7 +402,6 @@ public class TypeChecker {
 
                     var fieldVarType = typeOf(context, fieldVarExpr);
 
-                    checkName(context, fieldVarIdent, expr);
                     newContext.variables.add(new Variable(fieldVarIdent, fieldVarType));
                 }
             }
@@ -456,7 +453,7 @@ public class TypeChecker {
             newContext.functions = new ArrayList<>(context.functions);
             newContext.tables = new ArrayList<>(context.tables);
             newContext.aliasedTypes = new ArrayList<>(context.aliasedTypes);
-            addToContext(newContext, ((FuncArgs) funcArgs).listdec_, expr);
+            addToContext(newContext, ((FuncArgs) funcArgs).listdec_);
 
             checkAndGetReturnType(newContext, body, returnType, null);
             return new FuncType(funcArgs, returnType);
@@ -472,7 +469,7 @@ public class TypeChecker {
             newContext.functions = new ArrayList<>(context.functions);
             newContext.tables = new ArrayList<>(context.tables);
             newContext.aliasedTypes = new ArrayList<>(context.aliasedTypes);
-            addToContext(newContext, ((FuncArgs) funcArgs).listdec_, expr);
+            addToContext(newContext, ((FuncArgs) funcArgs).listdec_);
 
             checkAndGetReturnType(newContext, body, returnType, null);
             return new FuncType(funcArgs, returnType);
@@ -481,7 +478,7 @@ public class TypeChecker {
         return null;
     }
 
-    private void addToContext(Context newContext, ListDec args, Expr expr) throws TypeException, NameAlreadyUsedException {
+    private void addToContext(Context newContext, ListDec args) throws TypeException {
         for (var arg : args) {
             if (arg instanceof Declaration) {
                 var ident = ((Declaration) arg).ident_;
@@ -489,11 +486,9 @@ public class TypeChecker {
                 if (type instanceof TableType)
                     throw new TypeException("Incorrect table declaration");
                 if (type instanceof FuncType) {
-                    checkName(newContext, ident, expr);
                     newContext.functions.add(new Function(ident, ((FuncType) type).type_, ((FuncArgs) ((FuncType) type).fargs_)));
                 }
                 else {
-                    checkName(newContext, ident, expr);
                     newContext.variables.add(new Variable(ident, type));
                 }
             }
@@ -503,21 +498,13 @@ public class TypeChecker {
                 if (type instanceof TableType)
                     throw new TypeException("Incorrect table declaration");
                 if (type instanceof FuncType) {
-                    checkName(newContext, ident, expr);
                     newContext.functions.add(new Function(ident, ((FuncType) type).type_, ((FuncArgs) ((FuncType) type).fargs_)));
                 }
                 else {
-                    checkName(newContext, ident, expr);
                     newContext.variables.add(new Variable(ident, type));
                 }
             }
         }
-    }
-
-    private void checkName(Context context, String ident, Expr expr) throws NameAlreadyUsedException {
-        var type = getType(context, ident);
-        if (type != null)
-            throw new NameAlreadyUsedException(ident, expr);
     }
 
     private Type getType(Context context, String ident) {
@@ -568,7 +555,7 @@ public class TypeChecker {
         return function;
     }
 
-    private Type checkAndGetReturnType(Context context, List<Expr> body, Type expectedType, String programIdent) throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    private Type checkAndGetReturnType(Context context, List<Expr> body, Type expectedType, String programIdent) throws TypeException, UndefinedIdentifierExpression {
         var returnType = getReturnTypeOfProgram(context, body, programIdent);
         var returnExpr = getReturnExpr(body);
 
@@ -580,7 +567,7 @@ public class TypeChecker {
         }
     }
 
-    private Type getReturnTypeOfProgram(Context context, List<Expr> body, String programIdent) throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    private Type getReturnTypeOfProgram(Context context, List<Expr> body, String programIdent) throws TypeException, UndefinedIdentifierExpression {
         Type returnType = null;
         for (var expr : body) {
             if (programIdent != null && expr instanceof FuncCall)
@@ -648,7 +635,7 @@ public class TypeChecker {
         return null;
     }
 
-    private Type typeCheck(Context context, Expr expr, Type expected_type) throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    private Type typeCheck(Context context, Expr expr, Type expected_type) throws TypeException, UndefinedIdentifierExpression {
         var actual_type = typeOf(context, expr);
         if (isSameType(expected_type, actual_type)){
             return actual_type;

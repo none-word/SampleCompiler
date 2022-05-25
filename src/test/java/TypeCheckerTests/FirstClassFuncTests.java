@@ -49,13 +49,13 @@ public class FirstClassFuncTests {
     }
 
     @Test
-    public void test_1() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_1() throws TypeException, UndefinedIdentifierExpression {
         var type = typeChecker.typeOf(new Context(), exprs.get(0));
         Assert.assertTrue(typeChecker.isSameType(type, new BoolType()));
     }
 
     @Test(expected = TypeException.class)
-    public void test_2() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_2() throws TypeException, UndefinedIdentifierExpression {
         var type = typeChecker.typeOf(new Context(), exprs.get(1));
     }
 }

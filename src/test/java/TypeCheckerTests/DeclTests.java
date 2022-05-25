@@ -49,24 +49,24 @@ public class DeclTests {
     }
 
     @Test
-    public void test_1() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_1() throws TypeException, UndefinedIdentifierExpression {
         var type = typeChecker.typeOf(new Context(), exprs.get(0));
         Assert.assertTrue(typeChecker.isSameType(type, new IntType()));
     }
 
     @Test(expected = TypeException.class)
-    public void test_2() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_2() throws TypeException, UndefinedIdentifierExpression {
         var type = typeChecker.typeOf(new Context(), exprs.get(1));
     }
 
     @Test
-    public void test_3() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_3() throws TypeException, UndefinedIdentifierExpression {
         var type = typeChecker.typeOf(new Context(), exprs.get(2));
         Assert.assertTrue(typeChecker.isSameType(type, new StringType()));
     }
 
     @Test
-    public void test_4() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_4() throws TypeException, UndefinedIdentifierExpression {
         var context = new Context();
         var type = typeChecker.typeOf(context, exprs.get(3));
         type = typeChecker.typeOf(context, exprs.get(4));
@@ -75,25 +75,25 @@ public class DeclTests {
     }
 
     @Test(expected = TypeException.class)
-    public void test_5() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_5() throws TypeException, UndefinedIdentifierExpression {
         var context = new Context();
         var type = typeChecker.typeOf(context, exprs.get(5));
         type = typeChecker.typeOf(context, exprs.get(6));
     }
 
     @Test
-    public void test_6() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_6() throws TypeException, UndefinedIdentifierExpression {
         var type = typeChecker.typeOf(new Context(), exprs.get(7));
         Assert.assertTrue(typeChecker.isSameType(type, new IntType()));
     }
 
     @Test(expected = TypeException.class)
-    public void test_7() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_7() throws TypeException, UndefinedIdentifierExpression {
         var type = typeChecker.typeOf(new Context(), exprs.get(8));
     }
 
     @Test
-    public void test_8() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_8() throws TypeException, UndefinedIdentifierExpression {
         var context = new Context();
         var type = typeChecker.typeOf(context, exprs.get(9));
         type = typeChecker.typeOf(context, exprs.get(10));
@@ -103,7 +103,7 @@ public class DeclTests {
     }
 
     @Test(expected = TypeException.class)
-    public void test_9() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_9() throws TypeException, UndefinedIdentifierExpression {
         var context = new Context();
         var type = typeChecker.typeOf(context, exprs.get(12));
         type = typeChecker.typeOf(context, exprs.get(13));
@@ -111,7 +111,7 @@ public class DeclTests {
     }
 
     @Test(expected = TypeException.class)
-    public void test_10() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_10() throws TypeException, UndefinedIdentifierExpression {
         var context = new Context();
         var type = typeChecker.typeOf(context, exprs.get(15));
         type = typeChecker.typeOf(context, exprs.get(16));
@@ -119,13 +119,13 @@ public class DeclTests {
     }
 
     @Test
-    public void test_11() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_11() throws TypeException, UndefinedIdentifierExpression {
         var type = typeChecker.typeOf(new Context(), exprs.get(18));
         Assert.assertTrue(typeChecker.isSameType(type, new TableType()));
     }
 
     @Test
-    public void test_12() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_12() throws TypeException, UndefinedIdentifierExpression {
         var context = new Context();
         var type = typeChecker.typeOf(context, exprs.get(19));
         type = typeChecker.typeOf(context, exprs.get(20));
@@ -133,7 +133,7 @@ public class DeclTests {
     }
 
     @Test
-    public void test_13() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_13() throws TypeException, UndefinedIdentifierExpression {
         var context = new Context();
         var type = typeChecker.typeOf(context, exprs.get(21));
         type = typeChecker.typeOf(context, exprs.get(22));
@@ -142,7 +142,7 @@ public class DeclTests {
     }
 
     @Test
-    public void test_14() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_14() throws TypeException, UndefinedIdentifierExpression {
         var context = new Context();
         var type = typeChecker.typeOf(context, exprs.get(24));
         type = typeChecker.typeOf(context, exprs.get(25));
@@ -152,7 +152,7 @@ public class DeclTests {
     }
 
     @Test
-    public void test_15() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_15() throws TypeException, UndefinedIdentifierExpression {
         var context = new Context();
         var type = typeChecker.typeOf(context, exprs.get(28));
         type = typeChecker.typeOf(context, exprs.get(29));
@@ -163,7 +163,7 @@ public class DeclTests {
     }
 
     @Test
-    public void test_16() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_16() throws TypeException, UndefinedIdentifierExpression {
         var context = new Context();
         var type = typeChecker.typeOf(context, exprs.get(33));
         type = typeChecker.typeOf(context, exprs.get(34));
@@ -174,7 +174,7 @@ public class DeclTests {
     }
 
     @Test(expected = TypeException.class)
-    public void test_17() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_17() throws TypeException, UndefinedIdentifierExpression {
         var context = new Context();
         var type = typeChecker.typeOf(context, exprs.get(38));
         type = typeChecker.typeOf(context, exprs.get(39));
@@ -184,7 +184,7 @@ public class DeclTests {
     }
 
     @Test(expected = TypeException.class)
-    public void test_18() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_18() throws TypeException, UndefinedIdentifierExpression {
         var context = new Context();
         var type = typeChecker.typeOf(context, exprs.get(43));
         type = typeChecker.typeOf(context, exprs.get(44));
@@ -193,7 +193,7 @@ public class DeclTests {
         type = typeChecker.typeOf(context, exprs.get(47));
     }
     @Test
-    public void test_19() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_19() throws TypeException, UndefinedIdentifierExpression {
         var context = new Context();
         var type = typeChecker.typeOf(context, exprs.get(48));
         type = typeChecker.typeOf(context, exprs.get(49));
@@ -201,7 +201,7 @@ public class DeclTests {
     }
 
     @Test
-    public void test_20() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_20() throws TypeException, UndefinedIdentifierExpression {
         var context = new Context();
         var type = typeChecker.typeOf(context, exprs.get(50));
         type = typeChecker.typeOf(context, exprs.get(51));
@@ -209,7 +209,7 @@ public class DeclTests {
     }
 
     @Test
-    public void test_21() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_21() throws TypeException, UndefinedIdentifierExpression {
         var context = new Context();
         var type = typeChecker.typeOf(context, exprs.get(52));
         type = typeChecker.typeOf(context, exprs.get(53));
@@ -218,14 +218,14 @@ public class DeclTests {
     }
 
     @Test(expected = TypeException.class)
-    public void test_22() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_22() throws TypeException, UndefinedIdentifierExpression {
         var context = new Context();
         var type = typeChecker.typeOf(context, exprs.get(55));
         type = typeChecker.typeOf(context, exprs.get(56));
     }
 
     @Test(expected = TypeException.class)
-    public void test_23() throws TypeException, NameAlreadyUsedException, UndefinedIdentifierExpression {
+    public void test_23() throws TypeException, UndefinedIdentifierExpression {
         var context = new Context();
         var type = typeChecker.typeOf(context, exprs.get(55));
         type = typeChecker.typeOf(context, exprs.get(56));
