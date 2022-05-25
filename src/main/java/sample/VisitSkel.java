@@ -70,17 +70,15 @@ public class VisitSkel
       return null;
     }    public R visit(sample.Absyn.AnonymFunc p, A arg)
     { /* Code For AnonymFunc Goes Here */
-      //p.ident_;
       p.fargs_.accept(new FArgsVisitor<R,A>(), arg);
       p.program_.accept(new ProgramVisitor<R,A>(), arg);
       p.type_.accept(new TypeVisitor<R,A>(), arg);
       return null;
     }    public R visit(sample.Absyn.TypeAlAnonymFunc p, A arg)
     { /* Code For TypeAlAnonymFunc Goes Here */
-      //p.ident_1;
       p.fargs_.accept(new FArgsVisitor<R,A>(), arg);
       p.program_.accept(new ProgramVisitor<R,A>(), arg);
-      //p.ident_2;
+      //p.ident_;
       return null;
     }    public R visit(sample.Absyn.Return p, A arg)
     { /* Code For Return Goes Here */
@@ -195,6 +193,11 @@ public class VisitSkel
       p.gldec_.accept(new GlDecVisitor<R,A>(), arg);
       p.dec_1.accept(new DecVisitor<R,A>(), arg);
       p.dec_2.accept(new DecVisitor<R,A>(), arg);
+      return null;
+    }    public R visit(sample.Absyn.InitFuncDecl p, A arg)
+    { /* Code For InitFuncDecl Goes Here */
+      //p.ident_;
+      p.expr_.accept(new ExprVisitor<R,A>(), arg);
       return null;
     }    public R visit(sample.Absyn.TableElementCall p, A arg)
     { /* Code For TableElementCall Goes Here */

@@ -49,10 +49,10 @@ terminal _SYMB_1;    //   ,
 terminal _SYMB_2;    //   (
 terminal _SYMB_3;    //   )
 terminal _SYMB_4;    //   :
-terminal _SYMB_5;    //   =
-terminal _SYMB_6;    //   ->
-terminal _SYMB_7;    //   {
-terminal _SYMB_8;    //   }
+terminal _SYMB_5;    //   ->
+terminal _SYMB_6;    //   {
+terminal _SYMB_7;    //   }
+terminal _SYMB_8;    //   =
 terminal _SYMB_9;    //   !
 terminal _SYMB_10;    //   .
 terminal _SYMB_11;    //   and
@@ -114,11 +114,11 @@ Expr ::= _SYMB_21 Idts:p_2  {: RESULT = new sample.Absyn.Import(p_2); :}
   | _IDENT_:p_1 _SYMB_2 ComaExprs:p_3 _SYMB_3  {: RESULT = new sample.Absyn.FuncCall(p_1,p_3); :}
   | _SYMB_18 _IDENT_:p_2 _SYMB_2 FArgs:p_4 _SYMB_3 _SYMB_4 Type:p_7 Program:p_8 _SYMB_15  {: RESULT = new sample.Absyn.Func(p_2,p_4,p_7,p_8); :}
   | _SYMB_18 _IDENT_:p_2 _SYMB_2 FArgs:p_4 _SYMB_3 _SYMB_4 _IDENT_:p_7 Program:p_8 _SYMB_15  {: RESULT = new sample.Absyn.TypeAlFunc(p_2,p_4,p_7,p_8); :}
-  | _IDENT_:p_1 _SYMB_4 _SYMB_17 _SYMB_5 _SYMB_2 FArgs:p_6 _SYMB_3 _SYMB_6 _SYMB_7 Program:p_10 _SYMB_8 _SYMB_4 Type:p_13  {: RESULT = new sample.Absyn.AnonymFunc(p_1,p_6,p_10,p_13); :}
-  | _IDENT_:p_1 _SYMB_4 _SYMB_17 _SYMB_5 _SYMB_2 FArgs:p_6 _SYMB_3 _SYMB_6 _SYMB_7 Program:p_10 _SYMB_8 _SYMB_4 _IDENT_:p_13  {: RESULT = new sample.Absyn.TypeAlAnonymFunc(p_1,p_6,p_10,p_13); :}
+  | _SYMB_2 FArgs:p_2 _SYMB_3 _SYMB_5 _SYMB_6 Program:p_6 _SYMB_7 _SYMB_4 Type:p_9  {: RESULT = new sample.Absyn.AnonymFunc(p_2,p_6,p_9); :}
+  | _SYMB_2 FArgs:p_2 _SYMB_3 _SYMB_5 _SYMB_6 Program:p_6 _SYMB_7 _SYMB_4 _IDENT_:p_9  {: RESULT = new sample.Absyn.TypeAlAnonymFunc(p_2,p_6,p_9); :}
   | _SYMB_27 Expr:p_2  {: RESULT = new sample.Absyn.Return(p_2); :}
   | _SYMB_25  {: RESULT = new sample.Absyn.NilKeyword(); :}
-  | TypeAl:p_1 _SYMB_5 Type:p_3  {: RESULT = new sample.Absyn.TypeAliasing(p_1,p_3); :}
+  | TypeAl:p_1 _SYMB_8 Type:p_3  {: RESULT = new sample.Absyn.TypeAliasing(p_1,p_3); :}
   | _SYMB_9 Expr:p_2  {: RESULT = new sample.Absyn.Not(p_2); :}
   | Expr:p_1 _SYMB_11 Expr:p_3  {: RESULT = new sample.Absyn.And(p_1,p_3); :}
   | Expr:p_1 _SYMB_26 Expr:p_3  {: RESULT = new sample.Absyn.Or(p_1,p_3); :}
@@ -140,7 +140,7 @@ Type ::= _SYMB_28  {: RESULT = new sample.Absyn.StringType(); :}
   | _SYMB_13  {: RESULT = new sample.Absyn.DoubleType(); :}
   | _SYMB_29  {: RESULT = new sample.Absyn.TableType(); :}
   | _SYMB_34  {: RESULT = new sample.Absyn.VoidType(); :}
-  | _SYMB_17 _SYMB_2 FArgs:p_3 _SYMB_6 Type:p_5 _SYMB_3  {: RESULT = new sample.Absyn.FuncType(p_3,p_5); :}
+  | _SYMB_17 _SYMB_2 FArgs:p_3 _SYMB_5 Type:p_5 _SYMB_3  {: RESULT = new sample.Absyn.FuncType(p_3,p_5); :}
 ;
 TypeAl ::= _IDENT_:p_1 _SYMB_4 _SYMB_32  {: RESULT = new sample.Absyn.TypeAlIdent(p_1); :} 
 ;
@@ -148,8 +148,8 @@ VarKW ::= _SYMB_33  {: RESULT = new sample.Absyn.VarKeyword(); :}
 ;
 TAnnot ::= _SYMB_4 VarKW:p_2  {: RESULT = new sample.Absyn.TypeAnnotation(p_2); :} 
 ;
-Expr3 ::= _IDENT_:p_1 TAnnot:p_2 _SYMB_5 Expr:p_4  {: RESULT = new sample.Absyn.VarTypeAnnotation(p_1,p_2,p_4); :} 
-  | _SYMB_19 _IDENT_:p_2 TAnnot:p_3 _SYMB_5 Expr:p_5  {: RESULT = new sample.Absyn.GlVarTypeAnnotation(p_2,p_3,p_5); :}
+Expr3 ::= _IDENT_:p_1 TAnnot:p_2 _SYMB_8 Expr:p_4  {: RESULT = new sample.Absyn.VarTypeAnnotation(p_1,p_2,p_4); :} 
+  | _SYMB_19 _IDENT_:p_2 TAnnot:p_3 _SYMB_8 Expr:p_5  {: RESULT = new sample.Absyn.GlVarTypeAnnotation(p_2,p_3,p_5); :}
   | _SYMB_18 _IDENT_:p_2 _SYMB_2 FArgs:p_4 _SYMB_3 TAnnot:p_6 Program:p_7 _SYMB_15  {: RESULT = new sample.Absyn.FuncTypeAnnotation(p_2,p_4,p_6,p_7); :}
   | Expr4:p_1  {: RESULT = p_1; :}
 ;
@@ -169,19 +169,20 @@ GlDec ::= _SYMB_19 _IDENT_:p_2 _SYMB_4 Type:p_4  {: RESULT = new sample.Absyn.Gl
 ;
 Expr2 ::= Dec:p_1  {: RESULT = new sample.Absyn.OnlyDecl(p_1); :} 
   | GlDec:p_1  {: RESULT = new sample.Absyn.OnlyGlDecl(p_1); :}
-  | Dec:p_1 _SYMB_5 Expr:p_3  {: RESULT = new sample.Absyn.InitDecl(p_1,p_3); :}
-  | GlDec:p_1 _SYMB_5 Expr:p_3  {: RESULT = new sample.Absyn.InitGlDecl(p_1,p_3); :}
-  | Dec:p_1 _SYMB_5 _SYMB_2 _IDENT_:p_4 _SYMB_1 _IDENT_:p_6 _SYMB_3  {: RESULT = new sample.Absyn.TableDecl(p_1,p_4,p_6); :}
-  | GlDec:p_1 _SYMB_5 _SYMB_2 _IDENT_:p_4 _SYMB_1 _IDENT_:p_6 _SYMB_3  {: RESULT = new sample.Absyn.GlTableDecl(p_1,p_4,p_6); :}
-  | Dec:p_1 _SYMB_5 _SYMB_2 Dec:p_4 _SYMB_1 Dec:p_6 _SYMB_3  {: RESULT = new sample.Absyn.InitTableDecl(p_1,p_4,p_6); :}
-  | GlDec:p_1 _SYMB_5 _SYMB_2 Dec:p_4 _SYMB_1 Dec:p_6 _SYMB_3  {: RESULT = new sample.Absyn.InitGlTableDecl(p_1,p_4,p_6); :}
+  | Dec:p_1 _SYMB_8 Expr:p_3  {: RESULT = new sample.Absyn.InitDecl(p_1,p_3); :}
+  | GlDec:p_1 _SYMB_8 Expr:p_3  {: RESULT = new sample.Absyn.InitGlDecl(p_1,p_3); :}
+  | Dec:p_1 _SYMB_8 _SYMB_2 _IDENT_:p_4 _SYMB_1 _IDENT_:p_6 _SYMB_3  {: RESULT = new sample.Absyn.TableDecl(p_1,p_4,p_6); :}
+  | GlDec:p_1 _SYMB_8 _SYMB_2 _IDENT_:p_4 _SYMB_1 _IDENT_:p_6 _SYMB_3  {: RESULT = new sample.Absyn.GlTableDecl(p_1,p_4,p_6); :}
+  | Dec:p_1 _SYMB_8 _SYMB_2 Dec:p_4 _SYMB_1 Dec:p_6 _SYMB_3  {: RESULT = new sample.Absyn.InitTableDecl(p_1,p_4,p_6); :}
+  | GlDec:p_1 _SYMB_8 _SYMB_2 Dec:p_4 _SYMB_1 Dec:p_6 _SYMB_3  {: RESULT = new sample.Absyn.InitGlTableDecl(p_1,p_4,p_6); :}
+  | _IDENT_:p_1 _SYMB_4 _SYMB_17 _SYMB_8 Expr:p_5  {: RESULT = new sample.Absyn.InitFuncDecl(p_1,p_5); :}
   | _IDENT_:p_1 _SYMB_10 _IDENT_:p_3  {: RESULT = new sample.Absyn.TableElementCall(p_1,p_3); :}
-  | _IDENT_:p_1 _SYMB_10 _IDENT_:p_3 _SYMB_5 Expr:p_5  {: RESULT = new sample.Absyn.TableElementAssignment(p_1,p_3,p_5); :}
-  | _IDENT_:p_1 _SYMB_5 Expr:p_3  {: RESULT = new sample.Absyn.Assignment(p_1,p_3); :}
+  | _IDENT_:p_1 _SYMB_10 _IDENT_:p_3 _SYMB_8 Expr:p_5  {: RESULT = new sample.Absyn.TableElementAssignment(p_1,p_3,p_5); :}
+  | _IDENT_:p_1 _SYMB_8 Expr:p_3  {: RESULT = new sample.Absyn.Assignment(p_1,p_3); :}
   | Expr3:p_1  {: RESULT = p_1; :}
 ;
-Field ::= _IDENT_:p_1 _SYMB_4 VarKW:p_3 _SYMB_5 Expr:p_5  {: RESULT = new sample.Absyn.TypeAnField(p_1,p_3,p_5); :} 
-  | Dec:p_1 _SYMB_5 Expr:p_3  {: RESULT = new sample.Absyn.LBField(p_1,p_3); :}
+Field ::= _IDENT_:p_1 _SYMB_4 VarKW:p_3 _SYMB_8 Expr:p_5  {: RESULT = new sample.Absyn.TypeAnField(p_1,p_3,p_5); :} 
+  | Dec:p_1 _SYMB_8 Expr:p_3  {: RESULT = new sample.Absyn.LBField(p_1,p_3); :}
 ;
 Fields ::= ListField:p_1  {: RESULT = new sample.Absyn.LBFields(p_1); :} 
 ;

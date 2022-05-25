@@ -18,11 +18,20 @@ public class VisitSkel
       return null;
     }
   }
+  public class IdtsVisitor<R,A> implements Idts.Visitor<R,A>
+  {
+    public R visit(sample.Absyn.Idents p, A arg)
+    { /* Code For Idents Goes Here */
+      for (String x: p.listident_)
+      { /* ... */ }
+      return null;
+    }
+  }
   public class ExprVisitor<R,A> implements Expr.Visitor<R,A>
   {
     public R visit(sample.Absyn.Import p, A arg)
     { /* Code For Import Goes Here */
-      //p.ident_;
+      p.idts_.accept(new IdtsVisitor<R,A>(), arg);
       return null;
     }    public R visit(sample.Absyn.Var p, A arg)
     { /* Code For Var Goes Here */
@@ -61,15 +70,17 @@ public class VisitSkel
       return null;
     }    public R visit(sample.Absyn.AnonymFunc p, A arg)
     { /* Code For AnonymFunc Goes Here */
+      //p.ident_;
       p.fargs_.accept(new FArgsVisitor<R,A>(), arg);
       p.program_.accept(new ProgramVisitor<R,A>(), arg);
       p.type_.accept(new TypeVisitor<R,A>(), arg);
       return null;
     }    public R visit(sample.Absyn.TypeAlAnonymFunc p, A arg)
     { /* Code For TypeAlAnonymFunc Goes Here */
+      //p.ident_1;
       p.fargs_.accept(new FArgsVisitor<R,A>(), arg);
       p.program_.accept(new ProgramVisitor<R,A>(), arg);
-      //p.ident_;
+      //p.ident_2;
       return null;
     }    public R visit(sample.Absyn.Return p, A arg)
     { /* Code For Return Goes Here */
