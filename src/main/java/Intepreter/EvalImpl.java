@@ -1,6 +1,7 @@
 package Intepreter;
 
 import Intepreter.Storage.FunctionStorage;
+import Intepreter.Storage.TableStorage;
 import Intepreter.Storage.TypeStorage;
 import Intepreter.Storage.VariableStorage;
 import sample.Absyn.*;
@@ -16,6 +17,7 @@ public class EvalImpl implements Eval {
     private final FunctionStorage functionStorage = new FunctionStorage();
     private final StandardLibrary standardLibrary = new StandardLibraryImpl();
     private final TypeStorage typeStorage = new TypeStorage();
+    private final TableStorage tableStorage = new TableStorage();
 
     @Override
     public Expr evalProgram(ProgramExprs program) {
@@ -73,6 +75,11 @@ public class EvalImpl implements Eval {
             case ("FuncTypeAnnotation"):
                 return evalType((FuncTypeAnnotation) expr);
             /*---------------------------------**/
+            case ("TypeAscription"):
+                return evalType((TypeAscription) expr);
+            case ("TypeAscWithTypeAl"):
+                return evalType((TypeAscWithTypeAl) expr);
+            /*---------------------------------**/
             case ("EInt"):
                 return evalType((EInt) expr);
             case ("EDouble"):
@@ -96,11 +103,24 @@ public class EvalImpl implements Eval {
             case ("InitGlDecl"):
                 return evalType((InitGlDecl) expr);
             /*---------------------------------**/
+            case ("TableDecl"):
+                return evalType((TableDecl) expr);
+            case ("GlTableDecl"):
+                return evalType((GlTableDecl) expr);
             case ("InitTableDecl"):
                 return evalType((InitTableDecl) expr);
+            case ("InitGlTableDecl"):
+                return evalType((InitGlTableDecl) expr);
+            case ("TableElementCall"):
+                return evalType((TableElementCall) expr);
+            case ("TableElementAssignment"):
+                return evalType((TableElementAssignment) expr);
             /*---------------------------------**/
             case ("Assignment"):
                 return evalType((Assignment) expr);
+            /*---------------------------------**/
+            case ("LetBinding"):
+                return evalType((LetBinding) expr);
             /*---------------------------------**/
             default:
                 return null;
@@ -303,6 +323,18 @@ public class EvalImpl implements Eval {
 /**------------------------------------------------------------**/
 
     @Override
+    public Expr evalType(TypeAscription expr) {
+        return evalExpr(expr.expr_);
+    }
+
+    @Override
+    public Expr evalType(TypeAscWithTypeAl expr) {
+        return evalExpr(expr.expr_);
+    }
+
+/**------------------------------------------------------------**/
+
+    @Override
     public Expr evalType(EInt expr) {
         return expr;
     }
@@ -416,32 +448,37 @@ public class EvalImpl implements Eval {
 /**------------------------------------------------------------**/
 
     @Override
-    public Expr evalType(TableDecl expr) {
+    public Expr evalType(TableDecl dec) {
+        tableStorage.saveTable(dec);
         return null;
     }
 
     @Override
-    public Expr evalType(GlTableDecl expr) {
+    public Expr evalType(GlTableDecl dec) {
+        tableStorage.saveGlobalTable(dec);
         return null;
     }
 
     @Override
-    public Expr evalType(InitTableDecl args) {
+    public Expr evalType(InitTableDecl dec) {
+        tableStorage.saveTable(dec);
         return null;
     }
 
     @Override
-    public Expr evalType(InitGlTableDecl expr) {
+    public Expr evalType(InitGlTableDecl dec) {
+        tableStorage.saveGlobalTable(dec);
         return null;
     }
 
     @Override
     public Expr evalType(TableElementCall expr) {
-        return null;
+        return tableStorage.getTable(expr.ident_1, expr.ident_2);
     }
 
     @Override
     public Expr evalType(TableElementAssignment expr) {
+        tableStorage.updateTable(expr.ident_1, expr.ident_2, expr.expr_);
         return null;
     }
 
@@ -454,4 +491,10 @@ public class EvalImpl implements Eval {
         return variableStorage.getVariable(expr.ident_);
     }
 
+/**------------------------------------------------------------**/
+
+    @Override
+    public Expr evalType(LetBinding expr) {
+        return null;
+    }
 }
