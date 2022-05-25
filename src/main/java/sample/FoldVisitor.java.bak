@@ -20,16 +20,9 @@ public abstract class FoldVisitor<R,A> implements AllVisitor<R,A> {
       return r;
     }
 
-/* Idts */
-    public R visit(sample.Absyn.Idents p, A arg) {
-      R r = leaf(arg);
-      return r;
-    }
-
 /* Expr */
     public R visit(sample.Absyn.Import p, A arg) {
       R r = leaf(arg);
-      r = combine(p.idts_.accept(this, arg), r, arg);
       return r;
     }
     public R visit(sample.Absyn.Var p, A arg) {

@@ -5,7 +5,6 @@ import sample.Absyn.*;
 /** BNFC-Generated All Visitor */
 public interface AllVisitor<R,A> extends
   sample.Absyn.Program.Visitor<R,A>,
-  sample.Absyn.Idts.Visitor<R,A>,
   sample.Absyn.Expr.Visitor<R,A>,
   sample.Absyn.ComaExprs.Visitor<R,A>,
   sample.Absyn.FArgs.Visitor<R,A>,
