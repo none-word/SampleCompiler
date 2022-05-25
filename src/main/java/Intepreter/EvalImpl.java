@@ -1,6 +1,7 @@
 package Intepreter;
 
 import Intepreter.Storage.FunctionStorage;
+import Intepreter.Storage.TableStorage;
 import Intepreter.Storage.TypeStorage;
 import Intepreter.Storage.VariableStorage;
 import sample.Absyn.*;
@@ -16,6 +17,7 @@ public class EvalImpl implements Eval {
     private final FunctionStorage functionStorage = new FunctionStorage();
     private final StandardLibrary standardLibrary = new StandardLibraryImpl();
     private final TypeStorage typeStorage = new TypeStorage();
+    private final TableStorage tableStorage = new TableStorage();
 
     @Override
     public Expr evalProgram(ProgramExprs program) {
@@ -73,12 +75,10 @@ public class EvalImpl implements Eval {
             case ("FuncTypeAnnotation"):
                 return evalType((FuncTypeAnnotation) expr);
             /*---------------------------------**/
-            case ("VarTypeAscription"):
-                return evalType((VarTypeAscription) expr);
-            case ("GlVarTypeAscription"):
-                return evalType((GlVarTypeAscription) expr);
-            case ("FuncTypeAscription"):
-                return evalType((FuncTypeAscription) expr);
+            case ("TypeAscription"):
+                return evalType((TypeAscription) expr);
+            case ("TypeAscWithTypeAl"):
+                return evalType((TypeAscWithTypeAl) expr);
             /*---------------------------------**/
             case ("EInt"):
                 return evalType((EInt) expr);
@@ -103,11 +103,24 @@ public class EvalImpl implements Eval {
             case ("InitGlDecl"):
                 return evalType((InitGlDecl) expr);
             /*---------------------------------**/
+            case ("TableDecl"):
+                return evalType((TableDecl) expr);
+            case ("GlTableDecl"):
+                return evalType((GlTableDecl) expr);
             case ("InitTableDecl"):
                 return evalType((InitTableDecl) expr);
+            case ("InitGlTableDecl"):
+                return evalType((InitGlTableDecl) expr);
+            case ("TableElementCall"):
+                return evalType((TableElementCall) expr);
+            case ("TableElementAssignment"):
+                return evalType((TableElementAssignment) expr);
             /*---------------------------------**/
             case ("Assignment"):
                 return evalType((Assignment) expr);
+            /*---------------------------------**/
+            case ("LetBinding"):
+                return evalType((LetBinding) expr);
             /*---------------------------------**/
             default:
                 return null;
@@ -118,17 +131,20 @@ public class EvalImpl implements Eval {
 
     @Override
     public void evalType(Import expr, ProgramExprs programExprs) {
-        var currentPath = System.getProperty("user.dir");
-        var path = currentPath + Paths.get("/src/main/java/Examples/" + expr.ident_ + ".smpl");
-        ProgramExprs importProgram = null;
-        try {
-            importProgram = Interpreter.readFile(path);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Idents idts = (Idents) expr.idts_;
         programExprs.listexpr_.removeFirst();
-        assert importProgram != null;
-        programExprs.listexpr_.addAll(0, importProgram.listexpr_);
+        idts.listident_.forEach(ident -> {
+            var currentPath = System.getProperty("user.dir");
+            var path = currentPath + Paths.get("/src/main/java/Examples/" + ident + ".smpl");
+            ProgramExprs importProgram = null;
+            try {
+                importProgram = Interpreter.readFile(path);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            assert importProgram != null;
+            programExprs.listexpr_.addAll(0, importProgram.listexpr_);
+        });
         Interpreter.runProgram(programExprs);
     }
 
@@ -307,32 +323,13 @@ public class EvalImpl implements Eval {
 /**------------------------------------------------------------**/
 
     @Override
-    public Expr evalType(VarTypeAscription expr) {
-        evalType(new InitDecl(
-                new Declaration(expr.ident_, ((TypeAscription) expr.tascript_).type_),
-                expr.expr_
-        ));
-        return null;
+    public Expr evalType(TypeAscription expr) {
+        return evalExpr(expr.expr_);
     }
 
     @Override
-    public Expr evalType(GlVarTypeAscription expr) {
-        evalType(new InitGlDecl(
-                new GlDeclaration(expr.ident_, ((TypeAscription) expr.tascript_).type_),
-                expr.expr_
-        ));
-        return null;
-    }
-
-    @Override
-    public Expr evalType(FuncTypeAscription expr) {
-        evalType(new Func(
-                expr.ident_,
-                expr.fargs_,
-                ((TypeAscription) expr.tascript_).type_,
-                expr.program_
-        ));
-        return null;
+    public Expr evalType(TypeAscWithTypeAl expr) {
+        return evalExpr(expr.expr_);
     }
 
 /**------------------------------------------------------------**/
@@ -451,32 +448,37 @@ public class EvalImpl implements Eval {
 /**------------------------------------------------------------**/
 
     @Override
-    public Expr evalType(TableDecl expr) {
+    public Expr evalType(TableDecl dec) {
+        tableStorage.saveTable(dec);
         return null;
     }
 
     @Override
-    public Expr evalType(GlTableDecl expr) {
+    public Expr evalType(GlTableDecl dec) {
+        tableStorage.saveGlobalTable(dec);
         return null;
     }
 
     @Override
-    public Expr evalType(InitTableDecl args) {
+    public Expr evalType(InitTableDecl dec) {
+        tableStorage.saveTable(dec);
         return null;
     }
 
     @Override
-    public Expr evalType(InitGlTableDecl expr) {
+    public Expr evalType(InitGlTableDecl dec) {
+        tableStorage.saveGlobalTable(dec);
         return null;
     }
 
     @Override
     public Expr evalType(TableElementCall expr) {
-        return null;
+        return tableStorage.getTable(expr.ident_1, expr.ident_2);
     }
 
     @Override
     public Expr evalType(TableElementAssignment expr) {
+        tableStorage.updateTable(expr.ident_1, expr.ident_2, expr.expr_);
         return null;
     }
 
@@ -489,4 +491,31 @@ public class EvalImpl implements Eval {
         return variableStorage.getVariable(expr.ident_);
     }
 
+/**------------------------------------------------------------**/
+
+    @Override
+    public Expr evalType(LBFields fields) {
+        fields.listfield_.forEach(field -> {
+            String type = field.getClass().getSimpleName();
+            if (type.equals("LBField")) {
+                LBField lbField = (LBField) field;
+                variableStorage.saveVariable(((Declaration) lbField.dec_).ident_, ((Declaration) lbField.dec_).type_, lbField.expr_);
+            } else {
+                TypeAnField typeAnField = (TypeAnField) field;
+                try {
+                    variableStorage.saveVariable(typeAnField.ident_, (new TypeChecker()).typeOf(new Context(), typeAnField.expr_), typeAnField.expr_);
+                } catch (TypeException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        return null;
+    }
+
+    @Override
+    public Expr evalType(LetBinding expr) {
+        Eval eval = new EvalImpl();
+        eval.evalType((LBFields) expr.fields_);
+        return eval.evalExpr(expr.expr_);
+    }
 }
