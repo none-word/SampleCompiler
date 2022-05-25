@@ -1,4 +1,4 @@
-package Intepreter;
+package Intepreter.Storage;
 
 import Intepreter.Utils.Pair;
 import sample.Absyn.Expr;

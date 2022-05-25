@@ -1,6 +1,5 @@
 package Intepreter;
 
-import sample.Absyn.Expr;
 import sample.Absyn.ListExpr;
 import sample.Absyn.ProgramExprs;
 import sample.PrettyPrinter;
@@ -9,54 +8,58 @@ import sample.parser;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.ArrayList;
 
 public class Interpreter {
-    private final String programFilePath;
-//    private final Eval eval = new EvalImpl();
+    private static String programFilePath;
 
-    public Interpreter(String programFilePath) {
-        this.programFilePath = programFilePath;
+    public Interpreter(String filePath) {
+        Interpreter.programFilePath = filePath;
     }
 
-    public void run(){
+    public void run() throws Exception {
+        ProgramExprs programExprs = Interpreter.readFile(programFilePath);
+        runProgram(programExprs);
+    }
 
-        Yylex l = null;
-        parser parser;
-        try
-        {
-            l = new Yylex(new FileReader(programFilePath));
-        }
-        catch(FileNotFoundException e)
-        {
-            System.err.println("Error: File not found: " + programFilePath);
-            System.exit(1);
-        }
-
-        parser = new parser(l);
+    public static void runProgram(ProgramExprs programExprs) {
+        Eval eval = new EvalImpl();
         try {
-            ProgramExprs programExprs = ((ProgramExprs) parser.pProgram());
             typeCheck(programExprs.listexpr_);
-
-            //System.out.println(sample.PrettyPrinter.show(ast));
-
-
-//            var result = eval.evalProgram(programExprs);
-//            System.out.println();
-//            System.out.println("Result: " + PrettyPrinter.print(result));
+            var result = eval.evalProgram(programExprs);
+            System.out.println();
+            System.out.println("Result: " + PrettyPrinter.print(result));
         }
         catch (Exception e){
             System.out.println("Parse error in line " + e.getMessage());
         }
-
-
     }
 
-    private void typeCheck(ListExpr exprs) throws TypeException{
+    public static ProgramExprs readFile(String filePath) throws Exception {
+        Yylex l = null;
+        parser parser;
+        try
+        {
+            l = new Yylex(new FileReader(filePath));
+        }
+        catch(FileNotFoundException e)
+        {
+            System.err.println("Error: File not found: " + filePath);
+            System.exit(1);
+        }
+
+        parser = new parser(l);
+        ProgramExprs programExprs = ((ProgramExprs) parser.pProgram());
+        return programExprs;
+    }
+
+    private static void typeCheck(ListExpr exprs) throws TypeException{
         var typeChecker = new TypeChecker();
         Context context = new Context();
-
         for (var expr : exprs) {
+            String typeName = expr.getClass().getSimpleName();
+            if (typeName.equals("Import")) {
+                break;
+            }
             var type = typeChecker.typeOf(context, expr);
         }
     }

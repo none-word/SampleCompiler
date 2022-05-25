@@ -1,3 +1,18 @@
-x = let y: var = add(2, 4),
-        z: integer = add(4, 6)
-        in  add(y, z);
+import standard_library;
+
+function gcd(a : integer, b : integer) : integer
+		print("Result: ", g);
+		if (equal(b, 0)) then
+				return a;
+		else
+				return gcd(b, mod(a, b));
+		end;
+end;
+
+global g : integer = 10;
+
+int : type = integer;
+x : integer = 40;
+y : int = 35;
+y = add_1(y);
+return(gcd(x, y));
