@@ -73,13 +73,6 @@ public class EvalImpl implements Eval {
             case ("FuncTypeAnnotation"):
                 return evalType((FuncTypeAnnotation) expr);
             /*---------------------------------**/
-            case ("VarTypeAscription"):
-                return evalType((VarTypeAscription) expr);
-            case ("GlVarTypeAscription"):
-                return evalType((GlVarTypeAscription) expr);
-            case ("FuncTypeAscription"):
-                return evalType((FuncTypeAscription) expr);
-            /*---------------------------------**/
             case ("EInt"):
                 return evalType((EInt) expr);
             case ("EDouble"):
@@ -118,17 +111,20 @@ public class EvalImpl implements Eval {
 
     @Override
     public void evalType(Import expr, ProgramExprs programExprs) {
-        var currentPath = System.getProperty("user.dir");
-        var path = currentPath + Paths.get("/src/main/java/Examples/" + expr.ident_ + ".smpl");
-        ProgramExprs importProgram = null;
-        try {
-            importProgram = Interpreter.readFile(path);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Idents idts = (Idents) expr.idts_;
         programExprs.listexpr_.removeFirst();
-        assert importProgram != null;
-        programExprs.listexpr_.addAll(0, importProgram.listexpr_);
+        idts.listident_.forEach(ident -> {
+            var currentPath = System.getProperty("user.dir");
+            var path = currentPath + Paths.get("/src/main/java/Examples/" + ident + ".smpl");
+            ProgramExprs importProgram = null;
+            try {
+                importProgram = Interpreter.readFile(path);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            assert importProgram != null;
+            programExprs.listexpr_.addAll(0, importProgram.listexpr_);
+        });
         Interpreter.runProgram(programExprs);
     }
 
@@ -302,37 +298,6 @@ public class EvalImpl implements Eval {
         } catch (Exception e) {
             return null;
         }
-    }
-
-/**------------------------------------------------------------**/
-
-    @Override
-    public Expr evalType(VarTypeAscription expr) {
-        evalType(new InitDecl(
-                new Declaration(expr.ident_, ((TypeAscription) expr.tascript_).type_),
-                expr.expr_
-        ));
-        return null;
-    }
-
-    @Override
-    public Expr evalType(GlVarTypeAscription expr) {
-        evalType(new InitGlDecl(
-                new GlDeclaration(expr.ident_, ((TypeAscription) expr.tascript_).type_),
-                expr.expr_
-        ));
-        return null;
-    }
-
-    @Override
-    public Expr evalType(FuncTypeAscription expr) {
-        evalType(new Func(
-                expr.ident_,
-                expr.fargs_,
-                ((TypeAscription) expr.tascript_).type_,
-                expr.program_
-        ));
-        return null;
     }
 
 /**------------------------------------------------------------**/

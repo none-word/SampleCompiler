@@ -3,8 +3,8 @@ package Intepreter;
 import sample.Absyn.*;
 import sample.PrettyPrinter;
 
-import java.text.BreakIterator;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class TypeChecker {
@@ -36,7 +36,7 @@ public class TypeChecker {
         }
 
         if (expr instanceof Import){
-            var libraryName = ((Import) expr).ident_;
+//            var libraryName = ((Import) expr).ident_;
 
         }
 
