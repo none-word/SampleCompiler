@@ -322,7 +322,11 @@ public class TypeChecker {
             checkName(context, ident, expr);
             context.functions.add(new Function(ident, funcType, args));
 
-            var newContext = context;
+            var newContext = new Context();
+            newContext.variables = new ArrayList<>(context.variables);
+            newContext.functions = new ArrayList<>(context.functions);
+            newContext.tables = new ArrayList<>(context.tables);
+            newContext.aliasedTypes = new ArrayList<>(context.aliasedTypes);
             addToContext(newContext, args.listdec_, expr);
 
             return checkAndGetReturnType(newContext, body, funcType, ident);
@@ -338,7 +342,11 @@ public class TypeChecker {
             checkName(context, ident, expr);
             context.functions.add(new Function(ident, funcType, args));
 
-            var newContext = context;
+            var newContext = new Context();
+            newContext.variables = new ArrayList<>(context.variables);
+            newContext.functions = new ArrayList<>(context.functions);
+            newContext.tables = new ArrayList<>(context.tables);
+            newContext.aliasedTypes = new ArrayList<>(context.aliasedTypes);
             addToContext(newContext, args.listdec_, expr);
             return checkAndGetReturnType(newContext, body, funcType, ident);
         }
@@ -348,7 +356,11 @@ public class TypeChecker {
             var args = ((FuncArgs) ((FuncTypeAnnotation) expr).fargs_);
             var body = ((ProgramExprs) ((FuncTypeAnnotation) expr).program_).listexpr_;
 
-            var newContext = context;
+            var newContext = new Context();
+            newContext.variables = new ArrayList<>(context.variables);
+            newContext.functions = new ArrayList<>(context.functions);
+            newContext.tables = new ArrayList<>(context.tables);
+            newContext.aliasedTypes = new ArrayList<>(context.aliasedTypes);
             addToContext(newContext, args.listdec_, expr);
             var funcType = getReturnTypeOfProgram(newContext, body, ident);
             checkName(context, ident, expr);
@@ -358,9 +370,11 @@ public class TypeChecker {
         }
 
         if (expr instanceof LetBinding){
-            var newContext = context;
+            var newContext = new Context();
             newContext.variables = new ArrayList<>();
+            newContext.functions = new ArrayList<>(context.functions);
             newContext.tables = new ArrayList<>();
+            newContext.aliasedTypes = new ArrayList<>(context.aliasedTypes);
             var fields = ((LBFields) ((LetBinding) expr).fields_).listfield_;
             for (var field : fields) {
                 if (field instanceof LBField){
@@ -571,26 +585,26 @@ public class TypeChecker {
                     if (!isSameType(returnType, type))
                         throw new TypeException(returnType, type, expr);
             }
+            else {
 
-            if (expr instanceof If){
-                var thenType = getReturnTypeOfProgram(context, ((ProgramExprs) ((If) expr).program_1).listexpr_, programIdent);
-                var elseType = getReturnTypeOfProgram(context, ((ProgramExprs) ((If) expr).program_2).listexpr_, programIdent);
+                if (expr instanceof If) {
+                    var thenType = getReturnTypeOfProgram(context, ((ProgramExprs) ((If) expr).program_1).listexpr_, programIdent);
+                    var elseType = getReturnTypeOfProgram(context, ((ProgramExprs) ((If) expr).program_2).listexpr_, programIdent);
 
-                if (!isSameType(thenType, new VoidType()))
-                    if (returnType == null)
-                        returnType = thenType;
-                    else
-                        if (!isSameType(returnType, thenType))
+                    if (!isSameType(thenType, new VoidType()))
+                        if (returnType == null)
+                            returnType = thenType;
+                        else if (!isSameType(returnType, thenType))
                             throw new TypeException(returnType, thenType, getReturnExpr(((ProgramExprs) ((If) expr).program_1).listexpr_));
 
-                if (!isSameType(elseType, new VoidType()))
-                    if (returnType == null)
-                        returnType = elseType;
-                    else
-                    if (!isSameType(returnType, elseType))
-                        throw new TypeException(returnType, elseType, getReturnExpr(((ProgramExprs) ((If) expr).program_2).listexpr_));
+                    if (!isSameType(elseType, new VoidType()))
+                        if (returnType == null)
+                            returnType = elseType;
+                        else if (!isSameType(returnType, elseType))
+                            throw new TypeException(returnType, elseType, getReturnExpr(((ProgramExprs) ((If) expr).program_2).listexpr_));
+                }
+                else typeOf(context, expr);
             }
-            typeOf(context, expr);
         }
         if (returnType != null)
             return returnType;

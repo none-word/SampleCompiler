@@ -7,7 +7,7 @@ public class NameAlreadyUsedException extends Exception{
     private String message;
 
     public NameAlreadyUsedException(String name, Expr expr) {
-        this.message = "The name " + name + " is already used for expression " + PrettyPrinter.print(expr);
+        this.message = "Cannot use name " + name + " in expression " + PrettyPrinter.print(expr) + " because it was already used.";
     }
 
     @Override

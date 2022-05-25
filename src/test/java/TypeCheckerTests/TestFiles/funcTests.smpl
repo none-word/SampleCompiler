@@ -2,9 +2,9 @@
 function func_1 (x : boolean): integer
 	if (x)
 		then
-		    x: boolean = true;
+		    x1: boolean = true;
 		else
-		    x: boolean = true;
+		    x2: boolean = true;
 		end;
 
 	y: integer = 5;
@@ -18,7 +18,7 @@ function func_2 (z : double, y : boolean): boolean
 		    x: boolean = true;
 		    return x;
 		else
-		    x: boolean = true;
+		    x1: boolean = true;
 		end;
 
 	return true;
@@ -122,9 +122,9 @@ a = func_11(b);
 function func_12 (x: integer, y: boolean, z: string): integer
     if (true)
         then
-            z : double = 10.1;
+            z1 : double = 10.1;
         else
-            y: double = 10.1;
+            y1: double = 10.1;
         end;
     return x;
 end;
