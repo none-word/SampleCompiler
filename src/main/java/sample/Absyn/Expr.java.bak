@@ -35,7 +35,6 @@ public abstract class Expr implements java.io.Serializable {
     public R visit(sample.Absyn.GlTableDecl p, A arg);
     public R visit(sample.Absyn.InitTableDecl p, A arg);
     public R visit(sample.Absyn.InitGlTableDecl p, A arg);
-    public R visit(sample.Absyn.InitFuncDecl p, A arg);
     public R visit(sample.Absyn.TableElementCall p, A arg);
     public R visit(sample.Absyn.TableElementAssignment p, A arg);
     public R visit(sample.Absyn.Assignment p, A arg);
