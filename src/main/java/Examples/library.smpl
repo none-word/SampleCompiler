@@ -1,29 +1,29 @@
-[[function add_double_1(a : double) : double
-		return add(a, 1);
+function add_double_1(a : double) : double
+		return add_d(a, 1.0);
 end;
 
 function sub_double_1(a : double) : double
-		return sub(a, 1);
+		return sub_d(a, 1.0);
 end;
 
 function exp_double(a : double, e : double) : double
-        if (equal(0, e)) then
-                return 1;
+        if (equal_d(0, e)) then
+                return 1.0;
         else
-                return mul(a, exp_double(a, sub_double_1(e)));
+                return mul_d(a, exp_double(a, sub_double_1(e)));
         end;
 end;
 
 function abs_double(a : double) : double
-        if (greater(a, 0)) then
+        if (greater_d(a, 0.0)) then
                 return a;
         else
-                return neg(a);
+                return neg_d(a);
         end;
 end;
 
 function max_double(a : double, b : double) : double
-        if (greater(a, b)) then
+        if (greater_d(a, b)) then
                 return a;
         else
                 return b;
@@ -32,9 +32,9 @@ end;
 
 
 function min_double(a : double, b : double) : double
-        if (greater(a, b)) then
+        if (greater_d(a, b)) then
                 return b;
         else
                 return a;
         end;
-end;]]
+end;

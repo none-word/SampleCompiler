@@ -654,17 +654,25 @@ public class TypeChecker {
         context.functions.add(new Function("div", new IntType(), new FuncArgs(intListDec)));
         context.functions.add(new Function("mod", new IntType(), new FuncArgs(intListDec)));
         context.functions.add(new Function("exp", new IntType(), new FuncArgs(intListDec)));
-        relationsOperations(context, intListDec);
+        context.functions.add(new Function("greater", new BoolType(), new FuncArgs(intListDec)));
+        context.functions.add(new Function("less", new BoolType(), new FuncArgs(intListDec)));
+        context.functions.add(new Function("equal", new BoolType(), new FuncArgs(intListDec)));
+        context.functions.add(new Function("gOrE", new BoolType(), new FuncArgs(intListDec)));
+        context.functions.add(new Function("lOrE", new BoolType(), new FuncArgs(intListDec)));
 
         ListDec doubleListDec = new ListDec();
         doubleListDec.addAll(Arrays.asList(new Declaration("a", new DoubleType()), new Declaration("b", new DoubleType())));
-        context.functions.add(new Function("add", new DoubleType(), new FuncArgs(doubleListDec)));
-        context.functions.add(new Function("sub", new DoubleType(), new FuncArgs(doubleListDec)));
-        context.functions.add(new Function("mul", new DoubleType(), new FuncArgs(doubleListDec)));
-        context.functions.add(new Function("div", new DoubleType(), new FuncArgs(doubleListDec)));
-        context.functions.add(new Function("mod", new DoubleType(), new FuncArgs(doubleListDec)));
-        context.functions.add(new Function("exp", new DoubleType(), new FuncArgs(doubleListDec)));
-        relationsOperations(context, doubleListDec);
+        context.functions.add(new Function("add_d", new DoubleType(), new FuncArgs(doubleListDec)));
+        context.functions.add(new Function("sub_d", new DoubleType(), new FuncArgs(doubleListDec)));
+        context.functions.add(new Function("mul_d", new DoubleType(), new FuncArgs(doubleListDec)));
+        context.functions.add(new Function("div_d", new DoubleType(), new FuncArgs(doubleListDec)));
+        context.functions.add(new Function("mod_d", new DoubleType(), new FuncArgs(doubleListDec)));
+        context.functions.add(new Function("exp_d", new DoubleType(), new FuncArgs(doubleListDec)));
+        context.functions.add(new Function("greater_d", new BoolType(), new FuncArgs(doubleListDec)));
+        context.functions.add(new Function("less_d", new BoolType(), new FuncArgs(doubleListDec)));
+        context.functions.add(new Function("equal_d", new BoolType(), new FuncArgs(doubleListDec)));
+        context.functions.add(new Function("gOrE_d", new BoolType(), new FuncArgs(doubleListDec)));
+        context.functions.add(new Function("lOrE_d", new BoolType(), new FuncArgs(doubleListDec)));
 
         ListDec oneDeclIntList = new ListDec();
         oneDeclIntList.add(new Declaration("a", new IntType()));
@@ -672,7 +680,7 @@ public class TypeChecker {
 
         ListDec oneDeclDoubleList = new ListDec();
         oneDeclDoubleList.add(new Declaration("a", new DoubleType()));
-        context.functions.add(new Function("neg", new DoubleType(), new FuncArgs(oneDeclDoubleList)));
+        context.functions.add(new Function("neg_d", new DoubleType(), new FuncArgs(oneDeclDoubleList)));
 
         ListDec printDecList = new ListDec();
         context.functions.add(new Function("print", new VoidType(), new FuncArgs(printDecList)));
@@ -680,14 +688,5 @@ public class TypeChecker {
         ListDec strListDec = new ListDec();
         strListDec.addAll(Arrays.asList(new Declaration("a", new StringType()), new Declaration("b", new StringType())));
         context.functions.add(new Function("add", new StringType(), new FuncArgs(strListDec)));
-        relationsOperations(context, strListDec);
-    }
-
-    private void relationsOperations(Context context, ListDec listDec) {
-        context.functions.add(new Function("greater", new BoolType(), new FuncArgs(listDec)));
-        context.functions.add(new Function("less", new BoolType(), new FuncArgs(listDec)));
-        context.functions.add(new Function("equal", new BoolType(), new FuncArgs(listDec)));
-        context.functions.add(new Function("gOrE", new BoolType(), new FuncArgs(listDec)));
-        context.functions.add(new Function("lOrE", new BoolType(), new FuncArgs(listDec)));
     }
 }

@@ -19,7 +19,9 @@ public interface Eval {
     Expr evalType(FuncCall expr);
     List<Expr> evalType(FuncArgs args, List<Expr> exprs);
     Expr evalType(Func expr);
-    Expr evalType(TypeAlFunc expr); // ToDo
+    Expr evalType(TypeAlFunc expr);
+    Expr evalType(AnonymFunc expr);
+    Expr evalType(TypeAlAnonymFunc expr);
     Expr evalType(Return expr);
 /**--------------------------------------**/
     Expr evalType(NilKeyword expr);
@@ -44,7 +46,7 @@ public interface Eval {
     Expr evalType(Declaration dec);
     Expr evalType(TypeAlDecl dec);
     Expr evalType(GlDeclaration dec);
-    Expr evalType(TypeAlGlDec dec); // ToDo
+    Expr evalType(TypeAlGlDec dec);
     Expr evalType(OnlyDecl expr);
     Expr evalType(OnlyGlDecl expr);
     Expr evalType(InitDecl expr);
@@ -54,6 +56,7 @@ public interface Eval {
     Expr evalType(GlTableDecl expr);
     Expr evalType(InitTableDecl expr);
     Expr evalType(InitGlTableDecl expr);
+    Expr evalType(InitFuncDecl expr);
     Expr evalType(TableElementCall expr);
     Expr evalType(TableElementAssignment expr);
 /**--------------------------------------**/
