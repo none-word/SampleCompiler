@@ -27,5 +27,7 @@ function apply_function_to_lcm(a : integer, b : integer, f : func (a: integer ->
 end;
 
 x : integer = 40;
+z : integer;
 y : var = 35;
-return(apply_function_to_lcm(x, y, (a: integer) -> {return add_int_1(a);} : integer));
+z = integer : (y);
+return(apply_function_to_lcm(x, z, (a: integer) -> {return add_int_1(a);} : integer));

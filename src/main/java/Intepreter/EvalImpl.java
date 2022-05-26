@@ -453,7 +453,7 @@ public class EvalImpl implements Eval {
     @Override
     public Expr evalType(OnlyDecl expr) {
         String type = expr.getClass().getSimpleName();
-        if (type.equals("Declaration")) {
+        if (type.equals("OnlyDecl")) {
             return evalType((Declaration) expr.dec_);
         } else {
             return evalType((TypeAlDecl) expr.dec_);
