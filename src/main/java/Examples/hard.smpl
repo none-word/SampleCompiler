@@ -26,8 +26,14 @@ function apply_function_to_lcm(a : integer, b : integer, f : func (a: integer ->
 		return f(lcm(a, b));
 end;
 
+function return_f() : func (a: integer -> integer)
+        return (a: integer) -> {return add_int_1(a);} : integer;
+end;
+
 x : integer = 40;
 z : integer;
 y : var = 35;
 z = integer : (y);
+w : var = return_f();
+print(w(3));
 return(apply_function_to_lcm(x, z, (a: integer) -> {return add_int_1(a);} : integer));
