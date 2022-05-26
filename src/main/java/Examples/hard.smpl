@@ -28,5 +28,4 @@ end;
 
 x : integer = 40;
 y : var = 35;
-f : func = (a: integer) -> {return add_int_1(a);} : integer;
-return(apply_function_to_lcm(x, y, f));
+return(apply_function_to_lcm(x, y, (a: integer) -> {return add_int_1(a);} : integer));
