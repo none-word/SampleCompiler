@@ -9,8 +9,6 @@
 
 Our team decided to implement **interpreter** for Sample language. See below core idea, syntax, semantics and list features of this language. 
 
-**Content:**
-
 ### Core Idea
 
 The language is based on Lua language. It has simple syntax and contain all the features that is needed in our language. Of course, some of them are not necessary for us or are not suitable at all. As an example, we decided to change typing to static.
