@@ -9,8 +9,6 @@
 
 Our team decided to implement **interpreter** for Sample language. See below core idea, syntax, semantics and list features of this language. 
 
-See our [repo](https://github.com/none-word/SampleInterpreter)
-
 **Content:**
 
 ### Core Idea
